@@ -9,7 +9,9 @@ import {
 import './login.css'
 import { ApiRoute } from 'Api/ApiRoute';
 import { RouteEndpoints } from 'Components/router/MainRouter';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useStoreDispatch } from 'Modules/Redux';
+import { login } from 'Modules/Redux/reducer/loginReducer';
 
 export default function LoginPage() {
     return (
@@ -26,7 +28,10 @@ interface UserLogin {
 }
 
 const LoginForm = () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [user, setUser] = useState<UserLogin>({} as any);
+    const navigate = useNavigate();
+    const dispatch = useStoreDispatch();
 
     function validateUser() {
         if (!user.username || !user.password) return false;
@@ -42,7 +47,8 @@ const LoginForm = () => {
             },
             body: JSON.stringify(user)
         }).then(res => res.json()).then((data) => {
-            console.log(data);
+            dispatch(login({ accesstoken: data, type: "login" }));
+            navigate(RouteEndpoints.home.basepath, { replace: true });
         }).catch(error => console.log(error));
     }
 
@@ -64,7 +70,6 @@ const LoginForm = () => {
                 <Input
                     onChange={(e) => {
                         setUser({ ...user, username: e.target.value })
-                        console.log(user);
                     }} value={user.username ?? ""}
                 />
             </Form.Item>
@@ -77,7 +82,6 @@ const LoginForm = () => {
                 <Input.Password
                     onChange={(e) => {
                         setUser({ ...user, password: e.target.value })
-                        console.log(user);
                     }} value={user.password ?? ""}
                 />
             </Form.Item>

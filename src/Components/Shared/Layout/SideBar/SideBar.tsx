@@ -14,7 +14,6 @@ const SideBar = () => {
     const navigate = useNavigate();
 
     const toggleCollapsed = () => {
-        console.log("click")
         setCollapsed(!collapsed);
     };
 

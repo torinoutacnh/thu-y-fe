@@ -29,6 +29,7 @@ interface UserData {
 }
 
 const RegisterForm = () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [user, setUser] = useState<UserData>({} as any);
 
     const passwordRef = useRef(null);
@@ -54,7 +55,8 @@ const RegisterForm = () => {
         fetch(process.env.REACT_APP_API.concat(ApiRoute.register), {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify(user)
         }).then(res => res.json()).then((data) => {

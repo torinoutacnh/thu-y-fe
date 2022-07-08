@@ -1,0 +1,84 @@
+.quarantine-page {
+  margin: -10px;
+}
+.control {
+  padding-top: 30px;
+}
+.ant-layout-sider-children {
+  background-color: #313a46;
+  color: #fff;
+  /* height: 80vh !important; */
+  min-height: 80vh !important;
+}
+section.content-quarantine {
+  background-color: #fff;
+}
+aside.nav-menu-quarantine {
+  color: #9494e0;
+}
+a {
+  color: #87cefa;
+}
+.menu-quarantine {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  font-size: 17px;
+  margin-left: 33px;
+  margin-bottom: 20px;
+}
+h3.title-menu-quarantine {
+  text-align: center;
+  color: #9494e0;
+  margin-bottom: 20px;
+}
+.menu-quarantine span {
+  margin-right: 10px;
+  color: #9494e0;
+}
+.menu-quarantine:hover {
+  opacity: 0.6;
+}
+nav.quarantine-crumb {
+  padding: 10px;
+}
+.icon-content-title {
+  display: flex;
+  align-items: center;
+}
+.icon-content-title span {
+  font-size: 20px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+.quarantine-content-title {
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.after-title-input {
+  display: flex;
+  align-items: center;
+  padding-right: 30px;
+  min-width: 100%;
+}
+.after-title-input .ant-picker {
+  width: 90% !important;
+}
+/* button.btn-add-content {
+  background-color: #313a46;
+  color: #fff;
+  border-radius: 5px;
+}
+button.btn-add-content:hover {
+  background-color: #313a46;
+  color: #fff;
+  border-radius: 5px;
+} */
+.ant-modal-header {
+  text-align: center;
+  font-size: 20px !important;
+}
+.form-create-quarantine {
+}

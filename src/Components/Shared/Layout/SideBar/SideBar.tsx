@@ -34,22 +34,28 @@ const SideBar = () => {
                         navigate(RouteEndpoints.home.basepath);
                     }
                 },
-                { label: "Item 4", key: 7 },
+                { label: "Báo cáo doanh thu", key: 7 },
             ]
         },
         {
             label: "Quản lý giết mổ", key: 8, icon: <ScissorOutlined />, children: [
                 { label: "Báo cáo giết mổ", icon: <ContainerOutlined />, key: 9 },
-                { label: "Item 3", key: 10 },
-                { label: "Item 4", key: 11 },
+                { label: "Hóa đơn giết mổ", key: 16 },
+                { label: "Báo cáo doanh thu", key: 10 },
             ]
         },
         {
-            label: "Quản lý nhân viên", key: 1, icon: <UserOutlined />, children: [
+            label: "Quản trị admin", key: 1, icon: <UserOutlined />, children: [
                 { label: "Danh sách nhân viên", key: 2, icon: <TeamOutlined /> },
-                { label: "Lịch làm việc", key: 3, icon: <CalendarOutlined /> },
+                { label: "Quản lý đơn giá", key: 3, icon: <CalendarOutlined /> },
+                { label: "Quản lý lò mổ", key: 11, icon: <CalendarOutlined /> },
+                { label: "Doanh thu tổng", key: 12, icon: <CalendarOutlined /> },
+                { label: "Quản lý hóa đơn", key: 13, icon: <CalendarOutlined /> },
             ]
         },
+        {
+            label: "Đăng xuất", key: 15, icon: <UserOutlined />,
+        }
     ]
 
     return (

@@ -1,5 +1,6 @@
 export const ApiRoute = {
     register: "/user/create-user",
     login: "/user/login",
-    getform: "/form"
+    getform: "/form",
+    createreport: "/report/create-report"
 }

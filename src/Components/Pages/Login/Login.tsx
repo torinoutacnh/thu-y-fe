@@ -11,7 +11,8 @@ import { ApiRoute } from 'Api/ApiRoute';
 import { RouteEndpoints } from 'Components/router/MainRouter';
 import { Link, useNavigate } from 'react-router-dom';
 import { useStoreDispatch } from 'Modules/Redux';
-import { login } from 'Modules/Redux/reducer/loginReducer';
+import loginReducer, { login, userInfo } from 'Modules/Redux/reducer/loginReducer';
+import { PayloadAction } from '@reduxjs/toolkit';
 
 export default function LoginPage() {
     return (
@@ -47,7 +48,7 @@ const LoginForm = () => {
             },
             body: JSON.stringify(user)
         }).then(res => res.json()).then((data) => {
-            dispatch(login({ accesstoken: data, type: "login" }));
+            dispatch(login(data.data));
             navigate(RouteEndpoints.home.basepath, { replace: true });
         }).catch(error => console.log(error));
     }

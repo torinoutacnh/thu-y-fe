@@ -8,21 +8,21 @@ export default function HomePage() {
     const user = useAuth();
 
     console.log(user);
-    const search = { code: "NK-001" }
+    const search = { code: "CN-KDĐV-UQ" }
     useEffect(() => {
-        if (user?.accesstoken && search) {
+        if (user?.token && search) {
             fetch(process.env.REACT_APP_API.concat(ApiRoute.getform, "?") + new URLSearchParams(search), {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '.concat(user.accesstoken),
+                    'Authorization': 'Bearer '.concat(user.token),
                 }
             }).then(res => res.json()).then(data => {
                 console.log(data);
                 setForm(data.data);
             }).catch(error => console.log(error));
         }
-    }, [user.accesstoken, search.code]);
+    }, [user.token, search.code]);
 
     return (
         <>

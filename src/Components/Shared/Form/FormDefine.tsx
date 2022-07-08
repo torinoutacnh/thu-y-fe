@@ -51,7 +51,7 @@ const CreateReportModel = (form: FormModel) => {
     const report: ReportModel = {
         name: form.formName,
         userId: null,
-        formId: null,
+        formId: form.id,
         type: 1,
         values: CreateReportValueModel(form.attributes),
     };

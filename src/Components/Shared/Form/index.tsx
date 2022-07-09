@@ -19,7 +19,7 @@ import { AttributeModel, ControlType, CreateReportModel, FormModel, Props, Repor
 import { ApiRoute } from 'Api/ApiRoute';
 import { useAuth } from 'Modules/hooks/useAuth';
 
-const RenderForm: React.FC<Props> = ({ form, reportvalue }) => {
+const RenderForm: React.FC<Props> = ({ form, reportvalue, submitmethod }) => {
     const [formref] = Form.useForm<any>();
     const [report, setReport] = useState(CreateReportModel(form, reportvalue));
     const user = useAuth();
@@ -27,11 +27,12 @@ const RenderForm: React.FC<Props> = ({ form, reportvalue }) => {
         if (user?.token) {
             console.log(report)
             fetch(process.env.REACT_APP_API.concat(ApiRoute.updatereport), {
-                method: "PUT",
+                method: submitmethod,
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer '.concat(user.token),
-                    'Access-Control-Allow-Origin': '*'
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Request-Method': submitmethod,
                 },
                 body: JSON.stringify(report)
             }).then(res => res.json()).then((data) => {

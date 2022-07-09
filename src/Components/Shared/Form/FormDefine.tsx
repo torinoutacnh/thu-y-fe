@@ -5,7 +5,7 @@ import { ColumnType } from "antd/lib/table";
 import Column from "antd/lib/table/Column";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import { useAuth } from "Modules/hooks/useAuth";
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 
 interface FormModel {
@@ -39,6 +39,7 @@ enum ControlType {
 interface Props {
     form: FormModel;
     reportvalue?: ReportModel;
+    submitmethod: string;
 }
 
 interface ReportModel {
@@ -89,6 +90,10 @@ const CreateReportValueModel = (attrs: AttributeModel[], values?: ReportValueMod
     return attrvalues;
 }
 
+interface TableProps {
+    datasource: any[];
+    columns: ColumnType<any>[];
+}
 
 const CreateMapReportTable = (props: { form: FormModel, reports: ReportModel[] }) => {
     const { form, reports } = props;
@@ -103,6 +108,7 @@ const CreateMapReportTable = (props: { form: FormModel, reports: ReportModel[] }
             formid: x.formId,
             userId: x.userId,
             name: x.name,
+            key: getKeyThenIncreaseKey()
         }
         x.values.map(attr => {
             const formattr = findAttr(attr.attributeId);
@@ -121,8 +127,8 @@ const CreateMapReportTable = (props: { form: FormModel, reports: ReportModel[] }
             const column: ColumnType<any> = {
                 title: attr.name,
                 dataIndex: attr.id,
-                key: attr.id,
-                // responsive: ["md"],
+                key: getKeyThenIncreaseKey(),
+                responsive: ["lg"],
             }
 
             return column
@@ -132,7 +138,6 @@ const CreateMapReportTable = (props: { form: FormModel, reports: ReportModel[] }
                 title: "Xử lý",
                 dataIndex: "",
                 key: getKeyThenIncreaseKey(),
-                responsive: ["md"],
                 render: (record) => {
                     return (
                         <>
@@ -148,15 +153,15 @@ const CreateMapReportTable = (props: { form: FormModel, reports: ReportModel[] }
         return cols;
     }
 
-
-    console.log(reportobjs)
     return (
-        <Table
-            locale={{ emptyText: "Không có báo cáo!" }}
-            dataSource={reportobjs}
-            columns={columns()}
-            size={"small"}
-        />
+        <>
+            <Table
+                locale={{ emptyText: "Không có báo cáo!" }}
+                dataSource={reportobjs}
+                columns={columns()}
+                size={"small"}
+            />
+        </>
     );
 }
 

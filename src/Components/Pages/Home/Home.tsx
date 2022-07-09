@@ -26,7 +26,7 @@ export default function HomePage() {
 
     return (
         <>
-            {form && <RenderForm form={form} />}
+            {form && <RenderForm form={form} submitmethod={'POST'} />}
         </>
     );
 }

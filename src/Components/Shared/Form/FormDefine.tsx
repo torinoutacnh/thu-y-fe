@@ -107,9 +107,10 @@ const CreateMapReportTable = (props: { form: FormModel, reports: ReportModel[] }
         x.values.map(attr => {
             const formattr = findAttr(attr.attributeId);
             if (formattr?.id) {
-                Object.defineProperty(report, formattr.id, {
-                    value: attr.value
-                })
+                report[formattr.id] = attr.value
+                // Object.defineProperty(report, formattr.id, {
+                //     value: attr.value
+                // })
             }
         })
         return report;
@@ -131,7 +132,7 @@ const CreateMapReportTable = (props: { form: FormModel, reports: ReportModel[] }
                 title: "Xử lý",
                 dataIndex: "",
                 key: getKeyThenIncreaseKey(),
-                // responsive: ["md"],
+                responsive: ["md"],
                 render: (record) => {
                     return (
                         <>

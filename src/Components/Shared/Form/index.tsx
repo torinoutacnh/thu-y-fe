@@ -26,11 +26,12 @@ const RenderForm: React.FC<Props> = ({ form, reportvalue }) => {
     function submit() {
         if (user?.token) {
             console.log(report)
-            fetch(process.env.REACT_APP_API.concat(ApiRoute.createreport), {
-                method: "POST",
+            fetch(process.env.REACT_APP_API.concat(ApiRoute.updatereport), {
+                method: "PUT",
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer '.concat(user.token),
+                    'Access-Control-Allow-Origin': '*'
                 },
                 body: JSON.stringify(report)
             }).then(res => res.json()).then((data) => {
@@ -39,18 +40,18 @@ const RenderForm: React.FC<Props> = ({ form, reportvalue }) => {
         }
     }
 
-    useEffect(() => formref.setFieldsValue(initValues()), [form, reportvalue]);
+    useEffect(() => formref.resetFields(), [form, reportvalue]);
 
 
     const initValues = () => {
         const init: any = {};
         report.values.map(x => {
-            Object.defineProperty(init, x.attributeId, {
-                value: x.value
-            })
+            init[x.attributeId] = x.value
+            // Object.defineProperty(init, x.attributeId, {
+            //     get value() { return x.value }
+            // })
             return;
         })
-        console.log(init)
         return init;
     }
 
@@ -63,6 +64,7 @@ const RenderForm: React.FC<Props> = ({ form, reportvalue }) => {
                 title={form.formName}
                 onFinish={submit}
                 form={formref}
+                initialValues={initValues()}
             >
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }} style={{ margin: 0 }}>
                     <h2>{form.formCode} - {form.formNumber}</h2>

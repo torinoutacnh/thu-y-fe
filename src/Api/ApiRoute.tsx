@@ -3,5 +3,6 @@ export const ApiRoute = {
     login: "/user/login",
     getform: "/form",
     createreport: "/report/create-report",
+    updatereport: "/report/update-report",
     getreport: "/report"
 }

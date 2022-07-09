@@ -1,10 +1,11 @@
-import { Switch } from "antd";
 import Abattoir from "Components/Pages/Abattoir/Abattoir";
 import HomePage from "Components/Pages/Home/Home";
 import LoginPage from "Components/Pages/Login/Login";
-import Quarantine from "Components/Pages/Quarantine/Quarantine";
-import QuarantineAdd from "Components/Pages/Quarantine/QuarantineAdd";
-import QuarantineEdit from "Components/Pages/Quarantine/QuarantineEdit";
+import Quarantine from "Components/Pages/Quarantine";
+import CreateReportPage from "Components/Pages/Quarantine/CreateReportPage";
+import UpdateReportPage from "Components/Pages/Quarantine/UpdateReportPage";
+import QuarantineAdd from "Components/Pages/Quarantine/old/QuarantineAdd";
+import QuarantineEdit from "Components/Pages/Quarantine/old/QuarantineEdit";
 
 import RegisterPage from "Components/Pages/Register/Register";
 import Report from "Components/Pages/Report/Report";
@@ -36,10 +37,9 @@ export class RouteEndpoints {
     report: "/bao-cao",
   };
   static quarantine = {
-    basepath: "/kiem-dich",
-    quarantine: "/quarantine",
-    quarantineadd: "/them-kiem-dich",
-    quarantineedit: "/sua-kiem-dich",
+    get basepath() {return "/kiem-dich";},
+    get createreport(){ return this.basepath.concat("/tao-bao-cao")},
+    get updatereport(){ return this.basepath.concat("/cap-nhat-bao-cao")},
   };
   static staff = {
     basepath: "/nhan-vien",
@@ -72,6 +72,7 @@ export default function MainRouter() {
         exact
         path={RouteEndpoints.user.register}
         element={<RegisterPage />}
+        key="register-page"
       />
       <Route
         exact
@@ -95,6 +96,26 @@ export default function MainRouter() {
       />
       <Route
         exact
+        path={RouteEndpoints.quarantine.createreport}
+        element={
+          <PrivateRoute path={RouteEndpoints.user.login}>
+            <CreateReportPage />
+          </PrivateRoute>
+        }
+        key="quarantine-page-create"
+      />
+      <Route
+        exact
+        path={RouteEndpoints.quarantine.updatereport}
+        element={
+          <PrivateRoute path={RouteEndpoints.user.login}>
+            <UpdateReportPage />
+          </PrivateRoute>
+        }
+        key="quarantine-page-update"
+      />
+      <Route
+        exact
         path={RouteEndpoints.abattoir.basepath}
         element={
           <PrivateRoute path={RouteEndpoints.user.login}>
@@ -107,7 +128,11 @@ export default function MainRouter() {
       <Route
         exact
         path={RouteEndpoints.quarantine.quarantine}
-        element={<Quarantine />}
+        element={
+        <PrivateRoute path={RouteEndpoints.user.login}>
+          <Quarantine />
+        </PrivateRoute>
+        }
       />
       <Route
         exact

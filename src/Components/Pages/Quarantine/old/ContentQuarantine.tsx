@@ -1,29 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Quarantine.css";
 import { Breadcrumb } from "antd";
 import { ArrowLeftOutlined, PlusOutlined } from "@ant-design/icons";
-import { Space, Table, Tag } from "antd";
+import { Table } from "antd";
 import { Link } from "react-router-dom";
 
 import {
-  AutoComplete,
   Button,
-  Cascader,
-  Col,
   DatePicker,
   Input,
-  InputNumber,
-  Row,
-  Select,
-  Tooltip,
-  Modal,
 } from "antd";
-const columns = [
+import { ColumnsType } from "antd/lib/table";
+import { useAuth } from "Modules/hooks/useAuth";
+import { ApiRoute } from "Api/ApiRoute";
+
+interface DataType {
+  key: string;
+  basis: string;
+  total: string;
+  start: string;
+  arrive: string;
+  createby: string;
+  tags: string[];
+}
+
+const columns: ColumnsType<DataType> = [
   {
     title: "Mã",
     dataIndex: "key",
     key: "key",
-    render: (text) => <a>{text}</a>,
+    render: (text: string) => <a>{text}</a>,
   },
   {
     title: "Cơ sở lò mổ",
@@ -50,43 +56,43 @@ const columns = [
     dataIndex: "createby",
     key: "createby",
   },
-  {
-    title: "Trạng thái",
-    key: "status",
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          var color;
+  // {
+  //   title: "Trạng thái",
+  //   key: "status",
+  //   render: ({ tags }) => (
+  //     <>
+  //       {tags.map((tag) => {
+  //         var color;
 
-          if (tag === "Duyệt") {
-            color = "#313a46";
-          } else if (tag === "Hoàn thành") {
-            color = "Green";
-          } else {
-            color = "Red";
-          }
+  //         if (tag === "Duyệt") {
+  //           color = "#313a46";
+  //         } else if (tag === "Hoàn thành") {
+  //           color = "Green";
+  //         } else {
+  //           color = "Red";
+  //         }
 
-          return (
-            <Link to="/sua-kiem-dich" key={tag}>
-              <button
-                style={{
-                  background: `${color}`,
-                  color: "white",
-                  minWidth: "100px",
-                  padding: "5px 0px",
-                  borderRadius: "5px",
-                  cursor: "Pointer",
-                }}
-                key={tag}
-              >
-                {tag}
-              </button>
-            </Link>
-          );
-        })}
-      </>
-    ),
-  },
+  //         return (
+  //           <Link to="/sua-kiem-dich" key={tag}>
+  //             <button
+  //               style={{
+  //                 background: `${color}`,
+  //                 color: "white",
+  //                 minWidth: "100px",
+  //                 padding: "5px 0px",
+  //                 borderRadius: "5px",
+  //                 cursor: "Pointer",
+  //               }}
+  //               key={tag}
+  //             >
+  //               {tag}
+  //             </button>
+  //           </Link>
+  //         );
+  //       })}
+  //     </>
+  //   ),
+  // },
 ];
 const data = [
   {
@@ -153,7 +159,39 @@ const data = [
     tags: ["Sửa"],
   },
 ];
+
+interface ReportQueryModel {
+  pageNumber: number;
+  pageSize: number;
+  id?: string;
+  type?: number;
+  userId?: string;
+  dateStart?: string;
+  dateEnd?: string;
+}
+
 const ContentQuarantine = () => {
+  const [reports, setReports] = useState([]);
+  const user = useAuth();
+
+  const query: ReportQueryModel = {
+    pageNumber: 0,
+    pageSize: 500,
+    userId: user.userId,
+  }
+  useEffect(() => {
+    fetch(process.env.REACT_APP_API.concat(ApiRoute.getreport), {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '.concat(user.token),
+      },
+      body: JSON.stringify(query)
+    }).then(res => res.json()).then((data) => {
+      console.log(data);
+    }).catch(error => console.log(error));
+  }, [user.userId])
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const showModal = () => {
     setIsModalVisible(true);

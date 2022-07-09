@@ -1,4 +1,5 @@
-import React, { SetStateAction, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { SetStateAction, useEffect, useState } from 'react';
 import {
     Form,
     Input,
@@ -18,11 +19,9 @@ import { AttributeModel, ControlType, CreateReportModel, FormModel, Props, Repor
 import { ApiRoute } from 'Api/ApiRoute';
 import { useAuth } from 'Modules/hooks/useAuth';
 
-const { RangePicker } = DatePicker;
-const { TextArea } = Input;
-
-const RenderForm: React.FC<Props> = ({ form }) => {
-    const [report, setReport] = useState(CreateReportModel(form));
+const RenderForm: React.FC<Props> = ({ form, reportvalue }) => {
+    const [formref] = Form.useForm<any>();
+    const [report, setReport] = useState(CreateReportModel(form, reportvalue));
     const user = useAuth();
     function submit() {
         if (user?.token) {
@@ -40,6 +39,21 @@ const RenderForm: React.FC<Props> = ({ form }) => {
         }
     }
 
+    useEffect(() => formref.setFieldsValue(initValues()), [form, reportvalue]);
+
+
+    const initValues = () => {
+        const init: any = {};
+        report.values.map(x => {
+            Object.defineProperty(init, x.attributeId, {
+                value: x.value
+            })
+            return;
+        })
+        console.log(init)
+        return init;
+    }
+
     return (
         <>
             {form && <Form
@@ -48,6 +62,7 @@ const RenderForm: React.FC<Props> = ({ form }) => {
                 layout="horizontal"
                 title={form.formName}
                 onFinish={submit}
+                form={formref}
             >
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }} style={{ margin: 0 }}>
                     <h2>{form.formCode} - {form.formNumber}</h2>
@@ -77,16 +92,18 @@ type AttrsProps = {
 }
 
 function RenderAttributes({ props: { attrs, report, setReport } }: AttrsProps) {
+    function findAttr(id: string) {
+        return report.values?.findIndex(x => {
+            return x.attributeId == id;
+        });
+    }
     function RenderControlType(attr: AttributeModel) {
         switch (attr.controlType) {
             case ControlType.checkbox:
                 {
-                    const index = report.values?.findIndex(x => {
-                        return x.attributeId == attr.id;
-                    });
+                    const index = findAttr(attr.id);
                     return (
-                        <Input key={attr.id} name={attr.name}
-                            value={report.values[index].value || ""}
+                        <Input key={attr.id} name={attr.id}
                             onChange={(e) => {
                                 setReport(pre => {
                                     pre.values[index].value = e.target.value;
@@ -98,12 +115,9 @@ function RenderAttributes({ props: { attrs, report, setReport } }: AttrsProps) {
                 }
             case ControlType.input:
                 {
-                    const index = report.values?.findIndex(x => {
-                        return x.attributeId == attr.id;
-                    });
+                    const index = findAttr(attr.id);
                     return (
-                        <Input key={attr.id} name={attr.name}
-                            value={report.values[index].value || ""}
+                        <Input key={attr.id} name={attr.id}
                             onChange={(e) => {
                                 setReport(pre => {
                                     pre.values[index].value = e.target.value;
@@ -112,36 +126,6 @@ function RenderAttributes({ props: { attrs, report, setReport } }: AttrsProps) {
                             }}
                         />
                     )
-                }
-            case ControlType.select:
-                {
-                    const index = report.values?.findIndex(x => {
-                        return x.attributeId == attr.id;
-                    });
-                    return <Input key={attr.id} name={attr.name}
-                        value={report.values[index].value || ""}
-                        onChange={(e) => {
-                            setReport(pre => {
-                                pre.values[index].value = e.target.value;
-                                return pre;
-                            });
-                        }}
-                    />
-                }
-            case ControlType.radio:
-                {
-                    const index = report.values?.findIndex(x => {
-                        return x.attributeId == attr.id;
-                    });
-                    return <Input key={attr.id} name={attr.name}
-                        value={report.values[index].value || ""}
-                        onChange={(e) => {
-                            setReport(pre => {
-                                pre.values[index].value = e.target.value;
-                                return pre;
-                            });
-                        }}
-                    />
                 }
         }
     }

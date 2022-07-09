@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, Layout, Menu, MenuProps } from 'antd';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
     TeamOutlined, UserOutlined, MenuFoldOutlined, MenuUnfoldOutlined, CalendarOutlined, ContainerOutlined, CheckCircleOutlined, ScissorOutlined
 } from "@ant-design/icons";
@@ -12,6 +12,12 @@ type MenuItem = Required<MenuProps>['items'][number];
 const SideBar = () => {
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
+    const keyRef = useRef(0);
+
+    const getKey = () => {
+        keyRef.current = keyRef.current + 1;
+        return keyRef.current
+    }
 
     const toggleCollapsed = () => {
         setCollapsed(!collapsed);
@@ -23,38 +29,38 @@ const SideBar = () => {
 
     const MenuItems: MenuItem[] = [
         {
-            label: "Quản lý kiểm dịch", key: 4, icon: <CheckCircleOutlined />, children: [
+            label: "Quản lý kiểm dịch", key: getKey(), icon: <CheckCircleOutlined />, children: [
                 {
-                    label: "Báo cáo kiểm dịch", key: 5, onClick: () => {
+                    label: "Báo cáo kiểm dịch", key: getKey(), onClick: () => {
                         navigate(RouteEndpoints.quarantine.basepath);
                     }
                 },
                 {
-                    label: "Hóa đơn kiểm dịch", key: 6, onClick: () => {
+                    label: "Hóa đơn kiểm dịch", key: getKey(), onClick: () => {
                         navigate(RouteEndpoints.home.basepath);
                     }
                 },
-                { label: "Báo cáo doanh thu", key: 7 },
+                { label: "Báo cáo doanh thu", key: getKey() },
             ]
         },
         {
-            label: "Quản lý giết mổ", key: 8, icon: <ScissorOutlined />, children: [
-                { label: "Báo cáo giết mổ", icon: <ContainerOutlined />, key: 9 },
-                { label: "Hóa đơn giết mổ", key: 16 },
-                { label: "Báo cáo doanh thu", key: 10 },
+            label: "Quản lý giết mổ", key: getKey(), icon: <ScissorOutlined />, children: [
+                { label: "Báo cáo giết mổ", icon: <ContainerOutlined />, key: getKey() },
+                { label: "Hóa đơn giết mổ", key: getKey() },
+                { label: "Báo cáo doanh thu", key: getKey() },
             ]
         },
         {
-            label: "Quản trị admin", key: 1, icon: <UserOutlined />, children: [
-                { label: "Danh sách nhân viên", key: 2, icon: <TeamOutlined /> },
-                { label: "Quản lý đơn giá", key: 3, icon: <CalendarOutlined /> },
-                { label: "Quản lý lò mổ", key: 11, icon: <CalendarOutlined /> },
-                { label: "Doanh thu tổng", key: 12, icon: <CalendarOutlined /> },
-                { label: "Quản lý hóa đơn", key: 13, icon: <CalendarOutlined /> },
+            label: "Quản trị admin", key: getKey(), icon: <UserOutlined />, children: [
+                { label: "Danh sách nhân viên", key: getKey(), icon: <TeamOutlined /> },
+                { label: "Quản lý đơn giá", key: getKey(), icon: <CalendarOutlined /> },
+                { label: "Quản lý lò mổ", key: getKey(), icon: <CalendarOutlined /> },
+                { label: "Doanh thu tổng", key: getKey(), icon: <CalendarOutlined /> },
+                { label: "Quản lý hóa đơn", key: getKey(), icon: <CalendarOutlined /> },
             ]
         },
         {
-            label: "Đăng xuất", key: 15, icon: <UserOutlined />,
+            label: "Đăng xuất", key: getKey(), icon: <UserOutlined />,
         }
     ]
 

@@ -5,6 +5,7 @@ export interface userInfo {
     name?: string;
     account?: string;
     role?: number;
+    userId?: string;
 }
 
 const loginSlice = createSlice({

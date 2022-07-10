@@ -77,6 +77,11 @@ const CreateMapReportTable = (props: { form: FormModel, reports: ReportModel[] }
 
             return column
         })
+
+        function deletereport(id: string) {
+            return;
+        }
+
         if (!cols.find(x => x.title === "Xử lý")) {
             cols.push({
                 title: "Xử lý",
@@ -88,7 +93,7 @@ const CreateMapReportTable = (props: { form: FormModel, reports: ReportModel[] }
                             <Link to={RouteEndpoints.quarantine.updatereport.replace(':id', record.id)} >
                                 <Button type="link" color="blue" >Cập nhật</Button>
                             </Link>
-                            <Button type="link" danger>Xóa</Button>
+                            <Button type="link" danger onClick={() => deletereport(record.id)}>Xóa</Button>
                         </>
                     )
                 }

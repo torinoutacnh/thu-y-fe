@@ -57,4 +57,14 @@ type AttrsProps = {
     props: RenderAttrsProp;
 }
 
-export type {AttributeModel,FormModel,RenderProps,ReportModel,ReportValueModel,TableProps,AttrsProps,RenderAttrsProp}
+interface ReportQueryModel {
+    pageNumber: number;
+    pageSize: number;
+    id?: string;
+    type?: number;
+    userId?: string;
+    dateStart?: string;
+    dateEnd?: string;
+}
+
+export type {AttributeModel,FormModel,RenderProps,ReportModel,ReportValueModel,TableProps,AttrsProps,RenderAttrsProp,ReportQueryModel}

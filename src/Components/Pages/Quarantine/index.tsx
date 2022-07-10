@@ -9,21 +9,7 @@ import { Button, PageHeader } from "antd";
 import { FileAddOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { RouteEndpoints } from "Components/router/MainRouter";
-
-export interface ReportQueryModel {
-    pageNumber: number;
-    pageSize: number;
-    id?: string;
-    type?: number;
-    userId?: string;
-    dateStart?: string;
-    dateEnd?: string;
-}
-
-const getDatas = (reports: ReportModel[]) => {
-    const values = reports.map(report => report.values);
-    return reports.map(report => report.values);
-}
+import { ReportQueryModel } from "Components/Shared/Form/Define/FormInterface";
 
 const Quarantine = () => {
     const [reports, setReports] = useState<ReportModel[]>([]);

@@ -7,7 +7,6 @@ export default function CreateReportPage() {
     const [form, setForm] = useState<FormModel>();
     const user = useAuth();
 
-    console.log(user);
     const search = { code: "CN-KDĐV-UQ" }
     useEffect(() => {
         if (user?.token && search) {
@@ -18,7 +17,6 @@ export default function CreateReportPage() {
                     'Authorization': 'Bearer '.concat(user.token),
                 }
             }).then(res => res.json()).then(data => {
-                console.log(data);
                 setForm(data.data);
             }).catch(error => console.log(error));
         }
@@ -26,7 +24,7 @@ export default function CreateReportPage() {
 
     return (
         <>
-            {form && <RenderForm form={form} submitmethod={'POST'} />}
+            {form && <RenderForm form={form} submitmethod={'POST'} apiRoute={ApiRoute.createreport} />}
         </>
     );
 }

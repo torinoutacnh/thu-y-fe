@@ -1,10 +1,10 @@
 import { ApiRoute } from "Api/ApiRoute";
-import { FormModel } from "Components/Shared/Form";
+import { FormModel, ReportModel } from "Components/Shared/Form";
 import { useAuth } from "Modules/hooks/useAuth";
 import React, { useState, useEffect } from "react";
 
 import { getKeyThenIncreaseKey } from "antd/lib/message";
-import { CreateMapReportTable, ReportModel } from "Components/Shared/Form/FormDefine";
+import { CreateMapReportTable } from "Components/Shared/Form/Implement/FormMap";
 import { Button, PageHeader } from "antd";
 import { FileAddOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
@@ -46,7 +46,6 @@ const Quarantine = () => {
                 'Authorization': 'Bearer '.concat(user.token),
             }
         }).then(res => res.json()).then(data => {
-            console.log(data);
             setForm(data.data);
         }).catch(error => console.log(error));
     }, []);

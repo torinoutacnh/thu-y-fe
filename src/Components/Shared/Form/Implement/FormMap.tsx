@@ -1,63 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, Col, Layout, Row, Table } from "antd";
+import { Button } from "antd";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
-import { ColumnType } from "antd/lib/table";
-import Column from "antd/lib/table/Column";
+import Table, { ColumnType } from "antd/lib/table";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import { useAuth } from "Modules/hooks/useAuth";
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom";
-
-interface FormModel {
-    id: string;
-    formNumber: string;
-    formName: string;
-    formCode: string;
-    attributes: AttributeModel[];
-}
-
-interface AttributeModel {
-    id: string;
-    name: string;
-    dataType: DataType;
-    controlType: ControlType;
-    sortNo: number;
-}
-
-enum DataType {
-    string,
-    number,
-    datetime,
-}
-enum ControlType {
-    input,
-    checkbox,
-    radio,
-    select
-}
-
-interface Props {
-    form: FormModel;
-    reportvalue?: ReportModel;
-    submitmethod: string;
-}
-
-interface ReportModel {
-    id?: string;
-    name: string;
-    userId: string;
-    formId: string;
-    type: number;
-    values: ReportValueModel[];
-}
-
-interface ReportValueModel {
-    id?: string;
-    attributeId: string;
-    value: string;
-    reportId?: string;
-    animalId?: string;
-}
+import React from 'react'
+import { Link, useNavigate } from "react-router-dom";
+import { FormModel, AttributeModel } from "../Define/FormInterface";
+import { ReportModel, ReportValueModel, TableProps } from "../Define/FormInterface";
 
 const CreateReportModel = (form: FormModel, report?: ReportModel) => {
     const user = useAuth();
@@ -88,11 +37,6 @@ const CreateReportValueModel = (attrs: AttributeModel[], values?: ReportValueMod
     })
 
     return attrvalues;
-}
-
-interface TableProps {
-    datasource: any[];
-    columns: ColumnType<any>[];
 }
 
 const CreateMapReportTable = (props: { form: FormModel, reports: ReportModel[] }) => {
@@ -128,7 +72,7 @@ const CreateMapReportTable = (props: { form: FormModel, reports: ReportModel[] }
                 title: attr.name,
                 dataIndex: attr.id,
                 key: getKeyThenIncreaseKey(),
-                responsive: ["lg"],
+                // responsive: ["lg"],
             }
 
             return column
@@ -141,9 +85,9 @@ const CreateMapReportTable = (props: { form: FormModel, reports: ReportModel[] }
                 render: (record) => {
                     return (
                         <>
-                            <Button type="link" color="blue" onClick={() => {
-                                naviagte(RouteEndpoints.quarantine.updatereport, { state: { reportId: record.id } })
-                            }}>Cập nhật</Button>
+                            <Link to={RouteEndpoints.quarantine.updatereport.replace(':id', record.id)} >
+                                <Button type="link" color="blue" >Cập nhật</Button>
+                            </Link>
                             <Button type="link" danger>Xóa</Button>
                         </>
                     )
@@ -165,5 +109,4 @@ const CreateMapReportTable = (props: { form: FormModel, reports: ReportModel[] }
     );
 }
 
-export { ControlType, DataType, CreateReportModel, CreateMapReportTable };
-export type { FormModel, AttributeModel, Props, ReportModel, ReportValueModel };
+export { CreateReportModel, CreateMapReportTable, CreateReportValueModel };

@@ -4,8 +4,6 @@ import LoginPage from "Components/Pages/Login/Login";
 import Quarantine from "Components/Pages/Quarantine";
 import CreateReportPage from "Components/Pages/Quarantine/CreateReportPage";
 import UpdateReportPage from "Components/Pages/Quarantine/UpdateReportPage";
-import QuarantineAdd from "Components/Pages/Quarantine/old/QuarantineAdd";
-import QuarantineEdit from "Components/Pages/Quarantine/old/QuarantineEdit";
 
 import RegisterPage from "Components/Pages/Register/Register";
 import Report from "Components/Pages/Report/Report";
@@ -39,7 +37,7 @@ export class RouteEndpoints {
   static quarantine = {
     get basepath() {return "/kiem-dich";},
     get createreport(){ return this.basepath.concat("/tao-bao-cao")},
-    get updatereport(){ return this.basepath.concat("/cap-nhat-bao-cao")},
+    get updatereport(){ return this.basepath.concat("/cap-nhat-bao-cao/:id")},
   };
   static staff = {
     basepath: "/nhan-vien",
@@ -134,17 +132,9 @@ export default function MainRouter() {
         </PrivateRoute>
         }
       />
-      <Route
-        exact
-        path={RouteEndpoints.quarantine.quarantineadd}
-        element={<QuarantineAdd />}
-      />
-      <Route
-        exact
-        path={RouteEndpoints.quarantine.quarantineedit}
-        element={<QuarantineEdit />}
-      />
       <Route exact path={RouteEndpoints.staff.basepath} element={<Staff />} />
+
+      <Route path="*" element={<h1>Not found</h1>}/>
     </Routes>
   );
 }

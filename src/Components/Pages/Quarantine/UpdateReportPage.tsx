@@ -1,18 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { FormModel, RenderForm } from "Components/Shared/Form";
+import { FormModel, RenderForm, ReportModel } from "Components/Shared/Form";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ApiRoute } from "Api/ApiRoute";
-import { ReportModel } from "Components/Shared/Form/FormDefine";
 import { ReportQueryModel } from ".";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function UpdateReportPage() {
     const [form, setForm] = useState<FormModel>();
     const [report, setReport] = useState<ReportModel>();
     const user = useAuth();
-    const state = useLocation();
-    const { reportId } = state as any;
+    const { id } = useParams();
 
     const search = { code: "CN-KDĐV-UQ" }
     useEffect(() => {
@@ -35,11 +33,11 @@ export default function UpdateReportPage() {
         pageNumber: 0,
         pageSize: 500,
         userId: user.userId,
-        id: reportId,
+        id: id,
     }
 
     useEffect(() => {
-        if (form && user?.token && query) {
+        if (id && form && user?.token && query) {
             fetch(process.env.REACT_APP_API.concat(ApiRoute.getreport), {
                 method: "POST",
                 headers: {
@@ -48,14 +46,15 @@ export default function UpdateReportPage() {
                 },
                 body: JSON.stringify(query)
             }).then(res => res.json()).then((data) => {
-                setReport((data.data as Array<ReportModel>)?.at(0))
+                console.log(data);
+                setReport((data.data as Array<ReportModel>)?.find(x => x.id === id))
             }).catch(error => console.log(error));
         }
     }, [query.id, query.dateEnd, query.dateStart, query.pageNumber, query.pageSize, query.userId, form?.attributes, form?.id])
 
     return (
         <>
-            {form && report && <RenderForm form={form} reportvalue={report} submitmethod={"PUT"} />}
+            {form && report?.values && <RenderForm form={form} reportvalue={report} submitmethod={"POST"} apiRoute={ApiRoute.updatereport} />}
         </>
     );
 }

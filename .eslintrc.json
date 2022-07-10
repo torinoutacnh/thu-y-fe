@@ -22,9 +22,10 @@
     ],
     "rules": {
         "@typescript-eslint/no-explicit-any": [
-            "error",{
-                "ignoreRestArgs": false
-            }
+            // "error",{
+            //     "ignoreRestArgs": false
+            // }
+            "off"
         ],
         "react/prop-types": 0,
         "no-unused-vars": "off",

@@ -22,8 +22,8 @@ export default function UpdateReportPage() {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer '.concat(user.token),
-                    'Access-Control-Allow-Origin': "*",
-                    'Access-Control-Allow-Credentials': 'true'
+                    //'Access-Control-Allow-Origin': "*",
+                    //'Access-Control-Allow-Credentials': 'true'
                 }
             }).then(res => res.json()).then(data => {
                 setForm(data.data);
@@ -55,7 +55,7 @@ export default function UpdateReportPage() {
 
     return (
         <>
-            {form && report && <RenderForm form={form} reportvalue={report} submitmethod={"PUT"} />}
+            {form && report && <RenderForm form={form} reportvalue={report} submitmethod={"POST"} />}
         </>
     );
 }

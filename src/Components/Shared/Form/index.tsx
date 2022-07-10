@@ -31,8 +31,7 @@ const RenderForm: React.FC<Props> = ({ form, reportvalue, submitmethod }) => {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer '.concat(user.token),
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Request-Method': submitmethod,
+                    
                 },
                 body: JSON.stringify(report)
             }).then(res => res.json()).then((data) => {

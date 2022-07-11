@@ -1,8 +1,9 @@
-import { Button } from "antd";
+import { Button, Card, Descriptions } from "antd";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
 import Table, { ColumnType } from "antd/lib/table";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import { useAuth } from "Modules/hooks/useAuth";
+import useWindowSize from "Modules/hooks/useWindowSize";
 import React from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { FormModel, AttributeModel } from "../Define/FormInterface";
@@ -41,10 +42,10 @@ const CreateReportValueModel = (attrs: AttributeModel[], values?: ReportValueMod
 
 const CreateMapReportTable = (props: { form: FormModel, reports: ReportModel[] }) => {
     const { form, reports } = props;
-    const naviagte = useNavigate();
     function findAttr(id: string): AttributeModel {
         return form.attributes.find(x => x.id === id);
     }
+    const windowSize = useWindowSize();
 
     const reportobjs = reports.map(x => {
         const report: any = {
@@ -102,14 +103,52 @@ const CreateMapReportTable = (props: { form: FormModel, reports: ReportModel[] }
         return cols;
     }
 
+    const RenderCards = () => {
+        function RenderCard(data: any, key: number) {
+
+            return (
+                <Descriptions
+                    bordered
+                    // title={data.name}
+                    column={{ lg: 2, md: 1, sm: 1, xs: 1 }}
+                    size={"small"}
+                    style={{ marginTop: key === 0 ? 10 : 50 }}
+                    key={key}
+                >
+                    {
+                        form.attributes.map((col, idx) => {
+
+                            return (
+                                <>
+                                    <Descriptions.Item
+                                        labelStyle={{ color: 'white', backgroundColor: '#17202A', width: '40%' }}
+                                        contentStyle={{ color: '#17202A', backgroundColor: '#D5D8DC' }}
+                                        key={idx}
+                                        label={col.name}>
+                                        {data[col.id]}
+                                    </Descriptions.Item>
+                                </>
+                            );
+                        })
+                    }
+                </Descriptions>
+            )
+        }
+        return (
+            <>
+                {reportobjs && reportobjs.map((rep, idx) => RenderCard(rep, idx))}
+            </>
+        )
+    }
+
     return (
         <>
-            <Table
+            {windowSize.width > 1024 ? <Table
                 locale={{ emptyText: "Không có báo cáo!" }}
                 dataSource={reportobjs}
                 columns={columns()}
                 size={"small"}
-            />
+            /> : <RenderCards />}
         </>
     );
 }

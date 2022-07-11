@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { FormModel, RenderForm, ReportModel } from "Components/Shared/Form";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ApiRoute } from "Api/ApiRoute";
-import { ReportQueryModel } from ".";
 import { useParams } from "react-router-dom";
+import { ReportQueryModel } from "Components/Shared/Form/Define/FormInterface";
 
 export default function UpdateReportPage() {
     const [form, setForm] = useState<FormModel>();

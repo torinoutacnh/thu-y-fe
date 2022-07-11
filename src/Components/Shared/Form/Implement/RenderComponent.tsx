@@ -5,43 +5,31 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ControlType } from "../Define/FormEnums";
 
-function RenderAttributes({ props: { attrs, report, setReport } }: AttrsProps) {
-    function findAttr(id: string) {
-        return report.values?.findIndex(x => {
-            return x.attributeId == id;
-        });
-    }
+function RenderInput(props: { attr: AttributeModel, setReport: React.Dispatch<React.SetStateAction<ReportModel>> }) {
+    const { attr, setReport } = props;
+
+    return (
+        <Input
+            key={attr.id}
+            name={attr.id}
+            onChange={(e) => {
+                setReport(pre => {
+                    pre.values.find(x => x.attributeId === attr.id).value = e.target.value;
+                    return pre;
+                });
+            }}
+        />
+    )
+}
+
+function RenderAttributes({ props: { attrs, setReport } }: AttrsProps) {
 
     function RenderControlType(attr: AttributeModel) {
         switch (attr.controlType) {
             case ControlType.checkbox:
-                {
-                    const index = findAttr(attr.id);
-                    return (
-                        <Input key={attr.id} name={attr.id}
-                            onChange={(e) => {
-                                setReport(pre => {
-                                    pre.values[index].value = e.target.value;
-                                    return pre;
-                                });
-                            }}
-                        />
-                    )
-                }
+                return <RenderInput attr={attr} setReport={setReport} />
             case ControlType.input:
-                {
-                    const index = findAttr(attr.id);
-                    return (
-                        <Input key={attr.id} name={attr.id}
-                            onChange={(e) => {
-                                setReport(pre => {
-                                    pre.values[index].value = e.target.value;
-                                    return pre;
-                                });
-                            }}
-                        />
-                    )
-                }
+                return <RenderInput attr={attr} setReport={setReport} />
         }
     }
 
@@ -50,7 +38,13 @@ function RenderAttributes({ props: { attrs, report, setReport } }: AttrsProps) {
             {attrs && attrs.sort(attr => attr.sortNo).map((attr, index) => {
                 return (
                     <Col key={index} lg={8}>
-                        <Form.Item name={attr.id} label={attr.name}>
+                        <Form.Item
+                            name={attr.id}
+                            label={attr.name}
+                            labelCol={{ span: 24 }}
+                            wrapperCol={{ span: 24 }}
+                            style={{ paddingRight: 30 }}
+                        >
                             {RenderControlType(attr)}
                         </Form.Item>
                     </Col>
@@ -83,7 +77,6 @@ const RenderForm: React.FC<RenderProps> = ({ form, reportvalue, submitmethod, ap
     }
 
     useEffect(() => {
-        console.log('here')
         formref.resetFields();
     }, [form, reportvalue]);
 
@@ -112,16 +105,14 @@ const RenderForm: React.FC<RenderProps> = ({ form, reportvalue, submitmethod, ap
                 form={formref}
                 initialValues={initValues()}
             >
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }} style={{ margin: 0 }}>
-                    <h2>{form.formCode} - {form.formNumber}</h2>
+                <Form.Item wrapperCol={{ span: 24 }}>
+                    <Col>
+                        <h2>{form.formCode} - {form.formNumber}</h2>
+                    </Col>
                 </Form.Item>
-                <Form.Item>
-                    <Input value={form.id} hidden={true} />
-                </Form.Item>
-                <Input.Group>
-                    <RenderAttributes props={{ attrs: form.attributes, report, setReport }} />
-                </Input.Group>
-                <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
+                <Input value={form.id} hidden={true} />
+                <RenderAttributes props={{ attrs: form.attributes, report, setReport }} />
+                <Form.Item wrapperCol={{ offset: 11, }}>
                     <Button type='primary' htmlType='submit'>Lưu</Button>
                 </Form.Item>
             </Form>}

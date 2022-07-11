@@ -68,7 +68,6 @@ const Quarantine = () => {
                     </Button>,
                 ]}
             >
-
             </PageHeader>
             {form && reports && <CreateMapReportTable form={form} reports={reports.filter(x => x.formId === form.id)} />}
         </>

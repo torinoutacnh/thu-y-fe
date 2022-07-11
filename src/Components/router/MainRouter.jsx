@@ -35,9 +35,15 @@ export class RouteEndpoints {
     report: "/bao-cao",
   };
   static quarantine = {
-    get basepath() {return "/kiem-dich";},
-    get createreport(){ return this.basepath.concat("/tao-bao-cao")},
-    get updatereport(){ return this.basepath.concat("/cap-nhat-bao-cao/:id")},
+    get basepath() {
+      return "/kiem-dich";
+    },
+    get createreport() {
+      return this.basepath.concat("/tao-bao-cao");
+    },
+    get updatereport() {
+      return this.basepath.concat("/cap-nhat-bao-cao/:id");
+    },
   };
   static staff = {
     basepath: "/nhan-vien",
@@ -127,14 +133,23 @@ export default function MainRouter() {
         exact
         path={RouteEndpoints.quarantine.quarantine}
         element={
-        <PrivateRoute path={RouteEndpoints.user.login}>
-          <Quarantine />
-        </PrivateRoute>
+          <PrivateRoute path={RouteEndpoints.user.login}>
+            <Quarantine />
+          </PrivateRoute>
         }
       />
-      <Route exact path={RouteEndpoints.staff.basepath} element={<Staff />} />
+      <Route
+        exact
+        path={RouteEndpoints.staff.basepath}
+        element={
+          <PrivateRoute path={RouteEndpoints.user.login}>
+            <Staff />
+          </PrivateRoute>
+        }
+        key="staff"
+      />
 
-      <Route path="*" element={<h1>Not found</h1>}/>
+      <Route path="*" element={<h1>Not found</h1>} />
     </Routes>
   );
 }

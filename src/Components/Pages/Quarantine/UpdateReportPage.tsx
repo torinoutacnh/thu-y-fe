@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { FormModel, RenderForm, ReportModel } from "Components/Shared/Form";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ApiRoute } from "Api/ApiRoute";
 import { useParams } from "react-router-dom";
-import { ReportQueryModel } from "Components/Shared/Form/Define/FormInterface";
+import { RenderForm } from "Components/Shared/Form";
+import {
+  FormModel,
+  ReportModel,
+  ReportQueryModel,
+} from "Components/Shared/Models/Form";
 
 export default function UpdateReportPage() {
   const [form, setForm] = useState<FormModel>();
   const [report, setReport] = useState<ReportModel>();
-  const user = useAuth();
+  const { user } = useAuth();
   const { id } = useParams();
 
   const search = { code: "CN-KDĐV-UQ" };

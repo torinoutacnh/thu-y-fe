@@ -1,123 +1,86 @@
-import { Input, Row, Col, Form, Button } from "antd";
-import { AttributeModel, AttrsProps, RenderProps, ReportModel } from "../Define/FormInterface";
-import { CreateReportModel } from "./FormMap";
-import React, { useEffect, useState } from "react";
+import { Input, Col, Form, Button } from "antd";
+import { RenderProps, ReportType } from "../Define/FormInterface";
+import React from "react";
 import { useAuth } from "Modules/hooks/useAuth";
-import { ControlType } from "../Define/FormEnums";
+import { AttributeModel } from "Components/Shared/Models/Form";
 
-function RenderInput(props: { attr: AttributeModel, setReport: React.Dispatch<React.SetStateAction<ReportModel>> }) {
-    const { attr, setReport } = props;
+import { AnimalFields } from "./RenderComponent.Animal";
+import { SealFields } from "./RenderComponent.Seal";
+import { RenderFormAttrs } from "./RenderComponent.FormAttr";
+import { useNavigate } from "react-router-dom";
+import { RouteEndpoints } from "Components/router/MainRouter";
+import { useLoading } from "Modules/hooks/useLoading";
 
-    return (
-        <Input
-            key={attr.id}
-            name={attr.id}
-            onChange={(e) => {
-                setReport(pre => {
-                    pre.values.find(x => x.attributeId === attr.id).value = e.target.value;
-                    return pre;
-                });
-            }}
-        />
-    )
-}
+const RenderForm: React.FC<RenderProps> = ({
+  form,
+  reportvalue,
+  submitmethod,
+  apiRoute,
+  isQuarantined,
+}) => {
+  const [formref] = Form.useForm<any>();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { setLoading } = useLoading();
 
-function RenderAttributes({ props: { attrs, setReport } }: AttrsProps) {
-
-    function RenderControlType(attr: AttributeModel) {
-        switch (attr.controlType) {
-            case ControlType.checkbox:
-                return <RenderInput attr={attr} setReport={setReport} />
-            case ControlType.input:
-                return <RenderInput attr={attr} setReport={setReport} />
-        }
-    }
-
-    return (
-        <Row>
-            {attrs && attrs.sort(attr => attr.sortNo).map((attr, index) => {
-                return (
-                    <Col key={index} lg={8}>
-                        <Form.Item
-                            name={attr.id}
-                            label={attr.name}
-                            labelCol={{ span: 24 }}
-                            wrapperCol={{ span: 24 }}
-                            style={{ paddingRight: 30 }}
-                        >
-                            {RenderControlType(attr)}
-                        </Form.Item>
-                    </Col>
-                );
-            })}
-        </Row>
-    )
-}
-
-const RenderForm: React.FC<RenderProps> = ({ form, reportvalue, submitmethod, apiRoute }) => {
-    const [formref] = Form.useForm<any>();
-    const [report, setReport] = useState(CreateReportModel(form, reportvalue));
-    const user = useAuth();
-    function submit() {
-        if (user?.token) {
-            console.log(report)
-            fetch(process.env.REACT_APP_API.concat(apiRoute), {
-                method: submitmethod,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '.concat(user.token),
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Request-Method': submitmethod,
-                },
-                body: JSON.stringify(report)
-            }).then(res => res.json()).then((data) => {
-                console.log(data);
-            }).catch(error => console.log(error));
-        }
-    }
-
-    useEffect(() => {
-        formref.resetFields();
-    }, [form, reportvalue]);
-
-
-    const initValues = () => {
-        const init: any = {};
-        report.values.map(x => {
-            init[x.attributeId] = x.value
-            // Object.defineProperty(init, x.attributeId, {
-            //     get value() { return x.value }
-            // })
-            return;
+  function submit() {
+    console.log(formref.getFieldsValue());
+    if (user?.token) {
+      setLoading(true);
+      fetch(process.env.REACT_APP_API.concat(apiRoute), {
+        method: submitmethod,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer ".concat(user.token),
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Request-Method": submitmethod,
+        },
+        body: JSON.stringify(formref.getFieldsValue()),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          navigate(RouteEndpoints.quarantine.basepath);
         })
-
-        return init;
+        .catch((error) => console.log(error))
+        .finally(() => setLoading(false));
     }
+  }
 
-    return (
-        <>
-            {form && <Form
-                labelCol={{ span: 12 }}
-                wrapperCol={{ span: 12 }}
-                layout="horizontal"
-                title={form.formName}
-                onFinish={submit}
-                form={formref}
-                initialValues={initValues()}
-            >
-                <Form.Item wrapperCol={{ span: 24 }}>
-                    <Col>
-                        <h2>{form.formCode} - {form.formNumber}</h2>
-                    </Col>
-                </Form.Item>
-                <Input value={form.id} hidden={true} />
-                <RenderAttributes props={{ attrs: form.attributes, report, setReport }} />
-                <Form.Item wrapperCol={{ offset: 11, }}>
-                    <Button type='primary' htmlType='submit'>Lưu</Button>
-                </Form.Item>
-            </Form>}
-        </>
-    );
-}
+  return (
+    <>
+      {user && form && (
+        <Form
+          layout="horizontal"
+          title={form.formName}
+          onFinish={submit}
+          form={formref}
+          initialValues={reportvalue}
+        >
+          <Form.Item wrapperCol={{ span: 24 }}>
+            <Col>
+              <h2>
+                {form.formCode} - {form.formNumber}
+              </h2>
+            </Col>
+          </Form.Item>
+          <Form.Item name={"formId"} initialValue={form.id} hidden={true} />
+          <Form.Item name={"name"} initialValue={form.formName} hidden={true} />
+          <Form.Item name={"userId"} initialValue={user.userId} hidden={true} />
+          <Form.Item name={"type"} initialValue={0} hidden={true} />
+          <AnimalFields report={reportvalue} />
+          {isQuarantined && isQuarantined === ReportType.QuarantineReport && (
+            <SealFields report={reportvalue} />
+          )}
+          <RenderFormAttrs form={form} />
+          <Form.Item wrapperCol={{ offset: 11 }}>
+            <Button type="primary" htmlType="submit">
+              Lưu
+            </Button>
+          </Form.Item>
+        </Form>
+      )}
+    </>
+  );
+};
 
-export { RenderForm }
+export { RenderForm };

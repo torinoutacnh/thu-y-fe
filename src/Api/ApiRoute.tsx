@@ -5,6 +5,8 @@ export const ApiRoute = {
   createreport: "/report/create-report",
   updatereport: "/report/update-report",
   getreport: "/report",
+  deleteReport: "/report/delete",
+  getanimals: "/animal",
   getUser: "/user/get-user",
   getSchedule: "/schedule/get-user-schedule",
   deleteUser: "/user/delete-user",

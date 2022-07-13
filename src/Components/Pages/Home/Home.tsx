@@ -1,30 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { FormModel, RenderForm } from "Components/Shared/Form";
-import { useAuth } from "Modules/hooks/useAuth";
-import { ApiRoute } from "Api/ApiRoute";
+import React from "react";
 
 export default function HomePage() {
-    const [form, setForm] = useState<FormModel>();
-    const user = useAuth();
-
-    const search = { code: "CN-KDĐV-UQ" }
-    useEffect(() => {
-        if (user?.token && search) {
-            fetch(process.env.REACT_APP_API.concat(ApiRoute.getform, "?") + new URLSearchParams(search), {
-                method: "GET",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '.concat(user.token),
-                }
-            }).then(res => res.json()).then(data => {
-                setForm(data.data);
-            }).catch(error => console.log(error));
-        }
-    }, [user.token, search.code]);
-
-    return (
-        <>
-            {form && <RenderForm form={form} submitmethod={'POST'} apiRoute={ApiRoute.createreport} />}
-        </>
-    );
+  return (
+    <>
+      <h1>Home</h1>
+    </>
+  );
 }

@@ -13,6 +13,6 @@ export const useAuth = () => {
     dispatch(login(user));
   };
 
-  const user = useStoreSelector((state: any) => state?.login?.user);
+  const user: userInfo = useStoreSelector((state: any) => state?.login?.user);
   return { user, setUser };
 };

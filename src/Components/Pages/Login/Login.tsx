@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 
-import "./login.css";
 import { ApiRoute } from "Api/ApiRoute";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,7 +10,7 @@ import { useLoading } from "Modules/hooks/useLoading";
 export default function LoginPage() {
   return (
     <>
-      <h1 className="text-center">Login page</h1>
+      <h1 style={{ width: "100%", textAlign: "center" }}>Đăng nhập</h1>
       <LoginForm />
     </>
   );
@@ -54,8 +53,7 @@ const LoginForm = () => {
 
   return (
     <Form
-      name="basic"
-      labelCol={{ span: 8 }}
+      labelCol={{ span: 9 }}
       wrapperCol={{ span: 8 }}
       initialValues={{ remember: true }}
       autoComplete="off"
@@ -63,7 +61,7 @@ const LoginForm = () => {
       style={{ marginTop: 20 }}
     >
       <Form.Item
-        label="Taì khoản"
+        label="Tài khoản"
         name="username"
         rules={[{ required: true, message: "Nhập tài khoản!" }]}
       >
@@ -91,12 +89,12 @@ const LoginForm = () => {
       <Form.Item
         name="remember"
         valuePropName="checked"
-        wrapperCol={{ offset: 8, span: 16 }}
+        wrapperCol={{ offset: 9, span: 17 }}
       >
         <Checkbox>Remember me</Checkbox>
       </Form.Item>
 
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+      <Form.Item wrapperCol={{ offset: 9, span: 17 }}>
         <Button type="primary" htmlType="submit">
           Đăng nhập
         </Button>

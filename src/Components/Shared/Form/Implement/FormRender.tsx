@@ -99,14 +99,34 @@ const RenderCards = (props: { form: FormModel; reportobjs: any[] }) => {
   const { form, reportobjs } = props;
   const key = useRef(0);
 
-  const getKet = () => {
+  const getKey = () => {
     key.current = key.current + 1;
     return key.current;
   };
 
   function RenderCard(props: { data: any; idx: number }) {
     const { data, idx } = props;
-
+    const { user } = useAuth();
+    function deletereport(id: string) {
+      if (user) {
+        fetch(
+          process.env.REACT_APP_API.concat(ApiRoute.deleteReport, "?") +
+            new URLSearchParams({ id: id }),
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer ".concat(user.token),
+            },
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => console.log(error));
+      }
+    }
     return (
       <Descriptions
         bordered
@@ -123,13 +143,39 @@ const RenderCards = (props: { form: FormModel; reportobjs: any[] }) => {
                 width: "40%",
               }}
               contentStyle={{ color: "#17202A", backgroundColor: "#D5D8DC" }}
-              key={getKet()}
+              key={getKey()}
               label={col.name}
             >
               {data[col.id]}
             </Descriptions.Item>
           );
         })}
+        <Descriptions.Item
+          labelStyle={{
+            color: "white",
+            backgroundColor: "#17202A",
+            width: "40%",
+          }}
+          contentStyle={{ color: "#17202A", backgroundColor: "#D5D8DC" }}
+          key={getKey()}
+          label={"Xử lý"}
+        >
+          <>
+            <Link
+              to={RouteEndpoints.quarantine.updatereport.replace(
+                ":id",
+                data.id
+              )}
+            >
+              <Button type="link" color="blue">
+                Cập nhật
+              </Button>
+            </Link>
+            <Button type="link" danger onClick={() => deletereport(data.id)}>
+              Xóa
+            </Button>
+          </>
+        </Descriptions.Item>
       </Descriptions>
     );
   }
@@ -158,23 +204,24 @@ const RenderColumns = (form: FormModel) => {
     });
 
   function deletereport(id: string) {
-    fetch(
-      process.env.REACT_APP_API.concat(ApiRoute.deleteReport, "?") +
-        new URLSearchParams({ id: id }),
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer ".concat(user.token),
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => console.log(error));
-    return;
+    if (user) {
+      fetch(
+        process.env.REACT_APP_API.concat(ApiRoute.deleteReport, "?") +
+          new URLSearchParams({ id: id }),
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer ".concat(user.token),
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => console.log(error));
+    }
   }
 
   if (!cols.find((x) => x.title === "Xử lý")) {

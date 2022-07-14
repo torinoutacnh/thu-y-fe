@@ -1,118 +1,126 @@
-import { Button, Dropdown, Menu, PageHeader } from "antd";
-import menu, { MenuProps } from "antd/lib/menu";
+import { Layout, Menu, MenuProps, PageHeader } from "antd";
 import {
-  TeamOutlined,
-  UserOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  MoreOutlined,
-  CalendarOutlined,
-  ContainerOutlined,
-  CheckCircleOutlined,
-  ScissorOutlined,
+  ExperimentOutlined,
+  MedicineBoxOutlined,
+  AlignRightOutlined,
 } from "@ant-design/icons";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import "./header.css";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import { useNavigate } from "react-router-dom";
-
-type MenuItem = Required<MenuProps>["items"][number];
+import { useAuth } from "Modules/hooks/useAuth";
 
 const Header = () => {
   const navigate = useNavigate();
   const keyRef = useRef(0);
+  const { user } = useAuth();
 
   const getKey = () => {
     keyRef.current = keyRef.current + 1;
     return keyRef.current;
   };
 
-  const MenuItems: MenuItem[] = [
+  const items: MenuProps["items"] = [
     {
-      label: "Quản lý kiểm dịch",
+      label: "Kiểm dịch",
       key: getKey(),
-      icon: <CheckCircleOutlined />,
+      icon: <ExperimentOutlined />,
       children: [
         {
           label: "Báo cáo kiểm dịch",
           key: getKey(),
-          onClick: () => {
-            navigate(RouteEndpoints.quarantine.basepath);
-          },
+          onClick: () => navigate(RouteEndpoints.quarantine.basepath),
         },
         {
           label: "Hóa đơn kiểm dịch",
           key: getKey(),
-          onClick: () => {
-            navigate(RouteEndpoints.home.basepath);
-          },
         },
-        { label: "Báo cáo doanh thu", key: getKey() },
+        {
+          label: "Báo cáo doanh thu",
+          key: getKey(),
+        },
       ],
     },
     {
       label: "Quản lý giết mổ",
       key: getKey(),
-      icon: <ScissorOutlined />,
+      icon: <MedicineBoxOutlined />,
       children: [
         {
           label: "Báo cáo giết mổ",
-          icon: <ContainerOutlined />,
+          key: getKey(),
+          onClick: () => navigate(RouteEndpoints.staff.basepath),
+        },
+        {
+          label: "Hóa đơn giết mổ",
           key: getKey(),
         },
-        { label: "Hóa đơn giết mổ", key: getKey() },
-        { label: "Báo cáo doanh thu", key: getKey() },
+        {
+          label: "Báo cáo doanh thu",
+          key: getKey(),
+        },
       ],
     },
     {
       label: "Quản trị admin",
+      icon: <MedicineBoxOutlined />,
       key: getKey(),
-      icon: <UserOutlined />,
       children: [
         {
           label: "Danh sách nhân viên",
-          key: 2,
-          icon: <TeamOutlined />,
-          onClick: () => {
-            navigate(RouteEndpoints.staff.basepath);
-          },
+          onClick: () => navigate(RouteEndpoints.staff.basepath),
+          key: getKey(),
         },
         {
           label: "Quản lý đơn giá",
           key: getKey(),
-          icon: <CalendarOutlined />,
         },
-        { label: "Quản lý lò mổ", key: getKey(), icon: <CalendarOutlined /> },
         {
-          label: "Doanh thu tổng",
+          label: "Quản lý lò mổ",
           key: getKey(),
-          icon: <CalendarOutlined />,
         },
         {
           label: "Quản lý hóa đơn",
           key: getKey(),
-          icon: <CalendarOutlined />,
+        },
+        {
+          label: "Doanh thu tổng",
+          key: getKey(),
         },
       ],
-    },
-    {
-      label: "Đăng xuất",
-      key: getKey(),
-      icon: <UserOutlined />,
     },
   ];
 
   return (
-    <PageHeader className="header_theme_dark">
+    <PageHeader>
       <div className="header_menu">
         <img
           src="https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"
           alt="logo"
           width={30}
         />
-        <h3>PHẦN MỀM QUẢN LÝ KIỂM SOÁT GIẾT MỔ VÀ KIỂM DỊCH</h3>
+        <h4>PHẦN MỀM QUẢN LÝ KIỂM SOÁT GIẾT MỔ VÀ KIỂM DỊCH</h4>
       </div>
+      {user && (
+        <Layout.Header
+          style={{
+            background: "#313a46",
+            color: "white",
+          }}
+        >
+          <Menu
+            direction={"ltr"}
+            overflowedIndicator={<AlignRightOutlined />}
+            mode={"horizontal"}
+            items={items}
+            style={{
+              background: "#313a46",
+              color: "white",
+            }}
+          />
+        </Layout.Header>
+      )}
     </PageHeader>
   );
 };

@@ -38,6 +38,9 @@ export const ApiRoute = {
   get deleteReport() {
     return this.reportBase.concat("/delete");
   },
+  get createSeal() {
+    return this.sealtabBase.concat("/create");
+  },
   getanimals: "/animal",
   getseals: "/sealconfig",
   createsealtab: "/sealconfig",

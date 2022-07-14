@@ -1,11 +1,12 @@
 import { Form, Space, Select, Input, Button, Modal } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ApiRoute } from "Api/ApiRoute";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ReportModel, SealValueModel } from "Components/Shared/Models/Form";
 import { useLoading } from "Modules/hooks/useLoading";
 import { SealModel } from "Components/Shared/Models/Seal";
+import { AnimalModel } from "Components/Shared/Models/Animal";
 
 const SealFields = (props: { report?: ReportModel }) => {
   const [report, setReport] = useState<ReportModel>(props.report);
@@ -13,7 +14,51 @@ const SealFields = (props: { report?: ReportModel }) => {
   const { user } = useAuth();
   const { setLoading } = useLoading();
   const [showAddSeal, setShowAddSeal] = useState<boolean>(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
 
+  const keyRef = useRef(0);
+
+  const getKey = () => {
+    keyRef.current = keyRef.current + 1;
+    return keyRef.current;
+  };
+
+  const [form] = Form.useForm<AnimalModel>();
+  const Cancel = () => {
+    form.resetFields();
+    setShowAddSeal(false);
+  };
+
+  const AddSeal = (add: any) => {
+    const val = form.getFieldsValue();
+    console.log(val);
+
+    if (user) {
+      setConfirmLoading(true);
+      fetch(process.env.REACT_APP_API.concat(ApiRoute.createSeal), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer ".concat(user.token),
+        },
+        body: JSON.stringify(val),
+      })
+        .then((res) => {
+          if (res.status >= 500) throw new Error("System Error!");
+          return res.json();
+        })
+        .then((data) => {
+          if (data.data) add(val);
+          throw new Error(data.message);
+        })
+        .catch((error) => console.log(error))
+        .finally(() => {
+          setShowAddSeal(false);
+          setConfirmLoading(false);
+          form.resetFields();
+        });
+    }
+  };
   useEffect(() => {
     if (user) {
       setLoading;
@@ -103,14 +148,71 @@ const SealFields = (props: { report?: ReportModel }) => {
                       Thêm vé
                     </Button>
                     <Modal
-                      title="Basic Modal"
+                      title="Thêm vé"
                       visible={showAddSeal}
-                      onOk={() => setShowAddSeal(false)}
-                      onCancel={() => setShowAddSeal(false)}
+                      footer={
+                        <>
+                          <Button
+                            type="default"
+                            htmlType="button"
+                            onClick={Cancel}
+                          >
+                            Hủy bỏ
+                          </Button>
+                          <Button
+                            form="create-seal-form"
+                            type="primary"
+                            loading={confirmLoading}
+                            htmlType="submit"
+                          >
+                            Thêm mới
+                          </Button>
+                        </>
+                      }
                     >
-                      <p>Some contents...</p>
-                      <p>Some contents...</p>
-                      <p>Some contents...</p>
+                      <Form
+                        id="create-seal-form"
+                        layout="vertical"
+                        form={form}
+                        onFinish={() => {
+                          AddSeal(add);
+                        }}
+                      >
+                        <Form.Item
+                          label={"Loại vé"}
+                          name={"sealName"}
+                          rules={[
+                            {
+                              required: true,
+                              message: "Chọn loại vé!",
+                            },
+                          ]}
+                        >
+                          <Select>
+                            {seals.map((item) => (
+                              <Select.Option
+                                key={item.id}
+                                value={item.sealName}
+                              >
+                                {item.sealName}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                        </Form.Item>
+                        <Form.Item
+                          label={"Mã vé"}
+                          name={"sealCode"}
+                          rules={[
+                            {
+                              required: true,
+                              message: "Nhập mã vé!",
+                              type: "string",
+                            },
+                          ]}
+                        >
+                          <Input />
+                        </Form.Item>
+                      </Form>
                     </Modal>
                   </>
                 ) : (

@@ -10,9 +10,10 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    background-color: #313a46;
 }
-.header_menu h3{
+
+.header_menu h4,h3,h2,h1{
+    display: inline-block;
     margin-bottom: 0;
     margin-left: 30px;
     color: aliceblue;

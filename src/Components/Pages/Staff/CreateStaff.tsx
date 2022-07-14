@@ -23,7 +23,7 @@ function CreateStaff() {
   const CreateUser = () => {
     if (user) {
       setConfirmLoading(true);
-      fetch(process.env.REACT_APP_API.concat(ApiRoute.createUser, "?"), {
+      fetch(process.env.REACT_APP_API.concat(ApiRoute.createUser), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

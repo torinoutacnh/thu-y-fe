@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
 import useWindowSize from "Modules/hooks/useWindowSize";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
+import CreateStaff from "./CreateStaff";
 
 const StaffHome = () => {
   const [liststaff, setListStaff] = useState<UserModel[]>([]);
@@ -22,7 +23,9 @@ const StaffHome = () => {
   const navigate = useNavigate();
   const windowSize = useWindowSize();
 
-  useEffect(() => {
+  useEffect(() => GetStaff, [page.pageIndex, page.pageNumber]);
+
+  const GetStaff = () => {
     if (user) {
       setLoading(true);
       fetch(
@@ -41,12 +44,12 @@ const StaffHome = () => {
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
     }
-  }, [page.pageIndex, page.pageNumber]);
+  };
 
   const deleteUserHandler = (id: string) => {
     setLoading(true);
     fetch(
-      process.env.REACT_APP_API.concat(ApiRoute.deleteUser) +
+      process.env.REACT_APP_API.concat(ApiRoute.deleteUser, "?") +
         new URLSearchParams({ id }),
       {
         method: "POST",
@@ -59,7 +62,7 @@ const StaffHome = () => {
       .then((res) => res.json())
       .then((data) => console.log(data))
       .catch((error) => console.log(error))
-      .finally(() => setLoading(false));
+      .finally(() => GetStaff());
   };
 
   const UserColumns: ColumnsType<UserModel> = [
@@ -201,19 +204,7 @@ const StaffHome = () => {
     <>
       <PageHeader
         title="Quản lý nhân viên"
-        extra={[
-          <Button
-            icon={<PlusOutlined />}
-            className="btn-add-content"
-            key={getKeyThenIncreaseKey()}
-            onClick={() => {
-              navigate(RouteEndpoints.staff.createStaff);
-            }}
-            type="primary"
-          >
-            Thêm mới
-          </Button>,
-        ]}
+        extra={[<CreateStaff key={getKeyThenIncreaseKey()} />]}
       />
       {liststaff && windowSize && (
         <div className="table-content-report">

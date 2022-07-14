@@ -70,11 +70,6 @@ const Quarantine = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(
-            (data.data as Array<ReportModel>).filter(
-              (report) => report.formId === form.id
-            )
-          );
           setReports(
             (data.data as Array<ReportModel>).filter(
               (report) => report.formId === form.id

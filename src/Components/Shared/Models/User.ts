@@ -3,6 +3,7 @@ interface UserModel{
     id?:string;
     name?:string;
     account?:string;
+    password?:string;
     phone?:string;
     email?:string;
     address?:string;

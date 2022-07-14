@@ -1,7 +1,6 @@
 import { Layout, Spin } from "antd";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
-import { useStoreSelector } from "Modules/Redux";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "./Footer/Footer";
@@ -14,7 +13,6 @@ type Props = {
 };
 
 const MainLayout: React.FC<Props> = ({ children }) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { user } = useAuth();
   const { isloading } = useLoading();
   return (

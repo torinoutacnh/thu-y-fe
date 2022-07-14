@@ -9,6 +9,7 @@ import RegisterPage from "Components/Pages/Register/Register";
 import Report from "Components/Pages/Report/Report";
 import StaffHome from "Components/Pages/Staff";
 import CreateStaff from "Components/Pages/Staff/CreateStaff";
+import UpdateStaff from "Components/Pages/Staff/UpdateStaff";
 import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
@@ -141,13 +142,13 @@ export default function MainRouter() {
       />
       <Route
         exact
-        path={RouteEndpoints.staff.createStaff}
+        path={RouteEndpoints.staff.updateStaff}
         element={
           <PrivateRoute path={RouteEndpoints.user.login}>
-            <CreateStaff />
+            <UpdateStaff />
           </PrivateRoute>
         }
-        key="staff"
+        key="staff-update"
       />
 
       <Route path="*" element={<h1>Not found</h1>} />

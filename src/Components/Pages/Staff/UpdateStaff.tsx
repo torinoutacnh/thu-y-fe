@@ -1,29 +1,23 @@
 import { Button, Form, Input, Modal, Radio } from "antd";
 import { ApiRoute } from "Api/ApiRoute";
-import { RoleType, SexType } from "Components/Shared/Models/User";
+import { RoleType, SexType, UserModel } from "Components/Shared/Models/User";
 import { useAuth } from "Modules/hooks/useAuth";
-import { PlusOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
+import { useLoading } from "Modules/hooks/useLoading";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-function CreateStaff() {
-  const [visible, setVisible] = useState(false);
+function UpdateStaff() {
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<UserModel>();
+  const [userval, setUserval] = useState<UserModel>();
   const { user } = useAuth();
+  const { setLoading } = useLoading();
+  const { id } = useParams();
 
-  const showModal = () => {
-    setVisible(true);
-  };
-
-  const Cancel = () => {
-    form.resetFields();
-    setVisible(false);
-  };
-
-  const CreateUser = () => {
-    if (user) {
-      setConfirmLoading(true);
-      fetch(process.env.REACT_APP_API.concat(ApiRoute.createUser, "?"), {
+  useEffect(() => {
+    if (id && user) {
+      setLoading(true);
+      fetch(process.env.REACT_APP_API.concat(ApiRoute.getUser, "?"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,7 +29,26 @@ function CreateStaff() {
         .then((data) => console.log(data))
         .catch((error) => console.log(error))
         .finally(() => {
-          setVisible(false);
+          setLoading(false);
+        });
+    }
+  }, [id]);
+
+  const CreateUser = () => {
+    if (user) {
+      setConfirmLoading(true);
+      fetch(process.env.REACT_APP_API.concat(ApiRoute.getUser, "?"), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer ".concat(user.token),
+        },
+        body: JSON.stringify(form.getFieldsValue()),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.log(error))
+        .finally(() => {
           setConfirmLoading(false);
           form.resetFields();
         });
@@ -44,36 +57,17 @@ function CreateStaff() {
 
   return (
     <>
-      <Button type="primary" icon={<PlusOutlined />} onClick={showModal}>
-        Thêm mới
-      </Button>
-      <Modal
-        title="Thêm nhân viên"
-        visible={visible}
-        footer={
-          <>
-            <Button type="default" htmlType="button" onClick={Cancel}>
-              Hủy bỏ
-            </Button>
-            <Button
-              form="create-user-form"
-              type="primary"
-              loading={confirmLoading}
-              htmlType="submit"
-            >
-              Thêm mới
-            </Button>
-          </>
-        }
-        confirmLoading={confirmLoading}
-        onCancel={() => setVisible(false)}
-      >
+      {userval && (
         <Form
           id="create-user-form"
           layout="vertical"
           form={form}
           onFinish={CreateUser}
+          initialValues={userval}
         >
+          <Form.Item name={"id"} hidden={true}>
+            <Input />
+          </Form.Item>
           <Form.Item
             label={"Tên nhân viên"}
             name={"name"}
@@ -185,10 +179,20 @@ function CreateStaff() {
               })}
             </Radio.Group>
           </Form.Item>
+          <Form.Item>
+            <Button
+              form="create-user-form"
+              type="primary"
+              loading={confirmLoading}
+              htmlType="submit"
+            >
+              Thêm mới
+            </Button>
+          </Form.Item>
         </Form>
-      </Modal>
+      )}
     </>
   );
 }
 
-export default CreateStaff;
+export default UpdateStaff;

@@ -1,32 +1,29 @@
-import { Form, Space, Select, Input, Button } from "antd";
+import { Form, Space, Select, Input, Button, Modal } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { AnimalPaging, AnimalModel } from "Components/Shared/Models/Animal";
 import React, { useEffect, useState } from "react";
 import { ApiRoute } from "Api/ApiRoute";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ReportModel, SealValueModel } from "Components/Shared/Models/Form";
 import { useLoading } from "Modules/hooks/useLoading";
+import { SealModel } from "Components/Shared/Models/Seal";
 
 const SealFields = (props: { report?: ReportModel }) => {
-  const [searchSeal, setSearchSeal] = useState<AnimalPaging>({
-    pageNumber: 0,
-    pageSize: 200,
-  });
-  const [seals, setSeals] = useState<SealValueModel[]>([]);
+  const [report, setReport] = useState<ReportModel>(props.report);
+  const [seals, setSeals] = useState<SealModel[]>([]);
   const { user } = useAuth();
   const { setLoading } = useLoading();
+  const [showAddSeal, setShowAddSeal] = useState<boolean>(false);
 
   useEffect(() => {
-    if (searchSeal) {
+    if (user) {
       setLoading;
       true;
-      fetch(process.env.REACT_APP_API.concat(ApiRoute.getanimals), {
-        method: "POST",
+      fetch(process.env.REACT_APP_API.concat(ApiRoute.getseals), {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer ".concat(user.token),
         },
-        body: JSON.stringify(searchSeal),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -35,7 +32,7 @@ const SealFields = (props: { report?: ReportModel }) => {
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
     }
-  }, [searchSeal.pageNumber, searchSeal.pageSize]);
+  }, [user.token, user.userId]);
 
   return (
     <Form.Item
@@ -59,20 +56,18 @@ const SealFields = (props: { report?: ReportModel }) => {
                       <Form.Item
                         {...field}
                         label="Loại vé"
-                        name={[field.name, "animalId"]}
+                        name={[field.name, "sealName"]}
                         rules={[
                           {
                             required: true,
-                            message: "Chọn loại động vật!",
+                            message: "Mời chọn loại vé!",
                           },
                         ]}
-                        labelCol={{ span: 12 }}
-                        wrapperCol={{ span: 12 }}
                       >
                         <Select style={{ width: 150 }}>
                           {seals.map((item) => (
-                            <Select.Option key={item.id} value={item.id}>
-                              {item.name}
+                            <Select.Option key={item.id} value={item.sealName}>
+                              {item.sealName}
                             </Select.Option>
                           ))}
                         </Select>
@@ -81,39 +76,53 @@ const SealFields = (props: { report?: ReportModel }) => {
                   </Form.Item>
                   <Form.Item
                     {...field}
-                    label="Số lượng"
-                    name={[field.name, "amount"]}
-                    labelCol={{ span: 12 }}
-                    wrapperCol={{ span: 12 }}
+                    label="Mã vé"
+                    name={[field.name, "sealCode"]}
                     rules={[
                       {
                         required: true,
-                        type: "number",
-                        transform(value) {
-                          return parseFloat(value);
-                        },
-                        message: "Hãy điền số lượng!",
+                        message: "Hãy điền mã vé!",
                       },
                     ]}
                   >
                     <Input />
                   </Form.Item>
-
-                  <Form.Item>
-                    <MinusCircleOutlined onClick={() => remove(field.name)} />
-                  </Form.Item>
+                  <MinusCircleOutlined onClick={() => remove(field.name)} />
                 </Space>
               ))}
 
               <Form.Item>
-                <Button
-                  type="dashed"
-                  onClick={() => add()}
-                  block
-                  icon={<PlusOutlined />}
-                >
-                  Thêm vé
-                </Button>
+                {report ? (
+                  <>
+                    <Button
+                      type="dashed"
+                      onClick={() => setShowAddSeal(true)}
+                      block
+                      icon={<PlusOutlined />}
+                    >
+                      Thêm vé
+                    </Button>
+                    <Modal
+                      title="Basic Modal"
+                      visible={showAddSeal}
+                      onOk={() => setShowAddSeal(false)}
+                      onCancel={() => setShowAddSeal(false)}
+                    >
+                      <p>Some contents...</p>
+                      <p>Some contents...</p>
+                      <p>Some contents...</p>
+                    </Modal>
+                  </>
+                ) : (
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    block
+                    icon={<PlusOutlined />}
+                  >
+                    Thêm vé
+                  </Button>
+                )}
               </Form.Item>
             </>
           );

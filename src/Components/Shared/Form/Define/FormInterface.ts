@@ -5,7 +5,6 @@ interface RenderProps {
     form: FormModel;
     reportvalue?: ReportModel;
     submitmethod: string;
-    apiRoute: string;
     isQuarantined?: ReportType;
 }
 

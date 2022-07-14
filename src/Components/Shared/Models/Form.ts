@@ -21,17 +21,24 @@ interface ReportModel {
     userId: string;
     formId: string;
     type: number;
+    dateCreated?:string;
     values: ReportValueModel[];
     listAnimals:AnimalModel[];
-    sealTabs:SealValueModel[]
+    sealTabs:SealValueModel[];
+}
+
+interface UpdateReportAttrsModel{
+    reportId: string;
+    values: ReportValueModel[];
 }
 
 interface SealValueModel{
     id: string;
-    codeSeal: string;
-    name: string;
+    sealCode: string;
+    sealName: string;
     content: string;
     id_Pricing: string;
+    reportTicketId:string;
 }
 
 interface ReportValueModel {
@@ -73,4 +80,4 @@ enum DataTypes
 }
 
 export {DataTypes,ControlTypes}
-export type {AttributeModel,FormModel,ReportModel,ReportValueModel,ReportQueryModel,SealValueModel}
+export type {UpdateReportAttrsModel,AttributeModel,FormModel,ReportModel,ReportValueModel,ReportQueryModel,SealValueModel}

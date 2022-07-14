@@ -11,7 +11,7 @@ export default function CreateReportPage() {
   const { user } = useAuth();
   const { setLoading } = useLoading();
 
-  const search = { code: "CN-KDĐV-UQ" };
+  const search = { code: process.env.REACT_APP_CODE_KIEM_DICH };
   useEffect(() => {
     if (user?.token && search) {
       setLoading(true);
@@ -41,7 +41,6 @@ export default function CreateReportPage() {
         <RenderForm
           form={form}
           submitmethod={"POST"}
-          apiRoute={ApiRoute.createreport}
           isQuarantined={ReportType.QuarantineReport}
         />
       )}

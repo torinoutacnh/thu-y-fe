@@ -7,24 +7,11 @@ import UpdateReportPage from "Components/Pages/Quarantine/UpdateReportPage";
 
 import RegisterPage from "Components/Pages/Register/Register";
 import Report from "Components/Pages/Report/Report";
-import Staff from "Components/Pages/Staff/Staff";
+import StaffHome from "Components/Pages/Staff";
+import CreateStaff from "Components/Pages/Staff/CreateStaff";
 import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-
-// export const RouteEndpoints = {
-//   home:{basepath:"/"},
-//   user:{
-//     basepath: "/tai-khoan",
-//     login: "/dang-nhap",
-//     register: "/dang-ky"
-//   },
-//   quarantine:{basepath:"/kiem-dich"},
-//   abattoir:{
-//     basepath:"/lo-mo"
-
-//   }
-// }
 
 export class RouteEndpoints {
   static home = { basepath: "/" };
@@ -46,11 +33,15 @@ export class RouteEndpoints {
     },
   };
   static staff = {
-    basepath: "/nhan-vien",
-    staffadd: "/them-nhan-vien",
-    staffedit: "/sua-nhan-vien",
-    staffview: "/xem-nhan-vien",
-    staffdelete: "/xoa-nhan-vien",
+    get basepath() {
+      return "/nhan-vien";
+    },
+    get createStaff() {
+      return this.basepath.concat("/them-nhan-vien");
+    },
+    get updateStaff() {
+      return this.basepath.concat("/thong-tin-nhan-vien/:id");
+    },
   };
   static abattoir = {
     get basepath() {
@@ -143,7 +134,17 @@ export default function MainRouter() {
         path={RouteEndpoints.staff.basepath}
         element={
           <PrivateRoute path={RouteEndpoints.user.login}>
-            <Staff />
+            <StaffHome />
+          </PrivateRoute>
+        }
+        key="staff"
+      />
+      <Route
+        exact
+        path={RouteEndpoints.staff.createStaff}
+        element={
+          <PrivateRoute path={RouteEndpoints.user.login}>
+            <CreateStaff />
           </PrivateRoute>
         }
         key="staff"

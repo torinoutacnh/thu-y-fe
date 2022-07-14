@@ -1,12 +1,46 @@
 export const ApiRoute = {
-  register: "/user/create-user",
-  login: "/user/login",
-  getform: "/form",
-  createreport: "/report/create-report",
-  updatereport: "/report/update-report",
-  getreport: "/report",
-  deleteReport: "/report/delete",
+  get sealtabBase() {
+    return "/sealtab";
+  },
+  get reportBase() {
+    return "/report";
+  },
+  get userBase() {
+    return "/user";
+  },
+  get register() {
+    return this.userBase.concat("/create-user");
+  },
+  get login() {
+    return this.userBase.concat("/login");
+  },
+  get formBase() {
+    return "/form";
+  },
+  get getform() {
+    return this.formBase;
+  },
+  get createReport() {
+    return this.reportBase.concat("/create-report");
+  },
+  get updateReportAttrs() {
+    return this.reportBase.concat("/update-report");
+  },
+  get createReportSeal() {
+    return this.sealtabBase.concat("/create");
+  },
+  get getreport() {
+    return this.reportBase;
+  },
+  get getSingleReport() {
+    return this.reportBase.concat("/single-report");
+  },
+  get deleteReport() {
+    return this.reportBase.concat("/delete");
+  },
   getanimals: "/animal",
+  getseals: "/sealconfig",
+  createsealtab: "/sealconfig",
   getUser: "/user/get-user",
   getSchedule: "/schedule/get-user-schedule",
   deleteUser: "/user/delete-user",

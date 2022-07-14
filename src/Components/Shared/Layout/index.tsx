@@ -15,7 +15,7 @@ type Props = {
 
 const MainLayout: React.FC<Props> = ({ children }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const user = useAuth();
+  const { user } = useAuth();
   const { isloading } = useLoading();
   return (
     <Spin

@@ -14,6 +14,7 @@ import {
   ReportQueryModel,
 } from "Components/Shared/Models/Form";
 import { useLoading } from "Modules/hooks/useLoading";
+import { ConvertDate } from "Utils/DateTimeUtils";
 
 const Quarantine = () => {
   const [reports, setReports] = useState<ReportModel[]>([]);
@@ -26,7 +27,9 @@ const Quarantine = () => {
     pageSize: 500,
     userId: user.userId,
   });
-  const [formQuery, setFormQuery] = useState({ code: "CN-KDĐV-UQ" });
+  const [formQuery, setFormQuery] = useState({
+    code: process.env.REACT_APP_CODE_KIEM_DICH,
+  });
   useEffect(() => {
     if (user) {
       setLoading(true);
@@ -109,11 +112,15 @@ const Quarantine = () => {
             Tạo báo cáo
           </Button>,
         ]}
-      ></PageHeader>
+      />
       {form && reports && (
         <RenderReportTable
           form={form}
-          reports={reports.filter((x) => x.formId === form.id)}
+          reports={reports.sort((x, y) => {
+            const d1 = ConvertDate(x.dateCreated);
+            const d2 = ConvertDate(y.dateCreated);
+            return d1 > d2 ? d1 : d2;
+          })}
         />
       )}
     </>

@@ -1,6 +1,6 @@
+import { UserLoginModel } from "Components/Shared/Models/User";
 import { useStoreDispatch, useStoreSelector } from "Modules/Redux";
 import { login } from "Modules/Redux/reducer/loginReducer";
-import { userInfo } from "Modules/Redux/reducer/loginReducer";
 
 export const useAuth = () => {
   const dispatch = useStoreDispatch();
@@ -9,10 +9,12 @@ export const useAuth = () => {
     return;
   };
 
-  const setUser = (user: userInfo) => {
+  const setUser = (user: UserLoginModel) => {
     dispatch(login(user));
   };
 
-  const user: userInfo = useStoreSelector((state: any) => state?.login?.user);
+  const user: UserLoginModel = useStoreSelector(
+    (state: any) => state?.login?.user
+  );
   return { user, setUser };
 };

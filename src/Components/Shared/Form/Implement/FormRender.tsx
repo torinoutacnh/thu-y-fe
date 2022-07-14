@@ -81,7 +81,7 @@ const RenderReportTable = (props: {
 
   return (
     <>
-      {windowSize.width > 1024 ? (
+      {windowSize.width >= 1024 ? (
         <Table
           locale={{ emptyText: "Không có báo cáo!" }}
           dataSource={reportobjs}

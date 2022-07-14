@@ -8,6 +8,7 @@ import {
   ReportModel,
   ReportQueryModel,
 } from "Components/Shared/Models/Form";
+import { ReportType } from "Components/Shared/Form/Define/FormInterface";
 
 export default function UpdateReportPage() {
   const [form, setForm] = useState<FormModel>();
@@ -15,9 +16,9 @@ export default function UpdateReportPage() {
   const { user } = useAuth();
   const { id } = useParams();
 
-  const search = { code: "CN-KDĐV-UQ" };
+  const search = { code: process.env.REACT_APP_CODE_KIEM_DICH };
   useEffect(() => {
-    if (user?.token && search) {
+    if (user?.token && search.code) {
       fetch(
         process.env.REACT_APP_API.concat(ApiRoute.getform, "?") +
           new URLSearchParams(search),
@@ -26,8 +27,6 @@ export default function UpdateReportPage() {
           headers: {
             "Content-Type": "application/json",
             Authorization: "Bearer ".concat(user.token),
-            //'Access-Control-Allow-Origin': "*",
-            //'Access-Control-Allow-Credentials': 'true'
           },
         }
       )
@@ -39,51 +38,36 @@ export default function UpdateReportPage() {
     }
   }, [user.token, search.code]);
 
-  const query: ReportQueryModel = {
-    pageNumber: 0,
-    pageSize: 500,
-    userId: user.userId,
-    id: id,
-  };
-
   useEffect(() => {
-    if (id && form && user?.token && query) {
-      fetch(process.env.REACT_APP_API.concat(ApiRoute.getreport), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer ".concat(user.token),
-        },
-        body: JSON.stringify(query),
-      })
+    if (id && form && user?.token) {
+      fetch(
+        process.env.REACT_APP_API.concat(ApiRoute.getSingleReport, "?") +
+          new URLSearchParams({ reportId: id }),
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer ".concat(user.token),
+          },
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          setReport(
-            (data.data as Array<ReportModel>)?.find((x) => x.id === id)
-          );
+          setReport(data.data);
         })
         .catch((error) => console.log(error));
     }
-  }, [
-    query.id,
-    query.dateEnd,
-    query.dateStart,
-    query.pageNumber,
-    query.pageSize,
-    query.userId,
-    form?.attributes,
-    form?.id,
-  ]);
+  }, [form?.attributes, form?.id]);
 
   return (
     <>
-      {form && report?.values && (
+      {form && report && (
         <RenderForm
           form={form}
           reportvalue={report}
           submitmethod={"POST"}
-          apiRoute={ApiRoute.updatereport}
+          isQuarantined={ReportType.QuarantineReport}
         />
       )}
     </>

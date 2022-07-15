@@ -14,7 +14,7 @@ import { RenderFormAttrs } from "./RenderComponent.FormAttr";
 import { useNavigate } from "react-router-dom";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import { useLoading } from "Modules/hooks/useLoading";
-import { ApiRoute, ReportApiRoute } from "Api/ApiRoute";
+import { ApiRoute, ReportApiRoute } from "Api";
 
 const RenderForm: React.FC<RenderProps> = ({
   form,

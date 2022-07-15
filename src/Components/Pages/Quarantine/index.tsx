@@ -1,4 +1,4 @@
-import { ApiRoute, FormApiRoute, ReportApiRoute } from "Api/ApiRoute";
+import { ApiRoute, FormApiRoute, ReportApiRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
 import React, { useState, useEffect } from "react";
 

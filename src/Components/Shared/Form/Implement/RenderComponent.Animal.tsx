@@ -16,7 +16,7 @@ import {
 } from "@ant-design/icons";
 import { AnimalPaging, AnimalModel } from "Components/Shared/Models/Animal";
 import React, { useEffect, useRef, useState } from "react";
-import { AnimalApiRoute, ApiRoute } from "Api/ApiRoute";
+import { AnimalApiRoute, ApiRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ReportModel } from "Components/Shared/Models/Form";
 import { useLoading } from "Modules/hooks/useLoading";

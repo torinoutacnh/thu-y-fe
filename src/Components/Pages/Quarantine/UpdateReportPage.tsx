@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "Modules/hooks/useAuth";
-import { ApiRoute, FormApiRoute, ReportApiRoute } from "Api/ApiRoute";
+import { ApiRoute, FormApiRoute, ReportApiRoute } from "Api";
 import { useParams } from "react-router-dom";
 import { RenderForm } from "Components/Shared/Form";
 import {

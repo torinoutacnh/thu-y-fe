@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Form, Input, Button, Radio } from "antd";
 import { Link } from "react-router-dom";
 import { RouteEndpoints } from "Components/router/MainRouter";
-import { ApiRoute, UserApiRoute } from "Api/ApiRoute";
+import { ApiRoute, UserApiRoute } from "Api";
 
 export default function RegisterPage() {
   return (

@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal, Radio, notification } from "antd";
-import { AnimalApiRoute, ApiRoute } from "Api/ApiRoute";
+import { AnimalApiRoute, ApiRoute } from "Api";
 import { AnimalSexType } from "Components/Shared/Models/Animal";
 import { useAuth } from "Modules/hooks/useAuth";
 import { PlusOutlined } from "@ant-design/icons";

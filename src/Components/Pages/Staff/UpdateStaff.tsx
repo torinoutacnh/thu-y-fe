@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal, Radio } from "antd";
-import { ApiRoute, UserApiRoute } from "Api/ApiRoute";
+import { ApiRoute, UserApiRoute } from "Api";
 import { RoleType, SexType, UserModel } from "Components/Shared/Models/User";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";

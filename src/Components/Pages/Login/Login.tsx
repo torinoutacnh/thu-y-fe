@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 
-import { ApiRoute, UserApiRoute } from "Api/ApiRoute";
+import { ApiRoute, UserApiRoute } from "Api";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
 
 export default function LoginPage() {
-  return (
-    <>
-      <LoginForm />
-    </>
-  );
+  return <LoginForm />;
 }
 
 interface UserLogin {

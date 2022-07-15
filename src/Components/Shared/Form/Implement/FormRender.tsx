@@ -1,7 +1,7 @@
 import { Button, Card, Descriptions } from "antd";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
 import Table, { ColumnType } from "antd/lib/table";
-import { ApiRoute, ReportApiRoute } from "Api/ApiRoute";
+import { ApiRoute, ReportApiRoute } from "Api";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import {
   FormModel,

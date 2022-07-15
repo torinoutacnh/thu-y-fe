@@ -13,7 +13,7 @@ import {
   SaveOutlined,
 } from "@ant-design/icons";
 import React, { useEffect, useRef, useState } from "react";
-import { ApiRoute, SealTabApiRoute } from "Api/ApiRoute";
+import { ApiRoute, SealTabApiRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ReportModel, SealValueModel } from "Components/Shared/Models/Form";
 import { useLoading } from "Modules/hooks/useLoading";

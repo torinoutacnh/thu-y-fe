@@ -3,7 +3,7 @@ import { Form, Input, Button, Checkbox } from "antd";
 
 import { ApiRoute, UserApiRoute } from "Api";
 import { RouteEndpoints } from "Components/router/MainRouter";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
 
@@ -19,7 +19,7 @@ interface UserLogin {
 const LoginForm = () => {
   const [userinfo, setUserInfo] = useState<UserLogin>({} as any);
   const navigate = useNavigate();
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const { setLoading } = useLoading();
 
   function validateUser() {
@@ -47,62 +47,68 @@ const LoginForm = () => {
   };
 
   return (
-    <Form
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 8 }}
-      initialValues={{ remember: true }}
-      autoComplete="off"
-      onFinish={Login}
-      style={{ marginTop: 20 }}
-    >
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <h1>Đăng nhập</h1>
-      </Form.Item>
-      <Form.Item
-        label="Tài khoản"
-        name="username"
-        rules={[{ required: true, message: "Nhập tài khoản!" }]}
-      >
-        <Input
-          onChange={(e) => {
-            setUserInfo({ ...userinfo, username: e.target.value });
-          }}
-          value={userinfo.username ?? ""}
-        />
-      </Form.Item>
-
-      <Form.Item
-        label="Mật khẩu"
-        name="password"
-        rules={[{ required: true, message: "Nhập mật khẩu !" }]}
-      >
-        <Input.Password
-          onChange={(e) => {
-            setUserInfo({ ...userinfo, password: e.target.value });
-          }}
-          value={userinfo.password ?? ""}
-        />
-      </Form.Item>
-
-      <Form.Item
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{ offset: 8, span: 16 }}
-      >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
-          Đăng nhập
-        </Button>
-        <Link
-          to={RouteEndpoints.user.register}
-          style={{ textDecoration: "underline", marginLeft: 10 }}
+    <>
+      {user ? (
+        <Navigate to={RouteEndpoints.home.basepath} replace={true} />
+      ) : (
+        <Form
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 8 }}
+          initialValues={{ remember: true }}
+          autoComplete="off"
+          onFinish={Login}
+          style={{ marginTop: 20 }}
         >
-          Chưa có tài khoản ?
-        </Link>
-      </Form.Item>
-    </Form>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <h1>Đăng nhập</h1>
+          </Form.Item>
+          <Form.Item
+            label="Tài khoản"
+            name="username"
+            rules={[{ required: true, message: "Nhập tài khoản!" }]}
+          >
+            <Input
+              onChange={(e) => {
+                setUserInfo({ ...userinfo, username: e.target.value });
+              }}
+              value={userinfo.username ?? ""}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Mật khẩu"
+            name="password"
+            rules={[{ required: true, message: "Nhập mật khẩu !" }]}
+          >
+            <Input.Password
+              onChange={(e) => {
+                setUserInfo({ ...userinfo, password: e.target.value });
+              }}
+              value={userinfo.password ?? ""}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="remember"
+            valuePropName="checked"
+            wrapperCol={{ offset: 8, span: 16 }}
+          >
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
+
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+              Đăng nhập
+            </Button>
+            <Link
+              to={RouteEndpoints.user.register}
+              style={{ textDecoration: "underline", marginLeft: 10 }}
+            >
+              Chưa có tài khoản ?
+            </Link>
+          </Form.Item>
+        </Form>
+      )}
+    </>
   );
 };

@@ -16,7 +16,7 @@ import {
 } from "@ant-design/icons";
 import { AnimalPaging, AnimalModel } from "Components/Shared/Models/Animal";
 import React, { useEffect, useRef, useState } from "react";
-import { AnimalApiRoute, ApiRoute } from "Api";
+import { AnimalApiRoute, ApiRoute, listAnimalApiRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ReportModel } from "Components/Shared/Models/Form";
 import { useLoading } from "Modules/hooks/useLoading";
@@ -26,6 +26,7 @@ const AnimalFields = (props: {
   report?: ReportModel;
   mainFormRef: FormInstance;
 }) => {
+  const { mainFormRef } = props;
   const [report, setReport] = useState<ReportModel>(props.report);
   const [searchAnimal, setSearchAnimal] = useState<AnimalPaging>({
     pageNumber: 0,
@@ -70,11 +71,96 @@ const AnimalFields = (props: {
   }, [searchAnimal.pageNumber, searchAnimal.pageSize]);
 
   const AddAnimal = (add: any) => {
-    return;
+    const val = form.getFieldsValue();
+    console.log(val);
+    if (user) {
+      setConfirmLoading(true);
+      fetch(process.env.REACT_APP_API.concat(listAnimalApiRoute.create), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer ".concat(user.token),
+        },
+        body: JSON.stringify(val),
+      })
+        .then((res) => {
+          if (res.status >= 500) throw new Error("Lỗi hệ thống! Thử lại sau.");
+          if (res.status >= 400)
+            throw new Error(`${res.status} : ${res.statusText}`);
+          return res.json();
+        })
+        .then((data) => {
+          if (data.data) {
+            val.id = data.data;
+            add(val);
+          } else throw new Error(data.message);
+        })
+        .catch((error) => console.log(error))
+        .finally(() => {
+          setShowAddAnimal(false);
+          setConfirmLoading(false);
+          form.resetFields();
+        });
+    }
+  };
+
+  const deleteAnimalItem = (idx: number, remove: any) => {
+    console.log(mainFormRef.getFieldValue("listAnimals"));
+
+    if (user) {
+      setLoading(true);
+      fetch(process.env.REACT_APP_API.concat(listAnimalApiRoute.delete), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer ".concat(user.token),
+        },
+        body: JSON.stringify({
+          id: mainFormRef.getFieldValue("listAnimals")[idx].id,
+        }),
+      })
+        .then((res) => {
+          if (res.status >= 500) throw new Error("Lỗi hệ thống! Thử lại sau.");
+          if (res.status >= 400)
+            throw new Error(`${res.status} : ${res.statusText}`);
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          remove(idx);
+        })
+        .catch((error) => console.log(error))
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   };
 
   const SaveAnimalList = () => {
-    return;
+    if (user) {
+      setLoading(true);
+      fetch(process.env.REACT_APP_API.concat(listAnimalApiRoute.update), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer ".concat(user.token),
+        },
+        body: JSON.stringify(mainFormRef.getFieldsValue()),
+      })
+        .then((res) => {
+          if (res.status >= 500) throw new Error("Lỗi hệ thống! Thử lại sau.");
+          if (res.status >= 400)
+            throw new Error(`${res.status} : ${res.statusText}`);
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => console.log(error))
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   };
 
   return (
@@ -97,6 +183,14 @@ const AnimalFields = (props: {
                   align="baseline"
                 >
                   <>
+                    <Form.Item
+                      key={getkey()}
+                      {...field}
+                      name={"id"}
+                      hidden={true}
+                    >
+                      <Input />
+                    </Form.Item>
                     <Form.Item
                       {...field}
                       key={getkey()}
@@ -126,11 +220,14 @@ const AnimalFields = (props: {
                       rules={[
                         {
                           required: true,
+                          message: "Xin điền số lượng!",
+                        },
+                        {
                           type: "number",
                           transform(value) {
                             return parseFloat(value);
                           },
-                          message: "Hãy điền số lượng!",
+                          message: "Sai định dạng!",
                         },
                       ]}
                     >
@@ -146,9 +243,19 @@ const AnimalFields = (props: {
                     >
                       <Checkbox name="isCar" />
                     </Form.Item>
-                    <Form.Item key={getkey()}>
-                      <MinusCircleOutlined onClick={() => remove(field.name)} />
-                    </Form.Item>
+                    {report ? (
+                      <Form.Item key={getkey()}>
+                        <MinusCircleOutlined
+                          onClick={() => deleteAnimalItem(field.name, remove)}
+                        />
+                      </Form.Item>
+                    ) : (
+                      <Form.Item key={getkey()}>
+                        <MinusCircleOutlined
+                          onClick={() => remove(field.name)}
+                        />
+                      </Form.Item>
+                    )}
                   </>
                 </Space>
               ))}
@@ -178,7 +285,7 @@ const AnimalFields = (props: {
                             Hủy bỏ
                           </Button>
                           <Button
-                            form="create-seal-form"
+                            form="create-animal-form"
                             type="primary"
                             loading={confirmLoading}
                             htmlType="submit"
@@ -189,7 +296,7 @@ const AnimalFields = (props: {
                       }
                     >
                       <Form
-                        id="create-seal-form"
+                        id="create-animal-form"
                         layout="vertical"
                         form={form}
                         onFinish={() => {
@@ -204,16 +311,20 @@ const AnimalFields = (props: {
                         >
                           <Input />
                         </Form.Item>
-                        <Form.Item name={"id"} hidden={true}>
+                        <Form.Item
+                          name={"id"}
+                          hidden={true}
+                          initialValue={null}
+                        >
                           <Input />
                         </Form.Item>
                         <Form.Item
-                          label={"Loại vé"}
-                          name={"sealName"}
+                          label={"Động vật"}
+                          name={"animalId"}
                           rules={[
                             {
                               required: true,
-                              message: "Chọn loại vé!",
+                              message: "Chọn động vật!",
                             },
                           ]}
                         >
@@ -226,17 +337,30 @@ const AnimalFields = (props: {
                           </Select>
                         </Form.Item>
                         <Form.Item
-                          label={"Mã vé"}
-                          name={"sealCode"}
+                          label={"Số lượng"}
+                          name={"amount"}
                           rules={[
                             {
                               required: true,
-                              message: "Nhập mã vé!",
-                              type: "string",
+                              message: "Xin điền số lượng!",
+                            },
+                            {
+                              type: "number",
+                              transform(value) {
+                                return parseFloat(value);
+                              },
+                              message: "Sai định dạng!",
                             },
                           ]}
                         >
-                          <Input />
+                          <Input type={"number"} />
+                        </Form.Item>
+                        <Form.Item
+                          label={"Đơn vị"}
+                          name={"isCar"}
+                          valuePropName="checked"
+                        >
+                          <Checkbox name="isCar">Xe</Checkbox>
                         </Form.Item>
                       </Form>
                     </Modal>

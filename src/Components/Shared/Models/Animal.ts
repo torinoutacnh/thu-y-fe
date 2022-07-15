@@ -19,4 +19,12 @@ interface AnimalPaging{
     sex?: number,
 }
 
+  ///////////////////
+  enum AnimalSexType{
+    "Giống đực"=1,
+    "Giống cái" =2,
+  }
+  export {AnimalSexType}
+  ///////////////////
+
 export type {AnimalModel,AnimalPaging}

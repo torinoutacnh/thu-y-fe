@@ -84,6 +84,16 @@ const SideBar = () => {
             navigate(RouteEndpoints.staff.basepath);
           },
         },
+        //////////////////////////////
+        {
+          label: "Danh sách động vật",
+          key: 3,
+          icon: <CalendarOutlined />,
+          onClick: () => {
+            navigate(RouteEndpoints.animal.basepath);
+          },
+        },
+        ///////////////////////////////
         { label: "Quản lý đơn giá", key: getKey(), icon: <CalendarOutlined /> },
         { label: "Quản lý lò mổ", key: getKey(), icon: <CalendarOutlined /> },
         { label: "Doanh thu tổng", key: getKey(), icon: <CalendarOutlined /> },

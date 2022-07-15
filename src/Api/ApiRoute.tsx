@@ -41,7 +41,6 @@ export const ApiRoute = {
   get createSeal() {
     return this.sealtabBase.concat("/create");
   },
-  getanimals: "/animal",
   getseals: "/sealconfig",
   createsealtab: "/sealconfig",
   getUser: "/user/get-user",
@@ -49,4 +48,10 @@ export const ApiRoute = {
   deleteUser: "/user/delete-user",
   createUser: "/user/create-user",
   updateUser: "/user/update-user",
+  ///////////////////////////////////////////
+  getanimals: "/animal",
+  createAnimal: "/animal/create-animal",
+  deleteAnimal: "/animal/delete-animal",
+  updateAnimal: "/animal/update-animal",
+
 };

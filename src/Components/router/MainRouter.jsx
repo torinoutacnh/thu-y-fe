@@ -1,4 +1,5 @@
 import Abattoir from "Components/Pages/Abattoir/Abattoir";
+import AnimalHome from "Components/Pages/Animal";
 import HomePage from "Components/Pages/Home/Home";
 import LoginPage from "Components/Pages/Login/Login";
 import Quarantine from "Components/Pages/Quarantine";
@@ -58,6 +59,27 @@ export class RouteEndpoints {
       return this.basepath.concat("/update");
     },
   };
+
+  //////////////////////////////////////////////////
+  static animal = {
+    get basepath() {
+      return "/dong-vat";
+    },
+    get updateAnimal() {
+      return this.basepath.concat("/sua-dong-vat/:id");
+    },
+    // get delete() {
+    //   return this.basepath.concat("/:id");
+    // },
+    // get create() {
+    //   return this.basepath.concat("/create");
+    // },
+    // get update() {
+    //   return this.basepath.concat("/update");
+    // },
+  };
+///////////////////////////////////////////////////
+
 }
 
 export default function MainRouter() {
@@ -150,7 +172,20 @@ export default function MainRouter() {
         }
         key="staff-update"
       />
+      {/* /////////////////////////////////////////////// */}
 
+      <Route
+        exact
+        path={RouteEndpoints.animal.basepath}
+        element={
+          <PrivateRoute path={RouteEndpoints.user.login}>
+            <AnimalHome />
+          </PrivateRoute>
+        }
+        key="staff"
+      />
+
+      {/* /////////////////////////////////////////////// */}
       <Route path="*" element={<h1>Not found</h1>} />
     </Routes>
   );

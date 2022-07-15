@@ -55,4 +55,8 @@ export const ApiRoute = {
   deleteUser: "/user/delete-user",
   createUser: "/user/create-user",
   updateUser: "/user/update-user",
+  ///////////////////////////////////////////
+  createAnimal: "/animal/create-animal",
+  deleteAnimal: "/animal/delete-animal",
+  updateAnimal: "/animal/update-animal",
 };

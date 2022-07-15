@@ -22,7 +22,7 @@ const RenderForm: React.FC<RenderProps> = ({
   submitmethod,
   isQuarantined,
 }) => {
-  const [formref] = Form.useForm<any>();
+  const [formref] = Form.useForm<ReportModel>();
   const { user } = useAuth();
   const navigate = useNavigate();
   const { setLoading } = useLoading();
@@ -74,7 +74,7 @@ const RenderForm: React.FC<RenderProps> = ({
     if (reportvalue) {
       formref.resetFields(), [reportvalue];
     }
-  });
+  }, [reportvalue?.id, form?.id]);
 
   return (
     <>
@@ -86,12 +86,10 @@ const RenderForm: React.FC<RenderProps> = ({
           form={formref}
           initialValues={reportvalue}
         >
-          <Form.Item wrapperCol={{ span: 24 }}>
-            <Col>
-              <h2>
-                {form.formCode} - {form.formNumber}
-              </h2>
-            </Col>
+          <Form.Item>
+            <h2>
+              {form.formCode} - {form.formNumber}
+            </h2>
           </Form.Item>
           <Form.Item name={"id"} initialValue={reportvalue?.id} hidden={true}>
             <Input />
@@ -115,9 +113,9 @@ const RenderForm: React.FC<RenderProps> = ({
           <Form.Item name={"type"} initialValue={0} hidden={true}>
             <Input />
           </Form.Item>
-          <AnimalFields report={reportvalue} />
+          <AnimalFields report={reportvalue} mainFormRef={formref} />
           {isQuarantined && isQuarantined === ReportType.QuarantineReport && (
-            <SealFields report={reportvalue} />
+            <SealFields mainFormRef={formref} report={reportvalue} />
           )}
           <RenderFormAttrs form={form} />
           {reportvalue ? (

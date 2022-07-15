@@ -1,62 +1,102 @@
-export const ApiRoute = {
-  get sealtabBase() {
+const SealTabApiRoute = {
+  get Base() {
     return "/sealtab";
   },
-  get reportBase() {
+  get create() {
+    return this.Base.concat("/create");
+  },
+  get delete() {
+    return this.Base.concat("/delete");
+  },
+  get update() {
+    return this.Base.concat("/update");
+  },
+};
+
+const ReportApiRoute = {
+  get Base() {
     return "/report";
   },
-  get userBase() {
-    return "/user";
+  get create() {
+    return this.Base.concat("/create-report");
   },
-  get register() {
-    return this.userBase.concat("/create-user");
+  get update() {
+    return this.Base.concat("/update-report");
   },
-  get login() {
-    return this.userBase.concat("/login");
+  get getreport() {
+    return this.Base;
   },
+  get getSingleReport() {
+    return this.Base.concat("/single-report");
+  },
+  get delete() {
+    return this.Base.concat("/delete");
+  },
+};
+
+const FormApiRoute = {
   get formBase() {
     return "/form";
   },
   get getform() {
     return this.formBase;
   },
-  get createReport() {
-    return this.reportBase.concat("/create-report");
+};
+
+const UserApiRoute = {
+  get Base() {
+    return "/user";
   },
-  get updateReportAttrs() {
-    return this.reportBase.concat("/update-report");
+  get register() {
+    return this.Base.concat("/create-user");
   },
-  get createReportSeal() {
-    return this.sealtabBase.concat("/create");
+  get login() {
+    return this.Base.concat("/login");
   },
-  get getreport() {
-    return this.reportBase;
+  get getUser() {
+    return this.Base.concat("/get-user");
   },
-  get getSingleReport() {
-    return this.reportBase.concat("/single-report");
+  get getSchedule() {
+    return this.Base.concat("/get-user-schedule");
   },
-  get deleteReport() {
-    return this.reportBase.concat("/delete");
+  get create() {
+    return this.Base.concat("/create-user");
   },
-  get createSeal() {
-    return this.sealtabBase.concat("/create");
+  get update() {
+    return this.Base.concat("/update-user");
   },
-  get deleteSeal() {
-    return this.sealtabBase.concat("/delete");
+  get delete() {
+    return this.Base.concat("/delete-user");
   },
-  get updateSeal() {
-    return this.sealtabBase.concat("/update");
+};
+
+const AnimalApiRoute = {
+  get Base() {
+    return "/animal";
   },
-  getanimals: "/animal",
+  get getanimals() {
+    return this.Base;
+  },
+  get create() {
+    return this.Base.concat("/create-animal");
+  },
+  get update() {
+    return this.Base.concat("/update-animal");
+  },
+  get delete() {
+    return this.Base.concat("/delete-animal");
+  },
+};
+
+export {
+  SealTabApiRoute,
+  ReportApiRoute,
+  FormApiRoute,
+  UserApiRoute,
+  AnimalApiRoute,
+};
+
+export const ApiRoute = {
   getseals: "/sealconfig",
   createsealtab: "/sealconfig",
-  getUser: "/user/get-user",
-  getSchedule: "/schedule/get-user-schedule",
-  deleteUser: "/user/delete-user",
-  createUser: "/user/create-user",
-  updateUser: "/user/update-user",
-  ///////////////////////////////////////////
-  createAnimal: "/animal/create-animal",
-  deleteAnimal: "/animal/delete-animal",
-  updateAnimal: "/animal/update-animal",
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Table, Button, Input, Descriptions, PageHeader } from "antd";
-import { ApiRoute } from "Api/ApiRoute";
+import { ApiRoute, UserApiRoute } from "Api/ApiRoute";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
 import { RouteEndpoints } from "Components/router/MainRouter";
@@ -29,7 +29,7 @@ const StaffHome = () => {
     if (user) {
       setLoading(true);
       fetch(
-        process.env.REACT_APP_API.concat(ApiRoute.getUser, "?") +
+        process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
           new URLSearchParams(page as any),
         {
           method: "GET",
@@ -49,7 +49,7 @@ const StaffHome = () => {
   const deleteUserHandler = (id: string) => {
     setLoading(true);
     fetch(
-      process.env.REACT_APP_API.concat(ApiRoute.deleteUser, "?") +
+      process.env.REACT_APP_API.concat(UserApiRoute.delete, "?") +
         new URLSearchParams({ id }),
       {
         method: "POST",

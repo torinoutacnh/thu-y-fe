@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal, Radio } from "antd";
-import { ApiRoute } from "Api/ApiRoute";
+import { ApiRoute, UserApiRoute } from "Api/ApiRoute";
 import { RoleType, SexType } from "Components/Shared/Models/User";
 import { useAuth } from "Modules/hooks/useAuth";
 import { PlusOutlined } from "@ant-design/icons";
@@ -23,7 +23,7 @@ function CreateStaff() {
   const CreateUser = () => {
     if (user) {
       setConfirmLoading(true);
-      fetch(process.env.REACT_APP_API.concat(ApiRoute.createUser), {
+      fetch(process.env.REACT_APP_API.concat(UserApiRoute.create), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

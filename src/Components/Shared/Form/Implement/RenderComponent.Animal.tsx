@@ -16,7 +16,7 @@ import {
 } from "@ant-design/icons";
 import { AnimalPaging, AnimalModel } from "Components/Shared/Models/Animal";
 import React, { useEffect, useRef, useState } from "react";
-import { ApiRoute } from "Api/ApiRoute";
+import { AnimalApiRoute, ApiRoute } from "Api/ApiRoute";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ReportModel } from "Components/Shared/Models/Form";
 import { useLoading } from "Modules/hooks/useLoading";
@@ -52,7 +52,7 @@ const AnimalFields = (props: {
   useEffect(() => {
     if (searchAnimal) {
       setLoading(true);
-      fetch(process.env.REACT_APP_API.concat(ApiRoute.getanimals), {
+      fetch(process.env.REACT_APP_API.concat(AnimalApiRoute.getanimals), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

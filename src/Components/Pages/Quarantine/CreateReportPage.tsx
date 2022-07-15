@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RenderForm } from "Components/Shared/Form";
 import { useAuth } from "Modules/hooks/useAuth";
-import { ApiRoute } from "Api/ApiRoute";
+import { ApiRoute, FormApiRoute } from "Api/ApiRoute";
 import { FormModel } from "Components/Shared/Models/Form";
 import { ReportType } from "Components/Shared/Form/Define/FormInterface";
 import { useLoading } from "Modules/hooks/useLoading";
@@ -16,7 +16,7 @@ export default function CreateReportPage() {
     if (user?.token && search) {
       setLoading(true);
       fetch(
-        process.env.REACT_APP_API.concat(ApiRoute.getform, "?") +
+        process.env.REACT_APP_API.concat(FormApiRoute.getform, "?") +
           new URLSearchParams(search),
         {
           method: "GET",

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 
-import { ApiRoute } from "Api/ApiRoute";
+import { ApiRoute, UserApiRoute } from "Api/ApiRoute";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "Modules/hooks/useAuth";
@@ -10,7 +10,6 @@ import { useLoading } from "Modules/hooks/useLoading";
 export default function LoginPage() {
   return (
     <>
-      <h1 style={{ width: "100%", textAlign: "center" }}>Đăng nhập</h1>
       <LoginForm />
     </>
   );
@@ -35,7 +34,7 @@ const LoginForm = () => {
   const Login = async () => {
     if (!validateUser()) return;
     setLoading(true);
-    fetch(process.env.REACT_APP_API.concat(ApiRoute.login), {
+    fetch(process.env.REACT_APP_API.concat(UserApiRoute.login), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,13 +52,16 @@ const LoginForm = () => {
 
   return (
     <Form
-      labelCol={{ span: 9 }}
+      labelCol={{ span: 8 }}
       wrapperCol={{ span: 8 }}
       initialValues={{ remember: true }}
       autoComplete="off"
       onFinish={Login}
       style={{ marginTop: 20 }}
     >
+      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <h1>Đăng nhập</h1>
+      </Form.Item>
       <Form.Item
         label="Tài khoản"
         name="username"
@@ -89,12 +91,12 @@ const LoginForm = () => {
       <Form.Item
         name="remember"
         valuePropName="checked"
-        wrapperCol={{ offset: 9, span: 17 }}
+        wrapperCol={{ offset: 8, span: 16 }}
       >
         <Checkbox>Remember me</Checkbox>
       </Form.Item>
 
-      <Form.Item wrapperCol={{ offset: 9, span: 17 }}>
+      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
           Đăng nhập
         </Button>

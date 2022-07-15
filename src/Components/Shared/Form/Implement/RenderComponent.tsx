@@ -14,7 +14,7 @@ import { RenderFormAttrs } from "./RenderComponent.FormAttr";
 import { useNavigate } from "react-router-dom";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import { useLoading } from "Modules/hooks/useLoading";
-import { ApiRoute } from "Api/ApiRoute";
+import { ApiRoute, ReportApiRoute } from "Api/ApiRoute";
 
 const RenderForm: React.FC<RenderProps> = ({
   form,
@@ -31,7 +31,7 @@ const RenderForm: React.FC<RenderProps> = ({
     console.log(formref.getFieldsValue());
     if (user?.token) {
       setLoading(true);
-      fetch(process.env.REACT_APP_API.concat(ApiRoute.createReport), {
+      fetch(process.env.REACT_APP_API.concat(ReportApiRoute.create), {
         method: submitmethod,
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +53,7 @@ const RenderForm: React.FC<RenderProps> = ({
   function UpdateAttribute() {
     if (user?.token) {
       setLoading(true);
-      fetch(process.env.REACT_APP_API.concat(ApiRoute.updateReportAttrs), {
+      fetch(process.env.REACT_APP_API.concat(ReportApiRoute.update), {
         method: submitmethod,
         headers: {
           "Content-Type": "application/json",

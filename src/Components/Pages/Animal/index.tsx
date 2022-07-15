@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Table, Button, Input, Descriptions, PageHeader } from "antd";
-import { ApiRoute } from "Api/ApiRoute";
+import { AnimalApiRoute, ApiRoute } from "Api/ApiRoute";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
 import { RouteEndpoints } from "Components/router/MainRouter";
@@ -27,7 +27,7 @@ const AnimalHome = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(process.env.REACT_APP_API.concat(ApiRoute.getanimals), {
+    fetch(process.env.REACT_APP_API.concat(AnimalApiRoute.getanimals), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -204,7 +204,7 @@ const AnimalHome = () => {
     };
 
     setLoading(true);
-    fetch(process.env.REACT_APP_API.concat(ApiRoute.deleteAnimal), {
+    fetch(process.env.REACT_APP_API.concat(AnimalApiRoute.delete), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "Modules/hooks/useAuth";
-import { ApiRoute } from "Api/ApiRoute";
+import { ApiRoute, FormApiRoute, ReportApiRoute } from "Api/ApiRoute";
 import { useParams } from "react-router-dom";
 import { RenderForm } from "Components/Shared/Form";
 import {
@@ -20,7 +20,7 @@ export default function UpdateReportPage() {
   useEffect(() => {
     if (user?.token && search.code) {
       fetch(
-        process.env.REACT_APP_API.concat(ApiRoute.getform, "?") +
+        process.env.REACT_APP_API.concat(FormApiRoute.getform, "?") +
           new URLSearchParams(search),
         {
           method: "GET",
@@ -41,7 +41,7 @@ export default function UpdateReportPage() {
   useEffect(() => {
     if (id && form && user?.token) {
       fetch(
-        process.env.REACT_APP_API.concat(ApiRoute.getSingleReport, "?") +
+        process.env.REACT_APP_API.concat(ReportApiRoute.getSingleReport, "?") +
           new URLSearchParams({ reportId: id }),
         {
           method: "GET",

@@ -13,7 +13,7 @@ import {
   SaveOutlined,
 } from "@ant-design/icons";
 import React, { useEffect, useRef, useState } from "react";
-import { ApiRoute } from "Api/ApiRoute";
+import { ApiRoute, SealTabApiRoute } from "Api/ApiRoute";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ReportModel, SealValueModel } from "Components/Shared/Models/Form";
 import { useLoading } from "Modules/hooks/useLoading";
@@ -50,7 +50,7 @@ const SealFields = (props: {
     const val = form.getFieldsValue();
     if (user) {
       setConfirmLoading(true);
-      fetch(process.env.REACT_APP_API.concat(ApiRoute.createSeal), {
+      fetch(process.env.REACT_APP_API.concat(SealTabApiRoute.create), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const SealFields = (props: {
   const deleteTag = (idx: number, remove: any) => {
     if (user) {
       setLoading(true);
-      fetch(process.env.REACT_APP_API.concat(ApiRoute.deleteSeal), {
+      fetch(process.env.REACT_APP_API.concat(SealTabApiRoute.delete), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -112,7 +112,7 @@ const SealFields = (props: {
   const SaveSealTab = () => {
     if (user) {
       setLoading(true);
-      fetch(process.env.REACT_APP_API.concat(ApiRoute.updateSeal), {
+      fetch(process.env.REACT_APP_API.concat(SealTabApiRoute.update), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

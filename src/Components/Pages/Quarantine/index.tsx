@@ -1,4 +1,4 @@
-import { ApiRoute } from "Api/ApiRoute";
+import { ApiRoute, FormApiRoute, ReportApiRoute } from "Api/ApiRoute";
 import { useAuth } from "Modules/hooks/useAuth";
 import React, { useState, useEffect } from "react";
 
@@ -34,7 +34,7 @@ const Quarantine = () => {
     if (user) {
       setLoading(true);
       fetch(
-        process.env.REACT_APP_API.concat(ApiRoute.getform, "?") +
+        process.env.REACT_APP_API.concat(FormApiRoute.getform, "?") +
           new URLSearchParams(formQuery),
         {
           method: "GET",
@@ -60,7 +60,7 @@ const Quarantine = () => {
   useEffect(() => {
     if (form && user?.token && query) {
       setLoading(true);
-      fetch(process.env.REACT_APP_API.concat(ApiRoute.getreport), {
+      fetch(process.env.REACT_APP_API.concat(ReportApiRoute.getreport), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

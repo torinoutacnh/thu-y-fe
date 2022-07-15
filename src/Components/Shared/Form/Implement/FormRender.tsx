@@ -1,7 +1,7 @@
 import { Button, Card, Descriptions } from "antd";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
 import Table, { ColumnType } from "antd/lib/table";
-import { ApiRoute } from "Api/ApiRoute";
+import { ApiRoute, ReportApiRoute } from "Api/ApiRoute";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import {
   FormModel,
@@ -110,7 +110,7 @@ const RenderCards = (props: { form: FormModel; reportobjs: any[] }) => {
     function deletereport(id: string) {
       if (user) {
         fetch(
-          process.env.REACT_APP_API.concat(ApiRoute.deleteReport, "?") +
+          process.env.REACT_APP_API.concat(ReportApiRoute.delete, "?") +
             new URLSearchParams({ id: id }),
           {
             method: "GET",
@@ -206,7 +206,7 @@ const RenderColumns = (form: FormModel) => {
   function deletereport(id: string) {
     if (user) {
       fetch(
-        process.env.REACT_APP_API.concat(ApiRoute.deleteReport, "?") +
+        process.env.REACT_APP_API.concat(ReportApiRoute.delete, "?") +
           new URLSearchParams({ id: id }),
         {
           method: "GET",

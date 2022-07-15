@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal, Radio, notification } from "antd";
-import { ApiRoute } from "Api/ApiRoute";
+import { AnimalApiRoute, ApiRoute } from "Api/ApiRoute";
 import { AnimalSexType } from "Components/Shared/Models/Animal";
 import { useAuth } from "Modules/hooks/useAuth";
 import { PlusOutlined } from "@ant-design/icons";
@@ -45,7 +45,7 @@ function CreateAnimal() {
   const CreateAnimalFinish = () => {
     if (user) {
       setConfirmLoading(true);
-      fetch(process.env.REACT_APP_API.concat(ApiRoute.createAnimal), {
+      fetch(process.env.REACT_APP_API.concat(AnimalApiRoute.create), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

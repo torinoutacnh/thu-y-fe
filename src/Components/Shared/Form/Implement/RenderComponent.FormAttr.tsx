@@ -13,7 +13,7 @@ function RenderFormAttrs(props: { form: FormModel }) {
   return (
     <Row key={keyref.current++}>
       {form.attributes
-        .sort((x) => -x.sortNo)
+        .sort((x, y) => x.sortNo - y.sortNo)
         .map((attr, idx) => {
           return (
             <Col

@@ -18,7 +18,6 @@ interface UserLoginModel {
   account?: string;
   role?: number;
   userId?: string;
-  expired: Date;
 }
 
 enum RoleType{

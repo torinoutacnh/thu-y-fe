@@ -3,6 +3,7 @@ import React from "react";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import { useAuth } from "Modules/hooks/useAuth";
 import { publicEndpoints } from "Components/router/PublicRoutes";
+import Cookies from "js-cookie";
 
 export { PrivateOutlet, PrivateRoute };
 

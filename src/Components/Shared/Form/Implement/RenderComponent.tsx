@@ -1,12 +1,9 @@
-import { Input, Col, Form, Button } from "antd";
+import { Input, Col, Form, Button, Space, Row } from "antd";
 import { RenderProps, ReportType } from "../Define/FormInterface";
 import React, { useEffect } from "react";
 import { useAuth } from "Modules/hooks/useAuth";
-import {
-  AttributeModel,
-  ReportModel,
-  UpdateReportAttrsModel,
-} from "Components/Shared/Models/Form";
+import { ReportModel } from "Components/Shared/Models/Form";
+import { LeftOutlined, SaveOutlined, PlusOutlined } from "@ant-design/icons";
 
 import { AnimalFields } from "./RenderComponent.Animal";
 import { SealFields } from "./RenderComponent.Seal";
@@ -118,23 +115,36 @@ const RenderForm: React.FC<RenderProps> = ({
             <SealFields mainFormRef={formref} report={reportvalue} />
           )}
           <RenderFormAttrs form={form} />
-          {reportvalue ? (
-            <Form.Item wrapperCol={{ offset: 11 }}>
-              <Button
-                type="primary"
-                htmlType="button"
-                onClick={UpdateAttribute}
-              >
-                Cập nhật
-              </Button>
+          <Row align="middle" justify="center">
+            <Form.Item>
+              <Space>
+                <Button
+                  icon={<LeftOutlined />}
+                  onClick={() => navigate(quarantineEndpoints.home)}
+                >
+                  Trở về
+                </Button>
+                {reportvalue ? (
+                  <Button
+                    icon={<SaveOutlined />}
+                    type="primary"
+                    htmlType="button"
+                    onClick={UpdateAttribute}
+                  >
+                    Cập nhật
+                  </Button>
+                ) : (
+                  <Button
+                    icon={<PlusOutlined />}
+                    type="primary"
+                    htmlType="submit"
+                  >
+                    Tạo báo cáo
+                  </Button>
+                )}
+              </Space>
             </Form.Item>
-          ) : (
-            <Form.Item wrapperCol={{ offset: 11 }}>
-              <Button type="primary" htmlType="submit">
-                Lưu
-              </Button>
-            </Form.Item>
-          )}
+          </Row>
         </Form>
       )}
     </>

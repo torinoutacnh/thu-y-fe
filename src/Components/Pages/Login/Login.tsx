@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, notification } from "antd";
 
 import { UserApiRoute } from "Api";
 import { RouteEndpoints } from "Components/router/MainRouter";
@@ -7,6 +7,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
 import { publicEndpoints } from "Components/router/PublicRoutes";
+import { IconType } from "antd/lib/notification";
+import Cookies from "js-cookie";
 
 export default function LoginPage() {
   return <LoginForm />;
@@ -28,6 +30,21 @@ const LoginForm = () => {
     return true;
   }
 
+  const openNotification = (
+    message: string,
+    type: IconType,
+    onClose?: any,
+    body?: string
+  ) => {
+    notification.open({
+      duration: 2.5,
+      message: message,
+      description: body,
+      type: type,
+      onClose: onClose,
+    });
+  };
+
   const Login = async () => {
     if (!validateUser()) return;
     setLoading(true);
@@ -38,19 +55,28 @@ const LoginForm = () => {
       },
       body: JSON.stringify(userinfo),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status >= 500)
+          throw new Error("Lỗi hệ thống. Vui lòng thử lại sau!");
+        if (res.status >= 400) throw new Error("Sai tài khoản/mật khẩu!");
+        return res.json();
+      })
       .then((data) => {
+        openNotification("Đăng nhập thành công.", "success");
         setUser(data.data);
         navigate(RouteEndpoints.home.basepath, { replace: true });
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        openNotification(error.message, "error", console.log(error));
+        console.log(error);
+      })
       .finally(() => setLoading(false));
   };
 
   return (
     <>
       {user ? (
-        <Navigate to={RouteEndpoints.home.basepath} replace={true} />
+        <Navigate to={publicEndpoints.home} replace />
       ) : (
         <Form
           labelCol={{ span: 8 }}

@@ -1,3 +1,5 @@
+import { useQuery } from "react-query";
+
 const UserApiRoute = {
   get Base() {
     return "/user";

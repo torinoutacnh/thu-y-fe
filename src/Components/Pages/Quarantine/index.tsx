@@ -6,7 +6,7 @@ import { getKeyThenIncreaseKey } from "antd/lib/message";
 import { RenderReportTable } from "Components/Shared/Form/Implement/FormRender";
 import { Button, PageHeader } from "antd";
 import { FileAddOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import {
   ReportModel,
@@ -16,6 +16,8 @@ import {
 import { useLoading } from "Modules/hooks/useLoading";
 import { ConvertDate } from "Utils/DateTimeUtils";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
+import Cookies from "js-cookie";
+import { publicEndpoints } from "Components/router/PublicRoutes";
 
 const Quarantine = () => {
   const [reports, setReports] = useState<ReportModel[]>([]);
@@ -31,6 +33,7 @@ const Quarantine = () => {
   const [formQuery, setFormQuery] = useState({
     code: process.env.REACT_APP_CODE_KIEM_DICH,
   });
+
   useEffect(() => {
     if (user) {
       setLoading(true);

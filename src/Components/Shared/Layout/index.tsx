@@ -1,4 +1,5 @@
 import { Layout, Spin } from "antd";
+import Cookies from "js-cookie";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
 import React from "react";

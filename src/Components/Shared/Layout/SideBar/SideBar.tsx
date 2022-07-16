@@ -13,6 +13,8 @@ import {
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { RouteEndpoints } from "Components/router/MainRouter";
+import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
+import { staffEndpoints } from "Components/router/StaffRoutes";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -44,7 +46,7 @@ const SideBar = () => {
           label: "Báo cáo kiểm dịch",
           key: getKey(),
           onClick: () => {
-            navigate(RouteEndpoints.quarantine.basepath);
+            navigate(quarantineEndpoints.home);
           },
         },
         {
@@ -81,7 +83,7 @@ const SideBar = () => {
           key: 2,
           icon: <TeamOutlined />,
           onClick: () => {
-            navigate(RouteEndpoints.staff.basepath);
+            navigate(staffEndpoints.home);
           },
         },
         //////////////////////////////

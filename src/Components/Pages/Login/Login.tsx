@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 
-import { ApiRoute, UserApiRoute } from "Api";
+import { UserApiRoute } from "Api";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
+import { publicEndpoints } from "Components/router/PublicRoutes";
 
 export default function LoginPage() {
   return <LoginForm />;
@@ -23,7 +24,7 @@ const LoginForm = () => {
   const { setLoading } = useLoading();
 
   function validateUser() {
-    if (!userinfo.username || !userinfo.password) return false;
+    if (!userinfo?.username || !userinfo?.password) return false;
     return true;
   }
 
@@ -101,7 +102,7 @@ const LoginForm = () => {
               Đăng nhập
             </Button>
             <Link
-              to={RouteEndpoints.user.register}
+              to={publicEndpoints.register}
               style={{ textDecoration: "underline", marginLeft: 10 }}
             >
               Chưa có tài khoản ?

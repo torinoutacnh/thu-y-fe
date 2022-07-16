@@ -1,17 +1,7 @@
 import { TableProps } from "antd";
-import React from "react";
 import { RenderProps } from "./Define/FormInterface";
-import {
-  RenderReportTable,
-  CreateReportModel,
-  CreateReportValueModel,
-} from "./Implement/FormRender";
 import { RenderForm } from "./Implement/RenderComponent";
+import React from "react";
 
-export {
-  RenderForm,
-  CreateReportModel,
-  RenderReportTable,
-  CreateReportValueModel,
-};
+export { RenderForm };
 export type { RenderProps, TableProps };

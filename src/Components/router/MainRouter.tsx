@@ -1,0 +1,91 @@
+import Abattoir from "Components/Pages/Abattoir";
+import AnimalHome from "Components/Pages/Animal";
+import HomePage from "Components/Pages/Home/Home";
+
+import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";
+import { Routes, Route } from "react-router-dom";
+import { publicEndpoints, PublicRoutes } from "./PublicRoutes";
+import { QuarantineRoutes } from "./QuarantineRoutes";
+import { StaffRoutes } from "./StaffRoutes";
+import React from "react";
+
+export class RouteEndpoints {
+  static home = { basepath: "/" };
+  static abattoir = {
+    get basepath() {
+      return "/lo-mo";
+    },
+    get detail() {
+      return this.basepath.concat("/:id");
+    },
+    get create() {
+      return this.basepath.concat("/create");
+    },
+    get update() {
+      return this.basepath.concat("/update");
+    },
+  };
+
+  //////////////////////////////////////////////////
+  static animal = {
+    get basepath() {
+      return "/dong-vat";
+    },
+    get updateAnimal() {
+      return this.basepath.concat("/sua-dong-vat/:id");
+    },
+    // get delete() {
+    //   return this.basepath.concat("/:id");
+    // },
+    // get create() {
+    //   return this.basepath.concat("/create");
+    // },
+    // get update() {
+    //   return this.basepath.concat("/update");
+    // },
+  };
+  ///////////////////////////////////////////////////
+}
+
+export default function MainRouter() {
+  return (
+    <Routes>
+      <Route
+        path={RouteEndpoints.home.basepath}
+        element={
+          <PrivateRoute path={publicEndpoints.login}>
+            <HomePage />
+          </PrivateRoute>
+        }
+        key="home-page"
+      />
+      {PublicRoutes.map((route) => route)}
+      {QuarantineRoutes.map((route) => route)}
+      <Route
+        path={RouteEndpoints.abattoir.basepath}
+        element={
+          <PrivateRoute path={publicEndpoints.login}>
+            <Abattoir />
+          </PrivateRoute>
+        }
+        key="abattoir-page"
+      />
+      {StaffRoutes.map((route) => route)}
+      {/* /////////////////////////////////////////////// */}
+
+      <Route
+        path={RouteEndpoints.animal.basepath}
+        element={
+          <PrivateRoute path={publicEndpoints.login}>
+            <AnimalHome />
+          </PrivateRoute>
+        }
+        key="staff"
+      />
+
+      {/* /////////////////////////////////////////////// */}
+
+      <Route path="*" element={<h1>Not found</h1>} />
+    </Routes>
+  );
+}

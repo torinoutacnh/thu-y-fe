@@ -3,6 +3,7 @@ import { Form, Input, Button, Radio } from "antd";
 import { Link } from "react-router-dom";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import { ApiRoute, UserApiRoute } from "Api";
+import { publicEndpoints } from "Components/router/PublicRoutes";
 
 export default function RegisterPage() {
   return (
@@ -197,7 +198,7 @@ const RegisterForm = () => {
           Đăng ký
         </Button>
         <Link
-          to={RouteEndpoints.user.login}
+          to={publicEndpoints.login}
           style={{ textDecoration: "underline", marginLeft: 10 }}
         >
           Đã có tài khoản ?

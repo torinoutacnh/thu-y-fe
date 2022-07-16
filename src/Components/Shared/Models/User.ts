@@ -13,10 +13,12 @@ interface UserModel{
 
 interface UserLoginModel {
   token?: string;
+  refreshToken?:string;
   name?: string;
   account?: string;
   role?: number;
   userId?: string;
+  expired: Date;
 }
 
 enum RoleType{

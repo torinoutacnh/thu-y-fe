@@ -11,6 +11,7 @@ import { useLoading } from "Modules/hooks/useLoading";
 import useWindowSize from "Modules/hooks/useWindowSize";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
 import CreateStaff from "./CreateStaff";
+import { staffEndpoints } from "Components/router/StaffRoutes";
 
 const StaffHome = () => {
   const [liststaff, setListStaff] = useState<UserModel[]>([]);
@@ -107,7 +108,7 @@ const StaffHome = () => {
       key: 8,
       render: (record) => (
         <>
-          <Link to={RouteEndpoints.staff.updateStaff.replace(":id", record.id)}>
+          <Link to={staffEndpoints.updateStaff.replace(":id", record.id)}>
             <Button type="link" color="blue">
               Cập nhật
             </Button>
@@ -182,7 +183,7 @@ const StaffHome = () => {
         </Descriptions.Item>
         <Descriptions.Item label={"Xử lý"}>
           <>
-            <Link to={RouteEndpoints.staff.updateStaff.replace(":id", data.id)}>
+            <Link to={staffEndpoints.updateStaff.replace(":id", data.id)}>
               <Button type="link" color="blue">
                 Cập nhật
               </Button>

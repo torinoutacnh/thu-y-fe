@@ -17,7 +17,7 @@ import { useLoading } from "Modules/hooks/useLoading";
 import { ConvertDate } from "Utils/DateTimeUtils";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 
-const Quarantine = () => {
+const Abattoir = () => {
   const [reports, setReports] = useState<ReportModel[]>([]);
   const [form, setForm] = useState<FormModel>();
   const { user } = useAuth();
@@ -123,4 +123,4 @@ const Quarantine = () => {
   );
 };
 
-export default Quarantine;
+export default Abattoir;

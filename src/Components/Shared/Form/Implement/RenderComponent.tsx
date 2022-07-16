@@ -12,9 +12,9 @@ import { AnimalFields } from "./RenderComponent.Animal";
 import { SealFields } from "./RenderComponent.Seal";
 import { RenderFormAttrs } from "./RenderComponent.FormAttr";
 import { useNavigate } from "react-router-dom";
-import { RouteEndpoints } from "Components/router/MainRouter";
 import { useLoading } from "Modules/hooks/useLoading";
 import { ApiRoute, ReportApiRoute } from "Api";
+import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 
 const RenderForm: React.FC<RenderProps> = ({
   form,
@@ -43,7 +43,7 @@ const RenderForm: React.FC<RenderProps> = ({
       })
         .then((res) => res.json())
         .then((data) => {
-          navigate(RouteEndpoints.quarantine.basepath);
+          navigate(quarantineEndpoints.home);
         })
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
@@ -63,7 +63,7 @@ const RenderForm: React.FC<RenderProps> = ({
       })
         .then((res) => res.json())
         .then((data) => {
-          navigate(RouteEndpoints.quarantine.basepath);
+          navigate(quarantineEndpoints.home);
         })
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));

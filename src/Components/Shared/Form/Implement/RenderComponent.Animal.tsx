@@ -14,7 +14,11 @@ import {
   PlusOutlined,
   SaveOutlined,
 } from "@ant-design/icons";
-import { AnimalPaging, AnimalModel } from "Components/Shared/Models/Animal";
+import {
+  AnimalPaging,
+  AnimalModel,
+  CreateAnimalItemModel,
+} from "Components/Shared/Models/Animal";
 import React, { useEffect, useRef, useState } from "react";
 import { AnimalApiRoute, ApiRoute, listAnimalApiRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
@@ -44,7 +48,7 @@ const AnimalFields = (props: {
     return keyRef.current;
   };
 
-  const [form] = Form.useForm<AnimalModel>();
+  const [form] = Form.useForm<CreateAnimalItemModel>();
   const Cancel = () => {
     form.resetFields();
     setShowAddAnimal(false);
@@ -72,7 +76,6 @@ const AnimalFields = (props: {
 
   const AddAnimal = (add: any) => {
     const val = form.getFieldsValue();
-    console.log(val);
     if (user) {
       setConfirmLoading(true);
       fetch(process.env.REACT_APP_API.concat(listAnimalApiRoute.create), {
@@ -105,8 +108,6 @@ const AnimalFields = (props: {
   };
 
   const deleteAnimalItem = (idx: number, remove: any) => {
-    console.log(mainFormRef.getFieldValue("listAnimals"));
-
     if (user) {
       setLoading(true);
       fetch(process.env.REACT_APP_API.concat(listAnimalApiRoute.delete), {
@@ -126,7 +127,6 @@ const AnimalFields = (props: {
           return res.json();
         })
         .then((data) => {
-          console.log(data);
           remove(idx);
         })
         .catch((error) => console.log(error))
@@ -272,7 +272,7 @@ const AnimalFields = (props: {
                       Thêm động vật
                     </Button>
                     <Modal
-                      title="Thêm vé"
+                      title="Thêm động vật"
                       visible={showAddAnimal}
                       onCancel={Cancel}
                       footer={
@@ -336,6 +336,33 @@ const AnimalFields = (props: {
                             ))}
                           </Select>
                         </Form.Item>
+                        {/* <Form.Item
+                          label={"Động vật"}
+                          name={"animalName"}
+                          rules={[
+                            {
+                              required: true,
+                              message: "Chọn động vật!",
+                            },
+                          ]}
+                        >
+                          <Select
+                            onSelect={() => {
+                              form.setFieldsValue({
+                                animalName: animals.find(
+                                  (x) =>
+                                    x.name === form.getFieldValue("animalName")
+                                ).id,
+                              });
+                            }}
+                          >
+                            {animals.map((item) => (
+                              <Select.Option key={item.id} value={item.name}>
+                                {item.name}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                        </Form.Item> */}
                         <Form.Item
                           label={"Số lượng"}
                           name={"amount"}
@@ -358,6 +385,7 @@ const AnimalFields = (props: {
                         <Form.Item
                           label={"Đơn vị"}
                           name={"isCar"}
+                          initialValue={false}
                           valuePropName="checked"
                         >
                           <Checkbox name="isCar">Xe</Checkbox>

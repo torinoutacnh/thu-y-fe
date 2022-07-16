@@ -10,6 +10,8 @@ import "./header.css";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "Modules/hooks/useAuth";
+import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
+import { staffEndpoints } from "Components/router/StaffRoutes";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -30,7 +32,7 @@ const Header = () => {
         {
           label: "Báo cáo kiểm dịch",
           key: getKey(),
-          onClick: () => navigate(RouteEndpoints.quarantine.basepath),
+          onClick: () => navigate(quarantineEndpoints.home),
         },
         {
           label: "Hóa đơn kiểm dịch",
@@ -50,7 +52,7 @@ const Header = () => {
         {
           label: "Báo cáo giết mổ",
           key: getKey(),
-          onClick: () => navigate(RouteEndpoints.staff.basepath),
+          onClick: () => navigate(staffEndpoints.home),
         },
         {
           label: "Hóa đơn giết mổ",
@@ -69,7 +71,7 @@ const Header = () => {
       children: [
         {
           label: "Danh sách nhân viên",
-          onClick: () => navigate(RouteEndpoints.staff.basepath),
+          onClick: () => navigate(staffEndpoints.home),
           key: getKey(),
         },
         {

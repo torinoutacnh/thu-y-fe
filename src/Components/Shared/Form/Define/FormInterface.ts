@@ -1,5 +1,9 @@
 import { FormModel, ReportModel } from "Components/Shared/Models/Form";
 
+enum ReportType{
+    QuarantineReport = 1,
+    DailyAmountReport = 2
+}
 
 interface RenderProps {
     form: FormModel;
@@ -8,9 +12,5 @@ interface RenderProps {
     isQuarantined?: ReportType;
 }
 
-enum ReportType{
-    QuarantineReport = 1,
-    DailyAmountReport = 2
-}
 export {ReportType}
 export type {RenderProps}

@@ -22,7 +22,5 @@ const loginSlice = createSlice({
   },
 });
 
-const loginApi = createApi;
-
 export const { login } = loginSlice.actions;
 export default loginSlice.reducer;

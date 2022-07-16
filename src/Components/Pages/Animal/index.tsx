@@ -13,6 +13,7 @@ import { getKeyThenIncreaseKey } from "antd/lib/message";
 import { AnimalModel } from "Components/Shared/Models/Animal";
 import CreateAnimal from "./CreateAnimal";
 import { Form, Modal, Select, notification, Space } from "antd";
+import { staffEndpoints } from "Components/router/StaffRoutes";
 
 const AnimalHome = () => {
   const [listsAnimal, setListAnimal] = useState<AnimalModel[]>([]);
@@ -76,7 +77,7 @@ const AnimalHome = () => {
       key: 5,
       render: (record) => (
         <>
-          <Link to={RouteEndpoints.staff.updateStaff.replace(":id", record.id)}>
+          <Link to={staffEndpoints.updateStaff.replace(":id", record.id)}>
             <Button
               type="link"
               color="blue"
@@ -151,7 +152,7 @@ const AnimalHome = () => {
 
         <Descriptions.Item label={"Xử lý"}>
           <>
-            {/* <Link to={RouteEndpoints.staff.updateStaff.replace(":id", data.id)}> */}
+            {/* <Link to={staffEndpoints.updateStaff.replace(":id", data.id)}> */}
             <Button type="link" color="blue">
               Cập nhật
             </Button>

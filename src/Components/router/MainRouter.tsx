@@ -8,23 +8,10 @@ import { publicEndpoints, PublicRoutes } from "./PublicRoutes";
 import { QuarantineRoutes } from "./QuarantineRoutes";
 import { StaffRoutes } from "./StaffRoutes";
 import React from "react";
+import { AbattoirRoutes } from "./AbattoirRoutes";
 
 export class RouteEndpoints {
   static home = { basepath: "/" };
-  static abattoir = {
-    get basepath() {
-      return "/lo-mo";
-    },
-    get detail() {
-      return this.basepath.concat("/:id");
-    },
-    get create() {
-      return this.basepath.concat("/create");
-    },
-    get update() {
-      return this.basepath.concat("/update");
-    },
-  };
 
   //////////////////////////////////////////////////
   static animal = {
@@ -61,15 +48,7 @@ export default function MainRouter() {
       />
       {PublicRoutes.map((route) => route)}
       {QuarantineRoutes.map((route) => route)}
-      <Route
-        path={RouteEndpoints.abattoir.basepath}
-        element={
-          <PrivateRoute path={publicEndpoints.login}>
-            <Abattoir />
-          </PrivateRoute>
-        }
-        key="abattoir-page"
-      />
+      {AbattoirRoutes.map((route) => route)}
       {StaffRoutes.map((route) => route)}
       {/* /////////////////////////////////////////////// */}
 

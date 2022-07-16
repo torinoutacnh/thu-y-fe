@@ -16,7 +16,7 @@ export default function UpdateAbattoirReport() {
   const { user } = useAuth();
   const { id } = useParams();
 
-  const search = { code: process.env.REACT_APP_CODE_KIEM_DICH };
+  const search = { code: process.env.REACT_APP_CODE_GIET_MO };
   useEffect(() => {
     if (user?.token && search.code) {
       fetch(
@@ -53,7 +53,6 @@ export default function UpdateAbattoirReport() {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           setReport(data.data);
         })
         .catch((error) => console.log(error));
@@ -67,7 +66,7 @@ export default function UpdateAbattoirReport() {
           form={form}
           reportvalue={report}
           submitmethod={"POST"}
-          isQuarantined={ReportType.QuarantineReport}
+          isQuarantined={ReportType.DailyAmountReport}
         />
       )}
     </>

@@ -1,4 +1,4 @@
-import { Button, Card, Descriptions } from "antd";
+import { Button, Card, Descriptions, Empty } from "antd";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
 import Table, { ColumnType } from "antd/lib/table";
 import { ReportApiRoute } from "Api";
@@ -10,6 +10,7 @@ import {
   ReportValueModel,
 } from "Components/Shared/Models/Form";
 import { useAuth } from "Modules/hooks/useAuth";
+import { useLoading } from "Modules/hooks/useLoading";
 import useWindowSize from "Modules/hooks/useWindowSize";
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
@@ -23,6 +24,7 @@ const RenderReportTable = (props: {
     return form.attributes.find((x) => x.id === id);
   }
   const windowSize = useWindowSize();
+  const { setLoading } = useLoading();
 
   const reportobjs = reports.map((x) => {
     const report: any = {
@@ -57,22 +59,21 @@ const RenderReportTable = (props: {
 
     function deletereport(id: string) {
       if (user) {
-        fetch(
-          process.env.REACT_APP_API.concat(ReportApiRoute.delete, "?") +
-            new URLSearchParams({ id: id }),
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer ".concat(user.token),
-            },
-          }
-        )
+        setLoading(true);
+        fetch(process.env.REACT_APP_API.concat(ReportApiRoute.delete), {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer ".concat(user.token),
+          },
+          body: JSON.stringify({ id: id }),
+        })
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
           })
-          .catch((error) => console.log(error));
+          .catch((error) => console.log(error))
+          .finally(() => setLoading(false));
       }
     }
 
@@ -120,22 +121,21 @@ const RenderReportTable = (props: {
       const { user } = useAuth();
       function deletereport(id: string) {
         if (user) {
-          fetch(
-            process.env.REACT_APP_API.concat(ReportApiRoute.delete, "?") +
-              new URLSearchParams({ id: id }),
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer ".concat(user.token),
-              },
-            }
-          )
+          setLoading(true);
+          fetch(process.env.REACT_APP_API.concat(ReportApiRoute.delete), {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer ".concat(user.token),
+            },
+            body: JSON.stringify({ id: id }),
+          })
             .then((res) => res.json())
             .then((data) => {
               console.log(data);
             })
-            .catch((error) => console.log(error));
+            .catch((error) => console.log(error))
+            .finally(() => setLoading(false));
         }
       }
       return (
@@ -189,10 +189,13 @@ const RenderReportTable = (props: {
     }
     return (
       <>
-        {reportobjs &&
+        {reportobjs.length > 0 ? (
           reportobjs.map((data, index) => {
             return <RenderCard key={index} data={data} idx={index} />;
-          })}
+          })
+        ) : (
+          <Empty description={<span>Không có dữ liệu</span>} />
+        )}
       </>
     );
   };

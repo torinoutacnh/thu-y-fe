@@ -11,7 +11,7 @@ export default function CreateAbattoirReport() {
   const { user } = useAuth();
   const { setLoading } = useLoading();
 
-  const search = { code: process.env.REACT_APP_CODE_KIEM_DICH };
+  const search = { code: process.env.REACT_APP_CODE_GIET_MO };
   useEffect(() => {
     if (user?.token && search) {
       setLoading(true);
@@ -41,7 +41,7 @@ export default function CreateAbattoirReport() {
         <RenderForm
           form={form}
           submitmethod={"POST"}
-          isQuarantined={ReportType.QuarantineReport}
+          isQuarantined={ReportType.DailyAmountReport}
         />
       )}
     </>

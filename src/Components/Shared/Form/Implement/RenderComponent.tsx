@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
 import { ApiRoute, ReportApiRoute } from "Api";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
+import { abattoirEndpoints } from "Components/router/AbattoirRoutes";
 
 const RenderForm: React.FC<RenderProps> = ({
   form,
@@ -40,7 +41,12 @@ const RenderForm: React.FC<RenderProps> = ({
       })
         .then((res) => res.json())
         .then((data) => {
-          navigate(quarantineEndpoints.home);
+          if (isQuarantined === ReportType.QuarantineReport) {
+            navigate(quarantineEndpoints.home);
+          }
+          if (isQuarantined === ReportType.DailyAmountReport) {
+            navigate(abattoirEndpoints.home);
+          }
         })
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
@@ -60,7 +66,9 @@ const RenderForm: React.FC<RenderProps> = ({
       })
         .then((res) => res.json())
         .then((data) => {
-          navigate(quarantineEndpoints.home);
+          console.log(data);
+
+          // navigate(quarantineEndpoints.home);
         })
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
@@ -120,7 +128,14 @@ const RenderForm: React.FC<RenderProps> = ({
               <Space>
                 <Button
                   icon={<LeftOutlined />}
-                  onClick={() => navigate(quarantineEndpoints.home)}
+                  onClick={() => {
+                    if (isQuarantined === ReportType.QuarantineReport) {
+                      navigate(quarantineEndpoints.home);
+                    }
+                    if (isQuarantined === ReportType.DailyAmountReport) {
+                      navigate(abattoirEndpoints.home);
+                    }
+                  }}
                 >
                   Trở về
                 </Button>

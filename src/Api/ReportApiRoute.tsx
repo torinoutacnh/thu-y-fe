@@ -11,11 +11,14 @@ const ReportApiRoute = {
   get getreport() {
     return this.Base;
   },
+  get animalkilling() {
+    return this.Base.concat("/animal-killing");
+  },
   get getSingleReport() {
     return this.Base.concat("/single-report");
   },
   get delete() {
-    return this.Base.concat("/delete");
+    return this.Base.concat("/delete-report");
   },
 };
 

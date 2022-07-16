@@ -30,7 +30,7 @@ export const useAuth = () => {
   const curUser = userCookie ? JSON.parse(userCookie) : null;
   if (curUser && !user) {
     dispatch(login(curUser));
-    return { user: curUser, setUser };
+    return { user: curUser as UserLoginModel, setUser };
   }
 
   return { user, setUser };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Checkbox, notification } from "antd";
+import { Form, Input, Button, Checkbox, notification, Space, Row } from "antd";
 
 import { UserApiRoute } from "Api";
 import { RouteEndpoints } from "Components/router/MainRouter";
@@ -9,6 +9,8 @@ import { useLoading } from "Modules/hooks/useLoading";
 import { publicEndpoints } from "Components/router/PublicRoutes";
 import { IconType } from "antd/lib/notification";
 import Cookies from "js-cookie";
+import ReactPDF, { PDFViewer } from "@react-pdf/renderer";
+import { MyDocument } from "Components/Shared/Form/pdf/pdf";
 
 export default function LoginPage() {
   return <LoginForm />;
@@ -73,6 +75,13 @@ const LoginForm = () => {
       .finally(() => setLoading(false));
   };
 
+  // return (
+  //   <Row align="middle" style={{ height: "100vh" }}>
+  //     <PDFViewer width={"100%"} height={"100%"}>
+  //       <MyDocument />
+  //     </PDFViewer>
+  //   </Row>
+  // );
   return (
     <>
       {user ? (

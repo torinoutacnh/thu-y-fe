@@ -47,6 +47,7 @@ interface ReportValueModel {
     attributeId: string;
     attributeName?:string;
     value: string|Date|number|Moment;
+    sort: number;
     reportId?: string;
     animalId?: string;
 }

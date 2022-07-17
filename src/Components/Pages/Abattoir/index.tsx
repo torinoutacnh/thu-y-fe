@@ -3,7 +3,7 @@ import { useAuth } from "Modules/hooks/useAuth";
 import React, { useState, useEffect, useRef } from "react";
 
 import { getKeyThenIncreaseKey } from "antd/lib/message";
-import { Button, PageHeader, Space, Table } from "antd";
+import { Button, notification, PageHeader, Space, Table } from "antd";
 import { FileAddOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
@@ -11,6 +11,8 @@ import { abattoirEndpoints } from "Components/router/AbattoirRoutes";
 import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
 import useWindowSize from "Modules/hooks/useWindowSize";
+import { IconType } from "antd/lib/notification";
+import { ReportModel } from "Components/Shared/Models/Form";
 
 interface AbattoirReportModel {
   reportId?: string;
@@ -27,7 +29,7 @@ interface AbattoirReportModel {
 type DataIndex = keyof AbattoirReportModel;
 
 const AbattoirPage = () => {
-  const [reports, setReport] = useState<AbattoirReportModel[]>();
+  const [reports, setReports] = useState<AbattoirReportModel[]>();
   const navigate = useNavigate();
   const { user } = useAuth();
   const { setLoading } = useLoading();
@@ -57,7 +59,48 @@ const AbattoirPage = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          setReport(data.data);
+          (data.data as Array<ReportModel>).sort((a, b) => {
+            return moment(a.dateCreated).diff(moment(b.dateCreated));
+          });
+          setReports(data.data);
+        })
+        .catch((error) => console.log(error))
+        .finally(() => setLoading(false));
+    }
+  };
+
+  const openNotification = (
+    message: string,
+    type: IconType,
+    onClose?: any,
+    body?: string
+  ) => {
+    notification.open({
+      duration: 2.5,
+      message: message,
+      description: body,
+      type: type,
+      onClose: onClose,
+    });
+  };
+
+  const deleteReport = (id: string) => {
+    if (user) {
+      setLoading(true);
+      fetch(process.env.REACT_APP_API.concat(ReportApiRoute.delete), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer ".concat(user.token),
+        },
+        body: JSON.stringify({ id }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.data) {
+            openNotification("Xóa thành công", "success");
+          }
+          console.log(data);
         })
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
@@ -191,7 +234,11 @@ const AbattoirPage = () => {
                 >
                   Cập nhật
                 </Button>
-                <Button type="link" danger>
+                <Button
+                  onClick={() => deleteReport(record.reportId)}
+                  type="link"
+                  danger
+                >
                   Xóa
                 </Button>
               </Space>

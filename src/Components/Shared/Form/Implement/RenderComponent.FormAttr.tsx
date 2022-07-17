@@ -9,15 +9,15 @@ import {
 import { useAuth } from "Modules/hooks/useAuth";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
-import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { transform } from "typescript";
 
-function RenderFormAttrs(props: { form: FormModel }) {
-  const { form } = props;
+function RenderFormAttrs(props: { attributes: AttributeModel[] }) {
+  const { attributes } = props;
   const keyref = useRef(0);
   return (
     <Row key={keyref.current++}>
-      {form.attributes
+      {attributes
         .sort((x, y) => x.sortNo - y.sortNo)
         .map((attr, idx) => {
           return (
@@ -32,6 +32,16 @@ function RenderFormAttrs(props: { form: FormModel }) {
               <Form.Item
                 name={["values", idx, "attributeId"]}
                 initialValue={attr.id}
+                hidden={true}
+                shouldUpdate={(prevValues, curValues) =>
+                  prevValues.values !== curValues.values
+                }
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name={["values", idx, "sort"]}
+                initialValue={attr.sortNo}
                 hidden={true}
                 shouldUpdate={(prevValues, curValues) =>
                   prevValues.values !== curValues.values
@@ -124,16 +134,18 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           shouldUpdate={(prevValues, curValues) =>
             prevValues.values !== curValues.values
           }
-          initialValue={0}
-          rules={[
-            {
-              required: true,
-              type: "number",
-              message: "Sai định dạng!",
-            },
-          ]}
+          initialValue={""}
+          // rules={[
+          //   {
+          //     // required: true,
+          //     // type: "number",
+          //     // message: "Sai định dạng!",
+          //     // transform: (i) => i.toString(),
+          //   },
+          // ]}
         >
-          <Input type={"number"} />
+          {/* <Input type={"number"} /> */}
+          <Input />
         </Form.Item>
       );
     }

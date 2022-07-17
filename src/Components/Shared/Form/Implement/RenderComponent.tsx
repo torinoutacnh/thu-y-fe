@@ -25,8 +25,6 @@ const RenderForm: React.FC<RenderProps> = ({
   submitmethod,
   isQuarantined,
 }) => {
-  console.log(form, reportvalue);
-
   const [formref] = Form.useForm<ReportModel>();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -84,6 +82,7 @@ const RenderForm: React.FC<RenderProps> = ({
 
   useEffect(() => {
     if (reportvalue) {
+      reportvalue.values?.sort((a, b) => (a.sort = b.sort));
       formref.resetFields(), [reportvalue];
     }
   }, [reportvalue?.id, form?.id]);
@@ -129,7 +128,7 @@ const RenderForm: React.FC<RenderProps> = ({
           {isQuarantined && isQuarantined === ReportType.QuarantineReport && (
             <SealFields mainFormRef={formref} report={reportvalue} />
           )}
-          <RenderFormAttrs form={form} />
+          <RenderFormAttrs attributes={form.attributes} />
           <Row align="middle" justify="center">
             <Form.Item>
               <Space>

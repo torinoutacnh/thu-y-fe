@@ -174,7 +174,7 @@ const AnimalFields = (props: {
         prevValues.listAnimals !== curValues.listAnimals
       }
     >
-      <Form.List name={"listAnimals"}>
+      <Form.List name={"listAnimals"} initialValue={[]}>
         {(fields, { add, remove }) => {
           return (
             <>
@@ -188,7 +188,7 @@ const AnimalFields = (props: {
                     <Form.Item
                       key={getkey()}
                       {...field}
-                      name={"id"}
+                      name={[field.name, "id"]}
                       hidden={true}
                     >
                       <Input />

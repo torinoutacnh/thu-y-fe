@@ -40,6 +40,11 @@ export default function UpdateAbattoirReport() {
 
   useEffect(() => {
     if (id && form && user?.token) {
+      console.log(
+        process.env.REACT_APP_API.concat(ReportApiRoute.getSingleReport, "?") +
+          new URLSearchParams({ reportId: id })
+      );
+
       fetch(
         process.env.REACT_APP_API.concat(ReportApiRoute.getSingleReport, "?") +
           new URLSearchParams({ reportId: id }),
@@ -53,6 +58,8 @@ export default function UpdateAbattoirReport() {
       )
         .then((res) => res.json())
         .then((data) => {
+          console.log(data);
+
           setReport(data.data);
         })
         .catch((error) => console.log(error));

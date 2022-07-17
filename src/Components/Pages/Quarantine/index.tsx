@@ -119,8 +119,7 @@ const QuarantinePage = () => {
                     quarantineEndpoints.updatereport.replace(
                       ":id",
                       record.reportId
-                    ),
-                    { replace: true }
+                    )
                   )
                 }
                 type="link"
@@ -180,8 +179,7 @@ const QuarantinePage = () => {
                       quarantineEndpoints.updatereport.replace(
                         ":id",
                         record.reportId
-                      ),
-                      { replace: true }
+                      )
                     )
                   }
                   type="link"
@@ -202,14 +200,14 @@ const QuarantinePage = () => {
   return (
     <>
       <PageHeader
-        title="Báo cáo giết mổ"
+        title="Báo cáo kiểm dịch"
         extra={[
           <Button
             key={getKeyThenIncreaseKey()}
             icon={<FileAddOutlined />}
             type="primary"
             onClick={() => {
-              navigate(abattoirEndpoints.createreport);
+              navigate(quarantineEndpoints.createreport);
             }}
           >
             Tạo báo cáo

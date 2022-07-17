@@ -5,6 +5,9 @@ const FormApiRoute = {
   get getform() {
     return this.formBase;
   },
+  get getRecoment() {
+    return this.formBase.concat("/recomment-attribute");
+  },
 };
 
 export default FormApiRoute;

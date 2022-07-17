@@ -65,7 +65,9 @@ const AnimalFields = (props: {
         },
         body: JSON.stringify(searchAnimal),
       })
-        .then((res) => res.json())
+        .then((res) => {
+          return res.json();
+        })
         .then((data) => {
           setAnimals(data.data);
         })

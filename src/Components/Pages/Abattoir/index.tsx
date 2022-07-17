@@ -10,6 +10,7 @@ import { useLoading } from "Modules/hooks/useLoading";
 import { abattoirEndpoints } from "Components/router/AbattoirRoutes";
 import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
+import useWindowSize from "Modules/hooks/useWindowSize";
 
 interface AbattoirReportModel {
   reportId?: string;
@@ -36,6 +37,8 @@ const AbattoirPage = () => {
     keyRef.current++;
     return keyRef.current;
   };
+
+  const windowSize = useWindowSize();
 
   const getReport = () => {
     if (user) {
@@ -121,8 +124,7 @@ const AbattoirPage = () => {
                     abattoirEndpoints.updatereport.replace(
                       ":id",
                       record.reportId
-                    ),
-                    { replace: true }
+                    )
                   )
                 }
                 type="link"
@@ -133,6 +135,67 @@ const AbattoirPage = () => {
                 Xóa
               </Button>
             </Space>
+          </>
+        );
+      },
+    },
+  ];
+
+  const resColumns: ColumnsType<AbattoirReportModel> = [
+    {
+      title: "Danh sách báo cáo",
+      key: getKey(),
+      render: (record, key, index) => {
+        return (
+          <>
+            <tr>
+              <th>STT :</th>
+              <td>{record.stt}</td>
+            </tr>
+            <tr>
+              <th>Chủ lò mổ :</th>
+              <td>{record.abattoirOwner}</td>
+            </tr>
+            <tr>
+              <th>Người kiểm dịch :</th>
+              <td>{record.medicalStaff}</td>
+            </tr>
+            <tr>
+              <th>Tổng nhập :</th>
+              <td>{record.total}</td>
+            </tr>
+            <tr>
+              <th>Tổng đã xử lý :</th>
+              <td>{record.dead}</td>
+            </tr>
+            <tr>
+              <th>Tổng tồn :</th>
+              <td>{record.alive}</td>
+            </tr>
+            <tr>
+              <th>Ngày báo cáo :</th>
+              <td>{moment(record.time).format("DD/MM/YYYY")}</td>
+            </tr>
+            <tr>
+              <Space>
+                <Button
+                  onClick={() =>
+                    navigate(
+                      abattoirEndpoints.updatereport.replace(
+                        ":id",
+                        record.reportId
+                      )
+                    )
+                  }
+                  type="link"
+                >
+                  Cập nhật
+                </Button>
+                <Button type="link" danger>
+                  Xóa
+                </Button>
+              </Space>
+            </tr>
           </>
         );
       },
@@ -156,7 +219,11 @@ const AbattoirPage = () => {
           </Button>,
         ]}
       />
-      <Table columns={columns} rowKey={"reportId"} dataSource={reports} />
+      <Table
+        columns={windowSize.width > 768 ? columns : resColumns}
+        rowKey={"reportId"}
+        dataSource={reports}
+      />
     </>
   );
 };

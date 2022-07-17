@@ -1,11 +1,16 @@
-import { Row, Col, Form, Input, DatePicker } from "antd";
+import { Row, Col, Form, Input, DatePicker, AutoComplete } from "antd";
+import { FormApiRoute } from "Api";
+import { publicEndpoints } from "Components/router/PublicRoutes";
 import {
   AttributeModel,
   DataTypes,
   FormModel,
 } from "Components/Shared/Models/Form";
+import { useAuth } from "Modules/hooks/useAuth";
 import moment from "moment";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 function RenderFormAttrs(props: { form: FormModel }) {
   const { form } = props;
@@ -54,6 +59,40 @@ function RenderFormAttrs(props: { form: FormModel }) {
 
 function RenderControl(props: { attr: AttributeModel; idx: number }) {
   const { attr, idx } = props;
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [options, setOptions] = useState<{ value: string }[]>([]);
+
+  if (!user) {
+    navigate(publicEndpoints.login, { replace: true });
+  }
+
+  useEffect(() => {
+    if (attr.dataType === DataTypes.TextControl) {
+      fetch(
+        process.env.REACT_APP_API.concat(FormApiRoute.getRecoment, "?") +
+          new URLSearchParams({ attributeId: attr.id }),
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer ".concat(user.token),
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.data) {
+            const transform = data.data.map((val: string) => {
+              return { value: val };
+            });
+            setOptions(transform);
+          }
+        })
+        .catch((error) => console.log(error));
+    }
+  }, []);
+
   switch (attr.dataType) {
     case DataTypes.TextControl: {
       return (
@@ -67,7 +106,11 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           }
           initialValue={null}
         >
-          <Input />
+          {options ? (
+            <AutoComplete options={options} style={{ width: "100%" }} />
+          ) : (
+            <Input />
+          )}
         </Form.Item>
       );
     }
@@ -86,7 +129,7 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
             {
               required: true,
               type: "number",
-              message: "Mời nhập số lượng!",
+              message: "Sai định dạng!",
             },
           ]}
         >
@@ -104,9 +147,15 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           shouldUpdate={(prevValues, curValues) =>
             prevValues.values !== curValues.values
           }
-          initialValue={moment()}
+          getValueProps={(i) => {
+            return { value: moment(i) };
+          }}
         >
-          <DatePicker format={"DD/MM/YYYY"} />
+          <DatePicker
+            defaultValue={moment()}
+            style={{ width: "100%" }}
+            format={"DD/MM/YYYY"}
+          />
         </Form.Item>
       );
     }

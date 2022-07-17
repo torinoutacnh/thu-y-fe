@@ -2,7 +2,11 @@ import { Input, Col, Form, Button, Space, Row } from "antd";
 import { RenderProps, ReportType } from "../Define/FormInterface";
 import React, { useEffect } from "react";
 import { useAuth } from "Modules/hooks/useAuth";
-import { ReportModel } from "Components/Shared/Models/Form";
+import {
+  DataTypes,
+  FormModel,
+  ReportModel,
+} from "Components/Shared/Models/Form";
 import { LeftOutlined, SaveOutlined, PlusOutlined } from "@ant-design/icons";
 
 import { AnimalFields } from "./RenderComponent.Animal";
@@ -13,6 +17,7 @@ import { useLoading } from "Modules/hooks/useLoading";
 import { ApiRoute, ReportApiRoute } from "Api";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import { abattoirEndpoints } from "Components/router/AbattoirRoutes";
+import moment from "moment";
 
 const RenderForm: React.FC<RenderProps> = ({
   form,
@@ -20,6 +25,8 @@ const RenderForm: React.FC<RenderProps> = ({
   submitmethod,
   isQuarantined,
 }) => {
+  console.log(form, reportvalue);
+
   const [formref] = Form.useForm<ReportModel>();
   const { user } = useAuth();
   const navigate = useNavigate();

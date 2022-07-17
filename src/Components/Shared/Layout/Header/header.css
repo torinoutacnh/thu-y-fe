@@ -1,4 +1,4 @@
-.img-center{
+.img-center {
     display: inline-block;
     top: 50%;
     left: 50%;
@@ -6,13 +6,13 @@
     height: max-content;
 }
 
-.header_menu{
+.header_menu {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-.header_menu h4,h3,h2,h1{
+.header_menu h4 {
     display: inline-block;
     margin-bottom: 0;
     margin-left: 30px;

@@ -1,4 +1,4 @@
-import Abattoir, { AbattoirPage } from "Components/Pages/Abattoir";
+import { AbattoirPage } from "Components/Pages/Abattoir";
 import CreateAbattoirReport from "Components/Pages/Abattoir/CreateReportPage";
 import UpdateAbattoirReport from "Components/Pages/Abattoir/UpdateReportPage";
 import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";

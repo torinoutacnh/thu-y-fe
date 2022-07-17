@@ -1,4 +1,4 @@
-import Quarantine from "Components/Pages/Quarantine";
+import { QuarantinePage } from "Components/Pages/Quarantine";
 import CreateReportPage from "Components/Pages/Quarantine/CreateReportPage";
 import UpdateReportPage from "Components/Pages/Quarantine/UpdateReportPage";
 import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";
@@ -26,7 +26,7 @@ const QuarantineRoutes = [
     path={quarantineEndpoints.home}
     element={
       <PrivateRoute path={publicEndpoints.login}>
-        <Quarantine />
+        <QuarantinePage />
       </PrivateRoute>
     }
     key="quarantine-page"

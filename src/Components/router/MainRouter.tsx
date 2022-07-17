@@ -1,4 +1,3 @@
-import Abattoir from "Components/Pages/Abattoir";
 import AnimalHome from "Components/Pages/Animal";
 import HomePage from "Components/Pages/Home/Home";
 

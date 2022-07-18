@@ -5,6 +5,7 @@ import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import { staffEndpoints } from "Components/router/StaffRoutes";
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
+import logoThuY from "../../../../Static/image/logo.png"
 
 import "./header.css";
 import "./nav.css";
@@ -45,12 +46,12 @@ const Header = () => {
                       </Link>
                     </li>
                     <li>
-                      <Link to={quarantineEndpoints.home}>
+                      <Link to={RouteEndpoints.notfound}>
                         Hóa đơn kiểm dịch
                       </Link>
                     </li>
                     <li>
-                      <Link to={quarantineEndpoints.home}>
+                      <Link to={RouteEndpoints.notfound}>
                         Báo cáo doanh thu
                       </Link>
                     </li>
@@ -67,10 +68,10 @@ const Header = () => {
                       <Link to={abattoirEndpoints.home}>Báo cáo giết mổ</Link>
                     </li>
                     <li>
-                      <Link to={abattoirEndpoints.home}>Hóa đơn giết mổ</Link>
+                      <Link to={RouteEndpoints.notfound}>Hóa đơn giết mổ</Link>
                     </li>
                     <li>
-                      <Link to={abattoirEndpoints.home}>Báo cáo doanh thu</Link>
+                      <Link to={RouteEndpoints.notfound}>Báo cáo doanh thu</Link>
                     </li>
                   </ul>
                 </div>
@@ -90,13 +91,13 @@ const Header = () => {
                       </Link>
                     </li>
                     <li>
-                      <Link to={quarantineEndpoints.home}>Quản lý đơn giá</Link>
+                      <Link to={RouteEndpoints.notfound}>Quản lý đơn giá</Link>
                     </li>
                     <li>
-                      <Link to={quarantineEndpoints.home}>Quản lý lò mổ</Link>
+                      <Link to={RouteEndpoints.notfound}>Quản lý lò mổ</Link>
                     </li>
                     <li>
-                      <Link to={quarantineEndpoints.home}>Doanh thu tổng</Link>
+                      <Link to={RouteEndpoints.notfound}>Doanh thu tổng</Link>
                     </li>
                   </ul>
                 </div>

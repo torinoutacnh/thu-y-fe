@@ -58,7 +58,12 @@ const SideBar = () => {
             navigate(RouteEndpoints.home.basepath);
           },
         },
-        { label: "Báo cáo doanh thu", key: getKey() },
+        {
+          label: "Báo cáo doanh thu", key: getKey(),
+          onClick: () => {
+            navigate(RouteEndpoints.notfound);
+          },
+        },
       ],
     },
     {
@@ -74,8 +79,18 @@ const SideBar = () => {
             navigate(abattoirEndpoints.home);
           },
         },
-        { label: "Hóa đơn giết mổ", key: getKey() },
-        { label: "Báo cáo doanh thu", key: getKey() },
+        {
+          label: "Hóa đơn giết mổ", key: getKey(),
+          onClick: () => {
+            navigate(RouteEndpoints.notfound);
+          },
+        },
+        {
+          label: "Báo cáo doanh thu", key: getKey(),
+          onClick: () => {
+            navigate(RouteEndpoints.notfound);
+          },
+        },
       ],
     },
     {
@@ -101,10 +116,30 @@ const SideBar = () => {
           },
         },
         ///////////////////////////////
-        { label: "Quản lý đơn giá", key: getKey(), icon: <CalendarOutlined /> },
-        { label: "Quản lý lò mổ", key: getKey(), icon: <CalendarOutlined /> },
-        { label: "Doanh thu tổng", key: getKey(), icon: <CalendarOutlined /> },
-        { label: "Quản lý hóa đơn", key: getKey(), icon: <CalendarOutlined /> },
+        {
+          label: "Quản lý đơn giá", key: getKey(), icon: <CalendarOutlined />,
+          onClick: () => {
+            navigate(RouteEndpoints.notfound);
+          },
+        },
+        {
+          label: "Quản lý lò mổ", key: getKey(), icon: <CalendarOutlined />,
+          onClick: () => {
+            navigate(RouteEndpoints.notfound);
+          },
+        },
+        {
+          label: "Doanh thu tổng", key: getKey(), icon: <CalendarOutlined />,
+          onClick: () => {
+            navigate(RouteEndpoints.notfound);
+          },
+        },
+        {
+          label: "Quản lý hóa đơn", key: getKey(), icon: <CalendarOutlined />,
+          onClick: () => {
+            navigate(RouteEndpoints.notfound);
+          },
+        },
       ],
     },
     {

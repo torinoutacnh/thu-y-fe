@@ -9,6 +9,7 @@ import { StaffRoutes } from "./StaffRoutes";
 import React from "react";
 import { AbattoirRoutes } from "./AbattoirRoutes";
 import UserInfo from "Components/Pages/Password";
+import { NotFound } from "Components/Pages/NotFound";
 
 export class RouteEndpoints {
   static home = { basepath: "/" };
@@ -24,6 +25,8 @@ export class RouteEndpoints {
   };
 
   static userInfo = "/thong-tin-ca-nhan"
+
+  static notfound = "/chuc-nang-dang-phat-trien"
 
 
   ///////////////////////////////////////////////////
@@ -81,6 +84,17 @@ export default function MainRouter() {
           </PrivateRoute>
         }
         key="reset-password"
+      />
+
+      <Route
+
+        path={RouteEndpoints.notfound}
+        element={
+          <PrivateRoute path={publicEndpoints.login}>
+            <NotFound />
+          </PrivateRoute>
+        }
+        key="chuc-nang-dang-phat-trien"
       />
 
 

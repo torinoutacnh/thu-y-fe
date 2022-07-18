@@ -67,7 +67,6 @@ const Header = () => {
           {user ? (
             <>
               <div id="menu-responsive" className="fa-solid fa-bars"></div>
-
               <ul className="nav-bar-top" ref={navRef}>
                 <li onClick={handleClicElements1}>
                   <div className="dropdown-menu">

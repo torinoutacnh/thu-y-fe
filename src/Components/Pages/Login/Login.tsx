@@ -83,63 +83,69 @@ const LoginForm = () => {
   //   </Row>
   // );
   return (
-    <Form
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 8 }}
-      initialValues={{ remember: true }}
-      autoComplete="off"
-      onFinish={Login}
-      style={{ marginTop: 20 }}
-    >
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <h1>Đăng nhập</h1>
-      </Form.Item>
-      <Form.Item
-        label="Tài khoản"
-        name="username"
-        rules={[{ required: true, message: "Nhập tài khoản!" }]}
+    <>
+      <Space
+        align="center"
+        direction="horizontal"
+        style={{ width: "100%", justifyContent: "center" }}
       >
-        <Input
-          onChange={(e) => {
-            setUserInfo({ ...userinfo, username: e.target.value });
-          }}
-          value={userinfo.username ?? ""}
-        />
-      </Form.Item>
-
-      <Form.Item
-        label="Mật khẩu"
-        name="password"
-        rules={[{ required: true, message: "Nhập mật khẩu !" }]}
+        <h1 style={{ width: "100%" }}>Đăng nhập</h1>
+      </Space>
+      <Form
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 8 }}
+        initialValues={{ remember: true }}
+        autoComplete="off"
+        onFinish={Login}
+        style={{ marginTop: 20 }}
       >
-        <Input.Password
-          onChange={(e) => {
-            setUserInfo({ ...userinfo, password: e.target.value });
-          }}
-          value={userinfo.password ?? ""}
-        />
-      </Form.Item>
-
-      <Form.Item
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{ offset: 8, span: 16 }}
-      >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
-          Đăng nhập
-        </Button>
-        <Link
-          to={publicEndpoints.register}
-          style={{ textDecoration: "underline", marginLeft: 10 }}
+        <Form.Item
+          label="Tài khoản"
+          name="username"
+          rules={[{ required: true, message: "Nhập tài khoản!" }]}
         >
-          Chưa có tài khoản ?
-        </Link>
-      </Form.Item>
-    </Form>
+          <Input
+            onChange={(e) => {
+              setUserInfo({ ...userinfo, username: e.target.value });
+            }}
+            value={userinfo.username ?? ""}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Mật khẩu"
+          name="password"
+          rules={[{ required: true, message: "Nhập mật khẩu !" }]}
+        >
+          <Input.Password
+            onChange={(e) => {
+              setUserInfo({ ...userinfo, password: e.target.value });
+            }}
+            value={userinfo.password ?? ""}
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="remember"
+          valuePropName="checked"
+          wrapperCol={{ offset: 8, span: 16 }}
+        >
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8 }}>
+          <Button type="primary" htmlType="submit">
+            Đăng nhập
+          </Button>
+          <Link
+            to={publicEndpoints.register}
+            style={{ textDecoration: "underline", marginLeft: 10 }}
+          >
+            Chưa có tài khoản ?
+          </Link>
+        </Form.Item>
+      </Form>
+    </>
   );
   // return (
   //   <>

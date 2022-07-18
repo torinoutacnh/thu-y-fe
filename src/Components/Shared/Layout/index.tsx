@@ -26,10 +26,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
       >
         <Header />
         <Layout>
-          {/* {user && <SideBar />} */}
-          <Content
-            style={{ background: "#fff", minHeight: "80vh", padding: 10 }}
-          >
+          <Content style={{ background: "#fff", padding: 10 }}>
             {children}
             <Outlet />
           </Content>

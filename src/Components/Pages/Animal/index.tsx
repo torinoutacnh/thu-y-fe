@@ -13,11 +13,7 @@ import { getKeyThenIncreaseKey } from "antd/lib/message";
 import { AnimalModel } from "Components/Shared/Models/Animal";
 import CreateAnimal from "./CreateAnimal";
 import { Form, Modal, Select, notification, Space } from "antd";
-<<<<<<< HEAD
 import UpdateAnimal from "./UpdateAnimal";
-=======
-import { staffEndpoints } from "Components/router/StaffRoutes";
->>>>>>> origin/master
 
 const AnimalHome = () => {
   const [listsAnimal, setListAnimal] = useState<AnimalModel[]>([]);
@@ -30,7 +26,6 @@ const AnimalHome = () => {
   const navigate = useNavigate();
   const windowSize = useWindowSize();
   const keyRef = useRef(0);
-
 
   const getKey = () => {
     keyRef.current++;
@@ -80,17 +75,14 @@ const AnimalHome = () => {
       key: 5,
       render: (record) => (
         <>
-<<<<<<< HEAD
-          <Link to={RouteEndpoints.animal.updateAnimal.replace(":id", record.id)}>
-=======
-          <Link to={staffEndpoints.updateStaff.replace(":id", record.id)}>
->>>>>>> origin/master
+          <Link
+            to={RouteEndpoints.animal.updateAnimal.replace(":id", record.id)}
+          >
             <Button
               type="link"
               color="blue"
-            // onClick={() => { console.log("id record update", record.id) }}
+              // onClick={() => { console.log("id record update", record.id) }}
             >
-
               Cập nhật
             </Button>
           </Link>
@@ -117,7 +109,6 @@ const AnimalHome = () => {
       render: (record, key, index) => {
         return (
           <>
-<<<<<<< HEAD
             <tr>
               <th>Tên động vật :</th>
               <td>{record.name}</td>
@@ -134,35 +125,20 @@ const AnimalHome = () => {
               <th>Giá kiểm dịch :</th>
               <td>{record.pricing}</td>
             </tr>
-=======
-            {/* <Link to={staffEndpoints.updateStaff.replace(":id", data.id)}> */}
-            <Button type="link" color="blue">
-              Cập nhật
-            </Button>
-            {/* </Link> */}
-            <Button
-              type="link"
-              danger
-              onClick={() => deleteAnimalHandler(data.id, data.name)}
-            >
-              Xóa
-            </Button>
-          </>
-        </Descriptions.Item>
-      </Descriptions>
-    );
-  };
->>>>>>> origin/master
 
             <tr>
               <Space>
-                <Link to={RouteEndpoints.animal.updateAnimal.replace(":id", record.id)}>
+                <Link
+                  to={RouteEndpoints.animal.updateAnimal.replace(
+                    ":id",
+                    record.id
+                  )}
+                >
                   <Button
                     type="link"
                     color="blue"
-                  // onClick={() => { console.log("id record update", record.id) }}
+                    // onClick={() => { console.log("id record update", record.id) }}
                   >
-
                     Cập nhật
                   </Button>
                 </Link>
@@ -180,7 +156,6 @@ const AnimalHome = () => {
       },
     },
   ];
-
 
   ////////////////////////////////////////////NOTIFICATION//////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -206,10 +181,6 @@ const AnimalHome = () => {
       description: message,
     });
   };
-
-
-
-
 
   /////////////////////////////////////////DELETE ANIMAL/////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -258,10 +229,6 @@ const AnimalHome = () => {
       });
   };
 
-
-
-
-
   /////////////////////////////////////////Update after create/////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -269,31 +236,30 @@ const AnimalHome = () => {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const UpdateAnimalHandler = (animal: object) => {
-    return (
-      <UpdateAnimal />
-    )
+    return <UpdateAnimal />;
   };
-
 
   const UpdateAnimalAfterCreate = () => {
     setPage({ ...page, pageSize: page.pageSize - 1 });
-  }
+  };
 
   //////////////////////////////////////////////////// RENDER //////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
   return (
     <>
-
       <PageHeader
         title="Quản lý động vật"
-        extra={[<CreateAnimal key={getKeyThenIncreaseKey()} UpdateAnimalAfterCreate={UpdateAnimalAfterCreate} />]}
+        extra={[
+          <CreateAnimal
+            key={getKeyThenIncreaseKey()}
+            UpdateAnimalAfterCreate={UpdateAnimalAfterCreate}
+          />,
+        ]}
       />
       <Table
-
         columns={windowSize.width > 768 ? AnimalColumns : resColumns}
         rowKey={"id"}
         dataSource={listsAnimal}

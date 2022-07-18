@@ -1,11 +1,6 @@
 //
 import React, { useState, useEffect, useRef } from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { Table, Button, Input, Descriptions, PageHeader, Radio } from "antd";
-import { ApiRoute } from "Api/ApiRoute";
-//
-import { Button, Form, Input, Modal, Radio } from "antd";
-import { ApiRoute } from "Api";
 import { RoleType, SexType, UserModel } from "Components/Shared/Models/User";
 //
 import { useAuth } from "Modules/hooks/useAuth";
@@ -18,13 +13,20 @@ import useWindowSize from "Modules/hooks/useWindowSize";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
 import { AnimalModel } from "Components/Shared/Models/Animal";
 import CreateAnimal from "./CreateAnimal";
-import { Form, Modal, Select, notification, Space } from "antd";
+import {
+  Form,
+  Modal,
+  Select,
+  notification,
+  Space,
+  Button,
+  Input,
+  Radio,
+} from "antd";
 import { useParams } from "react-router-dom";
-
-
+import { AnimalApiRoute, ApiRoute } from "Api";
 
 const UpdateAnimal = () => {
-
   const { setLoading } = useLoading();
   const { user } = useAuth();
   const [animalUpdate, setAnimalUpdate] = useState<AnimalModel>();
@@ -37,9 +39,8 @@ const UpdateAnimal = () => {
   const page = {
     pageNumber: 0,
     pageSize: 1000,
-    id: id
-
-  }
+    id: id,
+  };
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,7 +50,7 @@ const UpdateAnimal = () => {
     bottom: 50,
     duration: 3,
     rtl: true,
-    maxCount: 1000
+    maxCount: 1000,
   });
 
   type NotificationType = "success" | "info" | "warning" | "error";
@@ -71,7 +72,7 @@ const UpdateAnimal = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(process.env.REACT_APP_API.concat(ApiRoute.getanimals), {
+    fetch(process.env.REACT_APP_API.concat(AnimalApiRoute.getanimals), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -84,9 +85,7 @@ const UpdateAnimal = () => {
         // console.log(">>>> res", res)
       })
       .then((data) => {
-
-
-        setAnimalUpdate(data.data[0])
+        setAnimalUpdate(data.data[0]);
 
         form.setFieldsValue({
           id: data.data[0].id,
@@ -94,29 +93,24 @@ const UpdateAnimal = () => {
           description: data.data[0].description,
           dayAge: data.data[0].dayAge,
           sex: data.data[0].sex,
-          pricing: data.data[0].pricing
-        })
-
-
+          pricing: data.data[0].pricing,
+        });
       })
       .catch((error) => console.log(error))
       .finally(() => {
-
         setLoading(false);
-
       });
-  }, [page.pageSize, page.pageNumber])
+  }, [page.pageSize, page.pageNumber]);
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const onFinishUpdate = () => {
-
     // console.log("update finish", form.getFieldsValue())
 
     setLoading(true);
-    fetch(process.env.REACT_APP_API.concat(ApiRoute.updateAnimal), {
+    fetch(process.env.REACT_APP_API.concat(AnimalApiRoute.update), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -129,54 +123,38 @@ const UpdateAnimal = () => {
         // console.log(">>>> res", res)
       })
       .then((data) => {
-
-        navigate(RouteEndpoints.animal.basepath)
+        navigate(RouteEndpoints.animal.basepath);
         openNotificationWithIcon(
           "success",
           "SUCCESS",
           `Cập nhật thông tin động vật thành công`
         );
-
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         openNotificationWithIcon(
           "error",
           "ERROR",
           `Cập nhật thông tin thất bại, vui lòng kiểm tra lại thông tin`
         );
         setLoading(false);
-      })
-
-
-
-  }
+      });
+  };
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
   //
   return (
     <>
-
       {/* {console.log("update data >>>>>>>>", animalUpdate)} */}
 
-      <Form
-        id="update-animal-form"
-        layout="vertical"
-        form={form}
-
-
-      >
+      <Form id="update-animal-form" layout="vertical" form={form}>
         <Form.Item>
           <b>Cập nhật thông tin động vật</b>
         </Form.Item>
-
         <Form.Item
-
           label={"ID"}
           name={"id"}
           rules={[
@@ -187,10 +165,8 @@ const UpdateAnimal = () => {
             },
           ]}
         >
-
           <Input disabled={true} />
         </Form.Item>
-
         <Form.Item
           label={"Tên động vật"}
           name={"name"}
@@ -202,10 +178,8 @@ const UpdateAnimal = () => {
             },
           ]}
         >
-
           <Input />
         </Form.Item>
-
         <Form.Item
           label={"Mô tả"}
           name={"description"}
@@ -219,7 +193,6 @@ const UpdateAnimal = () => {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label={"Tuổi"}
           name={"dayAge"}
@@ -232,7 +205,6 @@ const UpdateAnimal = () => {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label={"Giới tính"}
           name={"sex"}
@@ -255,7 +227,6 @@ const UpdateAnimal = () => {
             })}
           </Radio.Group>
         </Form.Item>
-
         <Form.Item
           label={"Giá kiểm dịch"}
           name={"pricing"}
@@ -268,22 +239,20 @@ const UpdateAnimal = () => {
         >
           <Input />
         </Form.Item>
-
-        <Button type="primary" onClick={() => { navigate(RouteEndpoints.animal.basepath) }}>
+        <Button
+          type="primary"
+          onClick={() => {
+            navigate(RouteEndpoints.animal.basepath);
+          }}
+        >
           Quay lại
         </Button>
-
         &nbsp;&nbsp;&nbsp;&nbsp;
-
         <Button type="primary" onClick={() => onFinishUpdate()}>
           Cập nhật
         </Button>
-
-
       </Form>
-
     </>
-
   );
 };
 

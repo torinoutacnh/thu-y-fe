@@ -1,5 +1,6 @@
 import Abattoir from "Components/Pages/Abattoir/Abattoir";
 import AnimalHome from "Components/Pages/Animal";
+import UpdateAnimal from "Components/Pages/Animal/UpdateAnimal";
 import HomePage from "Components/Pages/Home/Home";
 import LoginPage from "Components/Pages/Login/Login";
 import Quarantine from "Components/Pages/Quarantine";
@@ -74,11 +75,11 @@ export class RouteEndpoints {
     // get create() {
     //   return this.basepath.concat("/create");
     // },
-    // get update() {
-    //   return this.basepath.concat("/update");
-    // },
+    get update() {
+      return this.basepath.concat("/cap-nhat-thong-tin-dong-vat/:id");
+    },
   };
-///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
 
 }
 
@@ -182,8 +183,21 @@ export default function MainRouter() {
             <AnimalHome />
           </PrivateRoute>
         }
-        key="staff"
+        key="animal"
       />
+
+      <Route
+        exact
+        path={RouteEndpoints.animal.updateAnimal}
+        element={
+          <PrivateRoute path={RouteEndpoints.user.login}>
+            <UpdateAnimal />
+          </PrivateRoute>
+        }
+        key="animal-update"
+      />
+
+
 
       {/* /////////////////////////////////////////////// */}
       <Route path="*" element={<h1>Not found</h1>} />

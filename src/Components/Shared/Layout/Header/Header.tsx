@@ -72,6 +72,13 @@ const Header = () => {
           onClick: () => navigate(RouteEndpoints.staff.basepath),
           key: getKey(),
         },
+
+        {
+          label: "Danh sách động vật",
+          onClick: () => navigate(RouteEndpoints.animal.basepath),
+          key: getKey(),
+        },
+
         {
           label: "Quản lý đơn giá",
           key: getKey(),

@@ -5,7 +5,7 @@ import { useAuth } from "Modules/hooks/useAuth";
 import { PlusOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 
-function CreateAnimal() {
+function CreateAnimal(props: any) {
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
@@ -61,6 +61,7 @@ function CreateAnimal() {
             "Thêm động vật",
             "Thêm động vật thành công"
           );
+          props.UpdateAnimalAfterCreate()
         })
         .catch((error) => {
           console.log(error);

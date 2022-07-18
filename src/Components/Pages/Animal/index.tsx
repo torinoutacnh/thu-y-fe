@@ -13,6 +13,7 @@ import { getKeyThenIncreaseKey } from "antd/lib/message";
 import { AnimalModel } from "Components/Shared/Models/Animal";
 import CreateAnimal from "./CreateAnimal";
 import { Form, Modal, Select, notification, Space } from "antd";
+import UpdateAnimal from "./UpdateAnimal";
 
 const AnimalHome = () => {
   const [listsAnimal, setListAnimal] = useState<AnimalModel[]>([]);
@@ -24,6 +25,17 @@ const AnimalHome = () => {
   const { setLoading } = useLoading();
   const navigate = useNavigate();
   const windowSize = useWindowSize();
+  const keyRef = useRef(0);
+
+
+  const getKey = () => {
+    keyRef.current++;
+    return keyRef.current;
+  };
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   useEffect(() => {
     setLoading(true);
@@ -48,40 +60,29 @@ const AnimalHome = () => {
         setLoading(false);
       });
   }, [page.pageNumber, page.pageSize]);
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const AnimalColumns: ColumnsType<AnimalModel> = [
     { title: "Tên động vật", dataIndex: "name", key: 1 },
     { title: "Mô tả", dataIndex: "description", key: 2 },
     { title: "Tuổi", dataIndex: "dayAge", key: 3 },
-    // { title: "isCar", dataIndex: "isCar", key: 4 },
-
-    // {
-    //   title: "Giới tính",
-    //   dataIndex: "sex",
-    //   key: 7,
-    //   render: (value: number) => {
-    //     switch (value) {
-    //       case SexType["Nam"]: {
-    //         return "Nam";
-    //       }
-    //       case SexType["Nữ"]: {
-    //         return "Nữ";
-    //       }
-    //     }
-    //   },
-    // },
+    { title: "Giá kiểm dịch", dataIndex: "pricing", key: 3 },
     {
       title: "Xử lý",
       dataIndex: "",
       key: 5,
       render: (record) => (
         <>
-          <Link to={RouteEndpoints.staff.updateStaff.replace(":id", record.id)}>
+          <Link to={RouteEndpoints.animal.updateAnimal.replace(":id", record.id)}>
             <Button
               type="link"
               color="blue"
-              onClick={() => UpdateAnimalHandler(record)}
+            // onClick={() => { console.log("id record update", record.id) }}
             >
+
               Cập nhật
             </Button>
           </Link>
@@ -97,86 +98,71 @@ const AnimalHome = () => {
     },
   ];
 
-  const RenderCard = (props: { data: AnimalModel; idx: number }) => {
-    const { data, idx } = props;
-    const key = useRef(0);
-    const getKey = () => {
-      key.current = key.current + 1;
-      return key.current;
-    };
-
-    // const RenderIsCarRole = (value: RoleType) => {
-    //   switch (value) {
-    //     case RoleType["Nhân viên"]:
-    //       return "Nhân viên";
-    //     case RoleType["Quản lý"]:
-    //       return "Quản lý";
-    //   }
-    // };
-
-    return (
-      <Descriptions
-        bordered
-        column={{ lg: 2, md: 1, sm: 1, xs: 1 }}
-        labelStyle={{
-          color: "white",
-          backgroundColor: "#17202A",
-          width: "40%",
-        }}
-        contentStyle={{
-          color: "#17202A",
-          backgroundColor: "#D5D8DC",
-        }}
-        size={"small"}
-        style={{ marginTop: idx === 0 ? 10 : 50 }}
-      >
-        {/* 
-    name: string, 1 
-    description: string,2 
-   
-    dayAge: number,4
-    isCar: boolean,5
-    Enum: number,6
-    pricing: number,7
-      */}
-        <Descriptions.Item label={"Tên động vật"}>
-          {data.name}
-        </Descriptions.Item>
-        <Descriptions.Item label={"Mô tả"}>
-          {data.description}
-        </Descriptions.Item>
-        <Descriptions.Item label={"Tuổi"}>{data.dayAge}</Descriptions.Item>
-        {/* <Descriptions.Item label={"isCar"}>{data.isCar === true ? "Gia cầm" : "Gia súc"}</Descriptions.Item> */}
-        <Descriptions.Item label={"pricing"}>{data.pricing}</Descriptions.Item>
-
-        <Descriptions.Item label={"Xử lý"}>
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const resColumns: ColumnsType<AnimalModel> = [
+    {
+      title: "Danh sách động vật",
+      key: getKey(),
+      render: (record, key, index) => {
+        return (
           <>
-            {/* <Link to={RouteEndpoints.staff.updateStaff.replace(":id", data.id)}> */}
-            <Button type="link" color="blue">
-              Cập nhật
-            </Button>
-            {/* </Link> */}
-            <Button
-              type="link"
-              danger
-              onClick={() => deleteAnimalHandler(data.id, data.name)}
-            >
-              Xóa
-            </Button>
-          </>
-        </Descriptions.Item>
-      </Descriptions>
-    );
-  };
+            <tr>
+              <th>Tên động vật :</th>
+              <td>{record.name}</td>
+            </tr>
+            <tr>
+              <th>Mô tả :</th>
+              <td>{record.description}</td>
+            </tr>
+            <tr>
+              <th>Tuổi :</th>
+              <td>{record.dayAge}</td>
+            </tr>
+            <tr>
+              <th>Giá kiểm dịch :</th>
+              <td>{record.pricing}</td>
+            </tr>
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////
+            <tr>
+              <Space>
+                <Link to={RouteEndpoints.animal.updateAnimal.replace(":id", record.id)}>
+                  <Button
+                    type="link"
+                    color="blue"
+                  // onClick={() => { console.log("id record update", record.id) }}
+                  >
+
+                    Cập nhật
+                  </Button>
+                </Link>
+                <Button
+                  type="link"
+                  danger
+                  onClick={() => deleteAnimalHandler(record.id, record.name)}
+                >
+                  Xóa
+                </Button>
+              </Space>
+            </tr>
+          </>
+        );
+      },
+    },
+  ];
+
+
+  ////////////////////////////////////////////NOTIFICATION//////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   notification.config({
     placement: "topRight",
     bottom: 50,
-    duration: 2,
+    duration: 3,
     rtl: true,
   });
 
@@ -192,10 +178,16 @@ const AnimalHome = () => {
       description: message,
     });
   };
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+  /////////////////////////////////////////DELETE ANIMAL/////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const deleteAnimalHandler = (idAnimal: string, name: string) => {
     // setLoading(true);
@@ -238,36 +230,46 @@ const AnimalHome = () => {
       });
   };
 
+
+
+
+
+  /////////////////////////////////////////Update after create/////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   const UpdateAnimalHandler = (animal: object) => {
-    console.log("update ", animal);
+    return (
+      <UpdateAnimal />
+    )
   };
+
+
+  const UpdateAnimalAfterCreate = () => {
+    setPage({ ...page, pageSize: page.pageSize - 1 });
+  }
+
+  //////////////////////////////////////////////////// RENDER //////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
   return (
     <>
-      {/* {console.log(">>> list animal render", listsAnimal)} */}
+
       <PageHeader
         title="Quản lý động vật"
-        extra={[<CreateAnimal key={getKeyThenIncreaseKey()} />]}
+        extra={[<CreateAnimal key={getKeyThenIncreaseKey()} UpdateAnimalAfterCreate={UpdateAnimalAfterCreate} />]}
       />
-      {listsAnimal && windowSize && (
-        <div className="table-content-report">
-          {windowSize.width >= 1024 ? (
-            <Table
-              locale={{ emptyText: "Không động vật!" }}
-              columns={AnimalColumns}
-              rowKey={"id"}
-              dataSource={listsAnimal}
-            />
-          ) : (
-            listsAnimal.map((x, idx) => (
-              <RenderCard data={x} key={getKeyThenIncreaseKey()} idx={idx} />
-            ))
-          )}
-        </div>
-      )}
+      <Table
 
-      {/* ///////////////////////////////////////////////////////////////// */}
-
-      {/* ///////////////////////////////////////////////////////////////// */}
+        columns={windowSize.width > 768 ? AnimalColumns : resColumns}
+        rowKey={"id"}
+        dataSource={listsAnimal}
+      />
     </>
   );
 };

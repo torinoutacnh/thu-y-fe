@@ -135,14 +135,14 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
             prevValues.values !== curValues.values
           }
           initialValue={""}
-          // rules={[
-          //   {
-          //     // required: true,
-          //     // type: "number",
-          //     // message: "Sai định dạng!",
-          //     // transform: (i) => i.toString(),
-          //   },
-          // ]}
+          rules={[
+            {
+              required: true,
+              type: "number",
+              message: "Sai định dạng!",
+              transform: (i) => Number(i),
+            },
+          ]}
         >
           {/* <Input type={"number"} /> */}
           <Input />

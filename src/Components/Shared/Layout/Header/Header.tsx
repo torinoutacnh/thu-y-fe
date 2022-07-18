@@ -7,7 +7,6 @@ import { useAuth } from "Modules/hooks/useAuth";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./header.css";
-import "./nav.css";
 
 const Header = () => {
   const navigate = useNavigate();

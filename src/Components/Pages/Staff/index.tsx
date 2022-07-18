@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { PlusOutlined } from "@ant-design/icons";
-import { Table, Button, Input, Descriptions, PageHeader } from "antd";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Table, Button, Input, Descriptions, PageHeader, Space } from "antd";
 import { ApiRoute, UserApiRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
@@ -31,7 +31,7 @@ const StaffHome = () => {
       setLoading(true);
       fetch(
         process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
-          new URLSearchParams(page as any),
+        new URLSearchParams(page as any),
         {
           method: "GET",
           headers: {
@@ -47,11 +47,15 @@ const StaffHome = () => {
     }
   };
 
+  const updateAfterCreate = () => {
+    setPage({ ...page, pageNumber: page.pageNumber + 1 });
+  }
+
   const deleteUserHandler = (id: string) => {
     setLoading(true);
     fetch(
       process.env.REACT_APP_API.concat(UserApiRoute.delete, "?") +
-        new URLSearchParams({ id }),
+      new URLSearchParams({ id }),
       {
         method: "POST",
         headers: {
@@ -84,12 +88,16 @@ const StaffHome = () => {
           case RoleType["Nhân viên lò mổ"]: {
             return "Nhân viên lò mổ";
           }
+
           case RoleType["Quản lý"]: {
             return "Quản lý";
           }
+
         }
       },
     },
+
+
     {
       title: "Giới tính",
       dataIndex: "sex",
@@ -112,7 +120,7 @@ const StaffHome = () => {
       render: (record) => (
         <>
           <Link to={staffEndpoints.updateStaff.replace(":id", record.id)}>
-            <Button type="link" color="blue">
+            <Button type="link" color="blue" icon={<EditOutlined />}>
               Cập nhật
             </Button>
           </Link>
@@ -120,6 +128,7 @@ const StaffHome = () => {
             type="link"
             danger
             onClick={() => deleteUserHandler(record.id)}
+            icon={<DeleteOutlined />}
           >
             Xóa
           </Button>
@@ -128,83 +137,90 @@ const StaffHome = () => {
     },
   ];
 
-  const RenderCard = (props: { data: UserModel; idx: number }) => {
-    const { data, idx } = props;
-    const key = useRef(0);
-    const getKey = () => {
-      key.current = key.current + 1;
-      return key.current;
-    };
 
-    const RenderDataRole = (value: RoleType) => {
-      switch (value) {
-        case RoleType["Nhân viên kiểm dịch"]:
-          return "Nhân viên kiểm dịch";
-        case RoleType["Nhân viên lò mổ"]:
-          return "Nhân viên lò mổ";
-        case RoleType["Quản lý"]:
-          return "Quản lý";
-      }
-    };
-    const RenderSexRole = (value: SexType) => {
-      switch (value) {
-        case SexType["Nam"]:
-          return "Nam";
-        case SexType["Nữ"]:
-          return "Nữ";
-      }
-    };
 
-    return (
-      <Descriptions
-        bordered
-        column={{ lg: 2, md: 1, sm: 1, xs: 1 }}
-        labelStyle={{
-          color: "white",
-          backgroundColor: "#17202A",
-          width: "40%",
-        }}
-        contentStyle={{
-          color: "#17202A",
-          backgroundColor: "#D5D8DC",
-        }}
-        size={"small"}
-        style={{ marginTop: idx === 0 ? 10 : 50 }}
-      >
-        <Descriptions.Item label={"Họ tên"}>{data.name}</Descriptions.Item>
-        <Descriptions.Item label={"Tài khoản"}>
-          {data.account}
-        </Descriptions.Item>
-        <Descriptions.Item label={"Địa chỉ"}>{data.address}</Descriptions.Item>
-        <Descriptions.Item label={"Email"}>{data.email}</Descriptions.Item>
-        <Descriptions.Item label={"Số điện thoại"}>
-          {data.phone}
-        </Descriptions.Item>
-        <Descriptions.Item label={"Chức vụ"}>
-          {RenderDataRole(data.role)}
-        </Descriptions.Item>
-        <Descriptions.Item label={"Giới tính"}>
-          {RenderSexRole(data.sex)}
-        </Descriptions.Item>
-        <Descriptions.Item label={"Xử lý"}>
-          <>
-            <Link to={staffEndpoints.updateStaff.replace(":id", data.id)}>
-              <Button type="link" color="blue">
-                Cập nhật
-              </Button>
-            </Link>
-            <Button
-              type="link"
-              danger
-              onClick={() => deleteUserHandler(data.id)}
-            >
-              Xóa
-            </Button>
-          </>
-        </Descriptions.Item>
-      </Descriptions>
-    );
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  const keyRef = useRef(0);
+  const getKey = () => {
+    keyRef.current++;
+    return keyRef.current;
   };
+  const resColumns: ColumnsType<UserModel> = [
+    {
+      title: "Danh sách nhân viên",
+      key: getKey(),
+      render: (record, key, index) => {
+        const RenderSexRole = (value: SexType) => {
+          switch (value) {
+            case SexType["Nam"]:
+              return "Nam";
+            case SexType["Nữ"]:
+              return "Nữ";
+          }
+        };
+        return (
+          <>
+
+            <tr>
+              <th>Họ tên :</th>
+              <td>{record.name}</td>
+            </tr>
+            <tr>
+              <th>Tài khoản :</th>
+              <td>{record.account}</td>
+            </tr>
+            <tr>
+              <th>Địa chỉ :</th>
+              <td>{record.address}</td>
+            </tr>
+            <tr>
+              <th>Email :</th>
+              <td>{record.email}</td>
+            </tr>
+            <tr>
+              <th>Số điện thoại :</th>
+              <td>{record.phone}</td>
+            </tr>
+            <tr>
+              <th>Chức vụ:</th>
+              <td>{record.role}</td>
+            </tr>
+            <tr>
+              <th>Giới tính :</th>
+              <td>{RenderSexRole(record.sex)}</td>
+            </tr>
+            <tr>
+              <Space>
+                <Button
+                  // onClick={() =>
+                  //   navigate(
+                  //     quarantineEndpoints.updatereport.replace(
+                  //       ":id",
+                  //       record.reportId
+                  //     ),
+                  //     { replace: true }
+                  //   )
+                  // }
+                  type="link"
+                >
+                  Cập nhật
+                </Button>
+                <Button type="link" danger>
+                  Xóa
+                </Button>
+              </Space>
+            </tr>
+          </>
+        );
+      },
+    },
+  ];
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   return (
     <>
@@ -212,22 +228,13 @@ const StaffHome = () => {
         title="Quản lý nhân viên"
         extra={[<CreateStaff key={getKeyThenIncreaseKey()} />]}
       />
-      {liststaff && windowSize && (
-        <div className="table-content-report">
-          {windowSize.width >= 1024 ? (
-            <Table
-              locale={{ emptyText: "Không có báo cáo!" }}
-              columns={UserColumns}
-              rowKey={"id"}
-              dataSource={liststaff}
-            />
-          ) : (
-            liststaff.map((x, idx) => (
-              <RenderCard data={x} key={getKeyThenIncreaseKey()} idx={idx} />
-            ))
-          )}
-        </div>
-      )}
+
+
+      <Table
+        columns={windowSize.width > 768 ? UserColumns : resColumns}
+        rowKey={"id"}
+        dataSource={liststaff}
+      />
     </>
   );
 };

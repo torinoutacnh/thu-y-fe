@@ -4,12 +4,20 @@ import { RouteEndpoints } from "Components/router/MainRouter";
 import { manageabattoirEndpoints } from "Components/router/ManageAbattoirRoutes";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import { staffEndpoints } from "Components/router/StaffRoutes";
+
+
+
+import logoThuY from "../../../../Static/image/logo.png"
+
+
 import { useAuth } from "Modules/hooks/useAuth";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import "./header.css";
 
 const Header = () => {
+
   const navigate = useNavigate();
   const keyRef = useRef(0);
   const { user } = useAuth();
@@ -53,6 +61,7 @@ const Header = () => {
     setIconRotate3(!iconRotate3);
   }
 
+
   return (
     <>
       <PageHeader>
@@ -74,18 +83,16 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Kiểm dịch
                       <span
-                        className={`icon ${
-                          iconRotate1 ? "iconRotate--90" : "iconRotate-0"
-                        }`}
+                        className={`icon ${iconRotate1 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${
-                          showItems1 ? "showItems" : ""
-                        }`}
+                        className={`dropdown-content-1 ${showItems1 ? "showItems" : ""
+                          }`}
                       >
                         <li>
                           <Link to={quarantineEndpoints.home}>
@@ -111,18 +118,16 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Giết mổ
                       <span
-                        className={`icon ${
-                          iconRotate2 ? "iconRotate--90" : "iconRotate-0"
-                        }`}
+                        className={`icon ${iconRotate2 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${
-                          showItems2 ? "showItems" : ""
-                        }`}
+                        className={`dropdown-content-1 ${showItems2 ? "showItems" : ""
+                          }`}
                       >
                         <li>
                           <Link to={abattoirEndpoints.home}>
@@ -148,18 +153,16 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Quản trị admin
                       <span
-                        className={`icon ${
-                          iconRotate3 ? "iconRotate--90" : "iconRotate-0"
-                        }`}
+                        className={`icon ${iconRotate3 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${
-                          showItems3 ? "showItems" : ""
-                        }`}
+                        className={`dropdown-content-1 ${showItems3 ? "showItems" : ""
+                          }`}
                       >
                         <li>
                           <Link to={staffEndpoints.home}>
@@ -196,6 +199,80 @@ const Header = () => {
             <></>
           )}
         </div>
+
+        <nav className="nav-bar-top" ref={navRef}>
+          <ul>
+            <li>
+              <div className="dropdown-menu">
+                <Button type="link">Kiểm dịch</Button>
+                <div className="dropdown-content">
+                  <ul>
+                    <li>
+                      <Link to={quarantineEndpoints.home}>
+                        Báo cáo kiểm dịch
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={RouteEndpoints.notfound}>
+                        Hóa đơn kiểm dịch
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={RouteEndpoints.notfound}>
+                        Báo cáo doanh thu
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div className="dropdown-menu">
+                <Button type="link">Giết mổ</Button>
+                <div className="dropdown-content">
+                  <ul>
+                    <li>
+                      <Link to={abattoirEndpoints.home}>Báo cáo giết mổ</Link>
+                    </li>
+                    <li>
+                      <Link to={RouteEndpoints.notfound}>Hóa đơn giết mổ</Link>
+                    </li>
+                    <li>
+                      <Link to={RouteEndpoints.notfound}>Báo cáo doanh thu</Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div className="dropdown-menu">
+                <Button type="link">Quản trị admin</Button>
+                <div className="dropdown-content">
+                  <ul>
+                    <li>
+                      <Link to={staffEndpoints.home}>Quản lý nhân viên</Link>
+                    </li>
+                    <li>
+                      <Link to={RouteEndpoints.animal.basepath}>
+                        Quản lý động vật
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={RouteEndpoints.notfound}>Quản lý đơn giá</Link>
+                    </li>
+                    <li>
+                      <Link to={RouteEndpoints.notfound}>Quản lý lò mổ</Link>
+                    </li>
+                    <li>
+                      <Link to={RouteEndpoints.notfound}>Doanh thu tổng</Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </nav>
+
       </PageHeader>
     </>
   );

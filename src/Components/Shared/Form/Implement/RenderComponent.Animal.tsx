@@ -65,9 +65,7 @@ const AnimalFields = (props: {
         },
         body: JSON.stringify(searchAnimal),
       })
-        .then((res) => {
-          return res.json();
-        })
+        .then((res) => res.json())
         .then((data) => {
           setAnimals(data.data);
         })
@@ -174,7 +172,7 @@ const AnimalFields = (props: {
         prevValues.listAnimals !== curValues.listAnimals
       }
     >
-      <Form.List name={"listAnimals"} initialValue={[]}>
+      <Form.List name={"listAnimals"}>
         {(fields, { add, remove }) => {
           return (
             <>
@@ -188,7 +186,7 @@ const AnimalFields = (props: {
                     <Form.Item
                       key={getkey()}
                       {...field}
-                      name={[field.name, "id"]}
+                      name={"id"}
                       hidden={true}
                     >
                       <Input />

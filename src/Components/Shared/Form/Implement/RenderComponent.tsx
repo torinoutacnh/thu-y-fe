@@ -2,11 +2,7 @@ import { Input, Col, Form, Button, Space, Row } from "antd";
 import { RenderProps, ReportType } from "../Define/FormInterface";
 import React, { useEffect } from "react";
 import { useAuth } from "Modules/hooks/useAuth";
-import {
-  DataTypes,
-  FormModel,
-  ReportModel,
-} from "Components/Shared/Models/Form";
+import { ReportModel } from "Components/Shared/Models/Form";
 import { LeftOutlined, SaveOutlined, PlusOutlined } from "@ant-design/icons";
 
 import { AnimalFields } from "./RenderComponent.Animal";
@@ -17,7 +13,6 @@ import { useLoading } from "Modules/hooks/useLoading";
 import { ApiRoute, ReportApiRoute } from "Api";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import { abattoirEndpoints } from "Components/router/AbattoirRoutes";
-import moment from "moment";
 
 const RenderForm: React.FC<RenderProps> = ({
   form,
@@ -82,7 +77,6 @@ const RenderForm: React.FC<RenderProps> = ({
 
   useEffect(() => {
     if (reportvalue) {
-      reportvalue.values?.sort((a, b) => (a.sort = b.sort));
       formref.resetFields(), [reportvalue];
     }
   }, [reportvalue?.id, form?.id]);
@@ -128,7 +122,7 @@ const RenderForm: React.FC<RenderProps> = ({
           {isQuarantined && isQuarantined === ReportType.QuarantineReport && (
             <SealFields mainFormRef={formref} report={reportvalue} />
           )}
-          <RenderFormAttrs attributes={form.attributes} />
+          <RenderFormAttrs form={form} />
           <Row align="middle" justify="center">
             <Form.Item>
               <Space>

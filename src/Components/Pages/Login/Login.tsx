@@ -9,8 +9,7 @@ import { useLoading } from "Modules/hooks/useLoading";
 import { publicEndpoints } from "Components/router/PublicRoutes";
 import { IconType } from "antd/lib/notification";
 import Cookies from "js-cookie";
-import ReactPDF, { PDFViewer } from "@react-pdf/renderer";
-import { MyDocument } from "Components/Shared/Form/pdf/pdf";
+
 
 export default function LoginPage() {
   return <LoginForm />;

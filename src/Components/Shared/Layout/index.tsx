@@ -14,7 +14,6 @@ type Props = {
 };
 
 const MainLayout: React.FC<Props> = ({ children }) => {
-  const { user } = useAuth();
   const { isloading } = useLoading();
   return (
     <Spin
@@ -27,7 +26,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
       >
         <Header />
         <Layout>
-          {user && <SideBar />}
+          {/* {user && <SideBar />} */}
           <Content
             style={{ background: "#fff", minHeight: "80vh", padding: 10 }}
           >

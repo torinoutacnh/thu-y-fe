@@ -10,43 +10,43 @@ import { useLoading } from "Modules/hooks/useLoading";
 import { abattoirEndpoints } from "Components/router/AbattoirRoutes";
 import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
-import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import useWindowSize from "Modules/hooks/useWindowSize";
 import { IconType } from "antd/lib/notification";
 import { ReportModel } from "Components/Shared/Models/Form";
 
-interface QuarantineReportModel {
+interface AbattoirReportModel {
   reportId?: string;
   reportName?: string;
   stt?: number;
-  ownerName?: string;
-  address?: string;
-  startPlace?: string;
-  endPlace?: string;
-  quarantiner?: string;
-  amount?: number;
+  abattoirOwner?: null;
+  medicalStaff?: null;
+  time?: string;
+  total?: number;
+  dead?: number;
+  alive?: number;
 }
 
-type DataIndex = keyof QuarantineReportModel;
+type DataIndex = keyof AbattoirReportModel;
 
-const QuarantinePage = () => {
-  const [reports, setReports] = useState<QuarantineReportModel[]>();
+const AbattoirPage = () => {
+  const [reports, setReports] = useState<AbattoirReportModel[]>();
   const navigate = useNavigate();
   const { user } = useAuth();
   const { setLoading } = useLoading();
   const keyRef = useRef(0);
-  const windowSize = useWindowSize();
 
   const getKey = () => {
     keyRef.current++;
     return keyRef.current;
   };
 
-  const getReports = () => {
+  const windowSize = useWindowSize();
+
+  const getReport = () => {
     if (user) {
       setLoading(true);
       fetch(
-        process.env.REACT_APP_API.concat(ReportApiRoute.listQuarantine, "?") +
+        process.env.REACT_APP_API.concat(ReportApiRoute.animalkilling, "?") +
           new URLSearchParams({ userId: user.userId }),
         {
           method: "GET",
@@ -60,9 +60,7 @@ const QuarantinePage = () => {
         .then((data) => {
           console.log(data);
           (data.data as Array<ReportModel>).sort((a, b) => {
-            console.log(a.dateCreated, b.dateCreated);
-
-            return -moment(a.dateCreated).diff(moment(b.dateCreated));
+            return moment(a.dateCreated).diff(moment(b.dateCreated));
           });
           setReports(data.data);
         })
@@ -110,10 +108,10 @@ const QuarantinePage = () => {
   };
 
   useEffect(() => {
-    getReports();
+    getReport();
   }, [user?.token]);
 
-  const columns: ColumnsType<QuarantineReportModel> = [
+  const columns: ColumnsType<AbattoirReportModel> = [
     {
       title: "STT",
       dataIndex: "stt",
@@ -122,34 +120,39 @@ const QuarantinePage = () => {
     },
     {
       title: "Chủ lò mổ",
-      dataIndex: "ownerName",
+      dataIndex: "abattoirOwner",
       key: getKey(),
     },
     {
-      title: "Địa chỉ",
-      dataIndex: "address",
+      title: "Nhân viên kiểm dịch",
+      dataIndex: "medicalStaff",
       key: getKey(),
     },
     {
-      title: "Nơi xuất phát",
-      dataIndex: "startPlace",
+      title: "Tổng nhập",
+      dataIndex: "total",
       key: getKey(),
+      sorter: (a, b) => a.total - b.total,
     },
     {
-      title: "Nơi đến",
-      dataIndex: "endPlace",
+      title: "Tổng đã xử lý",
+      dataIndex: "dead",
       key: getKey(),
+      sorter: (a, b) => a.dead - b.dead,
     },
     {
-      title: "Người kiểm dịch",
-      dataIndex: "quarantiner",
+      title: "Tổng tồn",
+      dataIndex: "alive",
       key: getKey(),
+      sorter: (a, b) => a.alive - b.alive,
     },
     {
-      title: "Số lượng",
+      title: "Ngày báo cáo",
       dataIndex: "time",
       key: getKey(),
-      sorter: (a, b) => a.amount - b.amount,
+      sorter: (a, b) => moment(a.time).diff(moment(b.time)),
+      render: (record) => moment(record.time).format("DD/MM/YYYY"),
+      // showSorterTooltip: { title: "sắp xếp" },
     },
     {
       title: "Xử lý",
@@ -161,7 +164,7 @@ const QuarantinePage = () => {
               <Button
                 onClick={() =>
                   navigate(
-                    quarantineEndpoints.updatereport.replace(
+                    abattoirEndpoints.updatereport.replace(
                       ":id",
                       record.reportId
                     )
@@ -171,11 +174,7 @@ const QuarantinePage = () => {
               >
                 Cập nhật
               </Button>
-              <Button
-                onClick={() => deleteReport(record.reportId)}
-                type="link"
-                danger
-              >
+              <Button type="link" danger>
                 Xóa
               </Button>
             </Space>
@@ -185,7 +184,7 @@ const QuarantinePage = () => {
     },
   ];
 
-  const resColumns: ColumnsType<QuarantineReportModel> = [
+  const resColumns: ColumnsType<AbattoirReportModel> = [
     {
       title: "Danh sách báo cáo",
       key: getKey(),
@@ -198,34 +197,34 @@ const QuarantinePage = () => {
             </tr>
             <tr>
               <th>Chủ lò mổ :</th>
-              <td>{record.ownerName}</td>
-            </tr>
-            <tr>
-              <th>Địa chỉ :</th>
-              <td>{record.address}</td>
-            </tr>
-            <tr>
-              <th>Nơi xuất phát :</th>
-              <td>{record.startPlace}</td>
-            </tr>
-            <tr>
-              <th>Nơi đến :</th>
-              <td>{record.endPlace}</td>
+              <td>{record.abattoirOwner}</td>
             </tr>
             <tr>
               <th>Người kiểm dịch :</th>
-              <td>{record.quarantiner}</td>
+              <td>{record.medicalStaff}</td>
             </tr>
             <tr>
-              <th>Số lượng :</th>
-              <td>{record.amount}</td>
+              <th>Tổng nhập :</th>
+              <td>{record.total}</td>
+            </tr>
+            <tr>
+              <th>Tổng đã xử lý :</th>
+              <td>{record.dead}</td>
+            </tr>
+            <tr>
+              <th>Tổng tồn :</th>
+              <td>{record.alive}</td>
+            </tr>
+            <tr>
+              <th>Ngày báo cáo :</th>
+              <td>{moment(record.time).format("DD/MM/YYYY")}</td>
             </tr>
             <tr>
               <Space>
                 <Button
                   onClick={() =>
                     navigate(
-                      quarantineEndpoints.updatereport.replace(
+                      abattoirEndpoints.updatereport.replace(
                         ":id",
                         record.reportId
                       )
@@ -253,14 +252,14 @@ const QuarantinePage = () => {
   return (
     <>
       <PageHeader
-        title="Báo cáo kiểm dịch"
+        title="Báo cáo giết mổ"
         extra={[
           <Button
             key={getKeyThenIncreaseKey()}
             icon={<FileAddOutlined />}
             type="primary"
             onClick={() => {
-              navigate(quarantineEndpoints.createreport);
+              navigate(abattoirEndpoints.createreport);
             }}
           >
             Tạo báo cáo
@@ -276,4 +275,4 @@ const QuarantinePage = () => {
   );
 };
 
-export { QuarantinePage };
+export { AbattoirPage };

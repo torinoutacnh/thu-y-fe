@@ -13,6 +13,9 @@ import {
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { RouteEndpoints } from "Components/router/MainRouter";
+import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
+import { staffEndpoints } from "Components/router/StaffRoutes";
+import { abattoirEndpoints } from "Components/router/AbattoirRoutes";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -44,7 +47,7 @@ const SideBar = () => {
           label: "Báo cáo kiểm dịch",
           key: getKey(),
           onClick: () => {
-            navigate(RouteEndpoints.quarantine.basepath);
+            navigate(quarantineEndpoints.home);
           },
         },
         {
@@ -66,6 +69,9 @@ const SideBar = () => {
           label: "Báo cáo giết mổ",
           icon: <ContainerOutlined />,
           key: getKey(),
+          onClick: () => {
+            navigate(abattoirEndpoints.home);
+          },
         },
         { label: "Hóa đơn giết mổ", key: getKey() },
         { label: "Báo cáo doanh thu", key: getKey() },
@@ -81,7 +87,7 @@ const SideBar = () => {
           key: 2,
           icon: <TeamOutlined />,
           onClick: () => {
-            navigate(RouteEndpoints.staff.basepath);
+            navigate(staffEndpoints.home);
           },
         },
         //////////////////////////////

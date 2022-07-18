@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal, Radio } from "antd";
-import { ApiRoute } from "Api/ApiRoute";
+import { ApiRoute, UserApiRoute } from "Api";
 import { RoleType, SexType, UserModel } from "Components/Shared/Models/User";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
@@ -17,7 +17,7 @@ function UpdateStaff() {
   useEffect(() => {
     if (id && user) {
       setLoading(true);
-      fetch(process.env.REACT_APP_API.concat(ApiRoute.getUser, "?"), {
+      fetch(process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,7 +37,7 @@ function UpdateStaff() {
   const CreateUser = () => {
     if (user) {
       setConfirmLoading(true);
-      fetch(process.env.REACT_APP_API.concat(ApiRoute.getUser, "?"), {
+      fetch(process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

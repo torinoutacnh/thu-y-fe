@@ -13,6 +13,7 @@ interface UserModel{
 
 interface UserLoginModel {
   token?: string;
+  refreshToken?:string;
   name?: string;
   account?: string;
   role?: number;

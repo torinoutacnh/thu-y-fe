@@ -2,7 +2,13 @@ interface SealModel{
     id?:string;
     sealName?:string;
     sealCode?:string;
+    reportTicketId?:string;
     unitPrice?:number
 }
 
-export type {SealModel}
+interface UpdateSealTabModel{
+    reportId:string;
+    sealTabs:{id:string,sealName:string,sealCode:string}[]
+}
+
+export type {SealModel,UpdateSealTabModel}

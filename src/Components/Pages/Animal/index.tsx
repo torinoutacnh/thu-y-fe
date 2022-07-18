@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Table, Button, Input, Descriptions, PageHeader } from "antd";
-import { ApiRoute } from "Api/ApiRoute";
+import { AnimalApiRoute, ApiRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
 import { RouteEndpoints } from "Components/router/MainRouter";
@@ -13,7 +13,11 @@ import { getKeyThenIncreaseKey } from "antd/lib/message";
 import { AnimalModel } from "Components/Shared/Models/Animal";
 import CreateAnimal from "./CreateAnimal";
 import { Form, Modal, Select, notification, Space } from "antd";
+<<<<<<< HEAD
 import UpdateAnimal from "./UpdateAnimal";
+=======
+import { staffEndpoints } from "Components/router/StaffRoutes";
+>>>>>>> origin/master
 
 const AnimalHome = () => {
   const [listsAnimal, setListAnimal] = useState<AnimalModel[]>([]);
@@ -39,7 +43,7 @@ const AnimalHome = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(process.env.REACT_APP_API.concat(ApiRoute.getanimals), {
+    fetch(process.env.REACT_APP_API.concat(AnimalApiRoute.getanimals), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +80,11 @@ const AnimalHome = () => {
       key: 5,
       render: (record) => (
         <>
+<<<<<<< HEAD
           <Link to={RouteEndpoints.animal.updateAnimal.replace(":id", record.id)}>
+=======
+          <Link to={staffEndpoints.updateStaff.replace(":id", record.id)}>
+>>>>>>> origin/master
             <Button
               type="link"
               color="blue"
@@ -109,6 +117,7 @@ const AnimalHome = () => {
       render: (record, key, index) => {
         return (
           <>
+<<<<<<< HEAD
             <tr>
               <th>Tên động vật :</th>
               <td>{record.name}</td>
@@ -125,6 +134,25 @@ const AnimalHome = () => {
               <th>Giá kiểm dịch :</th>
               <td>{record.pricing}</td>
             </tr>
+=======
+            {/* <Link to={staffEndpoints.updateStaff.replace(":id", data.id)}> */}
+            <Button type="link" color="blue">
+              Cập nhật
+            </Button>
+            {/* </Link> */}
+            <Button
+              type="link"
+              danger
+              onClick={() => deleteAnimalHandler(data.id, data.name)}
+            >
+              Xóa
+            </Button>
+          </>
+        </Descriptions.Item>
+      </Descriptions>
+    );
+  };
+>>>>>>> origin/master
 
             <tr>
               <Space>
@@ -196,7 +224,7 @@ const AnimalHome = () => {
     };
 
     setLoading(true);
-    fetch(process.env.REACT_APP_API.concat(ApiRoute.deleteAnimal), {
+    fetch(process.env.REACT_APP_API.concat(AnimalApiRoute.delete), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -4,10 +4,18 @@ interface AnimalModel{
     name: string,
     description: string,
     dayAge: number,
-    isCar: boolean,
+    isCar?: boolean,
     sex	: number,
     Enum: number,
     pricing: number,
+}
+
+interface CreateAnimalItemModel{
+  id:	string,
+  isCar?: boolean,
+  animalName?:string;
+  amount:number;
+  reportTicketId?:string;
 }
 
 interface AnimalPaging{
@@ -27,4 +35,4 @@ interface AnimalPaging{
   export {AnimalSexType}
   ///////////////////
 
-export type {AnimalModel,AnimalPaging}
+export type {AnimalModel,AnimalPaging,CreateAnimalItemModel}

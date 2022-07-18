@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Table, Button, Input, Descriptions, PageHeader } from "antd";
-import { ApiRoute } from "Api/ApiRoute";
+import { ApiRoute, UserApiRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
 import { RouteEndpoints } from "Components/router/MainRouter";
@@ -11,6 +11,7 @@ import { useLoading } from "Modules/hooks/useLoading";
 import useWindowSize from "Modules/hooks/useWindowSize";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
 import CreateStaff from "./CreateStaff";
+import { staffEndpoints } from "Components/router/StaffRoutes";
 
 const StaffHome = () => {
   const [liststaff, setListStaff] = useState<UserModel[]>([]);
@@ -29,7 +30,7 @@ const StaffHome = () => {
     if (user) {
       setLoading(true);
       fetch(
-        process.env.REACT_APP_API.concat(ApiRoute.getUser, "?") +
+        process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
           new URLSearchParams(page as any),
         {
           method: "GET",
@@ -49,7 +50,7 @@ const StaffHome = () => {
   const deleteUserHandler = (id: string) => {
     setLoading(true);
     fetch(
-      process.env.REACT_APP_API.concat(ApiRoute.deleteUser, "?") +
+      process.env.REACT_APP_API.concat(UserApiRoute.delete, "?") +
         new URLSearchParams({ id }),
       {
         method: "POST",
@@ -107,7 +108,7 @@ const StaffHome = () => {
       key: 8,
       render: (record) => (
         <>
-          <Link to={RouteEndpoints.staff.updateStaff.replace(":id", record.id)}>
+          <Link to={staffEndpoints.updateStaff.replace(":id", record.id)}>
             <Button type="link" color="blue">
               Cập nhật
             </Button>
@@ -182,7 +183,7 @@ const StaffHome = () => {
         </Descriptions.Item>
         <Descriptions.Item label={"Xử lý"}>
           <>
-            <Link to={RouteEndpoints.staff.updateStaff.replace(":id", data.id)}>
+            <Link to={staffEndpoints.updateStaff.replace(":id", data.id)}>
               <Button type="link" color="blue">
                 Cập nhật
               </Button>

@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { applyMiddleware, configureStore } from "@reduxjs/toolkit";
 import loginSlice from "./reducer/loginReducer";
 import commonSlice from "./reducer/CommonReducer";
 import { useDispatch, useSelector } from "react-redux";

@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, notification, Space, Row } from "antd";
 
-import { ApiRoute } from "Api/ApiRoute";
+import { UserApiRoute } from "Api";
 import { RouteEndpoints } from "Components/router/MainRouter";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
+import { publicEndpoints } from "Components/router/PublicRoutes";
+import { IconType } from "antd/lib/notification";
+import Cookies from "js-cookie";
+import ReactPDF, { PDFViewer } from "@react-pdf/renderer";
+import { MyDocument } from "Components/Shared/Form/pdf/pdf";
 
 export default function LoginPage() {
-  return (
-    <>
-      <h1 style={{ width: "100%", textAlign: "center" }}>Đăng nhập</h1>
-      <LoginForm />
-    </>
-  );
+  return <LoginForm />;
 }
 
 interface UserLogin {
@@ -24,87 +24,127 @@ interface UserLogin {
 const LoginForm = () => {
   const [userinfo, setUserInfo] = useState<UserLogin>({} as any);
   const navigate = useNavigate();
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const { setLoading } = useLoading();
 
   function validateUser() {
-    if (!userinfo.username || !userinfo.password) return false;
+    if (!userinfo?.username || !userinfo?.password) return false;
     return true;
   }
+
+  const openNotification = (
+    message: string,
+    type: IconType,
+    onClose?: any,
+    body?: string
+  ) => {
+    notification.open({
+      duration: 2.5,
+      message: message,
+      description: body,
+      type: type,
+      onClose: onClose,
+    });
+  };
 
   const Login = async () => {
     if (!validateUser()) return;
     setLoading(true);
-    fetch(process.env.REACT_APP_API.concat(ApiRoute.login), {
+    fetch(process.env.REACT_APP_API.concat(UserApiRoute.login), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userinfo),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status >= 500)
+          throw new Error("Lỗi hệ thống. Vui lòng thử lại sau!");
+        if (res.status >= 400) throw new Error("Sai tài khoản/mật khẩu!");
+        return res.json();
+      })
       .then((data) => {
+        openNotification("Đăng nhập thành công.", "success");
         setUser(data.data);
         navigate(RouteEndpoints.home.basepath, { replace: true });
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        openNotification(error.message, "error", console.log(error));
+        console.log(error);
+      })
       .finally(() => setLoading(false));
   };
 
+  // return (
+  //   <Row align="middle" style={{ height: "100vh" }}>
+  //     <PDFViewer width={"100%"} height={"100%"}>
+  //       <MyDocument />
+  //     </PDFViewer>
+  //   </Row>
+  // );
   return (
-    <Form
-      labelCol={{ span: 9 }}
-      wrapperCol={{ span: 8 }}
-      initialValues={{ remember: true }}
-      autoComplete="off"
-      onFinish={Login}
-      style={{ marginTop: 20 }}
-    >
-      <Form.Item
-        label="Tài khoản"
-        name="username"
-        rules={[{ required: true, message: "Nhập tài khoản!" }]}
-      >
-        <Input
-          onChange={(e) => {
-            setUserInfo({ ...userinfo, username: e.target.value });
-          }}
-          value={userinfo.username ?? ""}
-        />
-      </Form.Item>
-
-      <Form.Item
-        label="Mật khẩu"
-        name="password"
-        rules={[{ required: true, message: "Nhập mật khẩu !" }]}
-      >
-        <Input.Password
-          onChange={(e) => {
-            setUserInfo({ ...userinfo, password: e.target.value });
-          }}
-          value={userinfo.password ?? ""}
-        />
-      </Form.Item>
-
-      <Form.Item
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{ offset: 9, span: 17 }}
-      >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-
-      <Form.Item wrapperCol={{ offset: 9, span: 17 }}>
-        <Button type="primary" htmlType="submit">
-          Đăng nhập
-        </Button>
-        <Link
-          to={RouteEndpoints.user.register}
-          style={{ textDecoration: "underline", marginLeft: 10 }}
+    <>
+      {user ? (
+        <Navigate to={publicEndpoints.home} replace />
+      ) : (
+        <Form
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 8 }}
+          initialValues={{ remember: true }}
+          autoComplete="off"
+          onFinish={Login}
+          style={{ marginTop: 20 }}
         >
-          Chưa có tài khoản ?
-        </Link>
-      </Form.Item>
-    </Form>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <h1>Đăng nhập</h1>
+          </Form.Item>
+          <Form.Item
+            label="Tài khoản"
+            name="username"
+            rules={[{ required: true, message: "Nhập tài khoản!" }]}
+          >
+            <Input
+              onChange={(e) => {
+                setUserInfo({ ...userinfo, username: e.target.value });
+              }}
+              value={userinfo.username ?? ""}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Mật khẩu"
+            name="password"
+            rules={[{ required: true, message: "Nhập mật khẩu !" }]}
+          >
+            <Input.Password
+              onChange={(e) => {
+                setUserInfo({ ...userinfo, password: e.target.value });
+              }}
+              value={userinfo.password ?? ""}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="remember"
+            valuePropName="checked"
+            wrapperCol={{ offset: 8, span: 16 }}
+          >
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
+
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+              Đăng nhập
+            </Button>
+            <Link
+              to={publicEndpoints.register}
+              style={{ textDecoration: "underline", marginLeft: 10 }}
+            >
+              Chưa có tài khoản ?
+            </Link>
+          </Form.Item>
+        </Form>
+      )}
+    </>
   );
 };

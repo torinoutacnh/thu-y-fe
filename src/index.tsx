@@ -1,26 +1,16 @@
-import MainRouter from 'Components/router/MainRouter';
-import MainLayout from 'Components/Shared/Layout';
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import reportWebVitals from "./reportWebVitals";
 
-import './Static/css/main.css'
-import appStore from 'Modules/Redux';
+import "./Static/css/main.css";
+import App from "Modules/Provider";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={appStore}>
-        <MainLayout >
-          <MainRouter />
-        </MainLayout>
-      </Provider>
-    </BrowserRouter>
+    <App />
   </React.StrictMode>
 );
 

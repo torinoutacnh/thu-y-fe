@@ -1,3 +1,4 @@
+import { Moment } from "moment";
 import { AnimalModel } from "./Animal";
 
 interface FormModel {
@@ -45,7 +46,8 @@ interface ReportValueModel {
     id?: string;
     attributeId: string;
     attributeName?:string;
-    value: string;
+    value: string|Date|number|Moment;
+    sort: number;
     reportId?: string;
     animalId?: string;
 }

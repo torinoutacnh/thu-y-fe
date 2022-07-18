@@ -1,11 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserLoginModel } from "Components/Shared/Models/User";
 
+type initProp = {
+  user: UserLoginModel;
+};
+
+const initValue: initProp = {
+  user: undefined,
+};
+
 const loginSlice = createSlice({
   name: "login",
-  initialState: {
-    user: null,
-  },
+  initialState: initValue,
   reducers: {
     login: (state, action: PayloadAction<UserLoginModel>) => {
       state.user = action.payload;
@@ -16,5 +22,5 @@ const loginSlice = createSlice({
   },
 });
 
-export const { login } = loginSlice.actions;
+export const { login, logout } = loginSlice.actions;
 export default loginSlice.reducer;

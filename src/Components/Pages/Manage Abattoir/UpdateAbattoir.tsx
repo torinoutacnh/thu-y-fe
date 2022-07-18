@@ -65,7 +65,7 @@ const UpdateAbattoir = (props: any) => {
     console.log("creatae");
   };
 
-  return <>hung</>;
+  return <>Not found</>;
 };
 
 export default UpdateAbattoir;

@@ -145,10 +145,6 @@ const ManageAbattoir = () => {
             key={getKeyThenIncreaseKey()}
             UpdateAbattoirAfterCreate={UpdateAbattoirAfterCreate}
           />,
-          <UpdateAbattoir
-            key={getKeyThenIncreaseKey()}
-            UpdateAbattoirAfterCreate={UpdateAbattoirAfterCreate}
-          />,
         ]}
       />
       {listAbattoir && windowSize && (

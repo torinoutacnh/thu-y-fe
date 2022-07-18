@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Table, Button, Input, Descriptions, PageHeader } from "antd";
-import { AnimalApiRoute, ApiRoute } from "Api";
+import AnimalApiRoute from "Api/AnimalApiRoute";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
 import { RouteEndpoints } from "Components/router/MainRouter";
@@ -13,11 +13,7 @@ import { getKeyThenIncreaseKey } from "antd/lib/message";
 import { AnimalModel } from "Components/Shared/Models/Animal";
 import CreateAnimal from "./CreateAnimal";
 import { Form, Modal, Select, notification, Space } from "antd";
-<<<<<<< HEAD
 import UpdateAnimal from "./UpdateAnimal";
-=======
-import { staffEndpoints } from "Components/router/StaffRoutes";
->>>>>>> origin/master
 
 const AnimalHome = () => {
   const [listsAnimal, setListAnimal] = useState<AnimalModel[]>([]);
@@ -28,9 +24,8 @@ const AnimalHome = () => {
   const { user } = useAuth();
   const { setLoading } = useLoading();
   const navigate = useNavigate();
-  const windowSize = useWindowSize();
   const keyRef = useRef(0);
-
+  const windowSize = useWindowSize();
 
   const getKey = () => {
     keyRef.current++;
@@ -80,17 +75,13 @@ const AnimalHome = () => {
       key: 5,
       render: (record) => (
         <>
-<<<<<<< HEAD
           <Link to={RouteEndpoints.animal.updateAnimal.replace(":id", record.id)}>
-=======
-          <Link to={staffEndpoints.updateStaff.replace(":id", record.id)}>
->>>>>>> origin/master
             <Button
               type="link"
               color="blue"
+              icon={<EditOutlined />}
             // onClick={() => { console.log("id record update", record.id) }}
             >
-
               Cập nhật
             </Button>
           </Link>
@@ -98,6 +89,7 @@ const AnimalHome = () => {
             type="link"
             danger
             onClick={() => deleteAnimalHandler(record.id, record.name)}
+            icon={<DeleteOutlined />}
           >
             Xóa
           </Button>
@@ -106,10 +98,6 @@ const AnimalHome = () => {
     },
   ];
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const resColumns: ColumnsType<AnimalModel> = [
     {
       title: "Danh sách động vật",
@@ -117,7 +105,6 @@ const AnimalHome = () => {
       render: (record, key, index) => {
         return (
           <>
-<<<<<<< HEAD
             <tr>
               <th>Tên động vật :</th>
               <td>{record.name}</td>
@@ -134,25 +121,6 @@ const AnimalHome = () => {
               <th>Giá kiểm dịch :</th>
               <td>{record.pricing}</td>
             </tr>
-=======
-            {/* <Link to={staffEndpoints.updateStaff.replace(":id", data.id)}> */}
-            <Button type="link" color="blue">
-              Cập nhật
-            </Button>
-            {/* </Link> */}
-            <Button
-              type="link"
-              danger
-              onClick={() => deleteAnimalHandler(data.id, data.name)}
-            >
-              Xóa
-            </Button>
-          </>
-        </Descriptions.Item>
-      </Descriptions>
-    );
-  };
->>>>>>> origin/master
 
             <tr>
               <Space>
@@ -160,7 +128,8 @@ const AnimalHome = () => {
                   <Button
                     type="link"
                     color="blue"
-                  // onClick={() => { console.log("id record update", record.id) }}
+                    // onClick={() => { console.log("id record update", record.id) }}
+                    icon={<EditOutlined />}
                   >
 
                     Cập nhật
@@ -170,6 +139,7 @@ const AnimalHome = () => {
                   type="link"
                   danger
                   onClick={() => deleteAnimalHandler(record.id, record.name)}
+                  icon={<DeleteOutlined />}
                 >
                   Xóa
                 </Button>
@@ -292,10 +262,10 @@ const AnimalHome = () => {
         title="Quản lý động vật"
         extra={[<CreateAnimal key={getKeyThenIncreaseKey()} UpdateAnimalAfterCreate={UpdateAnimalAfterCreate} />]}
       />
-      <Table
 
+      <Table
         columns={windowSize.width > 768 ? AnimalColumns : resColumns}
-        rowKey={"id"}
+        rowKey={"reportId"}
         dataSource={listsAnimal}
       />
     </>

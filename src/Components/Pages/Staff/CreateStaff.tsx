@@ -21,25 +21,58 @@ function CreateStaff() {
   };
 
   const CreateUser = () => {
-    if (user) {
-      setConfirmLoading(true);
-      fetch(process.env.REACT_APP_API.concat(UserApiRoute.create), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer ".concat(user.token),
-        },
-        body: JSON.stringify(form.getFieldsValue()),
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.log(error))
-        .finally(() => {
-          setVisible(false);
-          setConfirmLoading(false);
-          form.resetFields();
-        });
+
+    const pass1 = form.getFieldValue("password")
+    const pass2 = form.getFieldValue("password2")
+
+    if (pass1 === pass2) {
+
+
+      if (user) {
+
+        const newUser = {
+          id: "default",
+          name: form.getFieldValue("name"),
+          account: form.getFieldValue("account"),
+          password: form.getFieldValue("password"),
+          phone: form.getFieldValue("phone"),
+          email: form.getFieldValue("email"),
+          address: form.getFieldValue("address"),
+          sex: form.getFieldValue("sex"),
+          role: form.getFieldValue("role")
+        }
+
+        setConfirmLoading(true);
+        fetch(process.env.REACT_APP_API.concat(UserApiRoute.create), {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer ".concat(user.token),
+          },
+          body: JSON.stringify(newUser),
+        })
+          .then((res) => { return res.json() })
+          .then((data) => {
+            console.log(data)
+            console.log("create user", newUser)
+          })
+          .catch((error) => console.log(error))
+          .finally(() => {
+            setVisible(false);
+            setConfirmLoading(false);
+            form.resetFields();
+          });
+
+      }
+
+
+
+
     }
+    else {
+      alert("Mật khẩu không khớp!")
+    }
+
   };
 
   return (
@@ -55,6 +88,7 @@ function CreateStaff() {
             <Button type="default" htmlType="button" onClick={Cancel}>
               Hủy bỏ
             </Button>
+
             <Button
               form="create-user-form"
               type="primary"
@@ -107,9 +141,36 @@ function CreateStaff() {
           >
             <Input />
           </Form.Item>
-          <Form.Item initialValue={"12345678"} name={"password"} hidden={true}>
+
+          <Form.Item
+            name={"password"}
+            label={"Mật khẩu"}
+            rules={[
+              {
+                required: true,
+                message: "Nhập mật khẩu!",
+                type: "string",
+              }
+            ]}
+          >
             <Input />
           </Form.Item>
+
+          <Form.Item
+            name={"password2"}
+            label={"Nhập lại mật khẩu"}
+            rules={[
+              {
+                required: true,
+                message: "Nhập lại mật khẩu!",
+                type: "string",
+              }
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+
           <Form.Item
             label={"Số điện thoại"}
             name={"phone"}

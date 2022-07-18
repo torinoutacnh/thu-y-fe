@@ -1,13 +1,7 @@
-//
 import React, { useState, useEffect, useRef } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Table, Button, Input, Descriptions, PageHeader, Radio } from "antd";
-import { ApiRoute } from "Api/ApiRoute";
-//
-import { Button, Form, Input, Modal, Radio } from "antd";
-import { ApiRoute } from "Api";
-import { RoleType, SexType, UserModel } from "Components/Shared/Models/User";
-//
+import AnimalApiRoute from "Api/AnimalApiRoute";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
 import { RouteEndpoints } from "Components/router/MainRouter";
@@ -71,7 +65,7 @@ const UpdateAnimal = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(process.env.REACT_APP_API.concat(ApiRoute.getanimals), {
+    fetch(process.env.REACT_APP_API.concat(AnimalApiRoute.getanimals), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -116,7 +110,7 @@ const UpdateAnimal = () => {
     // console.log("update finish", form.getFieldsValue())
 
     setLoading(true);
-    fetch(process.env.REACT_APP_API.concat(ApiRoute.updateAnimal), {
+    fetch(process.env.REACT_APP_API.concat(AnimalApiRoute.update), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

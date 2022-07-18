@@ -10,6 +10,7 @@ import {
   ContainerOutlined,
   CheckCircleOutlined,
   ScissorOutlined,
+  LockOutlined
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { RouteEndpoints } from "Components/router/MainRouter";
@@ -105,6 +106,14 @@ const SideBar = () => {
         { label: "Doanh thu tổng", key: getKey(), icon: <CalendarOutlined /> },
         { label: "Quản lý hóa đơn", key: getKey(), icon: <CalendarOutlined /> },
       ],
+    },
+    {
+      label: "Thông tin cá nhân",
+      key: getKey(),
+      icon: <UserOutlined />,
+      onClick: () => {
+        navigate(RouteEndpoints.userInfo);
+      },
     },
     {
       label: "Đăng xuất",

@@ -1,6 +1,6 @@
 import AnimalHome from "Components/Pages/Animal";
 import HomePage from "Components/Pages/Home/Home";
-
+import UpdateAnimal from "Components/Pages/Animal/UpdateAnimal";
 import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";
 import { Routes, Route } from "react-router-dom";
 import { publicEndpoints, PublicRoutes } from "./PublicRoutes";
@@ -8,6 +8,7 @@ import { QuarantineRoutes } from "./QuarantineRoutes";
 import { StaffRoutes } from "./StaffRoutes";
 import React from "react";
 import { AbattoirRoutes } from "./AbattoirRoutes";
+import UserInfo from "Components/Pages/Password";
 
 export class RouteEndpoints {
   static home = { basepath: "/" };
@@ -19,19 +20,17 @@ export class RouteEndpoints {
     },
     get updateAnimal() {
       return this.basepath.concat("/sua-dong-vat/:id");
-    },
-    // get delete() {
-    //   return this.basepath.concat("/:id");
-    // },
-    // get create() {
-    //   return this.basepath.concat("/create");
-    // },
-    // get update() {
-    //   return this.basepath.concat("/update");
-    // },
+    }
   };
+
+  static userInfo = "/thong-tin-ca-nhan"
+
+
   ///////////////////////////////////////////////////
 }
+
+
+
 
 export default function MainRouter() {
   return (
@@ -58,8 +57,33 @@ export default function MainRouter() {
             <AnimalHome />
           </PrivateRoute>
         }
-        key="staff"
+        key="animal"
       />
+
+      <Route
+
+        path={RouteEndpoints.animal.updateAnimal}
+        element={
+          <PrivateRoute path={publicEndpoints.login}>
+            <UpdateAnimal />
+          </PrivateRoute>
+        }
+        key="animal-update"
+      />
+
+
+      <Route
+
+        path={RouteEndpoints.userInfo}
+        element={
+          <PrivateRoute path={publicEndpoints.login}>
+            <UserInfo />
+          </PrivateRoute>
+        }
+        key="reset-password"
+      />
+
+
 
       {/* /////////////////////////////////////////////// */}
 

@@ -25,8 +25,8 @@ const SealFields = (props: {
   mainFormRef: FormInstance;
   report?: ReportModel;
 }) => {
-  const { mainFormRef, report } = props;
-  report?.values.sort((a, b) => a.sort - b.sort);
+  const { mainFormRef } = props;
+  const [report, setReport] = useState<ReportModel>(props.report);
   const [seals, setSeals] = useState<SealModel[]>([]);
   const { user } = useAuth();
   const { setLoading } = useLoading();
@@ -165,7 +165,7 @@ const SealFields = (props: {
         prevValues.sealTabs !== curValues.sealTabs
       }
     >
-      <Form.List name={"sealTabs"} initialValue={[]}>
+      <Form.List name={"sealTabs"}>
         {(fields, { add, remove }) => {
           return (
             <>

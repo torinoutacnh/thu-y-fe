@@ -22,7 +22,11 @@ const MainLayout: React.FC<Props> = ({ children }) => {
       style={{ top: "20%", right: "50%", position: "fixed" }}
     >
       <Layout
-        style={{ padding: 0, backgroundColor: "#313a46", minHeight: "100vh" }}
+        style={{
+          padding: 0,
+          backgroundColor: "#313a46",
+          minHeight: "100vh",
+        }}
       >
         <Header />
         <Layout>

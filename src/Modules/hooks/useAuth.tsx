@@ -22,6 +22,11 @@ export const useAuth = () => {
     dispatch(login(user));
   };
 
+  const singOut = () => {
+    Cookies.remove("user", { path: "/" });
+    dispatch(logout());
+  };
+
   const user: UserLoginModel = useStoreSelector((state: any) => {
     return state?.login?.user;
   });
@@ -33,5 +38,5 @@ export const useAuth = () => {
     return { user: curUser as UserLoginModel, setUser };
   }
 
-  return { user, setUser };
+  return { user, setUser, singOut };
 };

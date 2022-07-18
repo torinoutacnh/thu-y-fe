@@ -81,12 +81,17 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           shouldUpdate={(prevValues, curValues) =>
             prevValues.values !== curValues.values
           }
-          initialValue={0}
+
+          initialValue={""}
+
           rules={[
             {
               required: true,
               type: "number",
-              message: "Mời nhập số lượng!",
+
+              message: "Sai định dạng!",
+              transform: (i) => Number(i),
+
             },
           ]}
         >
@@ -104,7 +109,13 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           shouldUpdate={(prevValues, curValues) =>
             prevValues.values !== curValues.values
           }
+
           initialValue={moment()}
+
+          getValueProps={(i) => {
+            return { value: i ? moment(i) : moment() };
+          }}
+
         >
           <DatePicker format={"DD/MM/YYYY"} />
         </Form.Item>

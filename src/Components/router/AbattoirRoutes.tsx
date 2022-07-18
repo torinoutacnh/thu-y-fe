@@ -1,6 +1,7 @@
 import { AbattoirPage } from "Components/Pages/Abattoir";
 import CreateAbattoirReport from "Components/Pages/Abattoir/CreateReportPage";
 import UpdateAbattoirReport from "Components/Pages/Abattoir/UpdateReportPage";
+import { RoleType } from "Components/Shared/Models/User";
 import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";
 import React from "react";
 import { Route } from "react-router-dom";

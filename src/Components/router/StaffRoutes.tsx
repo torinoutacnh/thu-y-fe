@@ -1,5 +1,6 @@
 import StaffHome from "Components/Pages/Staff";
 import UpdateStaff from "Components/Pages/Staff/UpdateStaff";
+import { RoleType } from "Components/Shared/Models/User";
 import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";
 import React from "react";
 import { Route } from "react-router-dom";

@@ -82,15 +82,22 @@ const StaffHome = () => {
       key: 6,
       render: (value: number) => {
         switch (value) {
-          case RoleType["Nhân viên"]: {
-            return "Nhân viên";
+          case RoleType["Nhân viên kiểm dịch"]: {
+            return "Nhân viên kiểm dịch";
           }
+          case RoleType["Nhân viên lò mổ"]: {
+            return "Nhân viên lò mổ";
+          }
+
           case RoleType["Quản lý"]: {
             return "Quản lý";
           }
+
         }
       },
     },
+
+
     {
       title: "Giới tính",
       dataIndex: "sex",

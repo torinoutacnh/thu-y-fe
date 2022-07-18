@@ -4,6 +4,7 @@ import listAnimalApiRoute from "./ListAnimalApiRoute";
 import ReportApiRoute from "./ReportApiRoute";
 import SealTabApiRoute from "./SealTabApiRoute";
 import UserApiRoute from "./UserApiRoute";
+import ManageAbattoirRoute from "./ManageAbattoirRoute";
 
 export {
   SealTabApiRoute,
@@ -12,6 +13,7 @@ export {
   UserApiRoute,
   AnimalApiRoute,
   listAnimalApiRoute,
+  ManageAbattoirRoute,
 };
 
 export const ApiRoute = {

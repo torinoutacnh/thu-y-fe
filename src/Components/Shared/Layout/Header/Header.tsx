@@ -1,6 +1,7 @@
 import { Button, PageHeader } from "antd";
 import { abattoirEndpoints } from "Components/router/AbattoirRoutes";
 import { RouteEndpoints } from "Components/router/MainRouter";
+import { manageabattoirEndpoints } from "Components/router/ManageAbattoirRoutes";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import { staffEndpoints } from "Components/router/StaffRoutes";
 import { useAuth } from "Modules/hooks/useAuth";
@@ -177,7 +178,7 @@ const Header = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link to={quarantineEndpoints.home}>
+                          <Link to={manageabattoirEndpoints.home}>
                             Quản lý lò mổ
                           </Link>
                         </li>

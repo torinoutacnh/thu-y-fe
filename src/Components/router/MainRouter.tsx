@@ -5,10 +5,12 @@ import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";
 import { Routes, Route } from "react-router-dom";
 import { publicEndpoints, PublicRoutes } from "./PublicRoutes";
 import { QuarantineRoutes } from "./QuarantineRoutes";
+
 import { StaffRoutes } from "./StaffRoutes";
 import React from "react";
 import { AbattoirRoutes } from "./AbattoirRoutes";
 import { useAuth } from "Modules/hooks/useAuth";
+import { manageabattoirRoutes } from "./ManageAbattoirRoutes";
 
 export class RouteEndpoints {
   static home = { basepath: "/" };
@@ -51,8 +53,8 @@ export default function MainRouter() {
       {QuarantineRoutes.map((route) => route)}
       {AbattoirRoutes.map((route) => route)}
       {StaffRoutes.map((route) => route)}
+      {manageabattoirRoutes.map((route) => route)}
       {/* /////////////////////////////////////////////// */}
-
       <Route
         path={RouteEndpoints.animal.basepath}
         element={
@@ -62,9 +64,7 @@ export default function MainRouter() {
         }
         key="staff"
       />
-
       {/* /////////////////////////////////////////////// */}
-
       <Route path="*" element={<h1>Not found</h1>} />
     </Routes>
   );

@@ -160,7 +160,7 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
             prevValues.values !== curValues.values
           }
           getValueProps={(i) => {
-            return { value: moment(i) };
+            return { value: i ? moment(i) : moment() };
           }}
         >
           <DatePicker

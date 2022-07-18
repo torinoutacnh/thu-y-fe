@@ -5,6 +5,7 @@ import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";
 import { Route } from "react-router-dom";
 import { publicEndpoints } from "./PublicRoutes";
 import React from "react";
+import { RoleType } from "Components/Shared/Models/User";
 
 const quarantineEndpoints = {
   get basepath() {

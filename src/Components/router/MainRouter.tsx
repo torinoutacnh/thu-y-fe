@@ -8,6 +8,7 @@ import { QuarantineRoutes } from "./QuarantineRoutes";
 import { StaffRoutes } from "./StaffRoutes";
 import React from "react";
 import { AbattoirRoutes } from "./AbattoirRoutes";
+import { useAuth } from "Modules/hooks/useAuth";
 
 export class RouteEndpoints {
   static home = { basepath: "/" };
@@ -34,6 +35,7 @@ export class RouteEndpoints {
 }
 
 export default function MainRouter() {
+  const { user } = useAuth();
   return (
     <Routes>
       <Route

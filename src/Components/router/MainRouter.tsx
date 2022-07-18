@@ -14,8 +14,7 @@ import UserInfo from "Components/Pages/Password";
 import { NotFound } from "Components/Pages/NotFound";
 
 import { useAuth } from "Modules/hooks/useAuth";
-// import { manageabattoirRoutes } from "./ManageAbattoirRoutes";
-
+import { manageabattoirRoutes } from "./ManageAbattoirRoutes";
 
 export class RouteEndpoints {
   static home = { basepath: "/" };
@@ -27,19 +26,15 @@ export class RouteEndpoints {
     },
     get updateAnimal() {
       return this.basepath.concat("/sua-dong-vat/:id");
-    }
+    },
   };
 
-  static userInfo = "/thong-tin-ca-nhan"
+  static userInfo = "/thong-tin-ca-nhan";
 
-  static notfound = "/chuc-nang-dang-phat-trien"
-
+  static notfound = "/chuc-nang-dang-phat-trien";
 
   ///////////////////////////////////////////////////
 }
-
-
-
 
 export default function MainRouter() {
   const { user } = useAuth();
@@ -58,8 +53,7 @@ export default function MainRouter() {
       {QuarantineRoutes.map((route) => route)}
       {AbattoirRoutes.map((route) => route)}
       {StaffRoutes.map((route) => route)}
-      {/* {manageabattoirRoutes.map((route) => route)} */}
-      {/* /////////////////////////////////////////////// */}
+      {manageabattoirRoutes.map((route) => route)}
       <Route
         path={RouteEndpoints.animal.basepath}
         element={
@@ -69,10 +63,7 @@ export default function MainRouter() {
         }
         key="animal"
       />
-
-
       <Route
-
         path={RouteEndpoints.animal.updateAnimal}
         element={
           <PrivateRoute path={publicEndpoints.login}>
@@ -81,10 +72,7 @@ export default function MainRouter() {
         }
         key="animal-update"
       />
-
-
       <Route
-
         path={RouteEndpoints.userInfo}
         element={
           <PrivateRoute path={publicEndpoints.login}>
@@ -93,9 +81,7 @@ export default function MainRouter() {
         }
         key="reset-password"
       />
-
       <Route
-
         path={RouteEndpoints.notfound}
         element={
           <PrivateRoute path={publicEndpoints.login}>
@@ -104,9 +90,6 @@ export default function MainRouter() {
         }
         key="chuc-nang-dang-phat-trien"
       />
-
-
-
       ec6089d2d4eb0ae7867bbdb032fe6c2ebf649f76
       {/* /////////////////////////////////////////////// */}
       <Route path="*" element={<h1>Not found</h1>} />

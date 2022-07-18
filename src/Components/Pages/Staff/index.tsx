@@ -31,7 +31,7 @@ const StaffHome = () => {
       setLoading(true);
       fetch(
         process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
-        new URLSearchParams(page as any),
+          new URLSearchParams(page as any),
         {
           method: "GET",
           headers: {
@@ -49,13 +49,13 @@ const StaffHome = () => {
 
   const updateAfterCreate = () => {
     setPage({ ...page, pageNumber: page.pageNumber + 1 });
-  }
+  };
 
   const deleteUserHandler = (id: string) => {
     setLoading(true);
     fetch(
       process.env.REACT_APP_API.concat(UserApiRoute.delete, "?") +
-      new URLSearchParams({ id }),
+        new URLSearchParams({ id }),
       {
         method: "POST",
         headers: {
@@ -92,11 +92,9 @@ const StaffHome = () => {
           case RoleType["Quản lý"]: {
             return "Quản lý";
           }
-
         }
       },
     },
-
 
     {
       title: "Giới tính",
@@ -137,9 +135,6 @@ const StaffHome = () => {
     },
   ];
 
-
-
-
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -163,7 +158,6 @@ const StaffHome = () => {
         };
         return (
           <>
-
             <tr>
               <th>Họ tên :</th>
               <td>{record.name}</td>
@@ -228,7 +222,6 @@ const StaffHome = () => {
         title="Quản lý nhân viên"
         extra={[<CreateStaff key={getKeyThenIncreaseKey()} />]}
       />
-
 
       <Table
         columns={windowSize.width > 768 ? UserColumns : resColumns}

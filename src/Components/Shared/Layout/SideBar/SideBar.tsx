@@ -101,7 +101,11 @@ const SideBar = () => {
         },
         ///////////////////////////////
         { label: "Quản lý đơn giá", key: getKey(), icon: <CalendarOutlined /> },
-        { label: "Quản lý lò mổ", key: getKey(), icon: <CalendarOutlined /> },
+        {
+          label: "Quản lý lò mổ",
+          key: getKey(),
+          icon: <CalendarOutlined />,
+        },
         { label: "Doanh thu tổng", key: getKey(), icon: <CalendarOutlined /> },
         { label: "Quản lý hóa đơn", key: getKey(), icon: <CalendarOutlined /> },
       ],

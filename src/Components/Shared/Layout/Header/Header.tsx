@@ -16,7 +16,7 @@ import "./header.css";
 const Header = () => {
   const navigate = useNavigate();
   const keyRef = useRef(0);
-  const { user } = useAuth();
+  const { user, singOut } = useAuth();
 
   const getKey = () => {
     keyRef.current = keyRef.current + 1;
@@ -192,6 +192,19 @@ const Header = () => {
                         </li>
                       </ul>
                     </div>
+                  </div>
+                </li>
+                <li>
+                  <div style={{ marginTop: 20, float: "right" }}>
+                    <Button
+                      danger
+                      style={{ color: "red", borderRadius: 5 }}
+                      type="default"
+                      className="dropdown-menu__btn"
+                      onClick={singOut}
+                    >
+                      Đăng xuất
+                    </Button>
                   </div>
                 </li>
               </ul>

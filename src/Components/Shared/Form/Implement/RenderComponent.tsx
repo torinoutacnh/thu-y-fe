@@ -77,9 +77,15 @@ const RenderForm: React.FC<RenderProps> = ({
 
   useEffect(() => {
     if (reportvalue) {
+      reportvalue.values.sort((a, b) => a.sort - b.sort);
       formref.resetFields(), [reportvalue];
     }
   }, [reportvalue?.id, form?.id]);
+
+  const TransformReport = (report: ReportModel) => {
+    report?.values.sort((a, b) => a.sort - b.sort);
+    return report;
+  };
 
   return (
     <>
@@ -89,7 +95,7 @@ const RenderForm: React.FC<RenderProps> = ({
           title={form.formName}
           onFinish={submit}
           form={formref}
-          initialValues={reportvalue}
+          initialValues={TransformReport(reportvalue)}
         >
           <Form.Item>
             <h2>

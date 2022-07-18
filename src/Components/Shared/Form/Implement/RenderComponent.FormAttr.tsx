@@ -44,6 +44,16 @@ function RenderFormAttrs(props: { form: FormModel }) {
               >
                 <Input />
               </Form.Item>
+              <Form.Item
+                name={["values", idx, "sort"]}
+                initialValue={attr.sortNo}
+                hidden={true}
+                shouldUpdate={(prevValues, curValues) =>
+                  prevValues.values !== curValues.values
+                }
+              >
+                <Input />
+              </Form.Item>
               <RenderControl attr={attr} idx={idx} />
             </Col>
           );
@@ -81,9 +91,7 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           shouldUpdate={(prevValues, curValues) =>
             prevValues.values !== curValues.values
           }
-
           initialValue={""}
-
           rules={[
             {
               required: true,
@@ -91,7 +99,6 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
 
               message: "Sai định dạng!",
               transform: (i) => Number(i),
-
             },
           ]}
         >
@@ -109,13 +116,10 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           shouldUpdate={(prevValues, curValues) =>
             prevValues.values !== curValues.values
           }
-
           initialValue={moment()}
-
           getValueProps={(i) => {
             return { value: i ? moment(i) : moment() };
           }}
-
         >
           <DatePicker format={"DD/MM/YYYY"} />
         </Form.Item>

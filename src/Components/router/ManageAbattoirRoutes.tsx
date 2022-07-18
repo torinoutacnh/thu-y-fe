@@ -3,9 +3,9 @@ import { Route } from "react-router-dom";
 import { publicEndpoints } from "./PublicRoutes";
 import React from "react";
 import { RoleType } from "Components/Shared/Models/User";
-import ManageAbattoir from "./../Pages/Manage Abattoir/ManageAbattoir";
-import CreateAbattoir from "./../Pages/Manage Abattoir/CreateAbattoir";
-import UpdateAbattoir from "./../Pages/Manage Abattoir/UpdateAbattoir";
+import ManageAbattoir from "Components/Pages/ManageAbattoir/ManageAbattoir";
+import CreateAbattoir from "Components/Pages/ManageAbattoir/CreateAbattoir";
+import UpdateAbattoir from "Components/Pages/ManageAbattoir/UpdateAbattoir";
 
 const manageabattoirEndpoints = {
   get basepath() {

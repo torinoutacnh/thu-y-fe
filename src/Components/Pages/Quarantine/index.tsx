@@ -3,7 +3,15 @@ import { useAuth } from "Modules/hooks/useAuth";
 import React, { useState, useEffect, useRef } from "react";
 
 import { getKeyThenIncreaseKey } from "antd/lib/message";
-import { Button, notification, PageHeader, Space, Table } from "antd";
+import {
+  Button,
+  Layout,
+  notification,
+  PageHeader,
+  Select,
+  Space,
+  Table,
+} from "antd";
 import { FileAddOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
@@ -14,6 +22,10 @@ import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import useWindowSize from "Modules/hooks/useWindowSize";
 import { IconType } from "antd/lib/notification";
 import { ReportModel } from "Components/Shared/Models/Form";
+import {
+  QuarantineReportType,
+  ReportType,
+} from "Components/Shared/Form/Define/FormInterface";
 
 interface QuarantineReportModel {
   reportId?: string;
@@ -29,8 +41,25 @@ interface QuarantineReportModel {
 
 type DataIndex = keyof QuarantineReportModel;
 
+const openNotification = (
+  message: string,
+  type: IconType,
+  onClose?: any,
+  body?: string
+) => {
+  notification.open({
+    duration: 2.5,
+    message: message,
+    description: body,
+    type: type,
+    onClose: onClose,
+  });
+};
+
 const QuarantinePage = () => {
   const [reports, setReports] = useState<QuarantineReportModel[]>();
+  const [columns, setColumns] = useState({ columns: [], resColumns: [] });
+  const [reportType, setReportType] = useState(1);
   const navigate = useNavigate();
   const { user } = useAuth();
   const { setLoading } = useLoading();
@@ -71,21 +100,6 @@ const QuarantinePage = () => {
     }
   };
 
-  const openNotification = (
-    message: string,
-    type: IconType,
-    onClose?: any,
-    body?: string
-  ) => {
-    notification.open({
-      duration: 2.5,
-      message: message,
-      description: body,
-      type: type,
-      onClose: onClose,
-    });
-  };
-
   const deleteReport = (id: string) => {
     if (user) {
       setLoading(true);
@@ -109,11 +123,7 @@ const QuarantinePage = () => {
     }
   };
 
-  useEffect(() => {
-    getReports();
-  }, [user?.token]);
-
-  const columns: ColumnsType<QuarantineReportModel> = [
+  const columns1: ColumnsType<QuarantineReportModel> = [
     {
       title: "STT",
       dataIndex: "stt",
@@ -185,7 +195,7 @@ const QuarantinePage = () => {
     },
   ];
 
-  const resColumns: ColumnsType<QuarantineReportModel> = [
+  const resColumns1: ColumnsType<QuarantineReportModel> = [
     {
       title: "Danh sách báo cáo",
       key: getKey(),
@@ -250,6 +260,20 @@ const QuarantinePage = () => {
     },
   ];
 
+  const GetColumns = (reportType: ReportType) => {
+    switch (reportType) {
+      case ReportType["CN-KDĐV-UQ"]:
+        return { columns: columns1, resColumns: resColumns1 };
+      default:
+        return { columns: [], resColumns: [] };
+    }
+  };
+
+  useEffect(() => {
+    setColumns(GetColumns(reportType));
+    getReports();
+  }, [reportType]);
+
   return (
     <>
       <PageHeader
@@ -260,15 +284,32 @@ const QuarantinePage = () => {
             icon={<FileAddOutlined />}
             type="primary"
             onClick={() => {
-              navigate(quarantineEndpoints.createreport);
+              navigate(
+                quarantineEndpoints.createreport.concat("?") +
+                  new URLSearchParams({ reporttype: reportType } as any)
+              );
             }}
           >
             Tạo báo cáo
           </Button>,
         ]}
       />
+      <Layout>
+        <label style={{ padding: "10px" }}>Loại báo cáo</label>
+        <Select onChange={(val) => setReportType(val)} value={reportType}>
+          {Object.values(QuarantineReportType).map((key, idx) => {
+            const val = QuarantineReportType[key as any];
+            if (!isNaN(Number(val)))
+              return (
+                <Select.Option key={idx} value={val}>
+                  {QuarantineReportType[val as any]}
+                </Select.Option>
+              );
+          })}
+        </Select>
+      </Layout>
       <Table
-        columns={windowSize.width > 768 ? columns : resColumns}
+        columns={windowSize.width > 768 ? columns.columns : columns.resColumns}
         rowKey={"reportId"}
         dataSource={reports}
       />

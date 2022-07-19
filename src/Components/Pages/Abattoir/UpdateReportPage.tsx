@@ -66,7 +66,7 @@ export default function UpdateAbattoirReport() {
           form={form}
           reportvalue={report}
           submitmethod={"POST"}
-          isQuarantined={ReportType.DailyAmountReport}
+          reportType={ReportType["NK-001"]}
         />
       )}
     </>

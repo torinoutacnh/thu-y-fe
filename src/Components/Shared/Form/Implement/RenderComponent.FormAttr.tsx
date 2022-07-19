@@ -121,7 +121,30 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
             return { value: i ? moment(i) : moment() };
           }}
         >
-          <DatePicker format={"DD/MM/YYYY"} />
+          <DatePicker format={"DD/MM/YYYY"} style={{ width: "100%" }} />
+        </Form.Item>
+      );
+    }
+    case DataTypes.EmailControl: {
+      return (
+        <Form.Item
+          label={attr.name}
+          labelCol={{ span: 24 }}
+          wrapperCol={{ span: 24 }}
+          name={["values", idx, "value"]}
+          shouldUpdate={(prevValues, curValues) =>
+            prevValues.values !== curValues.values
+          }
+          initialValue={null}
+          rules={[
+            {
+              type: "email",
+              message: "Email không đúng định dạng!",
+              pattern: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
+            },
+          ]}
+        >
+          <Input />
         </Form.Item>
       );
     }

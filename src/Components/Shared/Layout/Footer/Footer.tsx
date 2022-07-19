@@ -8,7 +8,7 @@ const Footer = () => {
         backgroundColor: '#313a46',
         textAlign: 'center',
         color: "InactiveCaption"
-    }}>Footer</Layout.Footer>);
+    }}></Layout.Footer>);
 }
 
 export default Footer;

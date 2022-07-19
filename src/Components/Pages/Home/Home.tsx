@@ -19,7 +19,7 @@ export default function HomePage() {
           <Col xs={24} sm={24} md={8} lg={8}>
             <Link to={quarantineEndpoints.basepath}>
               <div className="card">
-                Đơn đăng ký kiểm dịch động vật (Mẫu số 1)
+                ĐƠN ĐĂNG KÝ KDĐV (MS 1)
               </div>
             </Link>
 
@@ -27,7 +27,7 @@ export default function HomePage() {
           <Col xs={24} sm={24} md={8} lg={8}>
             <Link to={RouteEndpoints.notfound}>
               <div className="card m20">
-                Biên bản vệ sinh thú y (Mẫu số 7)
+                BIÊN BẢN VSTY (MS 7)
               </div>
             </Link>
 
@@ -35,7 +35,7 @@ export default function HomePage() {
           <Col xs={24} sm={24} md={8} lg={8}>
             <Link to={quarantineEndpoints.home}>
               <div className="card">
-                Giấy chứng nhận kiểm dịch (Mẫu số 12b)
+                GIẤY CNKD (MS 12B)
               </div>
             </Link>
 
@@ -51,7 +51,7 @@ export default function HomePage() {
           <Col xs={24} sm={24} md={8} lg={8}>
             <Link to={abattoirEndpoints.basepath}>
               <div className="card">
-                Báo cáo giết mổ
+                BÁO CÁO GIẾT MỔ
               </div>
             </Link>
 
@@ -59,7 +59,7 @@ export default function HomePage() {
           <Col xs={24} sm={24} md={8} lg={8}>
             <Link to={RouteEndpoints.notfound}>
               <div className="card">
-                Hóa đơn giết mổ
+                HÓA ĐƠN GIẾT MỔ
               </div>
             </Link>
 
@@ -67,7 +67,7 @@ export default function HomePage() {
           <Col xs={24} sm={24} md={8} lg={8}>
             <Link to={RouteEndpoints.notfound}>
               <div className="card">
-                Báo cáo doanh thu
+                BÁO CÁO DOANH THU
               </div>
             </Link>
 

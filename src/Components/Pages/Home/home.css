@@ -4,7 +4,7 @@
     text-align: center;
     height: var(--height-card);
     line-height: var(--height-card);
-    font-size: 15px;
+    font-size: 1.5vmin;
     cursor: pointer;
     display: block;
 }
@@ -17,14 +17,15 @@
 
 
 .m20{
-    margin: 20px 0;
+    margin: 10px 0;
     
 }
 .container-home{
     margin-top: 5%;
 }
 
-    @media screen and (min-width: 1150px) {
+
+@media screen and (min-width: 769px) {
         .card {
           margin-bottom: 0;
         }

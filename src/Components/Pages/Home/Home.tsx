@@ -19,7 +19,7 @@ export default function HomePage() {
           <Col xs={24} sm={24} md={8} lg={8}>
             <Link to={quarantineEndpoints.basepath}>
               <div className="card">
-                Báo cáo kiểm dịch
+                Đơn đăng ký kiểm dịch động vật (Mẫu số 1)
               </div>
             </Link>
 
@@ -27,15 +27,15 @@ export default function HomePage() {
           <Col xs={24} sm={24} md={8} lg={8}>
             <Link to={RouteEndpoints.notfound}>
               <div className="card m20">
-                Hóa đơn kiểm dịch
+                Biên bản vệ sinh thú y (Mẫu số 7)
               </div>
             </Link>
 
           </Col>
           <Col xs={24} sm={24} md={8} lg={8}>
-            <Link to={RouteEndpoints.notfound}>
+            <Link to={quarantineEndpoints.home}>
               <div className="card">
-                Báo cáo doanh thu
+                Giấy chứng nhận kiểm dịch (Mẫu số 12b)
               </div>
             </Link>
 

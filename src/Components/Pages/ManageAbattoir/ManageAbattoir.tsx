@@ -29,6 +29,7 @@ const ManageAbattoir = () => {
   useEffect(() => GetAbattoir, [page.pageNumber, page.pageSize]);
 
   const GetAbattoir = () => {
+    setLoading(true);
     if (user?.token) {
       fetch(process.env.REACT_APP_API.concat(ManageAbattoirRoute.getAbattoir), {
         method: "POST",
@@ -46,7 +47,8 @@ const ManageAbattoir = () => {
           console.log(data);
           setListAbattoir(data.data);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error))
+        .finally(() => setLoading(false));
     }
   };
   const AbattoirColumns: ColumnsType<AbattoirModel> = [

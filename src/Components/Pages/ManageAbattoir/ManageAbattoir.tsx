@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import { PlusOutlined } from "@ant-design/icons";
-import { Table, Button, Input, Descriptions, PageHeader } from "antd";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  Table,
+  Button,
+  Input,
+  Descriptions,
+  PageHeader,
+  notification,
+} from "antd";
 import { ApiRoute, ManageAbattoirRoute, UserApiRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
@@ -22,6 +29,23 @@ const ManageAbattoir = () => {
     pageNumber: 0,
     pageSize: 1000,
   });
+  notification.config({
+    placement: "topRight",
+    bottom: 50,
+    duration: 3,
+    rtl: true,
+  });
+  type NotificationType = "success" | "info" | "warning" | "error";
+  const openNotificationWithIcon = (
+    type: NotificationType,
+    title: string,
+    message: string
+  ) => {
+    notification[type]({
+      message: title,
+      description: message,
+    });
+  };
   const { user } = useAuth();
   const { setLoading } = useLoading();
   const navigate = useNavigate();
@@ -51,6 +75,41 @@ const ManageAbattoir = () => {
         .finally(() => setLoading(false));
     }
   };
+  const deleteAbattoirHandler = (idAbattoir: string, name: string) => {
+    // setLoading(true);
+    const animalDelete = {
+      id: idAbattoir,
+    };
+
+    setLoading(true);
+    fetch(process.env.REACT_APP_API.concat(ManageAbattoirRoute.delete), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer ".concat(user.token),
+      },
+      body: JSON.stringify(animalDelete),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        // setListAnimal(data.data)
+        openNotificationWithIcon(
+          "success",
+          "Xóa lò mổ",
+          `Xóa ${name} thành công`
+        );
+
+        console.log(">>>> Delete animal ok");
+
+        setPage({ ...page, pageSize: page.pageSize - 1 });
+      })
+      .catch((error) => {
+        console.log(">>>> Delete error");
+        openNotificationWithIcon("error", "Xóa lò mổ", "Xóa lò mổ thất bại");
+      });
+  };
   const AbattoirColumns: ColumnsType<AbattoirModel> = [
     { title: "Tên lò mổ", dataIndex: "name", key: 1 },
     { title: "Địa chỉ", dataIndex: "address", key: 2 },
@@ -70,11 +129,16 @@ const ManageAbattoir = () => {
               record.id
             )}
           >
-            <Button type="link" color="blue">
+            <Button type="link" color="blue" icon={<EditOutlined />}>
               Cập nhật
             </Button>
           </Link>
-          <Button type="link" danger>
+          <Button
+            type="link"
+            danger
+            icon={<DeleteOutlined />}
+            onClick={() => deleteAbattoirHandler(record.id, record.name)}
+          >
             Xóa
           </Button>
         </>

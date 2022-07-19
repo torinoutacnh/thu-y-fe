@@ -12,7 +12,7 @@ const ManageAbattoirRoute = {
     return this.Base.concat("/cap-nhat-lo-mo/:id");
   },
   get delete() {
-    return this.Base.concat("/xoa-lo-mo/:id");
+    return "/abattoir/delete-abattoir";
   },
   get getAbattoir() {
     return "/abattoir";

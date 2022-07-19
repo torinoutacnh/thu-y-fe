@@ -63,7 +63,7 @@ const Header = () => {
         <div className="header__web">
           <div className="header_menu">
             <img
-              src="https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"
+              src={logoThuY}
               alt="logo"
               width={30}
             />
@@ -78,18 +78,16 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Kiểm dịch
                       <span
-                        className={`icon ${
-                          iconRotate1 ? "iconRotate--90" : "iconRotate-0"
-                        }`}
+                        className={`icon ${iconRotate1 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${
-                          showItems1 ? "showItems" : ""
-                        }`}
+                        className={`dropdown-content-1 ${showItems1 ? "showItems" : ""
+                          }`}
                       >
                         <li>
                           <Link to={quarantineEndpoints.home}>
@@ -115,18 +113,16 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Giết mổ
                       <span
-                        className={`icon ${
-                          iconRotate2 ? "iconRotate--90" : "iconRotate-0"
-                        }`}
+                        className={`icon ${iconRotate2 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${
-                          showItems2 ? "showItems" : ""
-                        }`}
+                        className={`dropdown-content-1 ${showItems2 ? "showItems" : ""
+                          }`}
                       >
                         <li>
                           <Link to={abattoirEndpoints.home}>
@@ -152,18 +148,16 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Quản trị admin
                       <span
-                        className={`icon ${
-                          iconRotate3 ? "iconRotate--90" : "iconRotate-0"
-                        }`}
+                        className={`icon ${iconRotate3 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${
-                          showItems3 ? "showItems" : ""
-                        }`}
+                        className={`dropdown-content-1 ${showItems3 ? "showItems" : ""
+                          }`}
                       >
                         <li>
                           <Link to={staffEndpoints.home}>

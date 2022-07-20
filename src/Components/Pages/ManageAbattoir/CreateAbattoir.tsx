@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal, Radio } from "antd";
+import { Button, Form, Input, Modal, Radio, notification } from "antd";
 
 import { useAuth } from "Modules/hooks/useAuth";
 import { PlusOutlined } from "@ant-design/icons";
@@ -9,7 +9,25 @@ const CreateAbattoir = (props: any) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
   const { user } = useAuth();
+  notification.config({
+    placement: "topRight",
+    bottom: 50,
+    duration: 3,
+    rtl: true,
+  });
 
+  type NotificationType = "success" | "info" | "warning" | "error";
+
+  const openNotificationWithIcon = (
+    type: NotificationType,
+    title: string,
+    message: string
+  ) => {
+    notification[type]({
+      message: title,
+      description: message,
+    });
+  };
   const showModal = () => {
     setVisible(true);
   };
@@ -35,10 +53,21 @@ const CreateAbattoir = (props: any) => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          openNotificationWithIcon(
+            "success",
+            "Thêm lò mổ",
+            "Thêm lò mổ thành công"
+          );
           props.UpdateAbattoirAfterCreate();
         })
-        .catch((error) => console.log(error))
+        .catch((error) => {
+          console.log(">>>> Delete error", error);
+          openNotificationWithIcon(
+            "error",
+            "Thêm lò mổ",
+            "Thêm lò mổ thất bại"
+          );
+        })
         .finally(() => {
           setVisible(false);
           setConfirmLoading(false);

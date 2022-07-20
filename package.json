@@ -1,6 +1,7 @@
 {
   "name": "thu-y-fe",
   "version": "0.1.0",
+  "homepage": "https://chicucthuy.amazingtech.vn",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",

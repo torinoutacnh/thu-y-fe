@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import {
   Table,
@@ -8,11 +8,9 @@ import {
   PageHeader,
   notification,
 } from "antd";
-import { ApiRoute, ManageAbattoirRoute, UserApiRoute } from "Api";
+import { ManageAbattoirRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
-import { RouteEndpoints } from "Components/router/MainRouter";
-import { UserModel, RoleType, SexType } from "Components/Shared/Models/User";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
 import useWindowSize from "Modules/hooks/useWindowSize";
@@ -145,11 +143,6 @@ const ManageAbattoir = () => {
   ];
   const RenderCard = (props: { data: AbattoirModel; idx: number }) => {
     const { data, idx } = props;
-    const key = useRef(0);
-    const getKey = () => {
-      key.current = key.current + 1;
-      return key.current;
-    };
 
     return (
       <Descriptions
@@ -224,7 +217,7 @@ const ManageAbattoir = () => {
           />
         ) : (
           listAbattoir.map((x, idx) => (
-            <RenderCard data={x} key={getKeyThenIncreaseKey()} idx={idx} />
+            <RenderCard data={x} key={idx} idx={idx} />
           ))
         )}
       </div>

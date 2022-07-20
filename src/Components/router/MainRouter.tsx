@@ -15,6 +15,8 @@ import { NotFound } from "Components/Pages/NotFound";
 
 import { useAuth } from "Modules/hooks/useAuth";
 import { manageabattoirRoutes } from "./ManageAbattoirRoutes";
+import { Verify } from "crypto";
+import { VerifyEmail } from "Components/Pages/Register/VerifyEmail";
 
 export class RouteEndpoints {
   static home = { basepath: "/" };
@@ -32,6 +34,8 @@ export class RouteEndpoints {
   static userInfo = "/thong-tin-ca-nhan";
 
   static notfound = "/chuc-nang-dang-phat-trien";
+
+  static verifyEmail = "/verify"
 
   ///////////////////////////////////////////////////
 }
@@ -90,7 +94,15 @@ export default function MainRouter() {
         }
         key="chuc-nang-dang-phat-trien"
       />
-      ec6089d2d4eb0ae7867bbdb032fe6c2ebf649f76
+
+      <Route
+        path={RouteEndpoints.verifyEmail}
+        element={
+          <VerifyEmail />
+        }
+        key="verifyEmail"
+      />
+
       {/* /////////////////////////////////////////////// */}
       <Route path="*" element={<h1>Not found</h1>} />
     </Routes>

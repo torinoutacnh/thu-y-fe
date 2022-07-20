@@ -5,7 +5,10 @@ const UserApiRoute = {
     return "/user";
   },
   get register() {
-    return this.Base.concat("/create-user");
+    return "/accounts/register";
+  },
+  get verifyEmail() {
+    return "/accounts/verify-email"
   },
   get login() {
     return this.Base.concat("/login");

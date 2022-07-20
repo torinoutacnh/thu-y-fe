@@ -194,7 +194,9 @@ const ManageAbattoir = () => {
     setPage({ ...page, pageSize: page.pageSize - 1 });
   };
 
-  useEffect(() => GetAbattoir, [page.pageNumber, page.pageSize, user.token]);
+  useEffect(() => {
+    GetAbattoir();
+  }, [page.pageNumber, page.pageSize, user.token]);
 
   return (
     <>

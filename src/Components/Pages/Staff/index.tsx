@@ -41,7 +41,10 @@ const StaffHome = () => {
         }
       )
         .then((res) => res.json())
-        .then((data) => setListStaff(data.data))
+        .then((data) => {
+          console.log(data);
+          setListStaff(data.data);
+        })
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
     }

@@ -23,6 +23,7 @@ import { ApiRoute, ReportApiRoute } from "Api";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import { abattoirEndpoints } from "Components/router/AbattoirRoutes";
 import { IconType } from "antd/lib/notification";
+import { medicalHygieneEndpoints } from "Components/router/MedicalHygieneRoutes";
 
 const RenderForm: React.FC<RenderProps> = ({
   form,
@@ -50,6 +51,27 @@ const RenderForm: React.FC<RenderProps> = ({
     });
   };
 
+  const RedirectToHome = (reportType: ReportType) => {
+    switch (reportType) {
+      case ReportType["CN-KDĐV-UQ"]: {
+        navigate(quarantineEndpoints.home);
+        break;
+      }
+      case ReportType["ĐK-KDĐV-001"]: {
+        navigate(medicalHygieneEndpoints.home);
+        break;
+      }
+      case ReportType["BB-VSTY"]: {
+        navigate(medicalHygieneEndpoints.home);
+        break;
+      }
+      case ReportType["NK-001"]: {
+        navigate(abattoirEndpoints.home);
+        break;
+      }
+    }
+  };
+
   function submit() {
     console.log(formref.getFieldsValue());
     if (user?.token) {
@@ -70,16 +92,7 @@ const RenderForm: React.FC<RenderProps> = ({
 
           if (!data.data) throw new Error("Thất bại !");
           openNotification("Thành công!", "success");
-          if (
-            reportType === ReportType["CN-KDĐV-UQ"] ||
-            reportType === ReportType["ĐK-KDĐV-001"] ||
-            reportType === ReportType["BB-VSTY"]
-          ) {
-            navigate(quarantineEndpoints.home);
-          }
-          if (reportType === ReportType["NK-001"]) {
-            navigate(abattoirEndpoints.home);
-          }
+          RedirectToHome(reportType);
         })
         .catch((error) => {
           openNotification(error.message, "error");
@@ -208,15 +221,7 @@ const RenderForm: React.FC<RenderProps> = ({
                 <Button
                   icon={<LeftOutlined />}
                   onClick={() => {
-                    if (
-                      reportType === ReportType["CN-KDĐV-UQ"] ||
-                      reportType === ReportType["ĐK-KDĐV-001"]
-                    ) {
-                      navigate(quarantineEndpoints.home);
-                    }
-                    if (reportType === ReportType["NK-001"]) {
-                      navigate(abattoirEndpoints.home);
-                    }
+                    RedirectToHome(reportType);
                   }}
                 >
                   Trở về

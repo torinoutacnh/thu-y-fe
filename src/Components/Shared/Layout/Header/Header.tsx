@@ -12,6 +12,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import "./header.css";
+import { medicalHygieneEndpoints } from "Components/router/MedicalHygieneRoutes";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ const Header = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link to={quarantineEndpoints.vsyt}>
+                          <Link to={medicalHygieneEndpoints.home}>
                             Biên bản vệ sinh y tế
                           </Link>
                         </li>

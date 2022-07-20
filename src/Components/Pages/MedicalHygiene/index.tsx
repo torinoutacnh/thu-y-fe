@@ -1,11 +1,11 @@
 import { PageHeader, Button } from "antd";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
-import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import { ReportType } from "Components/Shared/Form/Define/FormInterface";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { MapTable } from "../../Shared/Form/Define/CustomTable";
 import { FileAddOutlined } from "@ant-design/icons";
+import { medicalHygieneEndpoints } from "Components/router/MedicalHygieneRoutes";
 
 const MedicalHygiene = () => {
   const navigate = useNavigate();
@@ -19,12 +19,7 @@ const MedicalHygiene = () => {
             icon={<FileAddOutlined />}
             type="primary"
             onClick={() => {
-              navigate(
-                quarantineEndpoints.createreport.concat("?") +
-                  new URLSearchParams({
-                    reporttype: ReportType["BB-VSTY"],
-                  } as any)
-              );
+              navigate(medicalHygieneEndpoints.createreport);
             }}
           >
             Tạo báo cáo

@@ -67,7 +67,7 @@ export default function UpdateReportPage() {
           form={form}
           reportvalue={report}
           submitmethod={"POST"}
-          isQuarantined={ReportType.QuarantineReport}
+          reportType={ReportType["CN-KDĐV-UQ"]}
         />
       )}
     </>

@@ -1,4 +1,13 @@
-import { Input, Col, Form, Button, Space, Row } from "antd";
+import {
+  Input,
+  Col,
+  Form,
+  Button,
+  Space,
+  Row,
+  notification,
+  FormInstance,
+} from "antd";
 import { RenderProps, ReportType } from "../Define/FormInterface";
 import React, { useEffect } from "react";
 import { useAuth } from "Modules/hooks/useAuth";
@@ -13,17 +22,33 @@ import { useLoading } from "Modules/hooks/useLoading";
 import { ApiRoute, ReportApiRoute } from "Api";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import { abattoirEndpoints } from "Components/router/AbattoirRoutes";
+import { IconType } from "antd/lib/notification";
 
 const RenderForm: React.FC<RenderProps> = ({
   form,
   reportvalue,
   submitmethod,
-  isQuarantined,
+  reportType,
 }) => {
   const [formref] = Form.useForm<ReportModel>();
   const { user } = useAuth();
   const navigate = useNavigate();
   const { setLoading } = useLoading();
+
+  const openNotification = (
+    message: string,
+    type: IconType,
+    onClose?: any,
+    body?: string
+  ) => {
+    notification.open({
+      duration: 2.5,
+      message: message,
+      description: body,
+      type: type,
+      onClose: onClose,
+    });
+  };
 
   function submit() {
     console.log(formref.getFieldsValue());
@@ -41,14 +66,25 @@ const RenderForm: React.FC<RenderProps> = ({
       })
         .then((res) => res.json())
         .then((data) => {
-          if (isQuarantined === ReportType.QuarantineReport) {
+          console.log(data);
+
+          if (!data.data) throw new Error("Thất bại !");
+          openNotification("Thành công!", "success");
+          if (
+            reportType === ReportType["CN-KDĐV-UQ"] ||
+            reportType === ReportType["ĐK-KDĐV-001"] ||
+            reportType === ReportType["BB-VSTY"]
+          ) {
             navigate(quarantineEndpoints.home);
           }
-          if (isQuarantined === ReportType.DailyAmountReport) {
+          if (reportType === ReportType["NK-001"]) {
             navigate(abattoirEndpoints.home);
           }
         })
-        .catch((error) => console.log(error))
+        .catch((error) => {
+          openNotification(error.message, "error");
+          console.log(error);
+        })
         .finally(() => setLoading(false));
     }
   }
@@ -85,6 +121,42 @@ const RenderForm: React.FC<RenderProps> = ({
   const TransformReport = (report: ReportModel) => {
     report?.values.sort((a, b) => a.sort - b.sort);
     return report;
+  };
+
+  const RenderAnimalAndSealTabs = (
+    reportType: ReportType,
+    formref: FormInstance<ReportModel>,
+    report: ReportModel
+  ) => {
+    switch (reportType) {
+      case ReportType["CN-KDĐV-UQ"]: {
+        return (
+          <>
+            <AnimalFields mainFormRef={formref} report={report} />
+            <SealFields mainFormRef={formref} report={report} />
+          </>
+        );
+      }
+      case ReportType["ĐK-KDĐV-001"]: {
+        return (
+          <>
+            <AnimalFields mainFormRef={formref} report={report} />
+          </>
+        );
+      }
+      case ReportType["NK-001"]: {
+        return (
+          <>
+            <AnimalFields mainFormRef={formref} report={report} />
+          </>
+        );
+      }
+      case ReportType["BB-VSTY"]: {
+        return <></>;
+      }
+      default:
+        return <></>;
+    }
   };
 
   return (
@@ -124,10 +196,11 @@ const RenderForm: React.FC<RenderProps> = ({
           <Form.Item name={"type"} initialValue={0} hidden={true}>
             <Input />
           </Form.Item>
-          <AnimalFields report={reportvalue} mainFormRef={formref} />
-          {isQuarantined && isQuarantined === ReportType.QuarantineReport && (
+          {/* <AnimalFields report={reportvalue} mainFormRef={formref} />
+          {reportType && reportType === ReportType["CN-KDĐV-UQ"] && (
             <SealFields mainFormRef={formref} report={reportvalue} />
-          )}
+          )} */}
+          {RenderAnimalAndSealTabs(reportType, formref, reportvalue)}
           <RenderFormAttrs form={form} />
           <Row align="middle" justify="center">
             <Form.Item>
@@ -135,10 +208,13 @@ const RenderForm: React.FC<RenderProps> = ({
                 <Button
                   icon={<LeftOutlined />}
                   onClick={() => {
-                    if (isQuarantined === ReportType.QuarantineReport) {
+                    if (
+                      reportType === ReportType["CN-KDĐV-UQ"] ||
+                      reportType === ReportType["ĐK-KDĐV-001"]
+                    ) {
                       navigate(quarantineEndpoints.home);
                     }
-                    if (isQuarantined === ReportType.DailyAmountReport) {
+                    if (reportType === ReportType["NK-001"]) {
                       navigate(abattoirEndpoints.home);
                     }
                   }}

@@ -6,6 +6,7 @@ import { Route } from "react-router-dom";
 import { publicEndpoints } from "./PublicRoutes";
 import React from "react";
 import { RoleType } from "Components/Shared/Models/User";
+import { MedicalHygiene } from "Components/Pages/Quarantine/MedicalHygiene";
 
 const quarantineEndpoints = {
   get basepath() {
@@ -13,6 +14,12 @@ const quarantineEndpoints = {
   },
   get home() {
     return this.basepath;
+  },
+  get vsyt() {
+    return this.basepath.concat("/bien-ban-ve-sinh-y-te");
+  },
+  get cnkd() {
+    return this.basepath.concat("/chung-nhan-kiem-dich");
   },
   get createreport() {
     return this.basepath.concat("/tao-bao-cao");
@@ -31,6 +38,15 @@ const QuarantineRoutes = [
       </PrivateRoute>
     }
     key="quarantine-page"
+  />,
+  <Route
+    path={quarantineEndpoints.vsyt}
+    element={
+      <PrivateRoute path={publicEndpoints.login}>
+        <MedicalHygiene />
+      </PrivateRoute>
+    }
+    key="quarantine-page-vsyt"
   />,
   <Route
     path={quarantineEndpoints.createreport}

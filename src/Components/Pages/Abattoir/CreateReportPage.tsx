@@ -41,7 +41,7 @@ export default function CreateAbattoirReport() {
         <RenderForm
           form={form}
           submitmethod={"POST"}
-          isQuarantined={ReportType.DailyAmountReport}
+          reportType={ReportType["NK-001"]}
         />
       )}
     </>

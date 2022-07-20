@@ -5,13 +5,16 @@ import { ApiRoute, FormApiRoute } from "Api";
 import { FormModel } from "Components/Shared/Models/Form";
 import { ReportType } from "Components/Shared/Form/Define/FormInterface";
 import { useLoading } from "Modules/hooks/useLoading";
+import { useParams, useSearchParams } from "react-router-dom";
 
 export default function CreateReportPage() {
   const [form, setForm] = useState<FormModel>();
   const { user } = useAuth();
   const { setLoading } = useLoading();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const reporttype = Number(searchParams.get("reporttype"));
 
-  const search = { code: process.env.REACT_APP_CODE_KIEM_DICH };
+  const search = { code: ReportType[reporttype] };
   useEffect(() => {
     if (user?.token && search) {
       setLoading(true);
@@ -33,16 +36,12 @@ export default function CreateReportPage() {
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
     }
-  }, [user.token, search.code]);
+  }, [user.token, search.code, reporttype]);
 
   return (
     <>
       {form && (
-        <RenderForm
-          form={form}
-          submitmethod={"POST"}
-          isQuarantined={ReportType.QuarantineReport}
-        />
+        <RenderForm form={form} submitmethod={"POST"} reportType={reporttype} />
       )}
     </>
   );

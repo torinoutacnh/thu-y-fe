@@ -1,11 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
-import { PlusOutlined } from "@ant-design/icons";
-import { Table, Button, Input, Descriptions, PageHeader } from "antd";
-import { ApiRoute, ManageAbattoirRoute, UserApiRoute } from "Api";
+import React, { useState, useEffect } from "react";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  Table,
+  Button,
+  Input,
+  Descriptions,
+  PageHeader,
+  notification,
+} from "antd";
+import { ManageAbattoirRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
-import { RouteEndpoints } from "Components/router/MainRouter";
-import { UserModel, RoleType, SexType } from "Components/Shared/Models/User";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
 import useWindowSize from "Modules/hooks/useWindowSize";
@@ -22,13 +27,30 @@ const ManageAbattoir = () => {
     pageNumber: 0,
     pageSize: 1000,
   });
+  notification.config({
+    placement: "topRight",
+    bottom: 50,
+    duration: 3,
+    rtl: true,
+  });
+  type NotificationType = "success" | "info" | "warning" | "error";
+  const openNotificationWithIcon = (
+    type: NotificationType,
+    title: string,
+    message: string
+  ) => {
+    notification[type]({
+      message: title,
+      description: message,
+    });
+  };
   const { user } = useAuth();
   const { setLoading } = useLoading();
   const navigate = useNavigate();
   const windowSize = useWindowSize();
-  useEffect(() => GetAbattoir, [page.pageNumber, page.pageSize]);
 
   const GetAbattoir = () => {
+    setLoading(true);
     if (user?.token) {
       fetch(process.env.REACT_APP_API.concat(ManageAbattoirRoute.getAbattoir), {
         method: "POST",
@@ -39,15 +61,50 @@ const ManageAbattoir = () => {
         body: JSON.stringify(page),
       })
         .then((res) => {
-          console.log(res);
           return res.json();
         })
         .then((data) => {
           console.log(data);
           setListAbattoir(data.data);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error))
+        .finally(() => setLoading(false));
     }
+  };
+  const deleteAbattoirHandler = (idAbattoir: string, name: string) => {
+    // setLoading(true);
+    const animalDelete = {
+      id: idAbattoir,
+    };
+
+    setLoading(true);
+    fetch(process.env.REACT_APP_API.concat(ManageAbattoirRoute.delete), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer ".concat(user.token),
+      },
+      body: JSON.stringify(animalDelete),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        // setListAnimal(data.data)
+        openNotificationWithIcon(
+          "success",
+          "Xóa lò mổ",
+          `Xóa ${name} thành công`
+        );
+
+        console.log(">>>> Delete animal ok");
+
+        setPage({ ...page, pageSize: page.pageSize - 1 });
+      })
+      .catch((error) => {
+        console.log(">>>> Delete error");
+        openNotificationWithIcon("error", "Xóa lò mổ", "Xóa lò mổ thất bại");
+      });
   };
   const AbattoirColumns: ColumnsType<AbattoirModel> = [
     { title: "Tên lò mổ", dataIndex: "name", key: 1 },
@@ -68,11 +125,16 @@ const ManageAbattoir = () => {
               record.id
             )}
           >
-            <Button type="link" color="blue">
+            <Button type="link" color="blue" icon={<EditOutlined />}>
               Cập nhật
             </Button>
           </Link>
-          <Button type="link" danger>
+          <Button
+            type="link"
+            danger
+            icon={<DeleteOutlined />}
+            onClick={() => deleteAbattoirHandler(record.id, record.name)}
+          >
             Xóa
           </Button>
         </>
@@ -81,11 +143,6 @@ const ManageAbattoir = () => {
   ];
   const RenderCard = (props: { data: AbattoirModel; idx: number }) => {
     const { data, idx } = props;
-    const key = useRef(0);
-    const getKey = () => {
-      key.current = key.current + 1;
-      return key.current;
-    };
 
     return (
       <Descriptions
@@ -136,6 +193,11 @@ const ManageAbattoir = () => {
   const UpdateAbattoirAfterCreate = () => {
     setPage({ ...page, pageSize: page.pageSize - 1 });
   };
+
+  useEffect(() => {
+    GetAbattoir();
+  }, [page.pageNumber, page.pageSize, user.token]);
+
   return (
     <>
       <PageHeader
@@ -147,22 +209,20 @@ const ManageAbattoir = () => {
           />,
         ]}
       />
-      {listAbattoir && windowSize && (
-        <div className="table-content-report">
-          {windowSize.width >= 1024 ? (
-            <Table
-              locale={{ emptyText: "Không có lò mổ!" }}
-              columns={AbattoirColumns}
-              rowKey={"id"}
-              dataSource={listAbattoir}
-            />
-          ) : (
-            listAbattoir.map((x, idx) => (
-              <RenderCard data={x} key={getKeyThenIncreaseKey()} idx={idx} />
-            ))
-          )}
-        </div>
-      )}
+      <div className="table-content-report">
+        {windowSize.width >= 1024 ? (
+          <Table
+            locale={{ emptyText: "Không có lò mổ!" }}
+            columns={AbattoirColumns}
+            rowKey={"id"}
+            dataSource={listAbattoir}
+          />
+        ) : (
+          listAbattoir.map((x, idx) => (
+            <RenderCard data={x} key={idx} idx={idx} />
+          ))
+        )}
+      </div>
     </>
   );
 };

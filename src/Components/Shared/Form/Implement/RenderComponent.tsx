@@ -66,6 +66,8 @@ const RenderForm: React.FC<RenderProps> = ({
       })
         .then((res) => res.json())
         .then((data) => {
+          console.log(data);
+          
           if (!data.data) throw new Error("Thất bại !");
           openNotification("Thành công!", "success");
           if (

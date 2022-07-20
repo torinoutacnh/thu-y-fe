@@ -26,7 +26,6 @@ import {
   QuarantineReportType,
   ReportType,
 } from "Components/Shared/Form/Define/FormInterface";
-import { RoleType } from "Components/Shared/Models/User";
 
 interface QuarantineReportModel {
   reportId?: string;
@@ -59,6 +58,8 @@ const openNotification = (
 
 const QuarantinePage = () => {
   const [reports, setReports] = useState<QuarantineReportModel[]>();
+  const [columns, setColumns] = useState({ columns: [], resColumns: [] });
+  const [reportType, setReportType] = useState(1);
   const navigate = useNavigate();
   const { user } = useAuth();
   const { setLoading } = useLoading();
@@ -73,22 +74,19 @@ const QuarantinePage = () => {
   const getReports = () => {
     if (user) {
       setLoading(true);
-      const api =
-        user?.role === RoleType["Quản lý"]
-          ? process.env.REACT_APP_API.concat(
-              ReportApiRoute.listRegisterQuarantineAnimal
-            )
-          : process.env.REACT_APP_API.concat(
-              ReportApiRoute.listRegisterQuarantineAnimal,
-              "?"
-            ) + new URLSearchParams({ userId: user.userId });
-      fetch(api, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer ".concat(user.token),
-        },
-      })
+      fetch(
+        process.env.REACT_APP_API.concat(
+          ReportApiRoute.listRegisterQuarantineAnimal,
+          "?"
+        ) + new URLSearchParams({ userId: user.userId }),
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer ".concat(user.token),
+          },
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -127,7 +125,7 @@ const QuarantinePage = () => {
     }
   };
 
-  const columns: ColumnsType<QuarantineReportModel> = [
+  const columns1: ColumnsType<QuarantineReportModel> = [
     {
       title: "STT",
       dataIndex: "stt",
@@ -199,7 +197,7 @@ const QuarantinePage = () => {
     },
   ];
 
-  const resColumns: ColumnsType<QuarantineReportModel> = [
+  const resColumns1: ColumnsType<QuarantineReportModel> = [
     {
       title: "Danh sách báo cáo",
       key: getKey(),
@@ -264,9 +262,19 @@ const QuarantinePage = () => {
     },
   ];
 
+  const GetColumns = (reportType: ReportType) => {
+    switch (reportType) {
+      case ReportType["CN-KDĐV-UQ"]:
+        return { columns: columns1, resColumns: resColumns1 };
+      default:
+        return { columns: [], resColumns: [] };
+    }
+  };
+
   useEffect(() => {
+    setColumns(GetColumns(reportType));
     getReports();
-  }, [user.token]);
+  }, [reportType]);
 
   return (
     <>
@@ -280,9 +288,7 @@ const QuarantinePage = () => {
             onClick={() => {
               navigate(
                 quarantineEndpoints.createreport.concat("?") +
-                  new URLSearchParams({
-                    reporttype: ReportType["CN-KDĐV-UQ"],
-                  } as any)
+                  new URLSearchParams({ reporttype: reportType } as any)
               );
             }}
           >
@@ -290,8 +296,22 @@ const QuarantinePage = () => {
           </Button>,
         ]}
       />
+      <Layout>
+        <label style={{ padding: "10px" }}>Loại báo cáo</label>
+        <Select onChange={(val) => setReportType(val)} value={reportType}>
+          {Object.values(QuarantineReportType).map((key, idx) => {
+            const val = QuarantineReportType[key as any];
+            if (!isNaN(Number(val)))
+              return (
+                <Select.Option key={idx} value={val}>
+                  {QuarantineReportType[val as any]}
+                </Select.Option>
+              );
+          })}
+        </Select>
+      </Layout>
       <Table
-        columns={windowSize.width > 768 ? columns : resColumns}
+        columns={windowSize.width > 768 ? columns.columns : columns.resColumns}
         rowKey={"reportId"}
         dataSource={reports}
       />

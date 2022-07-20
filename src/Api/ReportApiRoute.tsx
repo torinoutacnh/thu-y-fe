@@ -14,7 +14,7 @@ const ReportApiRoute = {
   get animalkilling() {
     return this.Base.concat("/animal-killing");
   },
-  get listQuarantine() {
+  get listRegisterQuarantineAnimal() {
     return this.Base.concat("/list-quarantine");
   },
   get getSingleReport() {

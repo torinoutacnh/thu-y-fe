@@ -14,6 +14,12 @@ const quarantineEndpoints = {
   get home() {
     return this.basepath;
   },
+  get vsyt() {
+    return this.basepath.concat("/bien-ban-ve-sinh-y-te");
+  },
+  get cnkd() {
+    return this.basepath.concat("/chung-nhan-kiem-dich");
+  },
   get createreport() {
     return this.basepath.concat("/tao-bao-cao");
   },

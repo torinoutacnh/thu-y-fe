@@ -8,23 +8,19 @@ import {
   PageHeader,
   notification,
 } from "antd";
-import { ApiRoute, ManageAbattoirRoute, UserApiRoute } from "Api";
+import { getKeyThenIncreaseKey } from "antd/lib/message";
+import { ApiRoute, ManageReceiptRoute, UserApiRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
-import { RouteEndpoints } from "Components/router/MainRouter";
-import { UserModel, RoleType, SexType } from "Components/Shared/Models/User";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
 import useWindowSize from "Modules/hooks/useWindowSize";
-import { getKeyThenIncreaseKey } from "antd/lib/message";
-import Createabattoir from "./CreateAbattoir";
-import { manageabattoirEndpoints } from "Components/router/ManageAbattoirRoutes";
-import { AbattoirModel } from "Components/Shared/Models/Abattoir";
-import CreateAbattoir from "./CreateAbattoir";
-import UpdateAbattoir from "./UpdateAbattoir";
+import { ReceiptModel } from "Components/Shared/Models/Receipt";
+import { managereceiptEndpoints } from "Components/router/ManageReceiptRoutes";
+import CreateReceipt from "./CreateReceipt";
 
-const ManageAbattoir = () => {
-  const [listAbattoir, setListAbattoir] = useState<AbattoirModel[]>([]);
+const ManageReceipt = () => {
+  const [listReceipt, setListReceipt] = useState<ReceiptModel[]>([]);
   const [page, setPage] = useState({
     pageNumber: 0,
     pageSize: 1000,
@@ -50,12 +46,12 @@ const ManageAbattoir = () => {
   const { setLoading } = useLoading();
   const navigate = useNavigate();
   const windowSize = useWindowSize();
-  useEffect(() => GetAbattoir, [page.pageNumber, page.pageSize]);
+  useEffect(() => GetReceipt, [page.pageNumber, page.pageSize]);
 
-  const GetAbattoir = () => {
+  const GetReceipt = () => {
     setLoading(true);
     if (user?.token) {
-      fetch(process.env.REACT_APP_API.concat(ManageAbattoirRoute.getAbattoir), {
+      fetch(process.env.REACT_APP_API.concat(ManageReceiptRoute.getReceipt), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,31 +60,29 @@ const ManageAbattoir = () => {
         body: JSON.stringify(page),
       })
         .then((res) => {
-          console.log(res);
           return res.json();
         })
         .then((data) => {
-          console.log(data);
-          setListAbattoir(data.data);
+          setListReceipt(data.data);
         })
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
     }
   };
-  const deleteAbattoirHandler = (idAbattoir: string, name: string) => {
+  const deleteReceiptHandler = (idReceipt: string, name: string) => {
     // setLoading(true);
-    const abattoirDelete = {
-      id: idAbattoir,
+    const receiptDelete = {
+      id: idReceipt,
     };
 
     setLoading(true);
-    fetch(process.env.REACT_APP_API.concat(ManageAbattoirRoute.delete), {
+    fetch(process.env.REACT_APP_API.concat(ManageReceiptRoute.delete), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer ".concat(user.token),
       },
-      body: JSON.stringify(abattoirDelete),
+      body: JSON.stringify(receiptDelete),
     })
       .then((res) => {
         return res.json();
@@ -97,25 +91,24 @@ const ManageAbattoir = () => {
         // setListAnimal(data.data)
         openNotificationWithIcon(
           "success",
-          "Xóa lò mổ",
+          "Xóa hóa đơn",
           `Xóa ${name} thành công`
         );
 
-        console.log(">>>> Delete animal ok");
+        console.log(">>>> Delete receipt ok");
 
         setPage({ ...page, pageSize: page.pageSize - 1 });
       })
       .catch((error) => {
         console.log(">>>> Delete error");
-        openNotificationWithIcon("error", "Xóa lò mổ", "Xóa lò mổ thất bại");
+        openNotificationWithIcon("error", "Xóa hóa đơn", "Xóa hóa đơnthất bại");
       });
   };
-  const AbattoirColumns: ColumnsType<AbattoirModel> = [
-    { title: "Tên lò mổ", dataIndex: "name", key: 1 },
-    { title: "Địa chỉ", dataIndex: "address", key: 2 },
-    { title: "Tên người quản lý", dataIndex: "managerName", key: 3 },
-    { title: "Email", dataIndex: "email", key: 4 },
-    { title: "Số điện thoại", dataIndex: "phone", key: 5 },
+  const ReceiptColumns: ColumnsType<ReceiptModel> = [
+    { title: "Tên hóa đơn", dataIndex: "name", key: 1 },
+    { title: "Tên mã hóa đơn", dataIndex: "codeName", key: 2 },
+    { title: "Số mã hóa đơn", dataIndex: "codeNumber", key: 3 },
+    { title: "Ngày hiệu lực", dataIndex: "effectiveDate", key: 4 },
 
     {
       title: "Xử lý",
@@ -124,10 +117,7 @@ const ManageAbattoir = () => {
       render: (record) => (
         <>
           <Link
-            to={manageabattoirEndpoints.updateabattoir.replace(
-              ":id",
-              record.id
-            )}
+            to={managereceiptEndpoints.updatereceipt.replace(":id", record.id)}
           >
             <Button type="link" color="blue" icon={<EditOutlined />}>
               Cập nhật
@@ -137,7 +127,7 @@ const ManageAbattoir = () => {
             type="link"
             danger
             icon={<DeleteOutlined />}
-            onClick={() => deleteAbattoirHandler(record.id, record.name)}
+            onClick={() => deleteReceiptHandler(record.id, record.name)}
           >
             Xóa
           </Button>
@@ -145,7 +135,7 @@ const ManageAbattoir = () => {
       ),
     },
   ];
-  const RenderCard = (props: { data: AbattoirModel; idx: number }) => {
+  const RenderCard = (props: { data: ReceiptModel; idx: number }) => {
     const { data, idx } = props;
     const key = useRef(0);
     const getKey = () => {
@@ -169,23 +159,20 @@ const ManageAbattoir = () => {
         size={"small"}
         style={{ marginTop: idx === 0 ? 10 : 50 }}
       >
-        <Descriptions.Item label={"Tên lò mổ"}>{data.name}</Descriptions.Item>
-        <Descriptions.Item label={"Địa chỉ"}>{data.address}</Descriptions.Item>
-        <Descriptions.Item label={"Tên người quản lý"}>
-          {data.managerName}
+        <Descriptions.Item label={"Tên hóa đơn"}>{data.name}</Descriptions.Item>
+        <Descriptions.Item label={"Tên mã hóa đơn"}>
+          {data.codeName}
         </Descriptions.Item>
-        <Descriptions.Item label={"Email"}>{data.email}</Descriptions.Item>
-        <Descriptions.Item label={"Số điện thoại"}>
-          {data.phone}
+        <Descriptions.Item label={"Số mã hóa đơn"}>
+          {data.codeNumber}
         </Descriptions.Item>
-
+        <Descriptions.Item label={"Ngày hiệu lực"}>
+          {data.effectiveDate}
+        </Descriptions.Item>
         <Descriptions.Item label={"Xử lý"}>
           <>
             <Link
-              to={manageabattoirEndpoints.updateabattoir.replace(
-                ":id",
-                data.id
-              )}
+              to={managereceiptEndpoints.updatereceipt.replace(":id", data.id)}
             >
               <Button type="link" color="blue">
                 Cập nhật
@@ -199,31 +186,31 @@ const ManageAbattoir = () => {
       </Descriptions>
     );
   };
-  const UpdateAbattoirAfterCreate = () => {
+  const UpdateReceiptAfterCreate = () => {
     setPage({ ...page, pageSize: page.pageSize - 1 });
   };
   return (
     <>
       <PageHeader
-        title="Quản lý lò mổ"
+        title="Quản lý hóa đơn"
         extra={[
-          <CreateAbattoir
+          <CreateReceipt
             key={getKeyThenIncreaseKey()}
-            UpdateAbattoirAfterCreate={UpdateAbattoirAfterCreate}
+            UpdateReceiptAfterCreate={UpdateReceiptAfterCreate}
           />,
         ]}
       />
-      {listAbattoir && windowSize && (
+      {listReceipt && windowSize && (
         <div className="table-content-report">
           {windowSize.width >= 1024 ? (
             <Table
-              locale={{ emptyText: "Không có lò mổ!" }}
-              columns={AbattoirColumns}
+              locale={{ emptyText: "Không có hóa đơn!" }}
+              columns={ReceiptColumns}
               rowKey={"id"}
-              dataSource={listAbattoir}
+              dataSource={listReceipt}
             />
           ) : (
-            listAbattoir.map((x, idx) => (
+            listReceipt.map((x, idx) => (
               <RenderCard data={x} key={getKeyThenIncreaseKey()} idx={idx} />
             ))
           )}
@@ -233,4 +220,4 @@ const ManageAbattoir = () => {
   );
 };
 
-export default ManageAbattoir;
+export default ManageReceipt;

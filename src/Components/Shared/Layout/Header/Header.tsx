@@ -4,13 +4,12 @@ import { RouteEndpoints } from "Components/router/MainRouter";
 import { manageabattoirEndpoints } from "Components/router/ManageAbattoirRoutes";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import { staffEndpoints } from "Components/router/StaffRoutes";
-
+import { managereceiptEndpoints } from "Components/router/ManageReceiptRoutes";
 import logoThuY from "../../../../Static/image/logo.png";
 import { useAuth } from "Modules/hooks/useAuth";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./header.css";
-import { managereceiptEndpoints } from "Components/router/ManageReceiptRoutes";
 
 const Header = () => {
   const navigate = useNavigate();

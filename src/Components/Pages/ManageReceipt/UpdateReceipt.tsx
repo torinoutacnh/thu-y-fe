@@ -3,19 +3,19 @@ import { Table, Button, Input, Descriptions, PageHeader, Radio } from "antd";
 import { useAuth } from "Modules/hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
-import { Form, Modal, Select, notification, Space } from "antd";
+import { Form, Modal, Select, notification, Space, DatePicker } from "antd";
 import { useParams } from "react-router-dom";
-import { ManageAbattoirRoute } from "Api";
-import { AbattoirModel } from "Components/Shared/Models/Abattoir";
-const UpdateAbattoir = (props: any) => {
+import { ManageReceiptRoute } from "Api";
+import { ReceiptModel } from "Components/Shared/Models/Receipt";
+
+const UpdateReceipt = (props: any) => {
   const { setLoading } = useLoading();
   const { user } = useAuth();
-  const [abattoirUpdate, setAbattoirUpdate] = useState<AbattoirModel>();
-  const [listAbattoir, setListAbattoir] = useState<AbattoirModel[]>([]);
+  const [receiptrUpdate, setReceiptUpdate] = useState<ReceiptModel>();
+  const [listReceipt, setListReceipt] = useState<ReceiptModel[]>([]);
   const { id } = useParams();
   const navigate = useNavigate();
   const [form] = Form.useForm();
-
   const page = {
     pageNumber: 0,
     pageSize: 1000,
@@ -43,7 +43,7 @@ const UpdateAbattoir = (props: any) => {
   };
   useEffect(() => {
     setLoading(true);
-    fetch(process.env.REACT_APP_API.concat(ManageAbattoirRoute.getAbattoir), {
+    fetch(process.env.REACT_APP_API.concat(ManageReceiptRoute.getReceipt), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,15 +56,14 @@ const UpdateAbattoir = (props: any) => {
         // console.log(">>>> res", res)
       })
       .then((data) => {
-        setAbattoirUpdate(data.data[0]);
+        setReceiptUpdate(data.data[0]);
 
         form.setFieldsValue({
           id: data.data[0].id,
           name: data.data[0].name,
-          managerName: data.data[0].managerName,
-          phone: data.data[0].phone,
-          email: data.data[0].email,
-          address: data.data[0].address,
+          codeName: data.data[0].codeName,
+          codeNumber: data.data[0].codeNumber,
+          effectiveDate: data.data[0].effectiveDate,
         });
       })
       .catch((error) => console.log(error))
@@ -72,34 +71,28 @@ const UpdateAbattoir = (props: any) => {
         setLoading(false);
       });
   }, [page.pageSize, page.pageNumber]);
-  console.log(abattoirUpdate);
-  console.log("check form", form);
-
   const onFinishUpdate = () => {
     // console.log("update finish", form.getFieldsValue())
 
     setLoading(true);
-    fetch(
-      process.env.REACT_APP_API.concat(ManageAbattoirRoute.updateAbattoir),
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer ".concat(user.token),
-        },
-        body: JSON.stringify(form.getFieldsValue()),
-      }
-    )
+    fetch(process.env.REACT_APP_API.concat(ManageReceiptRoute.updateReceipt), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer ".concat(user.token),
+      },
+      body: JSON.stringify(form.getFieldsValue()),
+    })
       .then((res) => {
         return res.json();
         // console.log(">>>> res", res)
       })
       .then((data) => {
-        navigate(ManageAbattoirRoute.Base);
+        navigate(ManageReceiptRoute.Base);
         openNotificationWithIcon(
           "success",
           "SUCCESS",
-          `Cập nhật thông tin lò mổ thành công`
+          `Cập nhật thông tin hóa đơn thành công`
         );
       })
       .catch((error) => {
@@ -115,9 +108,9 @@ const UpdateAbattoir = (props: any) => {
 
   return (
     <>
-      <Form id="update-abattoir-form" layout="vertical" form={form}>
+      <Form id="update-receipt-form" layout="vertical" form={form}>
         <Form.Item>
-          <b>Cập nhật thông tin lò mổ</b>
+          <b>Cập nhật thông tin hóa đơn</b>
         </Form.Item>
         <Form.Item
           label={"ID"}
@@ -125,7 +118,7 @@ const UpdateAbattoir = (props: any) => {
           rules={[
             {
               required: true,
-              message: "Nhập tên lò mổ!",
+              message: "Nhập tên hóa đơn!",
               type: "string",
             },
           ]}
@@ -133,12 +126,12 @@ const UpdateAbattoir = (props: any) => {
           <Input disabled={true} />
         </Form.Item>
         <Form.Item
-          label={"Tên lò mổ"}
+          label={"Tên hóa đơn"}
           name={"name"}
           rules={[
             {
               required: true,
-              message: "Nhập tên lò mổ!",
+              message: "Nhập tên hóa đơn!",
               type: "string",
             },
           ]}
@@ -146,12 +139,12 @@ const UpdateAbattoir = (props: any) => {
           <Input />
         </Form.Item>
         <Form.Item
-          label={"Tên người quản lý"}
-          name={"managerName"}
+          label={"Tên mã hóa đơn"}
+          name={"codeName"}
           rules={[
             {
               required: true,
-              message: "Nhập tên người quản lý!",
+              message: "Nhập tên mã hóa đơn!",
               type: "string",
             },
           ]}
@@ -159,45 +152,34 @@ const UpdateAbattoir = (props: any) => {
           <Input />
         </Form.Item>
         <Form.Item
-          label={"Số điện thoại"}
-          name={"phone"}
+          label={"Số mã hóa đơn"}
+          name={"codeNumber"}
           rules={[
             {
               required: true,
-              message: "Nhập số điện thoại!",
+              message: "Nhập số mã hóa đơn!",
             },
           ]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          label={"Email"}
-          name={"email"}
+          label={"Ngày hiệu lực"}
+          name={"effectiveDate"}
           rules={[
             {
               required: true,
-              message: "Nhập email",
+              message: "Nhập ngày hiệu lực!",
             },
           ]}
         >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label={"Địa chỉ"}
-          name={"address"}
-          rules={[
-            {
-              required: true,
-              message: "Nhập địa chỉ!",
-            },
-          ]}
-        >
-          <Input />
+          <Input disabled={true} />
+          {/* <DatePicker /> */}
         </Form.Item>
         <Button
           type="primary"
           onClick={() => {
-            navigate(ManageAbattoirRoute.Base);
+            navigate(ManageReceiptRoute.Base);
           }}
         >
           Quay lại
@@ -211,4 +193,4 @@ const UpdateAbattoir = (props: any) => {
   );
 };
 
-export default UpdateAbattoir;
+export default UpdateReceipt;

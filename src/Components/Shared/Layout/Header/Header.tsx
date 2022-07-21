@@ -4,13 +4,11 @@ import { RouteEndpoints } from "Components/router/MainRouter";
 import { manageabattoirEndpoints } from "Components/router/ManageAbattoirRoutes";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import { staffEndpoints } from "Components/router/StaffRoutes";
-
+import { managereceiptEndpoints } from "Components/router/ManageReceiptRoutes";
 import logoThuY from "../../../../Static/image/logo.png";
-
 import { useAuth } from "Modules/hooks/useAuth";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import "./header.css";
 
 import { publicEndpoints } from "Components/router/PublicRoutes";
@@ -193,6 +191,11 @@ const Header = () => {
                         <li>
                           <Link to={manageabattoirEndpoints.home}>
                             Quản lý lò mổ
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to={managereceiptEndpoints.home}>
+                            Quản lý hóa đơn
                           </Link>
                         </li>
                         <li>

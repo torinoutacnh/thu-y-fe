@@ -5,9 +5,6 @@ const ManageAbattoirRoute = {
   get getabattoir() {
     return this.Base;
   },
-  get create() {
-    return this.Base.concat("/tao-lo-mo");
-  },
   get update() {
     return this.Base.concat("/cap-nhat-lo-mo/:id");
   },
@@ -19,6 +16,9 @@ const ManageAbattoirRoute = {
   },
   get createAbattoir() {
     return "/abattoir/create-abattoir";
+  },
+  get updateAbattoir() {
+    return "/abattoir/update-abattoir";
   },
 };
 

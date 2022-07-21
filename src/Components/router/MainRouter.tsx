@@ -12,7 +12,7 @@ import { AbattoirRoutes } from "./AbattoirRoutes";
 
 import UserInfo from "Components/Pages/Password";
 import { NotFound } from "Components/Pages/NotFound";
-
+import { managereceiptRoutes } from "./ManageReceiptRoutes";
 import { useAuth } from "Modules/hooks/useAuth";
 import { manageabattoirRoutes } from "./ManageAbattoirRoutes";
 
@@ -60,6 +60,7 @@ export default function MainRouter() {
       {PublicRoutes.map((route) => route)}
       {QuarantineRoutes.map((route) => route)}
       {AbattoirRoutes.map((route) => route)}
+      {managereceiptRoutes.map((route) => route)}
       {StaffRoutes.map((route) => route)}
       {manageabattoirRoutes.map((route) => route)}
       {medicalHygieneRoutes.map((route) => route)}

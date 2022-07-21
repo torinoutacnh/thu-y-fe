@@ -56,7 +56,7 @@ const openNotification = (
   });
 };
 
-const QuarantinePage = () => {
+const ReportPage = () => {
   const [reports, setReports] = useState<QuarantineReportModel[]>();
   const [columns, setColumns] = useState({ columns: [], resColumns: [] });
   const [reportType, setReportType] = useState(1);
@@ -319,4 +319,4 @@ const QuarantinePage = () => {
   );
 };
 
-export { QuarantinePage };
+export { ReportPage };

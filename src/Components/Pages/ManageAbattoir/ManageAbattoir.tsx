@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import {
   Table,
@@ -8,11 +8,9 @@ import {
   PageHeader,
   notification,
 } from "antd";
-import { ApiRoute, ManageAbattoirRoute, UserApiRoute } from "Api";
+import { ManageAbattoirRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
-import { RouteEndpoints } from "Components/router/MainRouter";
-import { UserModel, RoleType, SexType } from "Components/Shared/Models/User";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
 import useWindowSize from "Modules/hooks/useWindowSize";
@@ -50,7 +48,6 @@ const ManageAbattoir = () => {
   const { setLoading } = useLoading();
   const navigate = useNavigate();
   const windowSize = useWindowSize();
-  useEffect(() => GetAbattoir, [page.pageNumber, page.pageSize]);
 
   const GetAbattoir = () => {
     setLoading(true);
@@ -64,7 +61,6 @@ const ManageAbattoir = () => {
         body: JSON.stringify(page),
       })
         .then((res) => {
-          console.log(res);
           return res.json();
         })
         .then((data) => {
@@ -147,11 +143,6 @@ const ManageAbattoir = () => {
   ];
   const RenderCard = (props: { data: AbattoirModel; idx: number }) => {
     const { data, idx } = props;
-    const key = useRef(0);
-    const getKey = () => {
-      key.current = key.current + 1;
-      return key.current;
-    };
 
     return (
       <Descriptions
@@ -202,6 +193,11 @@ const ManageAbattoir = () => {
   const UpdateAbattoirAfterCreate = () => {
     setPage({ ...page, pageSize: page.pageSize - 1 });
   };
+
+  useEffect(() => {
+    GetAbattoir();
+  }, [page.pageNumber, page.pageSize, user.token]);
+
   return (
     <>
       <PageHeader
@@ -213,22 +209,20 @@ const ManageAbattoir = () => {
           />,
         ]}
       />
-      {listAbattoir && windowSize && (
-        <div className="table-content-report">
-          {windowSize.width >= 1024 ? (
-            <Table
-              locale={{ emptyText: "Không có lò mổ!" }}
-              columns={AbattoirColumns}
-              rowKey={"id"}
-              dataSource={listAbattoir}
-            />
-          ) : (
-            listAbattoir.map((x, idx) => (
-              <RenderCard data={x} key={getKeyThenIncreaseKey()} idx={idx} />
-            ))
-          )}
-        </div>
-      )}
+      <div className="table-content-report">
+        {windowSize.width >= 1024 ? (
+          <Table
+            locale={{ emptyText: "Không có lò mổ!" }}
+            columns={AbattoirColumns}
+            rowKey={"id"}
+            dataSource={listAbattoir}
+          />
+        ) : (
+          listAbattoir.map((x, idx) => (
+            <RenderCard data={x} key={idx} idx={idx} />
+          ))
+        )}
+      </div>
     </>
   );
 };

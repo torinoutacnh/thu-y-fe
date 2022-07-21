@@ -15,6 +15,7 @@ import { NotFound } from "Components/Pages/NotFound";
 import { managereceiptRoutes } from "./ManageReceiptRoutes";
 import { useAuth } from "Modules/hooks/useAuth";
 import { manageabattoirRoutes } from "./ManageAbattoirRoutes";
+import { medicalHygieneRoutes } from "./MedicalHygieneRoutes";
 
 export class RouteEndpoints {
   static home = { basepath: "/" };
@@ -55,6 +56,7 @@ export default function MainRouter() {
       {managereceiptRoutes.map((route) => route)}
       {StaffRoutes.map((route) => route)}
       {manageabattoirRoutes.map((route) => route)}
+      {medicalHygieneRoutes.map((route) => route)}
       <Route
         path={RouteEndpoints.animal.basepath}
         element={

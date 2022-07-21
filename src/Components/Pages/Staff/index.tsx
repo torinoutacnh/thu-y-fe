@@ -24,8 +24,6 @@ const StaffHome = () => {
   const navigate = useNavigate();
   const windowSize = useWindowSize();
 
-  useEffect(() => GetStaff, [page.pageIndex, page.pageNumber]);
-
   const GetStaff = () => {
     if (user) {
       setLoading(true);
@@ -41,7 +39,10 @@ const StaffHome = () => {
         }
       )
         .then((res) => res.json())
-        .then((data) => setListStaff(data.data))
+        .then((data) => {
+          console.log(data);
+          setListStaff(data.data);
+        })
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
     }
@@ -215,6 +216,9 @@ const StaffHome = () => {
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////
+  useEffect(() => {
+    GetStaff();
+  }, [page.pageIndex, page.pageNumber, user.token]);
 
   return (
     <>

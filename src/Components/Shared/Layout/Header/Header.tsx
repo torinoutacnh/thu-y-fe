@@ -10,6 +10,7 @@ import { useAuth } from "Modules/hooks/useAuth";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./header.css";
+import { medicalHygieneEndpoints } from "Components/router/MedicalHygieneRoutes";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -88,6 +89,11 @@ const Header = () => {
                         <li>
                           <Link to={quarantineEndpoints.home}>
                             Báo cáo kiểm dịch
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to={medicalHygieneEndpoints.home}>
+                            Biên bản vệ sinh y tế
                           </Link>
                         </li>
                         <li>

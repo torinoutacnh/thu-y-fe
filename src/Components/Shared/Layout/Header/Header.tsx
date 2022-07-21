@@ -12,6 +12,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import "./header.css";
+import { publicEndpoints } from "Components/router/PublicRoutes";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -57,12 +58,22 @@ const Header = () => {
     setIconRotate3(!iconRotate3);
   }
 
+
+  const [showItems4, setShowItems4] = useState(false);
+  const [iconRotate4, setIconRotate4] = useState(false);
+  function handleClicElements4() {
+    setShowItems4(!showItems4);
+    setIconRotate4(!iconRotate4);
+  }
+
+
+
   return (
     <>
       <PageHeader>
         <div className="header__web">
           <div className="header_menu">
-            <img src={logoThuY} alt="logo" width={30} />
+            <img src={logoThuY} alt="logo" width={30} onClick={() => { navigate(RouteEndpoints.home.basepath) }} />
             <h4>PHẦN MỀM QUẢN LÝ KIỂM SOÁT GIẾT MỔ VÀ KIỂM DỊCH</h4>
           </div>
           {user ? (
@@ -74,18 +85,16 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Kiểm dịch
                       <span
-                        className={`icon ${
-                          iconRotate1 ? "iconRotate--90" : "iconRotate-0"
-                        }`}
+                        className={`icon ${iconRotate1 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${
-                          showItems1 ? "showItems" : ""
-                        }`}
+                        className={`dropdown-content-1 ${showItems1 ? "showItems" : ""
+                          }`}
                       >
                         <li>
                           <Link to={quarantineEndpoints.home}>
@@ -116,18 +125,16 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Giết mổ
                       <span
-                        className={`icon ${
-                          iconRotate2 ? "iconRotate--90" : "iconRotate-0"
-                        }`}
+                        className={`icon ${iconRotate2 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${
-                          showItems2 ? "showItems" : ""
-                        }`}
+                        className={`dropdown-content-1 ${showItems2 ? "showItems" : ""
+                          }`}
                       >
                         <li>
                           <Link to={abattoirEndpoints.home}>
@@ -153,18 +160,16 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Quản trị admin
                       <span
-                        className={`icon ${
-                          iconRotate3 ? "iconRotate--90" : "iconRotate-0"
-                        }`}
+                        className={`icon ${iconRotate3 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${
-                          showItems3 ? "showItems" : ""
-                        }`}
+                        className={`dropdown-content-1 ${showItems3 ? "showItems" : ""
+                          }`}
                       >
                         <li>
                           <Link to={staffEndpoints.home}>
@@ -191,6 +196,38 @@ const Header = () => {
                             Doanh thu tổng
                           </Link>
                         </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+                <li onClick={handleClicElements4} className="mb20">
+                  <div className="dropdown-menu">
+                    <Button type="link" className="dropdown-menu__btn">
+                      Cá nhân
+                      <span
+                        className={`icon ${iconRotate4 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
+                      >
+                        <i className="fa-solid fa-angle-left"></i>
+                      </span>
+                    </Button>
+                    <div className="dropdown-content">
+                      <ul
+                        className={`dropdown-content-1 ${showItems4 ? "showItems" : ""
+                          }`}
+                      >
+                        <li>
+                          <Link to={publicEndpoints.home}>
+                            Thông tin cá nhân
+                          </Link>
+                        </li>
+                        <li onClick={singOut}>
+                          <a>
+                            Đăng xuất
+                          </a>
+
+                        </li>
+
                       </ul>
                     </div>
                   </div>

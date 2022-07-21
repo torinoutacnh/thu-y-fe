@@ -27,7 +27,7 @@ interface UserData {
   email: string;
   address: string;
   sex: number;
-
+  role?: number;
 }
 
 const RegisterForm = () => {
@@ -158,7 +158,7 @@ const RegisterForm = () => {
         openNotificationWithIcon(
           "error",
           "ERROR",
-          `Tên tài khoản không thành công`
+          `Tạo tài khoản không thành công`
         );
       })
 
@@ -254,7 +254,7 @@ const RegisterForm = () => {
         <Radio.Group
 
           onChange={(e) => {
-            setUser({ ...user, sex: e.target.value });
+            setUser({ ...user, sex: e.target.value, role: 2 });
             // console.log(user);
           }}
           value={user.sex ?? 1}

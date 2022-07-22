@@ -7,6 +7,11 @@ const UserApiRoute = {
   get register() {
     return "/accounts/register";
   },
+
+  get changePassword() {
+    return "/accounts/change-password";
+  },
+
   get verifyEmail() {
     return "/accounts/verify-email"
   },

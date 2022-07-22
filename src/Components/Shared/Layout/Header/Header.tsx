@@ -14,6 +14,7 @@ import "./header.css";
 import { publicEndpoints } from "Components/router/PublicRoutes";
 
 import { medicalHygieneEndpoints } from "Components/router/MedicalHygieneRoutes";
+import { ChangePassword } from "Components/Pages/User/ChangePassword";
 
 
 const Header = () => {
@@ -210,7 +211,7 @@ const Header = () => {
                 <li onClick={handleClicElements4} className="mb20">
                   <div className="dropdown-menu">
                     <Button type="link" className="dropdown-menu__btn">
-                      Cá nhân
+                      Tài khoản
                       <span
                         className={`icon ${iconRotate4 ? "iconRotate--90" : "iconRotate-0"
                           }`}
@@ -224,9 +225,7 @@ const Header = () => {
                           }`}
                       >
                         <li>
-                          <Link to={publicEndpoints.home}>
-                            Thông tin cá nhân
-                          </Link>
+                          <ChangePassword />
                         </li>
                         <li onClick={singOut}>
                           <a>
@@ -239,7 +238,7 @@ const Header = () => {
                     </div>
                   </div>
                 </li>
-                <li>
+                {/* <li>
                   <div style={{ marginTop: 20, float: "right" }}>
                     <Button
                       danger
@@ -251,7 +250,7 @@ const Header = () => {
                       Đăng xuất
                     </Button>
                   </div>
-                </li>
+                </li> */}
               </ul>
             </>
           ) : (

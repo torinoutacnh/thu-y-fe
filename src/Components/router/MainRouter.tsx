@@ -5,20 +5,15 @@ import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";
 import { Routes, Route } from "react-router-dom";
 import { publicEndpoints, PublicRoutes } from "./PublicRoutes";
 import { QuarantineRoutes } from "./QuarantineRoutes";
-
 import { StaffRoutes } from "./StaffRoutes";
 import React from "react";
 import { AbattoirRoutes } from "./AbattoirRoutes";
-
-import UserInfo from "Components/Pages/Password";
 import { NotFound } from "Components/Pages/NotFound";
 import { managereceiptRoutes } from "./ManageReceiptRoutes";
 import { useAuth } from "Modules/hooks/useAuth";
 import { manageabattoirRoutes } from "./ManageAbattoirRoutes";
-
 import { Verify } from "crypto";
 import { VerifyEmail } from "Components/Pages/Register/VerifyEmail";
-
 import { medicalHygieneRoutes } from "./MedicalHygieneRoutes";
 
 
@@ -82,15 +77,7 @@ export default function MainRouter() {
         }
         key="animal-update"
       />
-      <Route
-        path={RouteEndpoints.userInfo}
-        element={
-          <PrivateRoute path={publicEndpoints.login}>
-            <UserInfo />
-          </PrivateRoute>
-        }
-        key="reset-password"
-      />
+
       <Route
         path={RouteEndpoints.notfound}
         element={

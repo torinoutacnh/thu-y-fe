@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { FileDoneOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import {
   Table,
   Button,
@@ -18,12 +18,19 @@ import useWindowSize from "Modules/hooks/useWindowSize";
 import { ReceiptModel } from "Components/Shared/Models/Receipt";
 import { managereceiptEndpoints } from "Components/router/ManageReceiptRoutes";
 import CreateReceipt from "./CreateReceipt";
+import { ChangePassword } from "../User/ChangePassword";
+import { CreateAllocate } from "./CreateAllocate";
+import { UserModel } from "Components/Shared/Models/User";
 
 const ManageReceipt = () => {
   const [listReceipt, setListReceipt] = useState<ReceiptModel[]>([]);
   const [page, setPage] = useState({
     pageNumber: 0,
     pageSize: 1000,
+  });
+  const [page2, setPage2] = useState({
+    pageIndex: 1,
+    pageNumber: 100,
   });
   notification.config({
     placement: "topRight",
@@ -46,29 +53,81 @@ const ManageReceipt = () => {
   const { setLoading } = useLoading();
   const navigate = useNavigate();
   const windowSize = useWindowSize();
-  useEffect(() => GetReceipt, [page.pageNumber, page.pageSize]);
+  const [liststaff, setListStaff] = useState<UserModel[]>([]);
+  const [listUsername, setListUsername] = useState([])
+  const [listId, setListId] = useState([])
+
+
+  useEffect(() => {
+    const tmp = liststaff.map((item, index) => {
+      return ({ value: item.account })
+    })
+    setListUsername(tmp)
+    // console.log("listUsername >>>>>>>>>> ", listUsername)
+  }, [liststaff])
+
+  useEffect(() => {
+    const tmp = liststaff.map((item, index) => {
+      return ({ value: item.account, id: item.id })
+    })
+    setListId(tmp)
+    // console.log("listId >>>>>>>>>> ", listId)
+  }, [liststaff])
+
 
   const GetReceipt = () => {
     setLoading(true);
-    if (user?.token) {
-      fetch(process.env.REACT_APP_API.concat(ManageReceiptRoute.getReceipt), {
-        method: "POST",
+
+    fetch(
+      process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
+      new URLSearchParams(page2 as any),
+      {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer ".concat(user.token),
         },
-        body: JSON.stringify(page),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+
+        setListStaff(data.data);
+
       })
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          setListReceipt(data.data);
-        })
-        .catch((error) => console.log(error))
-        .finally(() => setLoading(false));
-    }
+      .catch((error) => console.log(error))
+      .finally(() => {
+        //////////////////////////////////////////////
+        if (user?.token) {
+          fetch(process.env.REACT_APP_API.concat(ManageReceiptRoute.getReceipt), {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer ".concat(user.token),
+            },
+            body: JSON.stringify(page),
+          })
+            .then((res) => {
+              return res.json();
+            })
+            .then((data) => {
+              setListReceipt(data.data);
+            })
+            .catch((error) => console.log(error))
+            .finally(() => setLoading(false));
+        }
+        /////////////////////////////////////////////
+
+      })
+
+
+
   };
+
+  useEffect(() => { GetReceipt(); }, [page.pageNumber, page.pageSize]);
+
+
+
   const deleteReceiptHandler = (idReceipt: string, name: string) => {
     // setLoading(true);
     const receiptDelete = {
@@ -101,7 +160,7 @@ const ManageReceipt = () => {
       })
       .catch((error) => {
         console.log(">>>> Delete error");
-        openNotificationWithIcon("error", "Xóa hóa đơn", "Xóa hóa đơnthất bại");
+        openNotificationWithIcon("error", "Xóa hóa đơn", "Xóa hóa đơn thất bại");
       });
   };
   const ReceiptColumns: ColumnsType<ReceiptModel> = [
@@ -131,6 +190,15 @@ const ManageReceipt = () => {
           >
             Xóa
           </Button>
+
+          <Button
+            type="link"
+            icon={<FileDoneOutlined />}
+
+          >
+            <CreateAllocate idReceipt={record.id} arrUser={listUsername} arrId={listId} />
+          </Button>
+
         </>
       ),
     },
@@ -174,13 +242,18 @@ const ManageReceipt = () => {
             <Link
               to={managereceiptEndpoints.updatereceipt.replace(":id", data.id)}
             >
-              <Button type="link" color="blue">
+              <Button type="link" color="blue" icon={<EditOutlined />}>
                 Cập nhật
               </Button>
             </Link>
-            <Button type="link" danger>
+            <Button type="link" danger icon={<DeleteOutlined />} onClick={() => deleteReceiptHandler(data.id, data.name)}>
               Xóa
             </Button>
+
+            <Button type="link" icon={<FileDoneOutlined />}>
+              <CreateAllocate idReceipt={data.id} arrUser={listUsername} arrId={listId} />
+            </Button>
+
           </>
         </Descriptions.Item>
       </Descriptions>
@@ -191,6 +264,7 @@ const ManageReceipt = () => {
   };
   return (
     <>
+      {console.log("receipt >>>>>>>>", listReceipt)}
       <PageHeader
         title="Quản lý hóa đơn"
         extra={[

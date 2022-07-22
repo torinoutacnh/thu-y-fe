@@ -18,6 +18,9 @@ const ManageReceiptRoute = {
   get updateReceipt() {
     return "/receipt/update-receipt";
   },
+  get createAllocateReceipt() {
+    return "/allocate-receipt/create"
+  }
 };
 
 export default ManageReceiptRoute;

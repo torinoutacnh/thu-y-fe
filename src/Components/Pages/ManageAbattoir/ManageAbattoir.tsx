@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import {
   Table,
@@ -7,6 +7,7 @@ import {
   Descriptions,
   PageHeader,
   notification,
+  Space,
 } from "antd";
 import { ManageAbattoirRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
@@ -27,6 +28,12 @@ const ManageAbattoir = () => {
     pageNumber: 0,
     pageSize: 1000,
   });
+  const keyRef = useRef(0);
+  const getKey = () => {
+    keyRef.current++;
+    return keyRef.current;
+  };
+
   notification.config({
     placement: "topRight",
     bottom: 50,
@@ -64,7 +71,6 @@ const ManageAbattoir = () => {
           return res.json();
         })
         .then((data) => {
-          console.log(data);
           setListAbattoir(data.data);
         })
         .catch((error) => console.log(error))
@@ -97,12 +103,9 @@ const ManageAbattoir = () => {
           `Xóa ${name} thành công`
         );
 
-        console.log(">>>> Delete animal ok");
-
         setPage({ ...page, pageSize: page.pageSize - 1 });
       })
       .catch((error) => {
-        console.log(">>>> Delete error");
         openNotificationWithIcon("error", "Xóa lò mổ", "Xóa lò mổ thất bại");
       });
   };
@@ -139,6 +142,62 @@ const ManageAbattoir = () => {
           </Button>
         </>
       ),
+    },
+  ];
+
+  const resColumns: ColumnsType<AbattoirModel> = [
+    {
+      title: "Danh sách động vật",
+      key: getKey(),
+      render: (record, key, index) => {
+        return (
+          <>
+            <tr>
+              <th>Tên lò mổ :</th>
+              <td>{record.name}</td>
+            </tr>
+            <tr>
+              <th>Địa chỉ :</th>
+              <td>{record.address}</td>
+            </tr>
+            <tr>
+              <th>Tên người quản lý :</th>
+              <td>{record.managerName}</td>
+            </tr>
+            <tr>
+              <th>Email :</th>
+              <td>{record.email}</td>
+            </tr>
+            <tr>
+              <th>Số điện thoại :</th>
+              <td>{record.phone}</td>
+            </tr>
+
+            <tr>
+              <Space>
+                <Link
+                  to={manageabattoirEndpoints.updateabattoir.replace(
+                    ":id",
+                    record.id
+                  )}
+                >
+                  <Button type="link" color="blue" icon={<EditOutlined />}>
+                    Cập nhật
+                  </Button>
+                </Link>
+                <Button
+                  type="link"
+                  danger
+                  onClick={() => deleteAbattoirHandler(record.id, record.name)}
+                  icon={<DeleteOutlined />}
+                >
+                  Xóa
+                </Button>
+              </Space>
+            </tr>
+          </>
+        );
+      },
     },
   ];
   const RenderCard = (props: { data: AbattoirModel; idx: number }) => {
@@ -209,20 +268,13 @@ const ManageAbattoir = () => {
           />,
         ]}
       />
-      <div className="table-content-report">
-        {windowSize.width >= 1024 ? (
-          <Table
-            locale={{ emptyText: "Không có lò mổ!" }}
-            columns={AbattoirColumns}
-            rowKey={"id"}
-            dataSource={listAbattoir}
-          />
-        ) : (
-          listAbattoir.map((x, idx) => (
-            <RenderCard data={x} key={idx} idx={idx} />
-          ))
-        )}
-      </div>
+
+      <Table
+        locale={{ emptyText: "Không có lò mổ!" }}
+        columns={windowSize.width > 768 ? AbattoirColumns : resColumns}
+        rowKey={"id"}
+        dataSource={listAbattoir}
+      />
     </>
   );
 };

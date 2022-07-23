@@ -20,6 +20,9 @@ const ManageReceiptRoute = {
   },
   get createAllocateReceipt() {
     return "/allocate-receipt/create"
+  },
+  get allocateReceipt() {
+    return "/allocate-receipt"
   }
 };
 

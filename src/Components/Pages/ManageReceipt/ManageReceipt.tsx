@@ -68,7 +68,7 @@ const ManageReceipt = () => {
 
   useEffect(() => {
     const tmp = liststaff.map((item, index) => {
-      return ({ value: item.account, id: item.id })
+      return ({ value: item.account, id: item.id, name: item.name })
     })
     setListId(tmp)
     // console.log("listId >>>>>>>>>> ", listId)
@@ -168,7 +168,7 @@ const ManageReceipt = () => {
     { title: "Tên mã hóa đơn", dataIndex: "codeName", key: 2 },
     { title: "Số mã hóa đơn", dataIndex: "codeNumber", key: 3 },
     { title: "Ngày hiệu lực", dataIndex: "effectiveDate", key: 4 },
-
+    { title: "Số trang", dataIndex: "page", key: 5 },
     {
       title: "Xử lý",
       dataIndex: "",
@@ -196,7 +196,13 @@ const ManageReceipt = () => {
             icon={<FileDoneOutlined />}
 
           >
-            <CreateAllocate idReceipt={record.id} arrUser={listUsername} arrId={listId} />
+            <CreateAllocate
+              idReceipt={record.id}
+              arrUser={listUsername}
+              arrId={listId}
+              codeName={record.codeName}
+              codeNumber={record.codeNumber}
+            />
           </Button>
 
         </>
@@ -237,6 +243,9 @@ const ManageReceipt = () => {
         <Descriptions.Item label={"Ngày hiệu lực"}>
           {data.effectiveDate}
         </Descriptions.Item>
+        <Descriptions.Item label={"Số trang"}>
+          {data.page}
+        </Descriptions.Item>
         <Descriptions.Item label={"Xử lý"}>
           <>
             <Link
@@ -251,7 +260,12 @@ const ManageReceipt = () => {
             </Button>
 
             <Button type="link" icon={<FileDoneOutlined />}>
-              <CreateAllocate idReceipt={data.id} arrUser={listUsername} arrId={listId} />
+              <CreateAllocate
+                idReceipt={data.id}
+                arrUser={listUsername}
+                arrId={listId}
+                codeName={data.codeName}
+                codeNumber={data.codeNumber} />
             </Button>
 
           </>
@@ -264,7 +278,7 @@ const ManageReceipt = () => {
   };
   return (
     <>
-      {console.log("receipt >>>>>>>>", listReceipt)}
+      {/* {console.log("receipt >>>>>>>>", listReceipt)} */}
       <PageHeader
         title="Quản lý hóa đơn"
         extra={[

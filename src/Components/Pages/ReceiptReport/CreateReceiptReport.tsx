@@ -12,7 +12,6 @@ import { PlusOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import { ManageReceiptRoute } from "Api";
 import { DatePicker, Space } from "antd";
-
 import moment from "moment";
 import "moment/locale/zh-cn";
 import locale from "antd/es/locale/zh_CN";

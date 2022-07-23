@@ -204,6 +204,11 @@ const Header = () => {
                             Doanh thu tổng
                           </Link>
                         </li>
+                        <li>
+                          <Link to={RouteEndpoints.myAllocate}>
+                            Hóa đơn của tôi
+                          </Link>
+                        </li>
                       </ul>
                     </div>
                   </div>

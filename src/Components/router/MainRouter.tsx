@@ -15,6 +15,7 @@ import { manageabattoirRoutes } from "./ManageAbattoirRoutes";
 import { Verify } from "crypto";
 import { VerifyEmail } from "Components/Pages/Register/VerifyEmail";
 import { medicalHygieneRoutes } from "./MedicalHygieneRoutes";
+import { MyAllocateReceipt } from "Components/Pages/ManageReceipt/MyAllocateReceipt";
 
 
 export class RouteEndpoints {
@@ -35,6 +36,10 @@ export class RouteEndpoints {
   static notfound = "/chuc-nang-dang-phat-trien";
 
   static verifyEmail = "/verify"
+
+  static myAllocate = "/hoa-don-cua-toi"
+
+  // static updateAllocate = "/cap-nhat-hoa-don/:id"
 
   ///////////////////////////////////////////////////
 }
@@ -95,6 +100,29 @@ export default function MainRouter() {
         }
         key="verifyEmail"
       />
+
+
+      <Route
+        path={RouteEndpoints.myAllocate}
+        element={
+          <PrivateRoute path={publicEndpoints.login}>
+            <MyAllocateReceipt />
+          </PrivateRoute>
+        }
+        key="my-allocate-receipt"
+      />
+
+      {/* <Route
+        path={RouteEndpoints.updateAllocate}
+        element={
+          <PrivateRoute path={publicEndpoints.login}>
+            <MyAllocateReceipt />
+          </PrivateRoute>
+        }
+        key="update-allocate-receipt"
+      /> */}
+
+
 
       {/* /////////////////////////////////////////////// */}
       <Route path="*" element={<h1>Not found</h1>} />

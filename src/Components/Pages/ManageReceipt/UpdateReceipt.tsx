@@ -61,6 +61,7 @@ const UpdateReceipt = (props: any) => {
         form.setFieldsValue({
           id: data.data[0].id,
           name: data.data[0].name,
+          page: data.data[0].page,
           codeName: data.data[0].codeName,
           codeNumber: data.data[0].codeNumber,
           effectiveDate: data.data[0].effectiveDate,
@@ -146,6 +147,23 @@ const UpdateReceipt = (props: any) => {
               required: true,
               message: "Nhập tên mã hóa đơn!",
               type: "string",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label={"Số trang"}
+          name={"page"}
+          rules={[
+            {
+              required: true,
+              message: "Nhập số trang!",
+
+            },
+            {
+              message: "Bao gồm các số 0-9!",
+              pattern: new RegExp("[0-9]"),
             },
           ]}
         >

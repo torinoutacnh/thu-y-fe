@@ -9,6 +9,7 @@ interface AllocateModel {
     codeName?: string,
     codeNumber?: string,
     receiptName?: string,
+    totalPage?: number
 }
 
 export type { AllocateModel }

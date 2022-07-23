@@ -31,12 +31,12 @@ export function CreateAllocate(props: any) {
     }
 
 
-    const { idReceipt, arrUser, arrId } = props
+    const { idReceipt, arrUser, arrId, codeName, codeNumber } = props
     const [visible, setVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [listUsername, setListUsername] = useState<usernameModel[]>(arrUser);
     const [listId, setListId] = useState<IdModel[]>(arrId);
-
+    const navigate = useNavigate()
     const [form] = Form.useForm();
     const { user } = useAuth();
     const { setLoading } = useLoading();
@@ -104,12 +104,15 @@ export function CreateAllocate(props: any) {
                     console.log("create allocate ok >>>>>>> ", data)
                     openNotificationWithIcon("success", "Cấp hóa đơn thành công")
                     form.resetFields()
+                    navigate(ManageReceiptRoute.Base)
+                    setLoading(false)
                 })
                 .catch((error) => {
                     console.log("create allocate not >>>>>>> ", error)
                     openNotificationWithIcon("error", "Cấp hóa đơn thất bại")
+                    setLoading(false)
                 })
-                .finally(() => setLoading(false));
+
         }
 
     }
@@ -221,6 +224,7 @@ export function CreateAllocate(props: any) {
 
 
                     <Form.Item
+                        hidden={true}
                         label={"Tên mã hóa đơn"}
                         name={"codeName"}
                         rules={[
@@ -230,6 +234,7 @@ export function CreateAllocate(props: any) {
                                 type: "string"
                             }
                         ]}
+                        initialValue={codeName}
 
                     >
                         <Input />
@@ -238,6 +243,7 @@ export function CreateAllocate(props: any) {
 
 
                     <Form.Item
+                        hidden={true}
                         label={"Số mã hóa đơn"}
                         name={"codeNumber"}
                         rules={[
@@ -247,20 +253,11 @@ export function CreateAllocate(props: any) {
                                 type: "string"
                             }
                         ]}
+                        initialValue={codeNumber}
 
                     >
                         <Input />
                     </Form.Item>
-
-
-
-
-
-
-
-
-
-
 
                     {/* /////////////////////////////////////////// */}
                 </Form>

@@ -278,12 +278,7 @@ const QuarantinePage = () => {
             icon={<FileAddOutlined />}
             type="primary"
             onClick={() => {
-              navigate(
-                quarantineEndpoints.createreport.concat("?") +
-                  new URLSearchParams({
-                    reporttype: ReportType["CN-KDĐV-UQ"],
-                  } as any)
-              );
+              navigate(quarantineEndpoints.createreport);
             }}
           >
             Tạo báo cáo

@@ -23,7 +23,13 @@ const ManageReceiptRoute = {
   },
   get allocateReceipt() {
     return "/allocate-receipt"
-  }
+  },
+  get createReceiptReport() {
+    return "/receipt-report/create"
+  },
+  get receiptReport() {
+    return "/receipt-report"
+  },
 };
 
 export default ManageReceiptRoute;

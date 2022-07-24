@@ -10,4 +10,16 @@ interface ReceiptModel {
   allocates?: AllocateModel[]
 }
 
-export type { ReceiptModel };
+interface ReceiptReportModel {
+  id?: string,
+  userId?: string,
+  userName?: string,
+  receiptAllocateId?: string,
+  receiptName?: string,
+  codeName?: string,
+  codeNumber?: string,
+  dateUse?: string,
+  pageUse?: number
+}
+
+export type { ReceiptModel, ReceiptReportModel };

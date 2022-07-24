@@ -27,10 +27,11 @@ export function CreateAllocate(props: any) {
 
     interface IdModel {
         value: string
-        id: string
+        id: string,
+        name: string
     }
 
-
+    const [TmpName, setTmpName] = useState("")
     const { idReceipt, arrUser, arrId, codeName, codeNumber } = props
     const [visible, setVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
@@ -72,6 +73,20 @@ export function CreateAllocate(props: any) {
         });
     };
 
+    const onChangeAutoComplete = (value: any, data: any) => {
+        const index = listId.findIndex(item => item.value === value)
+
+        if (index === -1) {
+            setTmpName("không tìm thấy nhân viên")
+        }
+        else {
+            const tmpdata: IdModel = listId[index]
+            const tmp: string = tmpdata.name
+            setTmpName(tmp)
+        }
+
+    }
+
     const CreateAllocateFinish = () => {
 
         const index = listId.findIndex(item => item.value === form.getFieldValue("userName"))
@@ -79,9 +94,26 @@ export function CreateAllocate(props: any) {
 
 
 
-        const allocate = { ...form.getFieldsValue(), userId: selectID, id: "id" }
+        // const allocate = { ...form.getFieldsValue(), userId: selectID, id: "id" }
+        const allocate = {
+
+            id: "id",
+            userId: selectID,
+            receiptId: idReceipt,
+            amount: form.getFieldValue("amount"),
+            userName: form.getFieldValue("userName"),
+            codeName: codeName,
+            codeNumber: codeNumber,
+            receiptName: form.getFieldValue("receiptName"),
+
+
+
+
+        }
+
 
         console.log("allocate >>>>>>>> ", allocate)
+
         // console.log("list user >>>>>>>> ", listUsername)
         // console.log("list id >>>>>>>> ", listId)
         // console.log("select id >>>>>>>> ", selectID)
@@ -104,7 +136,7 @@ export function CreateAllocate(props: any) {
                     console.log("create allocate ok >>>>>>> ", data)
                     openNotificationWithIcon("success", "Cấp hóa đơn thành công")
                     form.resetFields()
-                    navigate(ManageReceiptRoute.Base)
+                    window.location.reload();
                     setLoading(false)
                 })
                 .catch((error) => {
@@ -199,8 +231,30 @@ export function CreateAllocate(props: any) {
                             filterOption={(inputValue, option) =>
                                 option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                             }
+                            onChange={onChangeAutoComplete}
                         />
+
+
                     </Form.Item>
+
+
+                    <Form.Item
+
+                        name={"tmpName"}
+                        rules={[
+                            {
+                                type: "string",
+                            },
+                        ]}
+
+
+                    >
+                        <span style={{ color: "gray" }}>Tên nhân viên: {TmpName}</span>
+
+
+                    </Form.Item>
+
+
 
 
                     <Form.Item

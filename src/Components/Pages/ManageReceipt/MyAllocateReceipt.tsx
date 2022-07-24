@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { PlusOutlined, EditOutlined, DeleteOutlined, ArrowRightOutlined } from "@ant-design/icons";
+import { PlusOutlined, EditOutlined, EyeOutlined, DeleteOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { Table, Button, Input, Descriptions, PageHeader } from "antd";
 import AnimalApiRoute from "Api/AnimalApiRoute";
 import { useAuth } from "Modules/hooks/useAuth";
@@ -15,6 +15,8 @@ import { Form, Modal, Select, notification, Space } from "antd";
 import { ManageReceiptRoute } from "Api";
 import { AllocateModel } from "Components/Shared/Models/Allocate";
 import { isTypeNode } from "typescript";
+import { CreateReceiptReport } from "../ReceiptReport/CreateReceiptReport";
+import { managereceiptEndpoints, managereceiptRoutes } from "Components/router/ManageReceiptRoutes";
 
 
 
@@ -97,10 +99,11 @@ export function MyAllocateReceipt() {
         { title: "Số mã hóa đơn", dataIndex: "codeNumber", key: 4 },
         { title: "Số lượng", dataIndex: "amount", key: 5 },
         { title: "Tổng số trang", dataIndex: "totalPage", key: 6 },
+        { title: "Số trang còn lại", dataIndex: "rePage", key: 7 },
         {
             title: "Xử lý",
             dataIndex: "",
-            key: 7,
+            key: 8,
             render: (record) => (
                 <>
 
@@ -110,8 +113,23 @@ export function MyAllocateReceipt() {
                         // onClick={() => deleteAnimalHandler(record.id, record.name)}
                         icon={<ArrowRightOutlined />}
                     >
-                        Sử dụng hóa đơn
+                        <CreateReceiptReport
+                            userId={record.userId}
+                            userName={record.userName}
+                            receiptAllocateId={record.id}
+                            codeName={record.codeName}
+                            codeNumber={record.codeNumber}
+                        />
                     </Button>
+
+                    <Button
+                        icon={<EyeOutlined />}
+                        type="link"
+                        onClick={() => { navigate(RouteEndpoints.receiptReportWithIdAllocate.replace(":id", record.id)) }}>
+                        Xem chi tiết
+                    </Button>
+
+
                 </>
             ),
         },
@@ -149,15 +167,32 @@ export function MyAllocateReceipt() {
                             <td>{record.totalPage}</td>
                         </tr>
                         <tr>
+                            <th>Số trang còn lại :</th>
+                            <td>{record.rePage}</td>
+                        </tr>
+                        <tr>
                             <Space>
 
                                 <Button
                                     type="link"
-                                    danger
+
                                     //   onClick={() => deleteAnimalHandler(record.id, record.name)}
                                     icon={<ArrowRightOutlined />}
                                 >
-                                    Sử dụng hóa đơn
+                                    <CreateReceiptReport
+                                        userId={record.userId}
+                                        userName={record.userName}
+                                        receiptAllocateId={record.id}
+                                        codeName={record.codeName}
+                                        codeNumber={record.codeNumber}
+                                    />
+                                </Button>
+
+                                <Button
+                                    icon={<EyeOutlined />}
+                                    type="link"
+                                    onClick={() => { navigate(RouteEndpoints.receiptReportWithIdAllocate.replace(":id", record.id)) }}>
+                                    Xem chi tiết
                                 </Button>
                             </Space>
                         </tr>

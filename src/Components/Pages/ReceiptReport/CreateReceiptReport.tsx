@@ -1,44 +1,34 @@
-import {
-  Button,
-  Form,
-  Input,
-  Modal,
-  Radio,
-  notification,
-  ConfigProvider,
-} from "antd";
+import React, { useState, useEffect, useRef } from "react";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Table, Button, Input, Descriptions, PageHeader, AutoComplete, InputNumber } from "antd";
+import AnimalApiRoute from "Api/AnimalApiRoute";
 import { useAuth } from "Modules/hooks/useAuth";
-import { PlusOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
-import { ManageReceiptRoute } from "Api";
-import { DatePicker, Space } from "antd";
-import moment from "moment";
-import "moment/locale/zh-cn";
-import locale from "antd/es/locale/zh_CN";
-const CreateReceipt = (props: any) => {
+import { ColumnsType } from "antd/lib/table";
+import { RouteEndpoints } from "Components/router/MainRouter";
+import { AnimalSexType } from "Components/Shared/Models/Animal";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoading } from "Modules/hooks/useLoading";
+import useWindowSize from "Modules/hooks/useWindowSize";
+import { getKeyThenIncreaseKey } from "antd/lib/message";
+import { AnimalModel } from "Components/Shared/Models/Animal";
+import { Form, Modal, Select, notification, Space } from "antd";
+import { ManageReceiptRoute, UserApiRoute } from "Api";
+import { UserModel } from "Components/Shared/Models/User";
+import { StringGradients } from "antd/lib/progress/progress";
+import { type } from "os";
+import { managereceiptRoutes } from "Components/router/ManageReceiptRoutes";
+
+
+export function CreateReceiptReport(props: any) {
+
+
+  const { userId, userName, receiptAllocateId, codeName, codeNumber } = props
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
   const { user } = useAuth();
-  notification.config({
-    placement: "topRight",
-    bottom: 50,
-    duration: 3,
-    rtl: true,
-  });
+  const { setLoading } = useLoading();
 
-  type NotificationType = "success" | "info" | "warning" | "error";
-
-  const openNotificationWithIcon = (
-    type: NotificationType,
-    title: string,
-    message: string
-  ) => {
-    notification[type]({
-      message: title,
-      description: message,
-    });
-  };
 
   const showModal = () => {
     setVisible(true);
@@ -48,51 +38,93 @@ const CreateReceipt = (props: any) => {
     form.resetFields();
     setVisible(false);
   };
-  const date = new Date();
 
-  const CreateReceipt = () => {
-    if (user) {
-      setConfirmLoading(true);
-      fetch(
-        process.env.REACT_APP_API.concat(ManageReceiptRoute.createReceipt),
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer ".concat(user.token),
-          },
-          body: JSON.stringify(form.getFieldsValue()),
-        }
-      )
-        .then((res) => res.json())
+  notification.config({
+    placement: "topRight",
+    bottom: 50,
+    duration: 3,
+    rtl: true,
+  });
+  type NotificationType = "success" | "info" | "warning" | "error";
+  const openNotificationWithIcon = (
+    type: NotificationType,
+    title: string
+
+  ) => {
+    notification[type]({
+      message: title
+
+    });
+  };
+
+  const CreateReceiptReportFinish = () => {
+
+    const d = new Date();
+
+    const year = d.getFullYear();
+    const month = d.getMonth() + 1;
+    const day = d.getDate();
+    const hour = d.getHours()
+    const minute = d.getMinutes();
+    const second = d.getSeconds()
+
+    const daytime = year + "-" + month + "-" + day
+
+
+
+    const receiptReport = {
+      id: "id",
+      userId: userId,
+      userName: userName,
+      receiptAllocateId: receiptAllocateId,
+      receiptName: form.getFieldValue("receiptName"),
+      codeName: codeName,
+      codeNumber: codeNumber,
+      // dateUse: daytime,
+      pageUse: form.getFieldValue("pageUse")
+    }
+
+
+    console.log("receiptReport >>>>>>>> ", receiptReport)
+
+
+    if (user?.token) {
+      setVisible(false)
+      setLoading(true)
+      fetch(process.env.REACT_APP_API.concat(ManageReceiptRoute.createReceiptReport), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer ".concat(user.token),
+        },
+        body: JSON.stringify(receiptReport),
+      })
+        .then((res) => {
+          return res.json();
+        })
         .then((data) => {
-          console.log("check data", data);
-          openNotificationWithIcon(
-            "success",
-            "Thêm hóa đơn",
-            "Thêm hóa đơn thành công"
-          );
-          props.UpdateReceiptAfterCreate();
+          console.log("create receiptReport ok >>>>>>> ", data)
+          window.location.reload();
+          openNotificationWithIcon("success", "Sử dụng hóa đơn thành công")
+          form.resetFields()
+          setLoading(false)
         })
         .catch((error) => {
-          console.log(">>>> Delete error", error);
-          openNotificationWithIcon("error", "Thêm hóa đơn", "Thêm lò hóa đơn");
+          console.log("create receiptReport error >>>>>>> ", error)
+          openNotificationWithIcon("error", "Sử dụng hóa đơn thất bại")
+          setLoading(false)
         })
-        .finally(() => {
-          setVisible(false);
-          setConfirmLoading(false);
-          form.resetFields();
-        });
+
     }
-  };
+
+  }
 
   return (
     <>
-      <Button type="primary" icon={<PlusOutlined />} onClick={showModal}>
-        Thêm mới
-      </Button>
+
+      <a onClick={() => showModal()}>Sử dụng hóa đơn </a>
       <Modal
-        title="Thêm hóa đơn"
+        title="Sử dụng hóa đơn"
         visible={visible}
         footer={
           <>
@@ -100,7 +132,7 @@ const CreateReceipt = (props: any) => {
               Hủy bỏ
             </Button>
             <Button
-              form="create-user-form"
+              form="create-allocate-form"
               type="primary"
               loading={confirmLoading}
               htmlType="submit"
@@ -113,82 +145,57 @@ const CreateReceipt = (props: any) => {
         onCancel={() => setVisible(false)}
       >
         <Form
-          id="create-user-form"
+          id="create-allocate-form"
           layout="vertical"
           form={form}
-          onFinish={CreateReceipt}
+          onFinish={CreateReceiptReportFinish}
         >
+          {/* /////////////////////////////////////////// */}
+
+
           <Form.Item
-            label={"Tên hóa đơn"}
-            name={"name"}
+            label={"Tên hóa đơn sử dụng"}
+            name={"receiptName"}
             rules={[
               {
                 required: true,
-                message: "Nhập tên hóa đơn!",
-                type: "string",
-              },
+                message: "Nhập số lượng",
+                type: "string"
+              }
             ]}
+
           >
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label={"Tên mã hóa đơn "}
-            name={"codeName"}
-            rules={[
-              {
-                required: true,
-                message: "Nhập tên mã hóa đơn",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
+
+
 
           <Form.Item
-            label={"Số trang"}
-            name={"page"}
+            label={"Số trang sử dụng"}
+            name={"pageUse"}
             rules={[
               {
                 required: true,
-                message: "Nhập số trang",
+                message: "Nhập số lượng"
+
               },
               {
                 message: "Bao gồm các số 0-9!",
                 pattern: new RegExp("[0-9]"),
               },
             ]}
+
           >
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label={"Số mã hóa đơn"}
-            name={"codeNumber"}
-            rules={[
-              {
-                required: true,
-                message: "Nhập số mã hóa đơn!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item label={"Ngày hiệu lực"} name={"effectiveDate"}>
-            <DatePicker
-              style={{ width: "100%" }}
-              placeholder="Chọn ngày hiệu lực"
-            />
 
-            {/* <DatePicker
-                defaultValue={moment(date, "YYYY-MM-DD")}
-                style={{ width: "100%" }}
-              /> */}
-          </Form.Item>
+
+
+          {/* /////////////////////////////////////////// */}
         </Form>
       </Modal>
     </>
-  );
-};
-
-export default CreateReceipt;
+  )
+}

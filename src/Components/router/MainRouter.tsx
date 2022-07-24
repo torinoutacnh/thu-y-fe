@@ -16,6 +16,7 @@ import { Verify } from "crypto";
 import { VerifyEmail } from "Components/Pages/Register/VerifyEmail";
 import { medicalHygieneRoutes } from "./MedicalHygieneRoutes";
 import { MyAllocateReceipt } from "Components/Pages/ManageReceipt/MyAllocateReceipt";
+import ReceiptReportIndex from "Components/Pages/ReceiptReport";
 
 
 export class RouteEndpoints {
@@ -40,6 +41,7 @@ export class RouteEndpoints {
   static myAllocate = "/hoa-don-cua-toi"
 
   // static updateAllocate = "/cap-nhat-hoa-don/:id"
+  static receiptReportWithIdAllocate = "/chi-tiet-hoa-don-cua-toi/:id"
 
   ///////////////////////////////////////////////////
 }
@@ -121,6 +123,15 @@ export default function MainRouter() {
         }
         key="update-allocate-receipt"
       /> */}
+      <Route
+        path={RouteEndpoints.receiptReportWithIdAllocate}
+        element={
+          <PrivateRoute path={publicEndpoints.login}>
+            <ReceiptReportIndex />
+          </PrivateRoute>
+        }
+        key="update-allocate-receipt"
+      />
 
 
 

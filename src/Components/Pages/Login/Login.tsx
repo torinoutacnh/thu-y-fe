@@ -9,7 +9,9 @@ import { useLoading } from "Modules/hooks/useLoading";
 import { publicEndpoints } from "Components/router/PublicRoutes";
 import { IconType } from "antd/lib/notification";
 import Cookies from "js-cookie";
-import logoThuY from "../../../Static/image/logo.png"
+import logoThuY from "../../../Static/image/logo.png";
+import { PDFViewer } from "@react-pdf/renderer";
+import { MyDocument } from "Components/Shared/Form/PDF/examplePDF";
 
 export default function LoginPage() {
   return <LoginForm />;
@@ -84,7 +86,15 @@ const LoginForm = () => {
   return (
     <>
       <div style={{ width: "100%", marginBottom: "1%" }}>
-        <img src={logoThuY} style={{ width: "10%", display: "block", marginLeft: "auto", marginRight: "auto" }} />
+        <img
+          src={logoThuY}
+          style={{
+            width: "10%",
+            display: "block",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        />
       </div>
 
       <Space

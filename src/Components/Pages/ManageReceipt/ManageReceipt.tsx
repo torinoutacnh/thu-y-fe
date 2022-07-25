@@ -89,7 +89,7 @@ const ManageReceipt = () => {
 
     fetch(
       process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
-        new URLSearchParams(page2 as any),
+      new URLSearchParams(page2 as any),
       {
         method: "GET",
         headers: {
@@ -304,6 +304,10 @@ const ManageReceipt = () => {
               <th>Ngày hiệu lực :</th>
               <td>{record.effectiveDate}</td>
             </tr>
+            <tr>
+              <th>Số trang :</th>
+              <td>{record.page}</td>
+            </tr>
 
             <tr>
               <Space>
@@ -324,6 +328,15 @@ const ManageReceipt = () => {
                   icon={<DeleteOutlined />}
                 >
                   Xóa
+                </Button>
+                <Button type="link" icon={<FileDoneOutlined />}>
+                  <CreateAllocate
+                    idReceipt={record.id}
+                    arrUser={listUsername}
+                    arrId={listId}
+                    codeName={record.codeName}
+                    codeNumber={record.codeNumber}
+                  />
                 </Button>
               </Space>
             </tr>

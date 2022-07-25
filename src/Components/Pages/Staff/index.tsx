@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Table, Button, Input, Descriptions, PageHeader, Space } from "antd";
+import { Table, Button, Input, Descriptions, PageHeader, Space, notification } from "antd";
 import { ApiRoute, UserApiRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
@@ -24,12 +24,32 @@ const StaffHome = () => {
   const navigate = useNavigate();
   const windowSize = useWindowSize();
 
+  notification.config({
+    placement: "topRight",
+    bottom: 50,
+    duration: 3,
+    rtl: true,
+  });
+
+  type NotificationType = "success" | "info" | "warning" | "error";
+
+  const openNotificationWithIcon = (
+    type: NotificationType,
+    title: string,
+
+  ) => {
+    notification[type]({
+      message: title,
+
+    });
+  };
+
   const GetStaff = () => {
     if (user) {
       setLoading(true);
       fetch(
         process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
-          new URLSearchParams(page as any),
+        new URLSearchParams(page as any),
         {
           method: "GET",
           headers: {
@@ -56,7 +76,7 @@ const StaffHome = () => {
     setLoading(true);
     fetch(
       process.env.REACT_APP_API.concat(UserApiRoute.delete, "?") +
-        new URLSearchParams({ id }),
+      new URLSearchParams({ id }),
       {
         method: "POST",
         headers: {
@@ -66,8 +86,14 @@ const StaffHome = () => {
       }
     )
       .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error))
+      .then((data) => {
+        console.log(data)
+        openNotificationWithIcon("success", "Xóa nhân viên thành công")
+      })
+      .catch((error) => {
+        console.log(error)
+        openNotificationWithIcon("error", "Xóa nhân viên thất bại")
+      })
       .finally(() => GetStaff());
   };
 
@@ -224,7 +250,7 @@ const StaffHome = () => {
     <>
       <PageHeader
         title="Quản lý nhân viên"
-        extra={[<CreateStaff key={getKeyThenIncreaseKey()} />]}
+        extra={[<CreateStaff key={getKeyThenIncreaseKey()} updateAfterCreate={updateAfterCreate} />]}
       />
 
       <Table

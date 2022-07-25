@@ -1,11 +1,11 @@
-import { Button, Form, Input, Modal, Radio } from "antd";
+import { Button, Form, Input, Modal, Radio, notification } from "antd";
 import { ApiRoute, UserApiRoute } from "Api";
 import { RoleType, SexType } from "Components/Shared/Models/User";
 import { useAuth } from "Modules/hooks/useAuth";
 import { PlusOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 
-function CreateStaff() {
+function CreateStaff(props: any) {
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
@@ -20,21 +20,44 @@ function CreateStaff() {
     setVisible(false);
   };
 
+
+  notification.config({
+    placement: "topRight",
+    bottom: 50,
+    duration: 3,
+    rtl: true,
+  });
+
+  type NotificationType = "success" | "info" | "warning" | "error";
+
+  const openNotificationWithIcon = (
+    type: NotificationType,
+    title: string,
+
+  ) => {
+    notification[type]({
+      message: title,
+
+    });
+  };
+
   const CreateUser = () => {
 
     const pass1 = form.getFieldValue("password")
-    const pass2 = form.getFieldValue("password2")
+    const pass2 = form.getFieldValue("confirmPassword")
 
     if (pass1 === pass2) {
 
 
       if (user) {
 
+
+
         const newUser = {
-          id: "default",
           name: form.getFieldValue("name"),
           account: form.getFieldValue("account"),
           password: form.getFieldValue("password"),
+          confirmPassword: form.getFieldValue("confirmPassword"),
           phone: form.getFieldValue("phone"),
           email: form.getFieldValue("email"),
           address: form.getFieldValue("address"),
@@ -43,7 +66,7 @@ function CreateStaff() {
         }
 
         setConfirmLoading(true);
-        fetch(process.env.REACT_APP_API.concat(UserApiRoute.create), {
+        fetch(process.env.REACT_APP_API.concat(UserApiRoute.register), {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -55,8 +78,13 @@ function CreateStaff() {
           .then((data) => {
             console.log(data)
             console.log("create user", newUser)
+            openNotificationWithIcon("success", "Tạo nhân viên thành công")
+            props.updateAfterCreate()
           })
-          .catch((error) => console.log(error))
+          .catch((error) => {
+            console.log(error)
+            openNotificationWithIcon("error", "Tạo nhân viên thất bại")
+          })
           .finally(() => {
             setVisible(false);
             setConfirmLoading(false);
@@ -157,7 +185,7 @@ function CreateStaff() {
           </Form.Item>
 
           <Form.Item
-            name={"password2"}
+            name={"confirmPassword"}
             label={"Nhập lại mật khẩu"}
             rules={[
               {

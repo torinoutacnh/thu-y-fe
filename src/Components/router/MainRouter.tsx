@@ -17,6 +17,7 @@ import { VerifyEmail } from "Components/Pages/Register/VerifyEmail";
 import { medicalHygieneRoutes } from "./MedicalHygieneRoutes";
 import { MyAllocateReceipt } from "Components/Pages/ManageReceipt/MyAllocateReceipt";
 import ReceiptReportIndex from "Components/Pages/ReceiptReport";
+import { VerifyForgotPassword } from "Components/Pages/User/VerifyForgotPassword";
 
 
 export class RouteEndpoints {
@@ -37,6 +38,8 @@ export class RouteEndpoints {
   static notfound = "/chuc-nang-dang-phat-trien";
 
   static verifyEmail = "/verify"
+
+  static forgotPass = "/forgotpass"
 
   static myAllocate = "/hoa-don-cua-toi"
 
@@ -101,6 +104,13 @@ export default function MainRouter() {
           <VerifyEmail />
         }
         key="verifyEmail"
+      />
+      <Route
+        path={RouteEndpoints.forgotPass}
+        element={
+          <VerifyForgotPassword />
+        }
+        key="forgotPassword"
       />
 
 

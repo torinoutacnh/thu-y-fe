@@ -12,6 +12,13 @@ const UserApiRoute = {
     return "/accounts/change-password";
   },
 
+  get forgotPassword() {
+    return "/accounts/forgot-password";
+  },
+  get resetPassword() {
+    return "/accounts/reset-password";
+  },
+
   get verifyEmail() {
     return "/accounts/verify-email"
   },

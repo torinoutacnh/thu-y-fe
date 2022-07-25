@@ -10,8 +10,10 @@ import { publicEndpoints } from "Components/router/PublicRoutes";
 import { IconType } from "antd/lib/notification";
 import Cookies from "js-cookie";
 import logoThuY from "../../../Static/image/logo.png";
-import { PDFViewer } from "@react-pdf/renderer";
+// import { PDFViewer } from "@react-pdf/renderer";
 import { MyDocument } from "Components/Shared/Form/PDF/examplePDF";
+import { SendEmailForgotPassword } from "../User/SendEmailForgotPassword";
+
 
 export default function LoginPage() {
   return <LoginForm />;
@@ -60,12 +62,12 @@ const LoginForm = () => {
     })
       .then((res) => {
         if (res.status >= 500)
-          throw new Error("Lỗi hệ thống. Vui lòng thử lại sau!");
-        if (res.status >= 400) throw new Error("Sai tài khoản/mật khẩu!");
+          throw new Error("Lỗi hệ thống. Vui lòng thử lại sau");
+        if (res.status >= 400) throw new Error("Sai tài khoản/mật khẩu");
         return res.json();
       })
       .then((data) => {
-        openNotification("Đăng nhập thành công.", "success");
+        openNotification("Đăng nhập thành công", "success");
         setUser(data.data);
         navigate(RouteEndpoints.home.basepath, { replace: true });
       })
@@ -150,13 +152,23 @@ const LoginForm = () => {
           <Button type="primary" htmlType="submit">
             Đăng nhập
           </Button>
+
           <Link
             to={publicEndpoints.register}
-            style={{ textDecoration: "underline", marginLeft: 10 }}
+            style={{ marginLeft: 10 }}
           >
             Chưa có tài khoản ?
           </Link>
         </Form.Item>
+
+        <Form.Item style={{ justifyContent: "center" }}>
+
+
+
+          <SendEmailForgotPassword />
+
+        </Form.Item>
+
       </Form>
     </>
   );

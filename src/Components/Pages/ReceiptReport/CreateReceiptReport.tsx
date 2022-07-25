@@ -57,19 +57,14 @@ export function CreateReceiptReport(props: any) {
     });
   };
 
+  function getCurrentDateTime() {
+    const tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+    const localISOTime = (new Date(Date.now() - tzoffset)).toISOString()
+    const mySqlDT = localISOTime;
+    return mySqlDT;
+  }
+
   const CreateReceiptReportFinish = () => {
-
-    const d = new Date();
-
-    const year = d.getFullYear();
-    const month = d.getMonth() + 1;
-    const day = d.getDate();
-    const hour = d.getHours()
-    const minute = d.getMinutes();
-    const second = d.getSeconds()
-
-    const daytime = year + "-" + month + "-" + day
-
 
 
     const receiptReport = {
@@ -80,12 +75,12 @@ export function CreateReceiptReport(props: any) {
       receiptName: form.getFieldValue("receiptName"),
       codeName: codeName,
       codeNumber: codeNumber,
-      // dateUse: daytime,
+      dateUse: getCurrentDateTime(),
       pageUse: form.getFieldValue("pageUse")
     }
 
 
-    console.log("receiptReport >>>>>>>> ", receiptReport)
+    // console.log("receiptReport >>>>>>>> ", receiptReport)
 
 
     if (user?.token) {

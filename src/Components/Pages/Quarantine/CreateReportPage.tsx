@@ -5,22 +5,19 @@ import { ApiRoute, FormApiRoute } from "Api";
 import { FormModel } from "Components/Shared/Models/Form";
 import { ReportType } from "Components/Shared/Form/Define/FormInterface";
 import { useLoading } from "Modules/hooks/useLoading";
-import { useParams, useSearchParams } from "react-router-dom";
 
 export default function CreateReportPage() {
   const [form, setForm] = useState<FormModel>();
   const { user } = useAuth();
   const { setLoading } = useLoading();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const reporttype = Number(searchParams.get("reporttype"));
 
-  const search = { code: ReportType[reporttype] };
+  const search = { code: "CN-KDĐV-UQ" };
   useEffect(() => {
     if (user?.token && search) {
       setLoading(true);
       fetch(
         process.env.REACT_APP_API.concat(FormApiRoute.getform, "?") +
-          new URLSearchParams(search),
+          new URLSearchParams(search as any),
         {
           method: "GET",
           headers: {
@@ -36,12 +33,16 @@ export default function CreateReportPage() {
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
     }
-  }, [user.token, search.code, reporttype]);
+  }, [user.token, search.code]);
 
   return (
     <>
       {form && (
-        <RenderForm form={form} submitmethod={"POST"} reportType={reporttype} />
+        <RenderForm
+          form={form}
+          submitmethod={"POST"}
+          reportType={ReportType["CN-KDĐV-UQ"]}
+        />
       )}
     </>
   );

@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FileDoneOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  FileDoneOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 import {
   Table,
   Button,
@@ -7,6 +11,7 @@ import {
   Descriptions,
   PageHeader,
   notification,
+  Space,
 } from "antd";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
 import { ApiRoute, ManageReceiptRoute, UserApiRoute } from "Api";
@@ -32,6 +37,12 @@ const ManageReceipt = () => {
     pageIndex: 1,
     pageNumber: 100,
   });
+  const keyRef = useRef(0);
+  const getKey = () => {
+    keyRef.current++;
+    return keyRef.current;
+  };
+
   notification.config({
     placement: "topRight",
     bottom: 50,
@@ -54,33 +65,31 @@ const ManageReceipt = () => {
   const navigate = useNavigate();
   const windowSize = useWindowSize();
   const [liststaff, setListStaff] = useState<UserModel[]>([]);
-  const [listUsername, setListUsername] = useState([])
-  const [listId, setListId] = useState([])
-
+  const [listUsername, setListUsername] = useState([]);
+  const [listId, setListId] = useState([]);
 
   useEffect(() => {
     const tmp = liststaff.map((item, index) => {
-      return ({ value: item.account })
-    })
-    setListUsername(tmp)
+      return { value: item.account };
+    });
+    setListUsername(tmp);
     // console.log("listUsername >>>>>>>>>> ", listUsername)
-  }, [liststaff])
+  }, [liststaff]);
 
   useEffect(() => {
     const tmp = liststaff.map((item, index) => {
-      return ({ value: item.account, id: item.id, name: item.name })
-    })
-    setListId(tmp)
+      return { value: item.account, id: item.id, name: item.name };
+    });
+    setListId(tmp);
     // console.log("listId >>>>>>>>>> ", listId)
-  }, [liststaff])
-
+  }, [liststaff]);
 
   const GetReceipt = () => {
     setLoading(true);
 
     fetch(
       process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
-      new URLSearchParams(page2 as any),
+        new URLSearchParams(page2 as any),
       {
         method: "GET",
         headers: {
@@ -91,22 +100,23 @@ const ManageReceipt = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-
         setListStaff(data.data);
-
       })
       .catch((error) => console.log(error))
       .finally(() => {
         //////////////////////////////////////////////
         if (user?.token) {
-          fetch(process.env.REACT_APP_API.concat(ManageReceiptRoute.getReceipt), {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer ".concat(user.token),
-            },
-            body: JSON.stringify(page),
-          })
+          fetch(
+            process.env.REACT_APP_API.concat(ManageReceiptRoute.getReceipt),
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer ".concat(user.token),
+              },
+              body: JSON.stringify(page),
+            }
+          )
             .then((res) => {
               return res.json();
             })
@@ -117,16 +127,12 @@ const ManageReceipt = () => {
             .finally(() => setLoading(false));
         }
         /////////////////////////////////////////////
-
-      })
-
-
-
+      });
   };
 
-  useEffect(() => { GetReceipt(); }, [page.pageNumber, page.pageSize]);
-
-
+  useEffect(() => {
+    GetReceipt();
+  }, [page.pageNumber, page.pageSize]);
 
   const deleteReceiptHandler = (idReceipt: string, name: string) => {
     // setLoading(true);
@@ -160,7 +166,11 @@ const ManageReceipt = () => {
       })
       .catch((error) => {
         console.log(">>>> Delete error");
-        openNotificationWithIcon("error", "Xóa hóa đơn", "Xóa hóa đơn thất bại");
+        openNotificationWithIcon(
+          "error",
+          "Xóa hóa đơn",
+          "Xóa hóa đơn thất bại"
+        );
       });
   };
   const ReceiptColumns: ColumnsType<ReceiptModel> = [
@@ -191,11 +201,7 @@ const ManageReceipt = () => {
             Xóa
           </Button>
 
-          <Button
-            type="link"
-            icon={<FileDoneOutlined />}
-
-          >
+          <Button type="link" icon={<FileDoneOutlined />}>
             <CreateAllocate
               idReceipt={record.id}
               arrUser={listUsername}
@@ -204,7 +210,6 @@ const ManageReceipt = () => {
               codeNumber={record.codeNumber}
             />
           </Button>
-
         </>
       ),
     },
@@ -243,9 +248,7 @@ const ManageReceipt = () => {
         <Descriptions.Item label={"Ngày hiệu lực"}>
           {data.effectiveDate}
         </Descriptions.Item>
-        <Descriptions.Item label={"Số trang"}>
-          {data.page}
-        </Descriptions.Item>
+        <Descriptions.Item label={"Số trang"}>{data.page}</Descriptions.Item>
         <Descriptions.Item label={"Xử lý"}>
           <>
             <Link
@@ -255,7 +258,12 @@ const ManageReceipt = () => {
                 Cập nhật
               </Button>
             </Link>
-            <Button type="link" danger icon={<DeleteOutlined />} onClick={() => deleteReceiptHandler(data.id, data.name)}>
+            <Button
+              type="link"
+              danger
+              icon={<DeleteOutlined />}
+              onClick={() => deleteReceiptHandler(data.id, data.name)}
+            >
               Xóa
             </Button>
 
@@ -265,14 +273,65 @@ const ManageReceipt = () => {
                 arrUser={listUsername}
                 arrId={listId}
                 codeName={data.codeName}
-                codeNumber={data.codeNumber} />
+                codeNumber={data.codeNumber}
+              />
             </Button>
-
           </>
         </Descriptions.Item>
       </Descriptions>
     );
   };
+  const resColumns: ColumnsType<ReceiptModel> = [
+    {
+      title: "Danh sách hóa đơn",
+      key: getKey(),
+      render: (record, key, index) => {
+        return (
+          <>
+            <tr>
+              <th>Tên hóa đơn :</th>
+              <td>{record.name}</td>
+            </tr>
+            <tr>
+              <th>Tên mã hóa đơn :</th>
+              <td>{record.codeName}</td>
+            </tr>
+            <tr>
+              <th>Số mã hóa đơn:</th>
+              <td>{record.codeNumber}</td>
+            </tr>
+            <tr>
+              <th>Ngày hiệu lực :</th>
+              <td>{record.effectiveDate}</td>
+            </tr>
+
+            <tr>
+              <Space>
+                <Link
+                  to={ManageReceiptRoute.updateReceipt.replace(
+                    ":id",
+                    record.id
+                  )}
+                >
+                  <Button type="link" color="blue" icon={<EditOutlined />}>
+                    Cập nhật
+                  </Button>
+                </Link>
+                <Button
+                  type="link"
+                  danger
+                  onClick={() => deleteReceiptHandler(record.id, record.name)}
+                  icon={<DeleteOutlined />}
+                >
+                  Xóa
+                </Button>
+              </Space>
+            </tr>
+          </>
+        );
+      },
+    },
+  ];
   const UpdateReceiptAfterCreate = () => {
     setPage({ ...page, pageSize: page.pageSize - 1 });
   };
@@ -288,22 +347,13 @@ const ManageReceipt = () => {
           />,
         ]}
       />
-      {listReceipt && windowSize && (
-        <div className="table-content-report">
-          {windowSize.width >= 1024 ? (
-            <Table
-              locale={{ emptyText: "Không có hóa đơn!" }}
-              columns={ReceiptColumns}
-              rowKey={"id"}
-              dataSource={listReceipt}
-            />
-          ) : (
-            listReceipt.map((x, idx) => (
-              <RenderCard data={x} key={getKeyThenIncreaseKey()} idx={idx} />
-            ))
-          )}
-        </div>
-      )}
+
+      <Table
+        locale={{ emptyText: "Không có hóa đơn!" }}
+        columns={windowSize.width > 768 ? ReceiptColumns : resColumns}
+        rowKey={"id"}
+        dataSource={listReceipt}
+      />
     </>
   );
 };

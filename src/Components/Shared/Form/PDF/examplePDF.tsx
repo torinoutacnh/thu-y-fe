@@ -6,13 +6,30 @@ import {
   View,
   StyleSheet,
   Image,
+  Font
 } from "@react-pdf/renderer";
+
+
+Font.register({
+  family: "NotoSerif",
+  fonts: [
+    { src: require("./font/NotoSerif-Regular.ttf") }, // font-style: normal, font-weight: normal
+    { src: require("./font/NotoSerif-Italic.ttf"), fontStyle: 'italic' },
+    { src: require("./font/NotoSerif-Bold.ttf"), fontStyle: 'bold' },
+    { src: require("./font/NotoSerif-BoldItalic.ttf"), fontStyle: 'boldItalic' },
+  ]
+});
+
+
+
 
 const styles = StyleSheet.create({
   body: {
-    paddingTop: 35,
-    paddingBottom: 65,
+    fontFamily: "NotoSerif",
+    paddingTop: 50,
     paddingHorizontal: 35,
+    fontWeight: 300
+
   },
   title: {
     fontSize: 24,
@@ -29,7 +46,7 @@ const styles = StyleSheet.create({
   },
   text: {
     margin: 12,
-    fontSize: 14,
+    fontSize: 12,
     textAlign: "justify",
     fontFamily: "Times-Roman",
   },
@@ -37,12 +54,64 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     marginHorizontal: 100,
   },
-  header: {
+  header1: {
     fontSize: 12,
-    marginBottom: 20,
     textAlign: "center",
-    color: "grey",
+    color: "white",
+    fontStyle: "bold"
   },
+  header1_1: {
+    fontSize: 13,
+    textAlign: "center",
+    color: "white",
+    fontStyle: "bold"
+  },
+
+  header2: {
+    fontSize: 13,
+    textAlign: "center",
+    color: "white",
+
+  },
+
+  header3: {
+    fontSize: 13,
+    textAlign: "center",
+    color: "white",
+    textDecoration: "underline",
+    fontStyle: "bold"
+  },
+  title1: {
+    fontSize: 13,
+    textAlign: "center",
+    color: "white",
+    fontStyle: "bold"
+  },
+
+  containerHeader1: {
+
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  containerHeader2: {
+
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  containerHeader3: {
+    marginTop: 3,
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+
+
   pageNumber: {
     position: "absolute",
     fontSize: 12,
@@ -52,183 +121,577 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "grey",
   },
+
+
+
+  note: {
+    position: "absolute",
+    fontSize: 7,
+    bottom: 20,
+    left: 35,
+    textAlign: "left",
+    color: "white",
+  },
+
+  col25: {
+    width: "25%",
+    fontSize: 9,
+    border: "1px solid white",
+    padding: "10px",
+    fontStyle: "bold",
+    color: "white"
+  },
+
+  col31: {
+    width: "26%",
+    fontSize: 9,
+    border: "1px solid white",
+    padding: "10px",
+    fontStyle: "bold",
+    color: "white"
+  },
+
+  col12: {
+    width: "11%",
+    fontSize: 9,
+    border: "1px solid white",
+    padding: "10px",
+    fontStyle: "bold",
+    color: "white"
+  },
+  col24: {
+    width: "22%",
+    fontSize: 9,
+    border: "1px solid white",
+    fontStyle: "bold",
+    color: "white"
+  },
+  col13: {
+    width: "12%",
+    fontSize: 9,
+    borderTop: "1px solid white",
+    borderBottom: "1px solid white",
+    padding: "3.9x",
+    fontStyle: "bold",
+    color: "white"
+  },
+  colBody25: {
+    width: "25%",
+    fontSize: 9,
+    borderLeft: "1px solid white",
+    borderRight: "1px solid white",
+    borderBottom: "1px solid white",
+    height: "100%",
+    paddingTop: "3px",
+    paddingBottom: "3px",
+    alignItems: "center"
+  },
+
+  colBody31: {
+    width: "26%",
+    fontSize: 9,
+    borderLeft: "1px solid white",
+    borderRight: "1px solid white",
+    borderBottom: "1px solid white",
+    height: "100%",
+    paddingTop: "3px",
+    paddingBottom: "3px",
+    alignItems: "center"
+  },
+
+  colBody13: {
+    width: "12%",
+    fontSize: 9,
+    borderBottom: "1px solid white",
+    height: "100%",
+    paddingTop: "3px",
+    paddingBottom: "3px",
+  },
+  colBody12_1: {
+    width: "11%",
+    fontSize: 9,
+    borderBottom: "1px solid white",
+    borderLeft: "1px solid white",
+    height: "100%",
+    paddingTop: "3px",
+    paddingBottom: "3px",
+  },
+  colBody12_2: {
+    width: "11%",
+    fontSize: 9,
+    borderLeft: "1px solid white",
+    borderBottom: "1px solid white",
+    borderRight: "1px solid white",
+    height: "100%",
+    paddingTop: "3px",
+    paddingBottom: "3px",
+  },
+
+
+  table: {
+    width: "100%",
+    marginTop: 5,
+    textAlign: "center"
+  },
+  row_header: {
+    display: 'flex',
+    flexDirection: 'row',
+    borderTop: '1px solid white',
+    alignItems: "center",
+    justifyContent: "center"
+  },
+
+  row_body: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "center"
+  },
+
+  header: {
+    borderTop: 'none',
+  },
+  bold: {
+    fontWeight: 'bold',
+  },
 });
 
+
 // Create Document Component
-const MyDocument = () => (
+const PDF12B = () => (
   <Document>
     <Page style={styles.body}>
-      <Text style={styles.header} fixed>
-        ~ Created with react-pdf ~
+
+      <View style={styles.containerHeader1}>
+
+        <View style={{ width: "40%" }} >
+          <Text style={styles.header1} fixed>
+            {`CHI CỤC CHĂN NUÔI VÀ THÚ Y`}
+          </Text>
+          <Text style={styles.header1} fixed>
+            {`ĐỒNG NAI`}
+          </Text>
+        </View>
+
+        <View style={{ width: "60%" }} >
+          <Text style={styles.header1_1} fixed>
+            {`CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM`}
+          </Text>
+          <Text style={styles.header3} fixed>
+            {`Độc lập - Tự do - Hạnh phúc`}
+          </Text>
+        </View>
+
+      </View>
+
+      <View style={styles.containerHeader2}>
+        <View style={{ width: "85%", paddingLeft: 80 }}>
+          <Text style={styles.title1} fixed>
+            {`GIẤY CHỨNG NHẬN KIỂM DỊCH`}
+          </Text>
+          <Text style={styles.title1} fixed>
+            {`ĐỘNG VẬT VẬN CHUYỂN RA KHỎI ĐỊA BÀN CẤP TỈNH`}
+          </Text>
+        </View>
+
+        <View style={{ width: "15%", marginTop: 15 }}>
+          <Text style={styles.header1_1} fixed>
+            {`Mẫu : 12b`}
+          </Text>
+        </View>
+      </View>
+
+      <View style={styles.containerHeader3}>
+        <Text style={styles.header2}>
+          {`Số: 21115250`}
+        </Text>
+        <Text style={{ marginLeft: 25, fontSize: 13, fontStyle: "italic", color: "white" }}>
+          {`/CN-KDĐV-UQ`}
+        </Text>
+      </View>
+
+      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        <Text style={{ fontSize: 11, width: "40%", color: "white" }}>
+          {`Họ tên chủ hàng (hoặc người đại diện): `}
+        </Text>
+        <Text style={{ fontSize: 11, maxWidth: "40%" }}>
+          {`Nguyễn Văn A`}
+        </Text>
+      </View>
+
+      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        <Text style={{ fontSize: 11, width: "18%", color: "white" }}>
+          {`Địa chỉ giao dịch: `}
+        </Text>
+        <Text style={{ fontSize: 11, maxWidth: "50%" }}>
+          {`Hồ Chí Minh`}
+        </Text>
+      </View>
+
+
+      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+
+        <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "30%" }}>
+          <Text style={{ width: "40%", marginTop: 0, fontSize: 11, color: "white" }}>
+            {`Điện thoại: `}
+          </Text>
+          <Text style={{ fontSize: 11, maxWidth: "50%" }}>
+            {`0338786210`}
+          </Text>
+        </View>
+
+        <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "23%" }}>
+          <Text style={{ width: "23%", marginTop: 0, fontSize: 11, color: "white" }}>
+            {`Fax: `}
+          </Text>
+          <Text style={{ fontSize: 11, maxWidth: "70%" }}>
+            {`123123123`}
+          </Text>
+        </View>
+
+        <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "23%" }}>
+          <Text style={{ width: "32%", marginTop: 0, fontSize: 11, color: "white" }}>
+            {`Email: `}
+          </Text>
+          <Text style={{ fontSize: 11, maxWidth: "68%" }}>
+            {`abc@gmail.com`}
+          </Text>
+        </View>
+
+      </View>
+
+      <Text style={{ marginTop: 5, fontSize: 11, color: "white" }}>
+        {`Vận chuyển số động vật sau:`}
       </Text>
-      <Text style={styles.title}>Don Quijote de la Mancha</Text>
-      <Text style={styles.author}>Miguel de Cervantes</Text>
-      {/* <Image style={styles.image} src="/images/quijote1.jpg" /> */}
-      <Text style={styles.subtitle}>
-        Capítulo I: Que trata de la condición y ejercicio del famoso hidalgo D.
-        Quijote de la Mancha
+
+
+      <View style={styles.table}>
+
+        <View style={[styles.row_header, styles.bold, styles.header]}>
+          <Text style={styles.col25}>{'Loại động vật'}</Text>
+          <Text style={styles.col13}>{'Tuổi\n(1)'}</Text>
+
+          <View style={styles.col24}>
+            <Text style={{ width: "100%", borderBottom: '1px solid white', padding: "3px" }}>{'Tính biệt'}</Text>
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "100%" }}>
+              <Text style={{ width: "50%", paddingTop: "1px" }}>{'Đực'}</Text>
+              <Text style={{ width: "50%", paddingTop: "1px", borderLeft: "1px solid white" }}>{'Cái'}</Text>
+            </View>
+          </View>
+
+          <Text style={styles.col13}>{'Số lượng\n(Con)'}</Text>
+          <Text style={styles.col31}>{'Mục đích sử dụng'}</Text>
+        </View>
+
+
+        <View style={[styles.row_body, styles.bold]}>
+          <Text style={styles.colBody25}>{'heo'}</Text>
+          <Text style={styles.colBody13}>{'5'}</Text>
+          <Text style={styles.colBody12_1}>{'x'}</Text>
+          <Text style={styles.colBody12_2}>{' '}</Text>
+          <Text style={styles.colBody13}>{'30'}</Text>
+          <Text style={styles.colBody31}>{'mục đính '}</Text>
+        </View>
+        <View style={[styles.row_body, styles.bold]}>
+          <Text style={styles.colBody25}>{'heo'}</Text>
+          <Text style={styles.colBody13}>{'5'}</Text>
+          <Text style={styles.colBody12_1}>{' '}</Text>
+          <Text style={styles.colBody12_2}>{'x'}</Text>
+          <Text style={styles.colBody13}>{'30'}</Text>
+          <Text style={styles.colBody31}>{'mục đính '}</Text>
+        </View>
+        <View style={[styles.row_body, styles.bold]}>
+          <Text style={styles.colBody25}>{'heo'}</Text>
+          <Text style={styles.colBody13}>{'5'}</Text>
+          <Text style={styles.colBody12_1}>{'x'}</Text>
+          <Text style={styles.colBody12_2}>{' '}</Text>
+          <Text style={styles.colBody13}>{'30'}</Text>
+          <Text style={styles.colBody31}>{'mục đính '}</Text>
+        </View>
+
+        <View style={[styles.row_body, styles.bold]}>
+          <Text style={[styles.colBody25, { fontStyle: 'bold', color: "white" }]}>{'Tổng số'}</Text>
+          <Text style={[styles.colBody13, { fontStyle: 'bold' }]}>{' '}</Text>
+          <Text style={[styles.colBody12_1, { fontStyle: 'bold' }]}>{' '}</Text>
+          <Text style={[styles.colBody12_2, { fontStyle: 'bold' }]}> {' '}</Text>
+          <Text style={[styles.colBody13, { fontStyle: 'bold' }]}>{' '}</Text>
+          <Text style={[styles.colBody31, { fontStyle: 'bold' }]}>{' '}</Text>
+        </View>
+      </View>
+
+      <View style={{ marginTop: "10px", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        <Text style={{ width: "25%", marginTop: 0, fontSize: 11, color: "white" }}>
+          {`Tổng số (viết bằng chữ): `}
+        </Text>
+        <Text style={{ fontSize: 11, maxWidth: "70%" }}>
+          {`123 con`}
+        </Text>
+      </View>
+
+      <View style={{ height: "30px", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        <Text style={{ width: "16%", marginTop: 0, fontSize: 11, maxLines: 1, color: "white" }}>
+          {`Nơi xuất phát: `}
+        </Text>
+        <Text style={{ fontSize: 11, maxWidth: "84%", maxLines: 2 }}>
+          {`Hồ chí minh Hồ chí minh Hồ chí minh Hồ chí minh Hồ chí minh Hồ chí`}
+        </Text>
+      </View>
+
+      <View style={{ height: "30px", display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "5px" }}>
+        <Text style={{ width: "20%", marginTop: 0, fontSize: 11, maxLines: 1, color: "white" }}>
+          {`Nơi đến cuối cùng: `}
+        </Text>
+        <Text style={{ fontSize: 11, maxWidth: "84%", maxLines: 2 }}>
+          {`Hồ chí minh `}
+        </Text>
+      </View>
+
+      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "5px" }}>
+
+        <View style={{ width: "54%", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+          <Text style={{ width: "50%", marginTop: 0, fontSize: 11, maxLines: 1, color: "white" }}>
+            {`Phương tiện vận chuyển: `}
+          </Text>
+          <Text style={{ fontSize: 11, maxWidth: "50%", maxLines: 1 }}>
+            {`Ô tô`}
+          </Text>
+        </View>
+
+        <View style={{ width: "46%", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+          <Text style={{ width: "37%", marginTop: 0, fontSize: 11, maxLines: 1, color: "white", }}>
+            {`Biển kiểm soát: `}
+          </Text>
+          <Text style={{ fontSize: 11, maxWidth: "50%", maxLines: 1 }}>
+            {`62F1 - 12345`}
+          </Text>
+        </View>
+
+      </View>
+
+      <Text style={{ marginTop: "5px", fontSize: 11, color: "white" }}>
+        {`Nơi giao hàng trong quá trình vận chuyển(nếu có):`}
       </Text>
-      <Text style={styles.text}>
-        En un lugar de la Mancha, de cuyo nombre no quiero acordarme, no ha
-        mucho tiempo que vivía un hidalgo de los de lanza en astillero, adarga
-        antigua, rocín flaco y galgo corredor. Una olla de algo más vaca que
-        carnero, salpicón las más noches, duelos y quebrantos los sábados,
-        lentejas los viernes, algún palomino de añadidura los domingos,
-        consumían las tres partes de su hacienda. El resto della concluían sayo
-        de velarte, calzas de velludo para las fiestas con sus pantuflos de lo
-        mismo, los días de entre semana se honraba con su vellori de lo más
-        fino. Tenía en su casa una ama que pasaba de los cuarenta, y una sobrina
-        que no llegaba a los veinte, y un mozo de campo y plaza, que así
-        ensillaba el rocín como tomaba la podadera. Frisaba la edad de nuestro
-        hidalgo con los cincuenta años, era de complexión recia, seco de carnes,
-        enjuto de rostro; gran madrugador y amigo de la caza. Quieren decir que
-        tenía el sobrenombre de Quijada o Quesada (que en esto hay alguna
-        diferencia en los autores que deste caso escriben), aunque por
-        conjeturas verosímiles se deja entender que se llama Quijana; pero esto
-        importa poco a nuestro cuento; basta que en la narración dél no se salga
-        un punto de la verdad
+
+      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "5px", }}>
+        <Text style={{ width: "59%", fontSize: 11, maxLines: 1 }}>
+          {`nơi giao hàng khác`}
+        </Text>
+
+        <View style={{ width: "41%", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+          <Text style={{ width: "27%", marginTop: 0, fontSize: 11, maxLines: 1, color: "white" }}>
+            {`Số lượng: `}
+          </Text>
+          <Text style={{ fontSize: 11, maxWidth: "73%", maxLines: 1 }}>
+            {`2345`}
+          </Text>
+        </View>
+      </View>
+
+
+      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        <Text style={{ width: "33%", marginTop: 0, fontSize: 11, maxLines: 1, color: "white", }}>
+          {`Các vật dụng khác có liên quan: `}
+        </Text>
+        <Text style={{ fontSize: 11, maxWidth: "50%", maxLines: 1 }}>
+          {`vật dụng liên quan`}
+        </Text>
+      </View>
+
+
+
+      <View style={{ height: "55px", marginTop: "5px" }}>
+        <Text style={{ fontSize: 11, fontStyle: "bold", textAlign: "center", width: "100%", color: "white" }}>
+          {`CHỨNG NHẬN KIỂM DỊCH`}
+        </Text>
+        <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", color: "white" }}>
+          {`Tôi, kiểm dịch viên động vật ký tên dưới đây chứng nhận:`}
+        </Text>
+        <Text style={{ marginTop: 0, fontSize: 11, maxLines: 2, color: "white" }}>
+          {"1/ Số động vật trên xuất phát từ vùng/cơ sở an toàn với các bệnh:  "}
+        </Text>
+        <Text style={{ marginTop: 0, fontSize: 11, maxLines: 2 }}>
+          {"bệnh 1, bệnh 2, bệnh 3, bệnh 4, bệnh 5, bệnh 6, bệnh 7"}
+        </Text>
+      </View>
+
+
+
+      <Text style={{ marginTop: "5px", fontSize: 11, fontWeight: "bold", color: "white" }}>
+        {`2/ Số động vật trên không có triệu chứng lâm sàng của bệnh truyền nhiễm khi xuất phát;`}
       </Text>
-      <Text style={styles.text}>
-        Es, pues, de saber, que este sobredicho hidalgo, los ratos que estaba
-        ocioso (que eran los más del año) se daba a leer libros de caballerías
-        con tanta afición y gusto, que olvidó casi de todo punto el ejercicio de
-        la caza, y aun la administración de su hacienda; y llegó a tanto su
-        curiosidad y desatino en esto, que vendió muchas hanegas de tierra de
-        sembradura, para comprar libros de caballerías en que leer; y así llevó
-        a su casa todos cuantos pudo haber dellos; y de todos ningunos le
-        parecían tan bien como los que compuso el famoso Feliciano de Silva:
-        porque la claridad de su prosa, y aquellas intrincadas razones suyas, le
-        parecían de perlas; y más cuando llegaba a leer aquellos requiebros y
-        cartas de desafío, donde en muchas partes hallaba escrito: la razón de
-        la sinrazón que a mi razón se hace, de tal manera mi razón enflaquece,
-        que con razón me quejo de la vuestra fermosura, y también cuando leía:
-        los altos cielos que de vuestra divinidad divinamente con las estrellas
-        se fortifican, y os hacen merecedora del merecimiento que merece la
-        vuestra grandeza.
+
+      <View style={{ height: "45px", marginTop: "3px" }}>
+        <Text style={{ marginTop: 0, fontSize: 11, color: "white" }}>
+          {"3/ Động vật đã được xét nghiệm và có kết quả âm tính với các bệnh:"}
+        </Text>
+
+        <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+          <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "51%", maxLines: 1 }}>
+            {`bệnh 1, bệnh 2, bệnh 3, bệnh 4, bệnh 5, bệnh 6 `}
+          </Text>
+
+          <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "49%" }}>
+            <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "55%", color: "white" }}>
+              {`tại kết quả xét nghiệm số:`}
+            </Text>
+            <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "23%", maxLines: 1, textAlign: "center" }}>
+              {`12345678`}
+            </Text>
+            <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "22%", maxLines: 1, textAlign: "center" }}>
+              {`12345678`}
+            </Text>
+          </View>
+
+        </View>
+
+
+        <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+          <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "6%", color: "white" }}>
+            {`ngày`}
+          </Text>
+          <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "4%", textAlign: "right" }}>
+            {`20 `}
+          </Text>
+          <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "6%", textAlign: "right" }}>
+            {`11 `}
+          </Text>
+          <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "7%", textAlign: "right" }}>
+            {`2000`}
+          </Text>
+          <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "5%", color: "white" }}>
+            {` của`}
+          </Text>
+
+          <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "40%", maxLines: 1 }}>
+            {`của cơ quan tổ chức ABC`}
+          </Text>
+          <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "25%", fontStyle: "italic", color: "white" }}>
+            {`(gửi kèm bản sao, nếu có)`}
+          </Text>
+        </View>
+
+      </View>
+
+
+
+      <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", color: "white" }}>
+        {`4/ Động vật đã được tiêm phòng vắc xin với các bệnh:`}
       </Text>
-      <Text style={styles.text}>
-        Con estas y semejantes razones perdía el pobre caballero el juicio, y
-        desvelábase por entenderlas, y desentrañarles el sentido, que no se lo
-        sacara, ni las entendiera el mismo Aristóteles, si resucitara para sólo
-        ello. No estaba muy bien con las heridas que don Belianis daba y
-        recibía, porque se imaginaba que por grandes maestros que le hubiesen
-        curado, no dejaría de tener el rostro y todo el cuerpo lleno de
-        cicatrices y señales; pero con todo alababa en su autor aquel acabar su
-        libro con la promesa de aquella inacabable aventura, y muchas veces le
-        vino deseo de tomar la pluma, y darle fin al pie de la letra como allí
-        se promete; y sin duda alguna lo hiciera, y aun saliera con ello, si
-        otros mayores y continuos pensamientos no se lo estorbaran. Tuvo muchas
-        veces competencia con el cura de su lugar (que era hombre docto graduado
-        en Sigüenza), sobre cuál había sido mejor caballero, Palmerín de
-        Inglaterra o Amadís de Gaula; mas maese Nicolás, barbero del mismo
-        pueblo, decía que ninguno llegaba al caballero del Febo, y que si alguno
-        se le podía comparar, era don Galaor, hermano de Amadís de Gaula, porque
-        tenía muy acomodada condición para todo; que no era caballero
-        melindroso, ni tan llorón como su hermano, y que en lo de la valentía no
-        le iba en zaga.
+
+      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "58%", maxLines: 1 }}>
+          {`đã được tiêm phòng bệnh 1`}
+        </Text>
+        <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "20%", maxLines: 1, textAlign: "right", color: "white" }}>
+          {`tiêm phòng ngày `}
+        </Text>
+        <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "6%", textAlign: "right" }}>
+          {`20 `}
+        </Text>
+        <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "6%", textAlign: "right" }}>
+          {`11 `}
+        </Text>
+        <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "9%", textAlign: "right" }}>
+          {`2000`}
+        </Text>
+      </View>
+      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "58%", maxLines: 1 }}>
+          {`đã được tiêm phòng bệnh 2`}
+        </Text>
+        <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "20%", maxLines: 1, textAlign: "right", color: "white" }}>
+          {`tiêm phòng ngày `}
+        </Text>
+        <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "6%", textAlign: "right" }}>
+          {`20 `}
+        </Text>
+        <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "6%", textAlign: "right" }}>
+          {`11 `}
+        </Text>
+        <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "9%", textAlign: "right" }}>
+          {`2000`}
+        </Text>
+      </View>
+
+
+      <Text style={{ marginTop: "5px", fontSize: 11, fontWeight: "bold", color: "white" }}>
+        {`5/ Phương tiện vận chuyển, các vật dụng khác có liên quan kèm theo bảo đảm vệ sinh thú y, đã`}
       </Text>
-      <Text style={styles.text}>
-        En resolución, él se enfrascó tanto en su lectura, que se le pasaban las
-        noches leyendo de claro en claro, y los días de turbio en turbio, y así,
-        del poco dormir y del mucho leer, se le secó el cerebro, de manera que
-        vino a perder el juicio. Llenósele la fantasía de todo aquello que leía
-        en los libros, así de encantamientos, como de pendencias, batallas,
-        desafíos, heridas, requiebros, amores, tormentas y disparates
-        imposibles, y asentósele de tal modo en la imaginación que era verdad
-        toda aquella máquina de aquellas soñadas invenciones que leía, que para
-        él no había otra historia más cierta en el mundo.
+
+      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "29%", color: "white" }}>
+          {`được khử trùng tiêu độc bằng`}
+        </Text>
+        <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "35%", maxLines: 1 }}>
+          {`khử trung tiêu độc bằng ABC`}
+        </Text>
+        <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "9%", color: "white" }}>
+          {`nồng độ `}
+        </Text>
+        <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "26%", maxLines: 1 }}>
+          {`100%`}
+        </Text>
+      </View>
+
+      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 5 }}>
+
+        <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "55%", color: "white" }}>
+          <Text style={{ marginTop: 0, fontSize: 11, width: "45%" }}>
+            {`Giấy có giá trị đến ngày`}
+          </Text>
+          <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "10%", textAlign: "right" }}>
+            {`20 `}
+          </Text>
+          <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "7%", textAlign: "right" }}>
+            {`11 `}
+          </Text>
+          <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "12%", textAlign: "right" }}>
+            {`2000`}
+          </Text>
+        </View>
+
+        <View style={{ width: "45%", textAlign: "center" }}>
+          <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+            <Text style={{ marginTop: 0, fontSize: 11, width: "16%", color: "white" }}>
+              {`Cấp tại `}
+            </Text>
+
+            <Text style={{ marginTop: 0, fontSize: 10, width: "30%", maxLines: 1 }}>
+              {`TP.HCM`}
+            </Text>
+
+            <Text style={{ marginTop: 0, fontSize: 11, width: "12%", textAlign: "left", color: "white" }}>
+              {` ngày`}
+            </Text>
+
+            <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "10%", textAlign: "right" }}>
+              {`20 `}
+            </Text>
+            <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "14%", textAlign: "right" }}>
+              {`11 `}
+            </Text>
+            <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "16%", textAlign: "right" }}>
+              {`2000`}
+            </Text>
+          </View>
+
+          <Text style={{ marginTop: 0, fontSize: 11, fontStyle: "bold", color: "white" }}>
+            {`KIỂM DỊCH VIÊN ĐỘNG VẬT`}
+          </Text>
+          <Text style={{ marginTop: 0, fontSize: 11, color: "white" }}>
+            {`(Ký, ghi rõ họ tên)`}
+          </Text>
+        </View>
+
+      </View>
+
+      <Text style={[styles.note, { fontSize: 8, marginTop: 60, color: "white" }]}>
+        {"-(1): Đối với động vật làm giống\n-(2): Tên cơ quan trả lời kết quả xét nghiệm"}
       </Text>
-      <Text style={styles.subtitle} break>
-        Capítulo II: Que trata de la primera salida que de su tierra hizo el
-        ingenioso Don Quijote
-      </Text>
-      {/* <Image style={styles.image} src="/images/quijote2.png" /> */}
-      <Text style={styles.text}>
-        Hechas, pues, estas prevenciones, no quiso aguardar más tiempo a poner
-        en efeto su pensamiento, apretándole a ello la falta que él pensaba que
-        hacía en el mundo su tardanza, según eran los agravios que pensaba
-        deshacer, tuertos que enderezar, sinrazones que emendar y abusos que
-        mejorar y deudas que satisfacer. Y así, sin dar parte a persona alguna
-        de su intención y sin que nadie le viese, una mañana, antes del día, que
-        era uno de los calurosos del mes de Julio, se armó de todas sus armas,
-        subió sobre Rocinante, puesta su mal compuesta celada, embrazó su
-        adarga, tomó su lanza y por la puerta falsa de un corral salió al campo
-        con grandísimo contento y alborozo de ver con cuánta facilidad había
-        dado principio a su buen deseo. Mas apenas se vio en el campo cuando le
-        asaltó un pensamiento terrible, y tal, que por poco le hiciera dejar la
-        comenzada empresa; y fue que le vino a la memoria que no era armado
-        caballero, y que, conforme a ley de caballería, ni podía ni debía tomar
-        armas con ningún caballero; y puesto que lo fuera, había de llevar armas
-        blancas, como novel caballero, sin empresa en el escudo, hasta que por
-        su esfuerzo la ganase. Estos pensamientos le hicieron titubear en su
-        propósito; mas pudiendo más su locura que otra razón alguna, propuso de
-        hacerse armar caballero del primero que topase, a imitación de otros
-        muchos que así lo hicieron, según él había leído en los libros que tal
-        le tenían. En lo de las armas blancas, pensaba limpiarlas de manera, en
-        teniendo lugar, que lo fuesen más que un arminio; y con esto se quietó18
-        y prosiguió su camino, sin llevar otro que aquel que su caballo quería,
-        creyendo que en aquello consistía la fuerza de las aventuras
-      </Text>
-      <Text style={styles.text}>
-        Yendo, pues, caminando nuestro flamante aventurero, iba hablando consigo
-        mesmo, y diciendo: —¿Quién duda, sino que en los venideros tiempos,
-        cuando salga a luz la verdadera historia de mis famosos hechos, que el
-        sabio que los escribiere no ponga, cuando llegue a contar esta mi
-        primera salida tan de mañana, desta manera?: Apenas había el rubicundo
-        Apolo tendido por la faz de la ancha y espaciosa tierra las doradas
-        hebras de sus hermosos cabellos, y apenas los pequeños y pintados
-        pajarillos con sus arpadas lenguas habían saludado con dulce y meliflua
-        armonía la venida de la rosada Aurora, que, dejando la blanda cama del
-        celoso marido, por las puertas y balcones del manchego horizonte a los
-        mortales se mostraba, cuando el famoso caballero don Quijote de la
-        Mancha, dejando las ociosas plumas, subió sobre su famoso caballo
-        Rocinante y comenzó a caminar por el antiguo y conocido Campo de
-        Montiel.
-      </Text>
-      <Text style={styles.text}>
-        Y era la verdad que por él caminaba; y añadió diciendo: —Dichosa edad y
-        siglo dichoso aquel adonde saldrán a luz las famosas hazañas mías,
-        dignas de entallarse en bronces, esculpirse en mármoles y pintarse en
-        tablas, para memoria en lo futuro. ¡Oh tú, sabio encantador, quienquiera
-        que seas, a quien ha de tocar el ser coronista desta peregrina historia!
-        Ruégote que no te olvides de mi buen Rocinante, compañero eterno mío en
-        todos mis caminos y carreras.
-      </Text>
-      <Text style={styles.text}>
-        Luego volvía diciendo, como si verdaderamente fuera enamorado: —¡Oh
-        princesa Dulcinea, señora deste cautivo corazón! Mucho agravio me
-        habedes fecho en despedirme y reprocharme con el riguroso afincamiento
-        de mandarme no parecer ante la vuestra fermosura. Plégaos, señora, de
-        membraros deste vuestro sujeto corazón, que tantas cuitas por vuestro
-        amor padece. Con estos iba ensartando otros disparates, todos al modo de
-        los que sus libros le habían enseñado, imitando en cuanto podía su
-        lenguaje. Con esto caminaba tan despacio, y el sol entraba tan apriesa y
-        con tanto ardor, que fuera bastante a derretirle los sesos, si algunos
-        tuviera
-      </Text>
-      <Text style={styles.text}>
-        Casi todo aquel día caminó sin acontecerle cosa que de contar fuese, de
-        lo cual se desesperaba, porque quisiera topar luego luego con quien
-        hacer experiencia del valor de su fuerte brazo. Autores hay que dicen
-        que la primera aventura que le avino fue la del Puerto Lápice, otros
-        dicen que la de los molinos de viento; pero lo que yo he podido
-        averiguar en este caso, y lo que he hallado escrito en los anales de la
-        Mancha, es que él anduvo todo aquel día, y, al anochecer, su rocín y él
-        se hallaron cansados y muertos de hambre, y que, mirando a todas partes
-        por ver si descubriría algún castillo o alguna majada de pastores donde
-        recogerse y adonde pudiese remediar su mucha hambre y necesidad, vio, no
-        lejos del camino por donde iba, una venta,que fue como si viera una
-        estrella que, no a los portales, sino a los alcázares de su redención le
-        encaminaba. Diose priesa a caminar, y llegó a ella a tiempo que
-        anochecía.
-      </Text>
-      <Text
-        style={styles.pageNumber}
-        render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`}
-        fixed
-      />
+
+
     </Page>
-  </Document>
+  </Document >
 );
 
-export { MyDocument };
+export { PDF12B };

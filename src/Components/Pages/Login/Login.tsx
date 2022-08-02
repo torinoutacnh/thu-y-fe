@@ -11,8 +11,9 @@ import { IconType } from "antd/lib/notification";
 import Cookies from "js-cookie";
 import logoThuY from "../../../Static/image/logo.png";
 import { PDFViewer } from "@react-pdf/renderer";
-import { PDF12B } from "Components/Shared/Form/PDF/examplePDF";
+import { PDF12B } from "Components/Shared/Form/PDF/PDF12B";
 import { SendEmailForgotPassword } from "../User/SendEmailForgotPassword";
+import { PDF7 } from "Components/Shared/Form/PDF/PDF7";
 
 
 export default function LoginPage() {

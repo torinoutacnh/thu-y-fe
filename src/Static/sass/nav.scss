@@ -1,0 +1,40 @@
+@use "sass:map";
+@import "variables";
+
+nav {
+    background-color: rgba($light-theme-primary, 0.8);
+
+    * {
+        color: $dark-theme-primary;
+        font-family: $ff-primary;
+    }
+
+    li {
+        &[aria-selected="true"] {
+            border-bottom: 2px solid $light-theme-fourth;
+        }
+
+        a {
+            cursor: context-menu;
+        }
+    }
+}
+
+.menu--control {
+    position: relative;
+    @for $i from 1 through 20 {
+        &[aria-expanded="#{$i}"]:hover .menu[aria-aria-expanded="#{$i}"] {
+            display: block;
+        }
+    }
+
+    .menu {
+        display: none;
+        position: absolute;
+        top: 0px;
+    }
+}
+
+li[aria-current="true"]:not([aria-selected="true"]):hover {
+    border-bottom: 1px solid rgba($light-theme-fourth, 0.6);
+}

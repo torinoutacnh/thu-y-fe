@@ -2,9 +2,9 @@ import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";
 import { Route } from "react-router-dom";
 import { publicEndpoints } from "./PublicRoutes";
 import React from "react";
-import { MedicalHygiene } from "Components/Pages/MedicalHygiene";
-import CreateVSYTReportPage from "Components/Pages/MedicalHygiene/CreatePage";
-import UpdateVSYTReportPage from "Components/Pages/MedicalHygiene/UpdatePage";
+import MedicalHygiene from "Components/Pages/MedicalHygiene";
+import CreateVSYTReportPage from "Components/Pages/MedicalHygiene/create";
+import UpdateVSYTReportPage from "Components/Pages/MedicalHygiene/update";
 
 const medicalHygieneEndpoints = {
   get basepath() {

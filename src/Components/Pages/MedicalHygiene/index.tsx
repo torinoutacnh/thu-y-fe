@@ -31,4 +31,4 @@ const MedicalHygiene = () => {
   );
 };
 
-export { MedicalHygiene };
+export default MedicalHygiene;

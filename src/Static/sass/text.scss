@@ -1,0 +1,43 @@
+@import "variables";
+// @import "https://fonts.googleapis.com";
+// @import "https://fonts.gstatic.com";
+@import "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100&family=Edu+TAS+Beginner:wght@500&family=Great+Vibes&family=Ibarra+Real+Nova&family=Playfair+Display:wght@500&display=swap";
+
+.text {
+    vertical-align: middle;
+
+    &--success {
+        color: $success;
+    }
+    &--error {
+        color: $error;
+    }
+    &--warning {
+        color: $warning;
+    }
+    &--center {
+        text-align: center;
+    }
+    &--start {
+        text-align: start;
+    }
+    &--end {
+        text-align: end;
+    }
+
+    &--ff--primary {
+        font-family: $ff-primary;
+    }
+    &--ff--secondary {
+        font-family: $ff-secondary;
+    }
+    &--ff--third {
+        font-family: $ff-third;
+    }
+    &--ff--fourth {
+        font-family: $ff-fourth;
+    }
+    &--ff--fifth {
+        font-family: $ff-fifth;
+    }
+}

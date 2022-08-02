@@ -1,0 +1,60 @@
+@use "sass:map";
+nav {
+  background-color: rgba(255, 232, 223, 0.8); }
+  nav * {
+    color: #1b262c;
+    font-family: "Ibarra Real Nova", serif; }
+  nav li[aria-selected="true"] {
+    border-bottom: 2px solid #888888; }
+  nav li a {
+    cursor: context-menu; }
+
+.menu--control {
+  position: relative; }
+  .menu--control[aria-expanded="1"]:hover .menu[aria-aria-expanded="1"] {
+    display: block; }
+  .menu--control[aria-expanded="2"]:hover .menu[aria-aria-expanded="2"] {
+    display: block; }
+  .menu--control[aria-expanded="3"]:hover .menu[aria-aria-expanded="3"] {
+    display: block; }
+  .menu--control[aria-expanded="4"]:hover .menu[aria-aria-expanded="4"] {
+    display: block; }
+  .menu--control[aria-expanded="5"]:hover .menu[aria-aria-expanded="5"] {
+    display: block; }
+  .menu--control[aria-expanded="6"]:hover .menu[aria-aria-expanded="6"] {
+    display: block; }
+  .menu--control[aria-expanded="7"]:hover .menu[aria-aria-expanded="7"] {
+    display: block; }
+  .menu--control[aria-expanded="8"]:hover .menu[aria-aria-expanded="8"] {
+    display: block; }
+  .menu--control[aria-expanded="9"]:hover .menu[aria-aria-expanded="9"] {
+    display: block; }
+  .menu--control[aria-expanded="10"]:hover .menu[aria-aria-expanded="10"] {
+    display: block; }
+  .menu--control[aria-expanded="11"]:hover .menu[aria-aria-expanded="11"] {
+    display: block; }
+  .menu--control[aria-expanded="12"]:hover .menu[aria-aria-expanded="12"] {
+    display: block; }
+  .menu--control[aria-expanded="13"]:hover .menu[aria-aria-expanded="13"] {
+    display: block; }
+  .menu--control[aria-expanded="14"]:hover .menu[aria-aria-expanded="14"] {
+    display: block; }
+  .menu--control[aria-expanded="15"]:hover .menu[aria-aria-expanded="15"] {
+    display: block; }
+  .menu--control[aria-expanded="16"]:hover .menu[aria-aria-expanded="16"] {
+    display: block; }
+  .menu--control[aria-expanded="17"]:hover .menu[aria-aria-expanded="17"] {
+    display: block; }
+  .menu--control[aria-expanded="18"]:hover .menu[aria-aria-expanded="18"] {
+    display: block; }
+  .menu--control[aria-expanded="19"]:hover .menu[aria-aria-expanded="19"] {
+    display: block; }
+  .menu--control[aria-expanded="20"]:hover .menu[aria-aria-expanded="20"] {
+    display: block; }
+  .menu--control .menu {
+    display: none;
+    position: absolute;
+    top: 0px; }
+
+li[aria-current="true"]:not([aria-selected="true"]):hover {
+  border-bottom: 1px solid rgba(136, 136, 136, 0.6); }

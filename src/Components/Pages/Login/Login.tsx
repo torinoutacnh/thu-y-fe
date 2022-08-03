@@ -10,6 +10,8 @@ import { publicEndpoints } from "Components/router/PublicRoutes";
 import { IconType } from "antd/lib/notification";
 import logoThuY from "../../../Static/image/logo.png";
 import { SendEmailForgotPassword } from "../User/SendEmailForgotPassword";
+import { UserLoginModel } from "Components/Shared/Models/User";
+import moment from "moment";
 
 export default function LoginPage() {
   return <LoginForm />;
@@ -64,6 +66,10 @@ const LoginForm = () => {
       })
       .then((data) => {
         openNotification("Đăng nhập thành công", "success");
+        const expired = moment(new Date(), "DD-MM-YYYY hh:mm:ss")
+          .add(1, "hours")
+          .toString();
+        (data.data as UserLoginModel).expired = expired;
         setUser(data.data);
         navigate(RouteEndpoints.home.basepath, { replace: true });
       })

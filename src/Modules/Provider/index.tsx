@@ -3,8 +3,7 @@ import MainLayout from "Components/Shared/Layout";
 import appStore from "Modules/Redux";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
-import React from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const App = () => {
   const queryClient = new QueryClient();

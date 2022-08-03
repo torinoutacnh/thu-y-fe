@@ -1,5 +1,5 @@
 import { type } from "@testing-library/user-event/dist/type";
-import { Space, Button } from "antd";
+import { Space, Button, Typography } from "antd";
 import { ColumnsType, ColumnType } from "antd/lib/table";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import {
@@ -7,7 +7,7 @@ import {
   ReportModel,
   ReportValueModel,
 } from "Components/Shared/Models/Form";
-import React from "react";
+import "./antd-override.css";
 
 const AttrsToColumns = (attrs: AttributeModel[]) => {
   attrs.sort((a, b) => a.sortNo - b.sortNo);
@@ -16,6 +16,13 @@ const AttrsToColumns = (attrs: AttributeModel[]) => {
       title: _.name,
       dataIndex: _.id,
       key: idx,
+      render(value, record, index) {
+        return (
+          <>
+            <p data-label={_.name}>{record[_.id]}</p>
+          </>
+        );
+      },
     };
   });
 

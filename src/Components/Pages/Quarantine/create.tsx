@@ -15,16 +15,12 @@ export default function CreateQuarantineReportPage() {
   const { user } = useAuth();
   const { setLoading } = useLoading();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const code = searchParams.get("code");
   const navigate = useNavigate();
 
-  if (!code) {
+  if (!code || !QuarantineReportType[Number(code)]) {
     navigate("/not-found", { replace: true });
-  }
-
-  if (!QuarantineReportType[code as any]) {
-    return <h1>Biểu mẫu không tồn tại hoặc không thuộc chức vụ của bạn</h1>;
   }
 
   const search = { code: ReportType[Number(code)] };

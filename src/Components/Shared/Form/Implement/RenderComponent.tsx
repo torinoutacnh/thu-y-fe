@@ -140,8 +140,6 @@ const RenderForm: React.FC<RenderProps> = ({
     formref: FormInstance<ReportModel>,
     report: ReportModel
   ) => {
-    console.log(reportType);
-
     switch (reportType) {
       case ReportType["CN-KDĐV-UQ"]: {
         return (

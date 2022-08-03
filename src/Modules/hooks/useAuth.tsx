@@ -5,9 +5,13 @@ import loginReducer, {
   logout,
 } from "Modules/Redux/reducer/loginReducer";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import { publicEndpoints } from "Components/router/PublicRoutes";
+import moment from "moment";
 
 export const useAuth = () => {
   const dispatch = useStoreDispatch();
+  const navigate = useNavigate();
 
   const RefreshToken = (token: string) => {
     return;
@@ -19,6 +23,21 @@ export const useAuth = () => {
       expires: 1 / 24,
       sameSite: "Strict",
     });
+
+    const expired = moment(new Date(user.expired), "DD-MM-YYYY hh:mm:ss");
+    const now = moment(new Date(), "DD-MM-YYYY hh:mm:ss");
+
+    if (!expired.isBefore(now.add(-15, "seconds"))) {
+      const timediff = expired.diff(now, "milliseconds", false);
+      console.log(timediff);
+
+      setTimeout(() => {
+        singOut();
+        navigate(publicEndpoints.login);
+      }, timediff);
+    } else {
+    }
+
     dispatch(login(user));
   };
 
@@ -34,8 +53,8 @@ export const useAuth = () => {
   const userCookie = Cookies.get("user");
   const curUser = userCookie ? JSON.parse(userCookie) : null;
   if (curUser && !user) {
-    dispatch(login(curUser));
-    return { user: curUser as UserLoginModel, setUser };
+    setUser(curUser);
+    return { user: curUser as UserLoginModel, setUser, singOut };
   }
 
   return { user, setUser, singOut };

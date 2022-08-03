@@ -7,13 +7,11 @@ import { ReportType } from "Components/Shared/Form/Define/FormInterface";
 import {
   AttrsToColumns,
   ReportsToSource,
-  ReportToData,
 } from "Components/Shared/Form/Define/FormMapping";
-import { FormModel, ReportModel } from "Components/Shared/Models/Form";
-import { RoleType } from "Components/Shared/Models/User";
+import { FormModel } from "Components/Shared/Models/Form";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MapTable = ({ reportType }: { reportType: ReportType }) => {
@@ -40,7 +38,6 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (!data.data)
             throw new Error(
               `Không thấy biểu mẫu có mã là ${ReportType[reportType]}`
@@ -71,7 +68,8 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          console.log(data.data);
+
           const src = ReportsToSource(data.data);
           setDatasource(src);
         })
@@ -136,9 +134,9 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
       cols.push({
         title: "Xử lý",
         key: "action",
+        fixed: "right",
         render: (record) => (
           <>
-            {console.log(record)}
             <Space>
               <Button onClick={() => editAction(record.id)} type="link">
                 Cập nhật
@@ -166,6 +164,7 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
         columns={columns}
         rowKey={"key"}
         dataSource={datasource}
+        scroll={{ x: "100%" }}
       />
     </>
   );

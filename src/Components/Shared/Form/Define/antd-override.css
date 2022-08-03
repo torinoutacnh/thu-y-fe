@@ -1,0 +1,26 @@
+.ant-table-thead .ant-table-cell{
+    word-wrap: normal;
+    width: 150px;
+}
+
+@media screen and (max-width:768px) {
+    .ant-table-content table tr,td,th{
+        display: block;
+        position: relative;
+        right: auto;
+    }
+        .ant-table-content table thead{
+            display: none;
+        }
+        
+        .ant-table-content td p::before{
+            content: attr(data-label)": ";
+            text-align: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    
+    .ant-table-content tr td:last-child{
+        margin-bottom: 50px;
+    }
+}

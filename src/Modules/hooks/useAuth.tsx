@@ -36,6 +36,7 @@ export const useAuth = () => {
         navigate(publicEndpoints.login);
       }, timediff);
     } else {
+      console.log(now);
     }
 
     dispatch(login(user));

@@ -65,9 +65,16 @@ export default function HomePage() {
 
           </Col>
           <Col xs={24} sm={24} md={8} lg={8}>
-            <Link to={RouteEndpoints.notfound}>
+
+            {/* <Link to={RouteEndpoints.notfound}>
               <div className="card">
                 BÁO CÁO DOANH THU
+              </div>
+            </Link> */}
+
+            <Link to={RouteEndpoints.printPdf12b}>
+              <div className="card">
+                PDF 12B
               </div>
             </Link>
 

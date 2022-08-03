@@ -21,7 +21,7 @@ Font.register({
 });
 
 
-
+// const tmp 
 
 const styles = StyleSheet.create({
   body: {
@@ -323,7 +323,7 @@ const PDF12B = () => (
         <Text style={{ fontSize: 11, width: "20%", color: "white" }}>
           {`Địa chỉ giao dịch: `}
         </Text>
-        <Text style={{ fontSize: 9, maxWidth: "50%" }}>
+        <Text style={{ fontSize: 9, maxWidth: "50%", marginTop: "1px" }}>
           {`Hồ Chí Minh`}
         </Text>
       </View>
@@ -344,7 +344,7 @@ const PDF12B = () => (
           <Text style={{ width: "26%", marginTop: 0, fontSize: 11, color: "white" }}>
             {`Fax: `}
           </Text>
-          <Text style={{ fontSize: 10, maxWidth: "70%" }}>
+          <Text style={{ fontSize: 10, maxWidth: "70%", paddingLeft: "5px" }}>
             {`123123123`}
           </Text>
         </View>
@@ -428,25 +428,27 @@ const PDF12B = () => (
         </Text>
       </View>
 
-      <View style={{ marginTop: "2px", height: "30px", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-        <Text style={{ width: "19%", marginTop: 0, fontSize: 11, maxLines: 1, color: "white" }}>
-          {`Nơi xuất phát: `}
-        </Text>
-        <Text style={{ fontSize: 9, maxWidth: "81%", maxLines: 2 }}>
-          {`Hồ chí minh Hồ chí minh Hồ chí minh Hồ chí minh Hồ chí minh Hồ chíHồ chí minh Hồ chí minh Hồ chí minh Hồ chí`}
-        </Text>
-      </View>
-
-      <View style={{ height: "30px", display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "5px" }}>
-        <Text style={{ width: "23%", marginTop: 0, fontSize: 9, maxLines: 1, color: "white" }}>
-          {`Nơi đến cuối cùng: `}
-        </Text>
-        <Text style={{ fontSize: 9, maxWidth: "81%", maxLines: 2 }}>
-          {`Hồ chí minhHồ chí minh Hồ chí minh Hồ chí minh Hồ chí minh Hồ chí minh Hồ chí minh Hồ chí minh Hồ chí minh  `}
+      <View style={{ marginTop: "5px", height: "33px", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        {/* nơi xuất phát */}
+        <Text style={{ fontSize: 9, maxLines: 2, lineHeight: 1.8, paddingLeft: "5px", color: "white" }}>
+          {`Nơi xuất phát:mmmmm `}
+          <Text style={{ fontSize: 9, maxLines: 2, lineHeight: 1.8, color: "black" }}>
+            {`Hồ chí minh Hồ chí minh Hồ chí minh Hồ chí minh Hồ chí minh Hồ chíHồ chí minh Hồ chí minh Hồ chí minh Hồ chíh Hồ chíHồ chí minh Hồ chí minh Hồ chí minh Hồ chí Hồ chí minhHồ chí minh`}
+          </Text>
         </Text>
       </View>
 
-      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "5px" }}>
+      <View style={{ height: "33px", display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "2px" }}>
+        {/* nơi đến cuối cùng */}
+        <Text style={{ fontSize: 9, maxLines: 2, lineHeight: 1.8, paddingLeft: "5px", color: "white" }}>
+          {`Nơi đến cuối cùng:mmmmmmmm`}
+          <Text style={{ fontSize: 9, maxLines: 2, lineHeight: 1.8, paddingLeft: "5px", color: "black" }}>
+            {`Hồ chí minh Hồ chí minh Hồ chí minh Hồ chí minh Hồ chí minh Hồ chíHồ chí minh Hồ chí minh Hồ chí minh Hồ chíh Hồ chíHồ chí minh Hồ chí minh Hồ chí minh Hồ chí Hồ chí minhHồ chí minh`}
+          </Text>
+        </Text>
+      </View>
+
+      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", }}>
 
         <View style={{ width: "54%", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
           <Text style={{ width: "50%", marginTop: 0, fontSize: 11, maxLines: 1, color: "white" }}>
@@ -468,12 +470,12 @@ const PDF12B = () => (
 
       </View>
 
-      <Text style={{ marginTop: "5px", fontSize: 11, color: "white" }}>
+      <Text style={{ marginTop: "5px", fontSize: 11, color: "white", paddingLeft: "10px" }}>
         {`Nơi giao hàng trong quá trình vận chuyển(nếu có):`}
       </Text>
 
       <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "1px", marginLeft: "10px" }}>
-        <Text style={{ width: "59%", fontSize: 9, maxLines: 1 }}>
+        <Text style={{ width: "59%", fontSize: 9, maxLines: 1, paddingLeft: "10px" }}>
           {`nơi giao hàng khác`}
         </Text>
 
@@ -489,7 +491,7 @@ const PDF12B = () => (
 
 
       <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-        <Text style={{ width: "33%", marginTop: 0, fontSize: 11, maxLines: 1, color: "white", }}>
+        <Text style={{ width: "33%", marginTop: "2px", fontSize: 11, maxLines: 1, color: "white", }}>
           {`Các vật dụng khác có liên quan: `}
         </Text>
         <Text style={{ fontSize: 9, maxWidth: "50%", maxLines: 1 }}>
@@ -499,34 +501,37 @@ const PDF12B = () => (
 
 
 
-      <View style={{ height: "55px", marginTop: "9px" }}>
+      <View style={{ height: "30px", marginTop: "5px" }}>
         <Text style={{ fontSize: 11, fontStyle: "bold", textAlign: "center", width: "100%", color: "white" }}>
           {`CHỨNG NHẬN KIỂM DỊCH`}
         </Text>
         <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", color: "white" }}>
           {`Tôi, kiểm dịch viên động vật ký tên dưới đây chứng nhận:`}
         </Text>
-        <Text style={{ marginTop: 0, fontSize: 11, maxLines: 2, color: "white" }}>
-          {"1/ Số động vật trên xuất phát từ vùng/cơ sở an toàn với các bệnh:  "}
-        </Text>
-        <Text style={{ marginTop: 0, fontSize: 9, maxLines: 2 }}>
-          {"bệnh 1, bệnh 2, bệnh 3, bệnh 4, bệnh 5, bệnh 6, bệnh 7"}
+      </View>
+
+
+      <View style={{ height: "32px", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        <Text style={{ fontSize: 9, maxLines: 2, lineHeight: 1.7, paddingLeft: "5px", color: "white" }}>
+          {`1/ Số động vật trên xuất phát từ vùng/cơ sở an toàn với các bệnh:mmmmmmmmmmm `}
+          <Text style={{ fontSize: 9, maxLines: 2, lineHeight: 1.7, paddingLeft: "5px", color: "black" }}>
+            {`bệnh 1, bệnh 2, bệnh 3, bệnh 4, bệnh 5, bệnh 6, bệnh 7, bệnh 8, bệnh 9, bệnh 10,bệnh 7, bệnh 8, bệnh 9, bệnh 10,bệnh 10,bệnh 7, bệnh 8, bệnh 9, bệnh 10,`}
+          </Text>
         </Text>
       </View>
 
 
-
-      <Text style={{ marginTop: "5px", fontSize: 11, fontWeight: "bold", color: "white" }}>
+      <Text style={{ marginTop: "3px", fontSize: 11, fontWeight: "bold", color: "white" }}>
         {`2/ Số động vật trên không có triệu chứng lâm sàng của bệnh truyền nhiễm khi xuất phát;`}
       </Text>
 
-      <View style={{ height: "45px", marginTop: "3px" }}>
+      <View style={{ height: "45px", marginTop: "0px" }}>
         <Text style={{ marginTop: 0, fontSize: 11, color: "white" }}>
           {"3/ Động vật đã được xét nghiệm và có kết quả âm tính với các bệnh:"}
         </Text>
 
         <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-          <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "51%", maxLines: 1 }}>
+          <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "51%", maxLines: 1, paddingLeft: "5px" }}>
             {`bệnh 1, bệnh 2, bệnh 3, bệnh 4, bệnh 5, bệnh 6 `}
           </Text>
 
@@ -545,7 +550,7 @@ const PDF12B = () => (
         </View>
 
 
-        <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "1px" }}>
           <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "6%", color: "white" }}>
             {`ngày`}
           </Text>
@@ -574,12 +579,12 @@ const PDF12B = () => (
 
 
 
-      <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", color: "white" }}>
+      <Text style={{ marginTop: "1px", fontSize: 11, fontWeight: "bold", color: "white" }}>
         {`4/ Động vật đã được tiêm phòng vắc xin với các bệnh:`}
       </Text>
 
-      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "3px" }}>
-        <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "58%", maxLines: 1, marginLeft: "5px" }}>
+      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "1px" }}>
+        <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "56%", maxLines: 1, marginLeft: "10px" }}>
           {`đã được tiêm phòng bệnh 1`}
         </Text>
         <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "20%", maxLines: 1, textAlign: "right", color: "white" }}>
@@ -596,7 +601,7 @@ const PDF12B = () => (
         </Text>
       </View>
       <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-        <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "58%", maxLines: 1, marginLeft: "5px" }}>
+        <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "56%", maxLines: 1, marginLeft: "10px" }}>
           {`đã được tiêm phòng bệnh 2`}
         </Text>
         <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "20%", maxLines: 1, textAlign: "right", color: "white" }}>
@@ -622,7 +627,7 @@ const PDF12B = () => (
         <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "29%", color: "white" }}>
           {`được khử trùng tiêu độc bằng`}
         </Text>
-        <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "35%", maxLines: 1 }}>
+        <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "35%", maxLines: 1, paddingLeft: "7px" }}>
           {`khử trung tiêu độc`}
         </Text>
         <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "9%", color: "white" }}>
@@ -645,7 +650,7 @@ const PDF12B = () => (
           <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "7%", textAlign: "right" }}>
             {`11 `}
           </Text>
-          <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "12%", textAlign: "right" }}>
+          <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "14%", textAlign: "right" }}>
             {`2000`}
           </Text>
         </View>
@@ -667,7 +672,7 @@ const PDF12B = () => (
             <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "10%", textAlign: "right" }}>
               {`20 `}
             </Text>
-            <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "16%", textAlign: "right" }}>
+            <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "14%", textAlign: "right" }}>
               {`11 `}
             </Text>
             <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "16%", textAlign: "right" }}>

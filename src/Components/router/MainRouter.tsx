@@ -18,6 +18,7 @@ import { medicalHygieneRoutes } from "./MedicalHygieneRoutes";
 import { MyAllocateReceipt } from "Components/Pages/ManageReceipt/MyAllocateReceipt";
 import ReceiptReportIndex from "Components/Pages/ReceiptReport";
 import { VerifyForgotPassword } from "Components/Pages/User/VerifyForgotPassword";
+import { PrintPDF12B } from "Components/Pages/PrintPDF/PrintPDF12B";
 
 
 export class RouteEndpoints {
@@ -36,6 +37,8 @@ export class RouteEndpoints {
   static userInfo = "/thong-tin-ca-nhan";
 
   static notfound = "/chuc-nang-dang-phat-trien";
+
+  static printPdf12b = "/pdf12b"
 
   static verifyEmail = "/verify"
 
@@ -138,6 +141,16 @@ export default function MainRouter() {
         element={
           <PrivateRoute path={publicEndpoints.login}>
             <ReceiptReportIndex />
+          </PrivateRoute>
+        }
+        key="update-allocate-receipt"
+      />
+
+      <Route
+        path={RouteEndpoints.printPdf12b}
+        element={
+          <PrivateRoute path={publicEndpoints.login}>
+            <PrintPDF12B />
           </PrivateRoute>
         }
         key="update-allocate-receipt"

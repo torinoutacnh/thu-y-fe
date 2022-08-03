@@ -1,0 +1,11 @@
+@use "sass:map";
+@import "variables";
+
+footer {
+    background-color: rgba($light-theme-primary, 0.8);
+
+    * {
+        color: $dark-theme-primary;
+        font-family: $ff-primary;
+    }
+}

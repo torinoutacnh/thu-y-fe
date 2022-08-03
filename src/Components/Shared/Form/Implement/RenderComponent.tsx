@@ -23,7 +23,6 @@ import { ApiRoute, ReportApiRoute } from "Api";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import { abattoirEndpoints } from "Components/router/AbattoirRoutes";
 import { IconType } from "antd/lib/notification";
-import { medicalHygieneEndpoints } from "Components/router/MedicalHygieneRoutes";
 
 const RenderForm: React.FC<RenderProps> = ({
   form,
@@ -54,15 +53,15 @@ const RenderForm: React.FC<RenderProps> = ({
   const RedirectToHome = (reportType: ReportType) => {
     switch (reportType) {
       case ReportType["CN-KDĐV-UQ"]: {
-        navigate(quarantineEndpoints.home);
+        navigate(quarantineEndpoints.cnkd);
         break;
       }
       case ReportType["ĐK-KDĐV-001"]: {
-        navigate(medicalHygieneEndpoints.home);
+        navigate(quarantineEndpoints.dkkd);
         break;
       }
       case ReportType["BB-VSTY"]: {
-        navigate(medicalHygieneEndpoints.home);
+        navigate(quarantineEndpoints.vsyt);
         break;
       }
       case ReportType["NK-001"]: {
@@ -141,6 +140,8 @@ const RenderForm: React.FC<RenderProps> = ({
     formref: FormInstance<ReportModel>,
     report: ReportModel
   ) => {
+    console.log(reportType);
+
     switch (reportType) {
       case ReportType["CN-KDĐV-UQ"]: {
         return (

@@ -14,12 +14,10 @@ import { useAuth } from "Modules/hooks/useAuth";
 import { manageabattoirRoutes } from "./ManageAbattoirRoutes";
 import { Verify } from "crypto";
 import { VerifyEmail } from "Components/Pages/Register/VerifyEmail";
-import { medicalHygieneRoutes } from "./MedicalHygieneRoutes";
 import { MyAllocateReceipt } from "Components/Pages/ManageReceipt/MyAllocateReceipt";
 import ReceiptReportIndex from "Components/Pages/ReceiptReport";
 import { VerifyForgotPassword } from "Components/Pages/User/VerifyForgotPassword";
 import { PrintPDF12B } from "Components/Pages/PrintPDF/PrintPDF12B";
-
 
 export class RouteEndpoints {
   static home = { basepath: "/" };
@@ -42,12 +40,13 @@ export class RouteEndpoints {
 
   static verifyEmail = "/verify"
 
-  static forgotPass = "/forgotpass"
 
-  static myAllocate = "/hoa-don-cua-toi"
+  static forgotPass = "/forgotpass";
+
+  static myAllocate = "/hoa-don-cua-toi";
 
   // static updateAllocate = "/cap-nhat-hoa-don/:id"
-  static receiptReportWithIdAllocate = "/chi-tiet-hoa-don-cua-toi/:id"
+  static receiptReportWithIdAllocate = "/chi-tiet-hoa-don-cua-toi/:id";
 
   ///////////////////////////////////////////////////
 }
@@ -71,7 +70,6 @@ export default function MainRouter() {
       {managereceiptRoutes.map((route) => route)}
       {StaffRoutes.map((route) => route)}
       {manageabattoirRoutes.map((route) => route)}
-      {medicalHygieneRoutes.map((route) => route)}
       <Route
         path={RouteEndpoints.animal.basepath}
         element={
@@ -103,19 +101,14 @@ export default function MainRouter() {
 
       <Route
         path={RouteEndpoints.verifyEmail}
-        element={
-          <VerifyEmail />
-        }
+        element={<VerifyEmail />}
         key="verifyEmail"
       />
       <Route
         path={RouteEndpoints.forgotPass}
-        element={
-          <VerifyForgotPassword />
-        }
+        element={<VerifyForgotPassword />}
         key="forgotPassword"
       />
-
 
       <Route
         path={RouteEndpoints.myAllocate}

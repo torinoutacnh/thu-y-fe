@@ -74,6 +74,7 @@
 /* Show the dropdown menu on hover */
 .dropdown-menu:hover .dropdown-content {
     display: block;
+    z-index: 100;
 }
 
 .dropdown-content li:hover {

@@ -13,9 +13,7 @@ import "./header.css";
 
 import { publicEndpoints } from "Components/router/PublicRoutes";
 
-import { medicalHygieneEndpoints } from "Components/router/MedicalHygieneRoutes";
 import { ChangePassword } from "Components/Pages/User/ChangePassword";
-
 
 const Header = () => {
   const navigate = useNavigate();
@@ -61,7 +59,6 @@ const Header = () => {
     setIconRotate3(!iconRotate3);
   }
 
-
   const [showItems4, setShowItems4] = useState(false);
   const [iconRotate4, setIconRotate4] = useState(false);
   function handleClicElements4() {
@@ -69,14 +66,19 @@ const Header = () => {
     setIconRotate4(!iconRotate4);
   }
 
-
-
   return (
     <>
       <PageHeader>
         <div className="header__web">
           <div className="header_menu">
-            <img src={logoThuY} alt="logo" width={30} onClick={() => { navigate(RouteEndpoints.home.basepath) }} />
+            <img
+              src={logoThuY}
+              alt="logo"
+              width={30}
+              onClick={() => {
+                navigate(RouteEndpoints.home.basepath);
+              }}
+            />
             <h4>PHẦN MỀM QUẢN LÝ KIỂM SOÁT GIẾT MỔ VÀ KIỂM DỊCH</h4>
           </div>
           {user ? (
@@ -88,29 +90,36 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Kiểm dịch
                       <span
-                        className={`icon ${iconRotate1 ? "iconRotate--90" : "iconRotate-0"
-                          }`}
+                        className={`icon ${
+                          iconRotate1 ? "iconRotate--90" : "iconRotate-0"
+                        }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${showItems1 ? "showItems" : ""
-                          }`}
+                        className={`dropdown-content-1 ${
+                          showItems1 ? "showItems" : ""
+                        }`}
                       >
                         <li>
-                          <Link to={quarantineEndpoints.home}>
-                            Báo cáo kiểm dịch
+                          <Link to={quarantineEndpoints.dkkd}>
+                            Đăng ký kiểm dịch
                           </Link>
                         </li>
                         <li>
-                          <Link to={medicalHygieneEndpoints.home}>
+                          <Link to={quarantineEndpoints.cnkd}>
+                            Chứng nhận kiểm dịch
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to={quarantineEndpoints.vsyt}>
                             Biên bản vệ sinh y tế
                           </Link>
                         </li>
                         <li>
-                          <Link to={quarantineEndpoints.home}>
+                          <Link to={quarantineEndpoints.cnkd}>
                             Hóa đơn kiểm dịch
                           </Link>
                         </li>
@@ -128,16 +137,18 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Giết mổ
                       <span
-                        className={`icon ${iconRotate2 ? "iconRotate--90" : "iconRotate-0"
-                          }`}
+                        className={`icon ${
+                          iconRotate2 ? "iconRotate--90" : "iconRotate-0"
+                        }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${showItems2 ? "showItems" : ""
-                          }`}
+                        className={`dropdown-content-1 ${
+                          showItems2 ? "showItems" : ""
+                        }`}
                       >
                         <li>
                           <Link to={abattoirEndpoints.home}>
@@ -163,16 +174,18 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Quản trị admin
                       <span
-                        className={`icon ${iconRotate3 ? "iconRotate--90" : "iconRotate-0"
-                          }`}
+                        className={`icon ${
+                          iconRotate3 ? "iconRotate--90" : "iconRotate-0"
+                        }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${showItems3 ? "showItems" : ""
-                          }`}
+                        className={`dropdown-content-1 ${
+                          showItems3 ? "showItems" : ""
+                        }`}
                       >
                         <li>
                           <Link to={staffEndpoints.home}>
@@ -218,27 +231,25 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Tài khoản
                       <span
-                        className={`icon ${iconRotate4 ? "iconRotate--90" : "iconRotate-0"
-                          }`}
+                        className={`icon ${
+                          iconRotate4 ? "iconRotate--90" : "iconRotate-0"
+                        }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${showItems4 ? "showItems" : ""
-                          }`}
+                        className={`dropdown-content-1 ${
+                          showItems4 ? "showItems" : ""
+                        }`}
                       >
                         <li>
                           <ChangePassword />
                         </li>
                         <li onClick={singOut}>
-                          <a>
-                            Đăng xuất
-                          </a>
-
+                          <a>Đăng xuất</a>
                         </li>
-
                       </ul>
                     </div>
                   </div>

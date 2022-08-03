@@ -1,19 +1,15 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Checkbox, notification, Space, Row } from "antd";
+import { Form, Input, Button, Checkbox, notification, Space } from "antd";
+
 import { UserApiRoute } from "Api";
 import { RouteEndpoints } from "Components/router/MainRouter";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
 import { publicEndpoints } from "Components/router/PublicRoutes";
 import { IconType } from "antd/lib/notification";
-import Cookies from "js-cookie";
 import logoThuY from "../../../Static/image/logo.png";
-import { PDFViewer } from "@react-pdf/renderer";
-import { PDF12B } from "Components/Shared/Form/PDF/PDF12B";
 import { SendEmailForgotPassword } from "../User/SendEmailForgotPassword";
-import { PDF7 } from "Components/Shared/Form/PDF/PDF7";
-
 
 export default function LoginPage() {
   return <LoginForm />;
@@ -78,13 +74,6 @@ const LoginForm = () => {
       .finally(() => setLoading(false));
   };
 
-  // return (
-  //   <Row align="middle" style={{ height: "100vh" }}>
-  //     <PDFViewer width={"100%"} height={"100%"}>
-  //       <PDF12B />
-  //     </PDFViewer>
-  //   </Row>
-  // );
   return (
     <>
       <div style={{ width: "100%", marginBottom: "1%" }}>
@@ -153,23 +142,15 @@ const LoginForm = () => {
             Đăng nhập
           </Button>
 
-          <Link
-            to={publicEndpoints.register}
-            style={{ marginLeft: 10 }}
-          >
+          <Link to={publicEndpoints.register} style={{ marginLeft: 10 }}>
             Chưa có tài khoản ?
           </Link>
         </Form.Item>
 
         <Form.Item style={{ justifyContent: "center" }}>
-
-
-
           <SendEmailForgotPassword />
-
         </Form.Item>
-
-      </Form>
+      </Form >
     </>
   );
 };

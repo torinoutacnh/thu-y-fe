@@ -1,0 +1,25 @@
+@import "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100&family=Edu+TAS+Beginner:wght@500&family=Great+Vibes&family=Ibarra+Real+Nova&family=Playfair+Display:wght@500&display=swap";
+.text {
+  vertical-align: middle; }
+  .text--success {
+    color: #1a9d25; }
+  .text--error {
+    color: #c02d2d; }
+  .text--warning {
+    color: #c4d021; }
+  .text--center {
+    text-align: center; }
+  .text--start {
+    text-align: start; }
+  .text--end {
+    text-align: end; }
+  .text--ff--primary {
+    font-family: "Ibarra Real Nova", serif; }
+  .text--ff--secondary {
+    font-family: "Edu TAS Beginner", cursive; }
+  .text--ff--third {
+    font-family: "Great Vibes", cursive; }
+  .text--ff--fourth {
+    font-family: "Playfair Display", serif; }
+  .text--ff--fifth {
+    font-family: "Barlow Condensed", sans-serif; }

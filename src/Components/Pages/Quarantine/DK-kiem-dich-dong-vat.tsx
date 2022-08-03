@@ -5,30 +5,34 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { MapTable } from "../../Shared/Form/Define/CustomTable";
 import { FileAddOutlined } from "@ant-design/icons";
-import { medicalHygieneEndpoints } from "Components/router/MedicalHygieneRoutes";
+import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 
-const MedicalHygiene = () => {
+const RegisterQuarantinePage = () => {
   const navigate = useNavigate();
   return (
     <>
       <PageHeader
-        title="Biên bản vệ sinh y tế"
+        title="Biên bản đăng ký kiểm dịch động vật"
         extra={[
           <Button
             key={getKeyThenIncreaseKey()}
             icon={<FileAddOutlined />}
             type="primary"
             onClick={() => {
-              navigate(medicalHygieneEndpoints.createreport);
+              const params = { code: ReportType["ĐK-KDĐV-001"] };
+              const path =
+                quarantineEndpoints.createreport.concat("?") +
+                new URLSearchParams(params as any);
+              navigate(path);
             }}
           >
             Tạo báo cáo
           </Button>,
         ]}
       />
-      <MapTable reportType={ReportType["BB-VSTY"]} />
+      <MapTable reportType={ReportType["ĐK-KDĐV-001"]} />
     </>
   );
 };
 
-export default MedicalHygiene;
+export default RegisterQuarantinePage;

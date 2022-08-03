@@ -1,4 +1,8 @@
-import { QuarantinePage } from "Components/Pages/Quarantine";
+import {
+  MedicalHygiene,
+  QuarantinePage,
+  RegisterQuarantinePage,
+} from "Components/Pages/Quarantine";
 import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";
 import { Route } from "react-router-dom";
 import { publicEndpoints } from "./PublicRoutes";
@@ -20,6 +24,9 @@ const quarantineEndpoints = {
   get cnkd() {
     return this.basepath.concat("/chung-nhan-kiem-dich");
   },
+  get dkkd() {
+    return this.basepath.concat("/dang-ky-kiem-dich");
+  },
   get createreport() {
     return this.basepath.concat("/tao-bao-cao");
   },
@@ -30,7 +37,7 @@ const quarantineEndpoints = {
 
 const QuarantineRoutes = [
   <Route
-    path={quarantineEndpoints.home}
+    path={quarantineEndpoints.cnkd}
     element={
       <PrivateRoute path={publicEndpoints.login}>
         <QuarantinePage />
@@ -39,10 +46,27 @@ const QuarantineRoutes = [
     key="quarantine-page"
   />,
   <Route
+    path={quarantineEndpoints.vsyt}
+    element={
+      <PrivateRoute path={publicEndpoints.login}>
+        <MedicalHygiene />
+      </PrivateRoute>
+    }
+    key="quarantine-page"
+  />,
+  <Route
+    path={quarantineEndpoints.dkkd}
+    element={
+      <PrivateRoute path={publicEndpoints.login}>
+        <RegisterQuarantinePage />
+      </PrivateRoute>
+    }
+    key="quarantine-page"
+  />,
+  <Route
     path={quarantineEndpoints.createreport}
     element={
       <PrivateRoute path={publicEndpoints.login}>
-        {/* <CreateReportPage /> */}
         <CreateQuarantineReportPage />
       </PrivateRoute>
     }
@@ -52,7 +76,6 @@ const QuarantineRoutes = [
     path={quarantineEndpoints.updatereport}
     element={
       <PrivateRoute path={publicEndpoints.login}>
-        {/* <UpdateReportPage /> */}
         <UpdateQuarantineReportPage />
       </PrivateRoute>
     }

@@ -222,14 +222,13 @@ const QuarantinePage = () => {
             <tr>
               <Space>
                 <Button
-                  onClick={() =>
-                    navigate(
-                      quarantineEndpoints.updatereport.replace(
-                        ":id",
-                        record.reportId
-                      )
-                    )
-                  }
+                  onClick={() => {
+                    const params = { id: record.reportId };
+                    const path =
+                      quarantineEndpoints.updatereport.concat("?") +
+                      new URLSearchParams(params);
+                    navigate(path);
+                  }}
                   type="link"
                 >
                   Cập nhật
@@ -256,7 +255,7 @@ const QuarantinePage = () => {
   return (
     <>
       <PageHeader
-        title="Báo cáo kiểm dịch"
+        title="Chứng nhận kiểm dịch"
         extra={[
           <Button
             key={getKeyThenIncreaseKey()}
@@ -283,4 +282,4 @@ const QuarantinePage = () => {
   );
 };
 
-export { QuarantinePage };
+export default QuarantinePage;

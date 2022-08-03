@@ -5,7 +5,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { MapTable } from "../../Shared/Form/Define/CustomTable";
 import { FileAddOutlined } from "@ant-design/icons";
-import { medicalHygieneEndpoints } from "Components/router/MedicalHygieneRoutes";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 
 const MedicalHygiene = () => {

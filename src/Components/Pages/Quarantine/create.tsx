@@ -57,7 +57,7 @@ export default function CreateQuarantineReportPage() {
         <RenderForm
           form={form}
           submitmethod={"POST"}
-          reportType={Number(search.code)}
+          reportType={Number(code)}
         />
       )}
     </>

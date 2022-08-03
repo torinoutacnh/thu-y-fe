@@ -2,7 +2,6 @@ import { Button, notification, Space, Table } from "antd";
 import { IconType } from "antd/lib/notification";
 import { ColumnsType } from "antd/lib/table";
 import { FormApiRoute, ReportApiRoute } from "Api";
-import { medicalHygieneEndpoints } from "Components/router/MedicalHygieneRoutes";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import { ReportType } from "Components/Shared/Form/Define/FormInterface";
 import {
@@ -82,7 +81,11 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
   };
 
   const editAction = (id: string) => {
-    navigate(medicalHygieneEndpoints.updatereport.replace(":id", id));
+    const params = { id: id };
+    const path =
+      quarantineEndpoints.updatereport.concat("?") +
+      new URLSearchParams(params);
+    navigate(path);
   };
 
   const openNotification = (

@@ -48,7 +48,7 @@ const SideBar = () => {
           label: "Báo cáo kiểm dịch",
           key: getKey(),
           onClick: () => {
-            navigate(quarantineEndpoints.home);
+            navigate(quarantineEndpoints.cnkd);
           },
         },
         {

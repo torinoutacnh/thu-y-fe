@@ -8,38 +8,70 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { publicEndpoints } from "Components/router/PublicRoutes";
 import moment from "moment";
+import AccountApiEndpoint from "Api/AccountApiRoute";
 
 export const useAuth = () => {
   const dispatch = useStoreDispatch();
   const navigate = useNavigate();
 
-  const RefreshToken = (token: string) => {
-    return;
+  const exptime = 1;
+
+  const RefreshToken = async (token: string) => {
+    return fetch(
+      process.env.REACT_APP_API.concat(AccountApiEndpoint.refreshToken),
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token }),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => console.log(error));
   };
 
   const setUser = (user: UserLoginModel) => {
+    const newexp = moment(new Date(), "DD-MM-YYYY hh:mm:ss")
+      .add(exptime, "hours")
+      .toString();
+    user.expired = user?.expired ?? newexp;
+
     Cookies.set("user", JSON.stringify(user), {
       path: "/",
-      expires: 1 / 24,
+      expires: exptime / 24,
       sameSite: "Strict",
     });
 
     const expired = moment(new Date(user.expired), "DD-MM-YYYY hh:mm:ss");
     const now = moment(new Date(), "DD-MM-YYYY hh:mm:ss");
 
-    if (!expired.isBefore(now.add(-15, "seconds"))) {
+    if (!expired.isBefore(now.add(15, "seconds"))) {
       const timediff = expired.diff(now, "milliseconds", false);
-      console.log(timediff);
-
+      dispatch(login(user));
       setTimeout(() => {
-        singOut();
-        navigate(publicEndpoints.login);
+        RefreshToken(user.refreshToken)
+          .then((data) => {
+            if (data) {
+              setUser(data);
+            } else {
+              singOut();
+              navigate(publicEndpoints.login);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            singOut();
+            navigate(publicEndpoints.login);
+          });
       }, timediff);
     } else {
-      console.log(now);
+      singOut();
+      navigate(publicEndpoints.login);
     }
-
-    dispatch(login(user));
   };
 
   const singOut = () => {

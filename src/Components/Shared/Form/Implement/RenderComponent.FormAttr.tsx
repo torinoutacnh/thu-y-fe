@@ -26,7 +26,7 @@ function RenderFormAttrs(props: { form: FormModel }) {
               style={{ paddingRight: 30 }}
             >
               <Form.Item
-                name={["values", idx, "attributeId"]}
+                name={["values", attr.sortNo, "attributeId"]}
                 initialValue={attr.id}
                 hidden={true}
                 shouldUpdate={(prevValues, curValues) =>

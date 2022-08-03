@@ -66,10 +66,6 @@ const LoginForm = () => {
       })
       .then((data) => {
         openNotification("Đăng nhập thành công", "success");
-        const expired = moment(new Date(), "DD-MM-YYYY hh:mm:ss")
-          .add(1, "hours")
-          .toString();
-        (data.data as UserLoginModel).expired = expired;
         setUser(data.data);
         navigate(RouteEndpoints.home.basepath, { replace: true });
       })

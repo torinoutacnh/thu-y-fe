@@ -1,13 +1,9 @@
-import { type } from "@testing-library/user-event/dist/type";
-import { Space, Button, Typography } from "antd";
-import { ColumnsType, ColumnType } from "antd/lib/table";
-import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
+import { ColumnsType } from "antd/lib/table";
 import {
   AttributeModel,
   ReportModel,
   ReportValueModel,
 } from "Components/Shared/Models/Form";
-import "./antd-override.css";
 
 const AttrsToColumns = (attrs: AttributeModel[]) => {
   attrs.sort((a, b) => a.sortNo - b.sortNo);

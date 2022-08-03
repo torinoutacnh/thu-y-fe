@@ -86,6 +86,14 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
     navigate(path);
   };
 
+  const mapFormAction = (id: string, code: ReportType) => {
+    const params = { id: id, code: code };
+    const path =
+      quarantineEndpoints.createreport.concat("?") +
+      new URLSearchParams(params as any);
+    navigate(path);
+  };
+
   const openNotification = (
     message: string,
     type: IconType,
@@ -116,8 +124,8 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
         .then((data) => {
           if (data.data) {
             openNotification("Xóa thành công", "success");
+            getReports();
           }
-          console.log(data);
         })
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
@@ -135,9 +143,21 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
         title: "Xử lý",
         key: "action",
         fixed: "right",
+        align: "center",
+        width: 100,
         render: (record) => (
           <>
-            <Space>
+            <Space style={{ flexDirection: "column" }}>
+              {reportType === ReportType["ĐK-KDĐV-001"] && (
+                <Button
+                  onClick={() =>
+                    mapFormAction(record.id, ReportType["CN-KDĐV-UQ"])
+                  }
+                  type="link"
+                >
+                  Tạo form 7
+                </Button>
+              )}
               <Button onClick={() => editAction(record.id)} type="link">
                 Cập nhật
               </Button>

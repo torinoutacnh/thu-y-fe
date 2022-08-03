@@ -62,12 +62,12 @@ const QuarantinePage = () => {
       const api =
         user?.role === RoleType["Quản lý"]
           ? process.env.REACT_APP_API.concat(
-              ReportApiRoute.listRegisterQuarantineAnimal
-            )
+            ReportApiRoute.listRegisterQuarantineAnimal
+          )
           : process.env.REACT_APP_API.concat(
-              ReportApiRoute.listRegisterQuarantineAnimal,
-              "?"
-            ) + new URLSearchParams({ userId: user.userId });
+            ReportApiRoute.listRegisterQuarantineAnimal,
+            "?"
+          ) + new URLSearchParams({ userId: user.userId });
       fetch(api, {
         method: "GET",
         headers: {
@@ -79,10 +79,10 @@ const QuarantinePage = () => {
         .then((data) => {
           console.log(data);
           (data.data as Array<ReportModel>).sort((a, b) => {
-            console.log(a.dateCreated, b.dateCreated);
-
             return -moment(a.dateCreated).diff(moment(b.dateCreated));
           });
+          console.log(data.data);
+
           setReports(data.data);
         })
         .catch((error) => console.log(error))

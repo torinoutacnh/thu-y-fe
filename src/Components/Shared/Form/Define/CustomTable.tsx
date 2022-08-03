@@ -71,8 +71,8 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           const src = ReportsToSource(data.data);
+          console.log(src);
           setDatasource(src);
         })
         .catch((error) => console.log(error))

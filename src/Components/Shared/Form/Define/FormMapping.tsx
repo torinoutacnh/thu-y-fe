@@ -1,13 +1,9 @@
-import { type } from "@testing-library/user-event/dist/type";
-import { Space, Button } from "antd";
-import { ColumnsType, ColumnType } from "antd/lib/table";
-import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
+import { ColumnsType } from "antd/lib/table";
 import {
   AttributeModel,
   ReportModel,
   ReportValueModel,
 } from "Components/Shared/Models/Form";
-import React from "react";
 
 const AttrsToColumns = (attrs: AttributeModel[]) => {
   attrs.sort((a, b) => a.sortNo - b.sortNo);
@@ -16,6 +12,13 @@ const AttrsToColumns = (attrs: AttributeModel[]) => {
       title: _.name,
       dataIndex: _.id,
       key: idx,
+      render(value, record, index) {
+        return (
+          <>
+            <p data-label={_.name}>{record[_.id]}</p>
+          </>
+        );
+      },
     };
   });
 

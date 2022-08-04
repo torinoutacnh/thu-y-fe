@@ -7,13 +7,11 @@ import { ReportType } from "Components/Shared/Form/Define/FormInterface";
 import {
   AttrsToColumns,
   ReportsToSource,
-  ReportToData,
 } from "Components/Shared/Form/Define/FormMapping";
-import { FormModel, ReportModel } from "Components/Shared/Models/Form";
-import { RoleType } from "Components/Shared/Models/User";
+import { FormModel } from "Components/Shared/Models/Form";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MapTable = ({ reportType }: { reportType: ReportType }) => {
@@ -40,7 +38,6 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (!data.data)
             throw new Error(
               `Không thấy biểu mẫu có mã là ${ReportType[reportType]}`
@@ -71,6 +68,8 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
       })
         .then((res) => res.json())
         .then((data) => {
+          console.log(data.data);
+
           const src = ReportsToSource(data.data);
           console.log(src);
           setDatasource(src);
@@ -85,6 +84,14 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
     const path =
       quarantineEndpoints.updatereport.concat("?") +
       new URLSearchParams(params);
+    navigate(path);
+  };
+
+  const mapFormAction = (id: string, code: ReportType) => {
+    const params = { id: id, code: code };
+    const path =
+      quarantineEndpoints.createreport.concat("?") +
+      new URLSearchParams(params as any);
     navigate(path);
   };
 
@@ -118,8 +125,8 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
         .then((data) => {
           if (data.data) {
             openNotification("Xóa thành công", "success");
+            getReports();
           }
-          console.log(data);
         })
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
@@ -136,10 +143,22 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
       cols.push({
         title: "Xử lý",
         key: "action",
+        fixed: "right",
+        align: "center",
+        width: 100,
         render: (record) => (
           <>
-            {console.log(record)}
-            <Space>
+            <Space style={{ flexDirection: "column" }}>
+              {reportType === ReportType["ĐK-KDĐV-001"] && (
+                <Button
+                  onClick={() =>
+                    mapFormAction(record.id, ReportType["CN-KDĐV-UQ"])
+                  }
+                  type="link"
+                >
+                  Tạo form 7
+                </Button>
+              )}
               <Button onClick={() => editAction(record.id)} type="link">
                 Cập nhật
               </Button>
@@ -166,6 +185,7 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
         columns={columns}
         rowKey={"key"}
         dataSource={datasource}
+        scroll={{ x: "100%" }}
       />
     </>
   );

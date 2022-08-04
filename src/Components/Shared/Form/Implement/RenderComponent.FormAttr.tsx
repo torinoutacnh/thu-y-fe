@@ -9,6 +9,7 @@ import React, { useRef } from "react";
 
 function RenderFormAttrs(props: { form: FormModel }) {
   const { form } = props;
+
   const keyref = useRef(0);
   return (
     <Row key={keyref.current++}>
@@ -25,7 +26,7 @@ function RenderFormAttrs(props: { form: FormModel }) {
               style={{ paddingRight: 30 }}
             >
               <Form.Item
-                name={["values", idx, "attributeId"]}
+                name={["values", attr.sortNo, "attributeId"]}
                 initialValue={attr.id}
                 hidden={true}
                 shouldUpdate={(prevValues, curValues) =>
@@ -72,9 +73,6 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
           name={["values", idx, "value"]}
-          shouldUpdate={(prevValues, curValues) =>
-            prevValues.values !== curValues.values
-          }
           initialValue={null}
         >
           <Input />
@@ -88,15 +86,10 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
           name={["values", idx, "value"]}
-          shouldUpdate={(prevValues, curValues) =>
-            prevValues.values !== curValues.values
-          }
           initialValue={""}
           rules={[
             {
-              required: true,
               type: "number",
-
               message: "Sai định dạng!",
               transform: (i) => Number(i),
             },
@@ -113,9 +106,6 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
           name={["values", idx, "value"]}
-          shouldUpdate={(prevValues, curValues) =>
-            prevValues.values !== curValues.values
-          }
           initialValue={moment()}
           getValueProps={(i) => {
             return { value: i ? moment(i) : moment() };
@@ -132,9 +122,6 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
           name={["values", idx, "value"]}
-          shouldUpdate={(prevValues, curValues) =>
-            prevValues.values !== curValues.values
-          }
           initialValue={null}
           rules={[
             {

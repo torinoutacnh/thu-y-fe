@@ -20,7 +20,7 @@ const UserApiRoute = {
   },
 
   get verifyEmail() {
-    return "/accounts/verify-email"
+    return "/accounts/verify-email";
   },
   get login() {
     return this.Base.concat("/login");

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Form, Input, Button, Checkbox, notification, Space } from "antd";
 
-import { UserApiRoute } from "Api";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "Modules/hooks/useAuth";
@@ -10,8 +9,7 @@ import { publicEndpoints } from "Components/router/PublicRoutes";
 import { IconType } from "antd/lib/notification";
 import logoThuY from "../../../Static/image/logo.png";
 import { SendEmailForgotPassword } from "../User/SendEmailForgotPassword";
-import { UserLoginModel } from "Components/Shared/Models/User";
-import moment from "moment";
+import AccountApiEndpoint from "Api/AccountApiRoute";
 
 export default function LoginPage() {
   return <LoginForm />;
@@ -51,7 +49,7 @@ const LoginForm = () => {
   const Login = async () => {
     if (!validateUser()) return;
     setLoading(true);
-    fetch(process.env.REACT_APP_API.concat(UserApiRoute.login), {
+    fetch(process.env.REACT_APP_API.concat(AccountApiEndpoint.login), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,8 +63,8 @@ const LoginForm = () => {
         return res.json();
       })
       .then((data) => {
+        setUser(data);
         openNotification("Đăng nhập thành công", "success");
-        setUser(data.data);
         navigate(RouteEndpoints.home.basepath, { replace: true });
       })
       .catch((error) => {

@@ -17,6 +17,7 @@ import { VerifyEmail } from "Components/Pages/Register/VerifyEmail";
 import { MyAllocateReceipt } from "Components/Pages/ManageReceipt/MyAllocateReceipt";
 import ReceiptReportIndex from "Components/Pages/ReceiptReport";
 import { VerifyForgotPassword } from "Components/Pages/User/VerifyForgotPassword";
+import FormTest from "Components/Pages/TestPages";
 
 export class RouteEndpoints {
   static home = { basepath: "/" };
@@ -136,6 +137,7 @@ export default function MainRouter() {
       />
 
       {/* /////////////////////////////////////////////// */}
+      <Route path={"/test"} element={<FormTest />} key="test form" />
       <Route path="*" element={<h1>Not found</h1>} />
     </Routes>
   );

@@ -22,9 +22,6 @@ const UserApiRoute = {
   get verifyEmail() {
     return "/accounts/verify-email";
   },
-  get login() {
-    return this.Base.concat("/login");
-  },
   get getUser() {
     return this.Base.concat("/get-user");
   },

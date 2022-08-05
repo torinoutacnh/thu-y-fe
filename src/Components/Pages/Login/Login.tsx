@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Form, Input, Button, Checkbox, notification, Space } from "antd";
 
-import { UserApiRoute } from "Api";
 import { RouteEndpoints } from "Components/router/MainRouter";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "Modules/hooks/useAuth";
@@ -10,8 +9,7 @@ import { publicEndpoints } from "Components/router/PublicRoutes";
 import { IconType } from "antd/lib/notification";
 import logoThuY from "../../../Static/image/logo.png";
 import { SendEmailForgotPassword } from "../User/SendEmailForgotPassword";
-import { UserLoginModel } from "Components/Shared/Models/User";
-import moment from "moment";
+import AccountApiEndpoint from "Api/AccountApiRoute";
 
 import { PDFViewer } from "@react-pdf/renderer";
 import { PDF12B } from "Components/Shared/Form/PDF/PDF12B";
@@ -56,7 +54,7 @@ const LoginForm = () => {
   const Login = async () => {
     if (!validateUser()) return;
     setLoading(true);
-    fetch(process.env.REACT_APP_API.concat(UserApiRoute.login), {
+    fetch(process.env.REACT_APP_API.concat(AccountApiEndpoint.login), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,8 +68,8 @@ const LoginForm = () => {
         return res.json();
       })
       .then((data) => {
+        setUser(data);
         openNotification("Đăng nhập thành công", "success");
-        setUser(data.data);
         navigate(RouteEndpoints.home.basepath, { replace: true });
       })
       .catch((error) => {
@@ -81,92 +79,92 @@ const LoginForm = () => {
       .finally(() => setLoading(false));
   };
 
-  // return (
-  //   <>
-  //     <div style={{ width: "100%", marginBottom: "1%" }}>
-  //       <img
-  //         src={logoThuY}
-  //         style={{
-  //           width: "10%",
-  //           display: "block",
-  //           marginLeft: "auto",
-  //           marginRight: "auto",
-  //         }}
-  //       />
-  //     </div>
-
-  //     <Space
-  //       align="center"
-  //       direction="horizontal"
-  //       style={{ width: "100%", justifyContent: "center" }}
-  //     >
-  //       <h1>Đăng nhập</h1>
-  //     </Space>
-  //     <Form
-  //       labelCol={{ span: 8 }}
-  //       wrapperCol={{ span: 8 }}
-  //       initialValues={{ remember: true }}
-  //       // autoComplete="off"
-  //       onFinish={Login}
-  //       style={{ marginTop: 20 }}
-  //     >
-  //       <Form.Item
-  //         label="Tài khoản"
-  //         name="username"
-  //         rules={[{ required: true, message: "Nhập tài khoản!" }]}
-  //       >
-  //         <Input
-  //           onChange={(e) => {
-  //             setUserInfo({ ...userinfo, username: e.target.value });
-  //           }}
-  //           value={userinfo.username ?? ""}
-  //         />
-  //       </Form.Item>
-
-  //       <Form.Item
-  //         label="Mật khẩu"
-  //         name="password"
-  //         rules={[{ required: true, message: "Nhập mật khẩu !" }]}
-  //       >
-  //         <Input.Password
-  //           onChange={(e) => {
-  //             setUserInfo({ ...userinfo, password: e.target.value });
-  //           }}
-  //           value={userinfo.password ?? ""}
-  //         />
-  //       </Form.Item>
-
-  //       <Form.Item
-  //         name="remember"
-  //         valuePropName="checked"
-  //         style={{ justifyContent: "center" }}
-  //       >
-  //         <Checkbox>Remember me</Checkbox>
-  //       </Form.Item>
-
-  //       <Form.Item style={{ justifyContent: "center" }}>
-  //         <Button type="primary" htmlType="submit">
-  //           Đăng nhập
-  //         </Button>
-
-  //         <Link to={publicEndpoints.register} style={{ marginLeft: 10 }}>
-  //           Chưa có tài khoản ?
-  //         </Link>
-  //       </Form.Item>
-
-  //       <Form.Item style={{ justifyContent: "center" }}>
-  //         <SendEmailForgotPassword />
-  //       </Form.Item>
-  //     </Form >
-  //   </>
-  // );
-
   return (
-    <Row align="middle" style={{ height: "100vh" }}>
-      <PDFViewer width={"100%"} height={"100%"}>
-        <PDF12D />
-      </PDFViewer>
-    </Row>
-  )
+    <>
+      <div style={{ width: "100%", marginBottom: "1%" }}>
+        <img
+          src={logoThuY}
+          style={{
+            width: "10%",
+            display: "block",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        />
+      </div>
+
+      <Space
+        align="center"
+        direction="horizontal"
+        style={{ width: "100%", justifyContent: "center" }}
+      >
+        <h1>Đăng nhập</h1>
+      </Space>
+      <Form
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 8 }}
+        initialValues={{ remember: true }}
+        // autoComplete="off"
+        onFinish={Login}
+        style={{ marginTop: 20 }}
+      >
+        <Form.Item
+          label="Tài khoản"
+          name="username"
+          rules={[{ required: true, message: "Nhập tài khoản!" }]}
+        >
+          <Input
+            onChange={(e) => {
+              setUserInfo({ ...userinfo, username: e.target.value });
+            }}
+            value={userinfo.username ?? ""}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Mật khẩu"
+          name="password"
+          rules={[{ required: true, message: "Nhập mật khẩu !" }]}
+        >
+          <Input.Password
+            onChange={(e) => {
+              setUserInfo({ ...userinfo, password: e.target.value });
+            }}
+            value={userinfo.password ?? ""}
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="remember"
+          valuePropName="checked"
+          style={{ justifyContent: "center" }}
+        >
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
+
+        <Form.Item style={{ justifyContent: "center" }}>
+          <Button type="primary" htmlType="submit">
+            Đăng nhập
+          </Button>
+
+          <Link to={publicEndpoints.register} style={{ marginLeft: 10 }}>
+            Chưa có tài khoản ?
+          </Link>
+        </Form.Item>
+
+        <Form.Item style={{ justifyContent: "center" }}>
+          <SendEmailForgotPassword />
+        </Form.Item>
+      </Form >
+    </>
+  );
+
+  // return (
+  //   <Row align="middle" style={{ height: "100vh" }}>
+  //     <PDFViewer width={"100%"} height={"100%"}>
+  //       <PDF12D />
+  //     </PDFViewer>
+  //   </Row>
+  // )
 
 };

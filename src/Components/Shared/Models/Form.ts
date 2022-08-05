@@ -14,6 +14,8 @@ interface AttributeModel {
     dataType: DataTypes;
     controlType: ControlTypes;
     sortNo: number;
+    value?:any;
+    attributeCode?: string;
 }
 
 interface ReportModel {
@@ -22,6 +24,7 @@ interface ReportModel {
     userId: string;
     formId: string;
     type: number;
+    userName?:string;
     dateCreated?:string;
     values: ReportValueModel[];
     listAnimals:AnimalModel[];
@@ -50,6 +53,8 @@ interface ReportValueModel {
     sort: number;
     reportId?: string;
     animalId?: string;
+    attributeCode?:string;
+    formName?:string;
 }
 
 interface ReportQueryModel {

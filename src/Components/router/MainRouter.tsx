@@ -18,6 +18,8 @@ import { MyAllocateReceipt } from "Components/Pages/ManageReceipt/MyAllocateRece
 import ReceiptReportIndex from "Components/Pages/ReceiptReport";
 import { VerifyForgotPassword } from "Components/Pages/User/VerifyForgotPassword";
 import { PrintPDF12B } from "Components/Pages/PrintPDF/PrintPDF12B";
+import FormTest from "Components/Pages/TestPages";
+import { PrintPDF12D } from "Components/Pages/PrintPDF/PrintPDF12D";
 
 export class RouteEndpoints {
   static home = { basepath: "/" };
@@ -37,6 +39,9 @@ export class RouteEndpoints {
   static notfound = "/chuc-nang-dang-phat-trien";
 
   static printPdf12b = "/pdf12b"
+  static printPdf12d = "/pdf12d"
+  static printPdf7 = "/pdf7"
+  static printPdf1 = "/pdf1"
 
   static verifyEmail = "/verify"
 
@@ -146,12 +151,42 @@ export default function MainRouter() {
             <PrintPDF12B />
           </PrivateRoute>
         }
-        key="update-allocate-receipt"
+        key="print-pdf12b"
+      />
+
+      <Route
+        path={RouteEndpoints.printPdf12d}
+        element={
+          <PrivateRoute path={publicEndpoints.login}>
+            <PrintPDF12D />
+          </PrivateRoute>
+        }
+        key="print-pdf12d"
+      />
+      <Route
+        path={RouteEndpoints.printPdf1}
+        element={
+          <PrivateRoute path={publicEndpoints.login}>
+            <PrintPDF12B />
+          </PrivateRoute>
+        }
+        key="print-pdf1"
+      />
+      <Route
+        path={RouteEndpoints.printPdf7}
+        element={
+          <PrivateRoute path={publicEndpoints.login}>
+            <PrintPDF12B />
+          </PrivateRoute>
+        }
+        key="print-pdf17"
       />
 
 
 
+
       {/* /////////////////////////////////////////////// */}
+      <Route path={"/test"} element={<FormTest />} key="test form" />
       <Route path="*" element={<h1>Not found</h1>} />
     </Routes>
   );

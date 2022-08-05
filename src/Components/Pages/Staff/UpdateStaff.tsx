@@ -18,7 +18,7 @@ function UpdateStaff() {
   useEffect(() => {
     if (id && user) {
       setLoading(true);
-      fetch(process.env.REACT_APP_API.concat(UserApiRoute.Base, "?") + new URLSearchParams({ id: id }), {
+      fetch(process.env.REACT_APP_API.concat(UserApiRoute.getSingle, "?") + new URLSearchParams({ id: id }), {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +71,17 @@ function UpdateStaff() {
     });
   };
 
+  const checkpass = () => {
+    const tmp = form.getFieldValue("password")
+    if (tmp.length === 0) {
+      return true
+    }
+    return false
+  }
+
   const onFinishUpdate = () => {
+
+    if (checkpass()) return
     if (user) {
 
       const newUser = {

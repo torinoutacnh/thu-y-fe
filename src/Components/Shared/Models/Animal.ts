@@ -1,13 +1,19 @@
+import { SexType } from "./User";
 
 interface AnimalModel{
-    id:	string,
-    name: string,
-    description: string,
-    dayAge: number,
+    id?:	string,
+    name?: string,
+    description?: string,
+    dayAge?: number,
     isCar?: boolean,
-    sex	: number,
-    Enum: number,
-    pricing: number,
+    sex?	: number,
+    Enum?: number,
+    pricing?: number,
+    animalName?:string;
+    animalId?:string;
+    amount?:number;
+    animalSex?:SexType;
+    reportTicketId?:string;
 }
 
 interface CreateAnimalItemModel{

@@ -376,7 +376,7 @@ const PDF12D = (props: any) => {
                         <Text style={{ width: "33%", marginTop: 0, fontSize: 10, color: "white" }}>
                             {`Email: `}
                         </Text>
-                        <Text style={{ fontSize: 10, maxWidth: "67%", paddingLeft: "5px" }}>
+                        <Text style={{ fontSize: 10, maxWidth: "67%", paddingLeft: "2px" }}>
                             {'abc@gmail.com'}
                         </Text>
                     </View>
@@ -474,10 +474,10 @@ const PDF12D = (props: any) => {
                     </View>
 
                     <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "23%" }}>
-                        <Text style={{ width: "33%", marginTop: 0, fontSize: 10, color: "white", paddingLeft: "15px" }}>
+                        <Text style={{ width: "37%", marginTop: 0, fontSize: 10, color: "white", paddingLeft: "20px" }}>
                             {`Email: `}
                         </Text>
-                        <Text style={{ fontSize: 9, maxWidth: "67%" }}>
+                        <Text style={{ fontSize: 9, maxWidth: "64%" }}>
                             {'abc@gmail.com'}
                         </Text>
                     </View>

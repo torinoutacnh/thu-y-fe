@@ -14,6 +14,8 @@ import { useLoading } from "Modules/hooks/useLoading";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import "../../../../Static/css/antd-override.css";
+
 const MapTable = ({ reportType }: { reportType: ReportType }) => {
   const [form, setForm] = useState<FormModel>();
   const [columns, setColumns] = useState<ColumnsType<any>>([]);
@@ -148,7 +150,7 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
         width: 100,
         render: (record) => (
           <>
-            <Space style={{ flexDirection: "column" }}>
+            <Space className="space-media">
               {reportType === ReportType["ĐK-KDĐV-001"] && (
                 <Button
                   onClick={() =>

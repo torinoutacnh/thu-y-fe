@@ -102,6 +102,10 @@ const RenderForm: React.FC<RenderProps> = ({
   }
 
   function UpdateAttribute() {
+    console.log(
+      formref.getFieldsValue(),
+      JSON.stringify(formref.getFieldsValue())
+    );
     if (user?.token) {
       setLoading(true);
       fetch(process.env.REACT_APP_API.concat(ReportApiRoute.update), {

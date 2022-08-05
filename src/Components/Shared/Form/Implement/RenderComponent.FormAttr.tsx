@@ -29,9 +29,6 @@ function RenderFormAttrs(props: { form: FormModel }) {
                 name={["values", attr.sortNo, "attributeId"]}
                 initialValue={attr.id}
                 hidden={true}
-                shouldUpdate={(prevValues, curValues) =>
-                  prevValues.values !== curValues.values
-                }
               >
                 <Input />
               </Form.Item>
@@ -48,6 +45,16 @@ function RenderFormAttrs(props: { form: FormModel }) {
               <Form.Item
                 name={["values", idx, "sort"]}
                 initialValue={attr.sortNo}
+                hidden={true}
+                shouldUpdate={(prevValues, curValues) =>
+                  prevValues.values !== curValues.values
+                }
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name={["values", idx, "attributeCode"]}
+                initialValue={attr.attributeCode}
                 hidden={true}
                 shouldUpdate={(prevValues, curValues) =>
                   prevValues.values !== curValues.values
@@ -73,7 +80,7 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
           name={["values", idx, "value"]}
-          initialValue={null}
+          initialValue={attr.value ?? null}
         >
           <Input />
         </Form.Item>
@@ -86,7 +93,7 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
           name={["values", idx, "value"]}
-          initialValue={""}
+          initialValue={attr.value ?? ""}
           rules={[
             {
               type: "number",
@@ -106,7 +113,9 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
           name={["values", idx, "value"]}
-          initialValue={moment()}
+          initialValue={
+            attr.value ? moment(attr.value, "yyyyMMdd hh:mm:s") : moment()
+          }
           getValueProps={(i) => {
             return { value: i ? moment(i) : moment() };
           }}
@@ -122,7 +131,7 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
           name={["values", idx, "value"]}
-          initialValue={null}
+          initialValue={attr.value ?? null}
           rules={[
             {
               type: "email",

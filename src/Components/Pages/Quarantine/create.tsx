@@ -12,7 +12,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function CreateQuarantineReportPage() {
   const [form, setForm] = useState<FormModel>();
-  const [report, setReport] = useState<ReportModel>();
   const { user } = useAuth();
   const { setLoading } = useLoading();
 
@@ -24,28 +23,6 @@ export default function CreateQuarantineReportPage() {
   if (!code || !QuarantineReportType[Number(code)]) {
     navigate("/not-found", { replace: true });
   }
-
-  useEffect(() => {
-    if (id && user?.token) {
-      fetch(
-        process.env.REACT_APP_API.concat(ReportApiRoute.getSingleReport, "?") +
-          new URLSearchParams({ reportId: id }),
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer ".concat(user.token),
-          },
-        }
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          setReport(data.data);
-        })
-        .catch((error) => console.log(error));
-    }
-  }, [id, user?.token]);
 
   useEffect(() => {
     if (user?.token) {
@@ -69,14 +46,13 @@ export default function CreateQuarantineReportPage() {
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
     }
-  }, [user.token, code, id]);
+  }, [user.userId, code, id]);
 
   return (
     <>
       {form && (
         <RenderForm
           form={form}
-          reportvalue={report}
           submitmethod={"POST"}
           reportType={Number(code)}
         />

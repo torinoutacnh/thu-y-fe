@@ -25,7 +25,7 @@ export default function CreateQuarantineReportPage() {
   }
 
   useEffect(() => {
-    if (user?.token) {
+    if (user && code) {
       setLoading(true);
       const search = { code: ReportType[Number(code)], refReportId: id };
       fetch(
@@ -46,7 +46,7 @@ export default function CreateQuarantineReportPage() {
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
     }
-  }, [user.userId, code, id]);
+  }, [user?.userId, code, id]);
 
   return (
     <>

@@ -72,7 +72,6 @@ const RenderForm: React.FC<RenderProps> = ({
   };
 
   function submit() {
-    console.log(formref.getFieldsValue());
     if (user?.token) {
       setLoading(true);
       fetch(process.env.REACT_APP_API.concat(ReportApiRoute.create), {

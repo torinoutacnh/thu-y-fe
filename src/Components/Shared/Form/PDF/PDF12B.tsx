@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Document,
   Page,
@@ -9,6 +9,7 @@ import {
   Font
 } from "@react-pdf/renderer";
 import { DataPdfModel, listAnimalModel } from "Components/Pages/PrintPDF/PrintPDF12B";
+import { ToVietnamese } from "./ConvertNumberToVietnamese"
 
 
 Font.register({
@@ -185,7 +186,8 @@ const styles = StyleSheet.create({
     height: "100%",
     paddingTop: "3px",
     paddingBottom: "3px",
-    alignItems: "center"
+    alignItems: "center", maxLines: 1, textOverflow: "ellipsis",
+    paddingLeft: "2px", paddingRight: "2px"
   },
 
   colBody31: {
@@ -197,7 +199,8 @@ const styles = StyleSheet.create({
     height: "100%",
     paddingTop: "3px",
     paddingBottom: "3px",
-    alignItems: "center"
+    alignItems: "center", maxLines: 1, textOverflow: "ellipsis",
+    paddingLeft: "2px", paddingRight: "2px"
   },
 
   colBody13: {
@@ -206,7 +209,8 @@ const styles = StyleSheet.create({
     borderBottom: "1px solid white",
     height: "100%",
     paddingTop: "3px",
-    paddingBottom: "3px",
+    paddingBottom: "3px", maxLines: 1, textOverflow: "ellipsis",
+    paddingLeft: "2px", paddingRight: "2px"
   },
   colBody12_1: {
     width: "12%",
@@ -215,7 +219,8 @@ const styles = StyleSheet.create({
     borderLeft: "1px solid white",
     height: "100%",
     paddingTop: "3px",
-    paddingBottom: "3px",
+    paddingBottom: "3px", maxLines: 1, textOverflow: "ellipsis",
+    paddingLeft: "2px", paddingRight: "2px"
   },
   colBody12_2: {
     width: "12%",
@@ -225,7 +230,8 @@ const styles = StyleSheet.create({
     borderRight: "1px solid white",
     height: "100%",
     paddingTop: "3px",
-    paddingBottom: "3px",
+    paddingBottom: "3px", maxLines: 1, textOverflow: "ellipsis",
+    paddingLeft: "2px", paddingRight: "2px"
   },
 
 
@@ -287,6 +293,24 @@ const PDF12B = (props: any) => {
   const month_ngaycap = date.getMonth() + 1
   const year_ngaycap = date.getFullYear()
 
+
+
+  const tongSo = () => {
+
+    const tmp = {
+      count: 0
+    }
+
+    listanimal.map((item, index) => {
+      return (
+        tmp.count += Number(item.amount)
+      )
+    })
+
+    return tmp.count
+  }
+
+
   const ani = () => {
     return (
       <View style={[styles.row_body, styles.bold]}>
@@ -302,7 +326,6 @@ const PDF12B = (props: any) => {
 
   const line = () => {
     const count = listanimal.length
-
     if (count === 3) return
     else if (count === 2) {
       return (
@@ -386,7 +409,7 @@ const PDF12B = (props: any) => {
           <Text style={{ fontSize: 11, width: "43%", color: "white" }}>
             {`Họ tên chủ hàng (hoặc người đại diện): `}
           </Text>
-          <Text style={{ fontSize: 10, maxWidth: "40%" }}>
+          <Text style={{ fontSize: 10, maxWidth: "40%", maxLines: 1, textOverflow: "ellipsis", }}>
             {`${attribute.tenchuhang}`}
           </Text>
         </View>
@@ -395,7 +418,7 @@ const PDF12B = (props: any) => {
           <Text style={{ fontSize: 11, width: "20%", color: "white" }}>
             {`Địa chỉ giao dịch: `}
           </Text>
-          <Text style={{ fontSize: 9, maxWidth: "50%", marginTop: "1px" }}>
+          <Text style={{ fontSize: 9, maxWidth: "50%", marginTop: "1px", maxLines: 1, textOverflow: "ellipsis", }}>
             {`${attribute.diachigd}`}
           </Text>
         </View>
@@ -407,7 +430,7 @@ const PDF12B = (props: any) => {
             <Text style={{ width: "43%", marginTop: 0, fontSize: 11, color: "white" }}>
               {`Điện thoại: `}
             </Text>
-            <Text style={{ fontSize: 10, maxWidth: "47%" }}>
+            <Text style={{ fontSize: 10, maxWidth: "47%", maxLines: 1, textOverflow: "ellipsis", }}>
               {`${attribute.dienthoai}`}
             </Text>
           </View>
@@ -416,7 +439,7 @@ const PDF12B = (props: any) => {
             <Text style={{ width: "26%", marginTop: 0, fontSize: 11, color: "white" }}>
               {`Fax: `}
             </Text>
-            <Text style={{ fontSize: 10, maxWidth: "70%", paddingLeft: "5px" }}>
+            <Text style={{ fontSize: 10, maxWidth: "70%", paddingLeft: "5px", maxLines: 1, textOverflow: "ellipsis", }}>
               {`${attribute.fax}`}
             </Text>
           </View>
@@ -425,7 +448,7 @@ const PDF12B = (props: any) => {
             <Text style={{ width: "33%", marginTop: 0, fontSize: 11, color: "white" }}>
               {`Email: `}
             </Text>
-            <Text style={{ fontSize: 10, maxWidth: "67%" }}>
+            <Text style={{ fontSize: 10, maxWidth: "67%", maxLines: 1, textOverflow: "ellipsis", }}>
               {`${attribute.email}`}
             </Text>
           </View>
@@ -484,7 +507,7 @@ const PDF12B = (props: any) => {
             <Text style={[styles.colBody13, { fontStyle: 'bold' }]}>{' '}</Text>
             <Text style={[styles.colBody12_1, { fontStyle: 'bold' }]}>{' '}</Text>
             <Text style={[styles.colBody12_2, { fontStyle: 'bold' }]}> {' '}</Text>
-            <Text style={[styles.colBody13, { fontStyle: 'bold' }]}>{' '}</Text>
+            <Text style={[styles.colBody13, { fontStyle: 'bold' }]}>{`${tongSo()}`}</Text>
             <Text style={[styles.colBody31, { fontStyle: 'bold' }]}>{' '}</Text>
           </View>
         </View>
@@ -493,8 +516,8 @@ const PDF12B = (props: any) => {
           <Text style={{ width: "28%", marginTop: 0, fontSize: 11, color: "white" }}>
             {`Tổng số (viết bằng chữ): `}
           </Text>
-          <Text style={{ fontSize: 10, maxWidth: "67%" }}>
-            {`chín mươi con`}
+          <Text style={{ fontSize: 9, maxWidth: "67%", maxLines: 1, textOverflow: "ellipsis", }}>
+            {`${ToVietnamese(tongSo())} con`}
           </Text>
         </View>
 
@@ -502,7 +525,7 @@ const PDF12B = (props: any) => {
           {/* nơi xuất phát */}
           <Text style={{ fontSize: 9, maxLines: 2, lineHeight: 1.8, paddingLeft: "5px", color: "white" }}>
             {`Nơi xuất phát:mmmmm `}
-            <Text style={{ fontSize: 9, maxLines: 2, lineHeight: 1.8, color: "black" }}>
+            <Text style={{ fontSize: 9, maxLines: 2, textOverflow: "ellipsis", lineHeight: 1.8, color: "black" }}>
               {`${attribute.noixuatphat}`}
             </Text>
           </Text>
@@ -512,7 +535,7 @@ const PDF12B = (props: any) => {
           {/* nơi đến cuối cùng */}
           <Text style={{ fontSize: 9, maxLines: 2, lineHeight: 1.8, paddingLeft: "5px", color: "white" }}>
             {`Nơi đến cuối cùng:mmmmmmmm`}
-            <Text style={{ fontSize: 9, maxLines: 2, lineHeight: 1.8, paddingLeft: "5px", color: "black" }}>
+            <Text style={{ fontSize: 9, maxLines: 2, textOverflow: "ellipsis", lineHeight: 1.8, paddingLeft: "5px", color: "black" }}>
               {`${attribute.noidecuoicung}`}
             </Text>
           </Text>
@@ -524,7 +547,7 @@ const PDF12B = (props: any) => {
             <Text style={{ width: "50%", marginTop: 0, fontSize: 11, maxLines: 1, color: "white" }}>
               {`Phương tiện vận chuyển: `}
             </Text>
-            <Text style={{ fontSize: 10, maxWidth: "50%", maxLines: 1 }}>
+            <Text style={{ fontSize: 10, maxWidth: "50%", maxLines: 1, textOverflow: "ellipsis", }}>
               {`${attribute.phuongtienvanchuyen}`}
             </Text>
           </View>
@@ -533,7 +556,7 @@ const PDF12B = (props: any) => {
             <Text style={{ width: "37%", marginTop: 0, fontSize: 11, maxLines: 1, color: "white", }}>
               {`Biển kiểm soát: `}
             </Text>
-            <Text style={{ fontSize: 10, maxWidth: "50%", maxLines: 1 }}>
+            <Text style={{ fontSize: 10, maxWidth: "50%", maxLines: 1, textOverflow: "ellipsis", }}>
               {`${attribute.bienkiemsoat}`}
             </Text>
           </View>
@@ -545,7 +568,7 @@ const PDF12B = (props: any) => {
         </Text>
 
         <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "1px", marginLeft: "10px" }}>
-          <Text style={{ width: "59%", fontSize: 9, maxLines: 1, paddingLeft: "10px" }}>
+          <Text style={{ width: "59%", fontSize: 9, maxLines: 1, textOverflow: "ellipsis", paddingLeft: "10px" }}>
             {`${attribute.noigiaohangkhac}`}
           </Text>
 
@@ -564,7 +587,7 @@ const PDF12B = (props: any) => {
           <Text style={{ width: "33%", marginTop: "2px", fontSize: 11, maxLines: 1, color: "white", }}>
             {`Các vật dụng khác có liên quan: `}
           </Text>
-          <Text style={{ fontSize: 9, maxWidth: "50%", maxLines: 1 }}>
+          <Text style={{ fontSize: 9, maxWidth: "50%", maxLines: 1, textOverflow: "ellipsis", }}>
             {`${attribute.vatdunglienquan}`}
           </Text>
         </View>
@@ -584,7 +607,7 @@ const PDF12B = (props: any) => {
         <View style={{ height: "32px", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
           <Text style={{ fontSize: 9, maxLines: 2, lineHeight: 1.7, paddingLeft: "5px", color: "white" }}>
             {`1/ Số động vật trên xuất phát từ vùng/cơ sở an toàn với các bệnh:mmmmmmmmmmm `}
-            <Text style={{ fontSize: 9, maxLines: 2, lineHeight: 1.7, paddingLeft: "5px", color: "black" }}>
+            <Text style={{ fontSize: 9, maxLines: 2, textOverflow: "ellipsis", lineHeight: 1.7, paddingLeft: "5px", color: "black" }}>
               {`${attribute.antoanvoicacbenh}`}
             </Text>
           </Text>
@@ -601,7 +624,7 @@ const PDF12B = (props: any) => {
           </Text>
 
           <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-            <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "51%", maxLines: 1, paddingLeft: "5px" }}>
+            <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "51%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "5px" }}>
               {`${attribute.amtinhcacbenh}`}
             </Text>
 
@@ -609,10 +632,10 @@ const PDF12B = (props: any) => {
               <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "55%", color: "white" }}>
                 {`tại kết quả xét nghiệm số:`}
               </Text>
-              <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "23%", maxLines: 1, textAlign: "center" }}>
+              <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "23%", maxLines: 1, textOverflow: "ellipsis", textAlign: "center" }}>
                 {`${attribute.kqxetnghiemso}`}
               </Text>
-              <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "22%", maxLines: 1, textAlign: "center" }}>
+              <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "22%", maxLines: 1, textOverflow: "ellipsis", textAlign: "center" }}>
                 {`${attribute.kqxetnghiemso}`}
               </Text>
             </View>
@@ -637,7 +660,7 @@ const PDF12B = (props: any) => {
               {` của`}
             </Text>
 
-            <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "40%", maxLines: 1 }}>
+            <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "40%", maxLines: 1, textOverflow: "ellipsis", }}>
               {`${attribute.coquanxetnghiem}`}
             </Text>
             <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "25%", fontStyle: "italic", color: "white" }}>
@@ -654,7 +677,7 @@ const PDF12B = (props: any) => {
         </Text>
 
         <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "1px" }}>
-          <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "56%", maxLines: 1, marginLeft: "10px" }}>
+          <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "56%", maxLines: 1, textOverflow: "ellipsis", marginLeft: "10px" }}>
             {`${attribute.tiembenh1}`}
           </Text>
           <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "20%", maxLines: 1, textAlign: "right", color: "white" }}>
@@ -671,7 +694,7 @@ const PDF12B = (props: any) => {
           </Text>
         </View>
         <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-          <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "56%", maxLines: 1, marginLeft: "10px" }}>
+          <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "56%", maxLines: 1, textOverflow: "ellipsis", marginLeft: "10px" }}>
             {`${attribute.tiembenh2}`}
           </Text>
           <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "20%", maxLines: 1, textAlign: "right", color: "white" }}>
@@ -697,13 +720,13 @@ const PDF12B = (props: any) => {
           <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "29%", color: "white" }}>
             {`được khử trùng tiêu độc bằng`}
           </Text>
-          <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "35%", maxLines: 1, paddingLeft: "7px" }}>
+          <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "35%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "7px" }}>
             {`${attribute.khutrungtieudoc}`}
           </Text>
           <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "9%", color: "white" }}>
             {`nồng độ `}
           </Text>
-          <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "26%", maxLines: 1 }}>
+          <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "26%", maxLines: 1, textOverflow: "ellipsis", }}>
             {`${attribute.nongdokhutrung}`}
           </Text>
         </View>
@@ -731,7 +754,7 @@ const PDF12B = (props: any) => {
                 {`Cấp tại `}
               </Text>
 
-              <Text style={{ marginTop: 0, fontSize: 9, width: "30%", maxLines: 1 }}>
+              <Text style={{ marginTop: 0, fontSize: 9, width: "30%", maxLines: 1, textOverflow: "ellipsis", }}>
                 {`${attribute.captai}`}
               </Text>
 

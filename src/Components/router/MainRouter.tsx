@@ -20,6 +20,8 @@ import { VerifyForgotPassword } from "Components/Pages/User/VerifyForgotPassword
 import { PrintPDF12B } from "Components/Pages/PrintPDF/PrintPDF12B";
 import FormTest from "Components/Pages/TestPages";
 import { PrintPDF12D } from "Components/Pages/PrintPDF/PrintPDF12D";
+import { PrintPDF1 } from "Components/Pages/PrintPDF/PrintPDF1";
+import { PrintPDF7 } from "Components/Pages/PrintPDF/PrintPDF7";
 
 export class RouteEndpoints {
   static home = { basepath: "/" };
@@ -167,7 +169,7 @@ export default function MainRouter() {
         path={RouteEndpoints.printPdf1}
         element={
           <PrivateRoute path={publicEndpoints.login}>
-            <PrintPDF12B />
+            <PrintPDF1 />
           </PrivateRoute>
         }
         key="print-pdf1"
@@ -176,10 +178,10 @@ export default function MainRouter() {
         path={RouteEndpoints.printPdf7}
         element={
           <PrivateRoute path={publicEndpoints.login}>
-            <PrintPDF12B />
+            <PrintPDF7 />
           </PrivateRoute>
         }
-        key="print-pdf17"
+        key="print-pdf7"
       />
 
 

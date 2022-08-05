@@ -295,31 +295,31 @@ const PDF7 = () => (
                 <Text style={{ width: "20%", opacity: 0 }}>
                     {`Hôm nay, vào hồi `}
                 </Text>
-                <Text style={{ width: "4%", fontSize: 10, textAlign: "center" }}>
+                <Text style={{ width: "4%", fontSize: 10, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`13 `}
                 </Text>
                 <Text style={{ width: "6.5%", opacity: 0 }}>
                     {` giờ `}
                 </Text>
-                <Text style={{ width: "4%", fontSize: 10, textAlign: "center" }}>
+                <Text style={{ width: "4%", fontSize: 10, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {` 00 `}
                 </Text>
                 <Text style={{ width: "12%", opacity: 0 }}>
                     {` phút, ngày`}
                 </Text>
-                <Text style={{ width: "5%", fontSize: 10, textAlign: "center" }}>
+                <Text style={{ width: "5%", fontSize: 10, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {` 22 `}
                 </Text>
                 <Text style={{ width: "7%", opacity: 0 }}>
                     {` m `}
                 </Text>
-                <Text style={{ width: "6%", fontSize: 10, textAlign: "center" }}>
+                <Text style={{ width: "6%", fontSize: 10, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {` 12 `}
                 </Text>
                 <Text style={{ width: "6%", opacity: 0 }}>
                     {`y`}
                 </Text>
-                <Text style={{ width: "6%", fontSize: 10, textAlign: "center" }}>
+                <Text style={{ width: "6%", fontSize: 10, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {` 2022 `}
                 </Text>
             </View>
@@ -328,7 +328,7 @@ const PDF7 = () => (
                 <Text style={{ fontSize: 11, width: "16%", opacity: 0 }}>
                     {`Tại địa điểm : `}
                 </Text>
-                <Text style={{ fontSize: 9, maxWidth: "84%" }}>
+                <Text style={{ fontSize: 9, maxWidth: "84%", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`Hồ Chí Minh `}
                 </Text>
             </View>
@@ -341,13 +341,13 @@ const PDF7 = () => (
                 <Text style={{ fontSize: 11, width: "13%", opacity: 0 }}>
                     {`1/ Ông/bà : `}
                 </Text>
-                <Text style={{ fontSize: 9, width: "40%" }}>
+                <Text style={{ fontSize: 9, width: "40%", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`Nguyễn Văn A `}
                 </Text>
                 <Text style={{ fontSize: 11, width: "13%", opacity: 0 }}>
                     {`Chức vụ : `}
                 </Text>
-                <Text style={{ fontSize: 9 }}>
+                <Text style={{ fontSize: 9, maxLines: 1, textOverflow: "ellipsis" }}>
                     {` Nhân viên `}
                 </Text>
             </View>
@@ -356,7 +356,7 @@ const PDF7 = () => (
                 <Text style={{ fontSize: 11, width: "42%", opacity: 0 }}>
                     {`Là cán bộ cơ quan kiểm dịch động vật : `}
                 </Text>
-                <Text style={{ fontSize: 9, maxWidth: "58%" }}>
+                <Text style={{ fontSize: 9, maxWidth: "58%", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`Quận Tân Bình `}
                 </Text>
             </View>
@@ -365,7 +365,7 @@ const PDF7 = () => (
                 <Text style={{ fontSize: 11, width: "13%", opacity: 0 }}>
                     {`2/ Ông/bà : `}
                 </Text>
-                <Text style={{ fontSize: 9, width: "41%" }}>
+                <Text style={{ fontSize: 9, width: "41%", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`Nguyễn Thị B `}
                 </Text>
                 <Text style={{ fontSize: 11, opacity: 0 }}>
@@ -377,7 +377,7 @@ const PDF7 = () => (
                 <Text style={{ fontSize: 11, width: "22%", opacity: 0 }}>
                     {`Địa chỉ giao dịch : `}
                 </Text>
-                <Text style={{ fontSize: 9, maxWidth: "78%", paddingTop: 0.5 }}>
+                <Text style={{ fontSize: 9, maxWidth: "78%", paddingTop: 0.5, maxLines: 1, textOverflow: "ellipsis" }}>
                     {`46A, Lê Trung Nghĩa, P.12, Q. Tân Bình, TP. Hồ Chí Minh `}
                 </Text>
             </View>
@@ -386,19 +386,19 @@ const PDF7 = () => (
                 <Text style={{ width: "17%", opacity: 0 }}>
                     {`Số điện thoại : `}
                 </Text>
-                <Text style={{ width: "23%", fontSize: 10, paddingTop: 1, textAlign: "center" }}>
+                <Text style={{ width: "23%", fontSize: 10, paddingTop: 1, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`0123456789 `}
                 </Text>
                 <Text style={{ width: "6%", opacity: 0 }}>
                     {` Fax : `}
                 </Text>
-                <Text style={{ width: "19%", fontSize: 10, paddingTop: 1, textAlign: "center" }}>
+                <Text style={{ width: "19%", fontSize: 10, paddingTop: 1, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`12378123123 `}
                 </Text>
                 <Text style={{ width: "9%", opacity: 0 }}>
                     {` Email : `}
                 </Text>
-                <Text style={{ fontSize: 9, paddingTop: 1 }}>
+                <Text style={{ fontSize: 9, paddingTop: 1, maxLines: 1, textOverflow: "ellipsis" }}>
                     {`abacadawdad@gmail.com `}
                 </Text>
             </View>
@@ -407,7 +407,7 @@ const PDF7 = () => (
                 <Text style={{ fontSize: 11, width: "53%", opacity: 0 }}>
                     {`Trong khi tiến hành kiểm tra vệ sinh thú y lô hàng : `}
                 </Text>
-                <Text style={{ fontSize: 9, maxWidth: "47%" }}>
+                <Text style={{ fontSize: 9, maxWidth: "47%", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`gia cầm `}
                 </Text>
             </View>
@@ -416,19 +416,19 @@ const PDF7 = () => (
                 <Text style={{ width: "3%", opacity: 0 }}>
                     {`1/ `}
                 </Text>
-                <Text style={{ width: "37%", fontSize: 9, textAlign: "center" }}>
+                <Text style={{ width: "37%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`Gà `}
                 </Text>
                 <Text style={{ width: "11%", opacity: 0 }}>
                     {` Số lượng: `}
                 </Text>
-                <Text style={{ width: "15%", fontSize: 10, textAlign: "center" }}>
+                <Text style={{ width: "15%", fontSize: 10, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`100`}
                 </Text>
                 <Text style={{ width: "19%", opacity: 0 }}>
                     {` Khối lượng: `}
                 </Text>
-                <Text style={{ width: "8%", fontSize: 9, textAlign: "center", }}>
+                <Text style={{ width: "8%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {` 2kg `}
                 </Text>
             </View>
@@ -437,19 +437,19 @@ const PDF7 = () => (
                 <Text style={{ width: "3%", opacity: 0 }}>
                     {`2/ `}
                 </Text>
-                <Text style={{ width: "37%", fontSize: 9, textAlign: "center" }}>
+                <Text style={{ width: "37%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`Vịt `}
                 </Text>
                 <Text style={{ width: "11%", opacity: 0 }}>
                     {` Số lượng: `}
                 </Text>
-                <Text style={{ width: "15%", fontSize: 10, textAlign: "center" }}>
+                <Text style={{ width: "15%", fontSize: 10, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`100`}
                 </Text>
                 <Text style={{ width: "19%", opacity: 0 }}>
                     {` Khối lượng: `}
                 </Text>
-                <Text style={{ width: "8%", fontSize: 9, textAlign: "center" }}>
+                <Text style={{ width: "8%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {` 2kg `}
                 </Text>
             </View>
@@ -458,19 +458,19 @@ const PDF7 = () => (
                 <Text style={{ width: "3%", opacity: 0 }}>
                     {`3/ `}
                 </Text>
-                <Text style={{ width: "37%", fontSize: 9, textAlign: "center" }}>
+                <Text style={{ width: "37%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`Ngỗng `}
                 </Text>
                 <Text style={{ width: "11%", opacity: 0 }}>
                     {` Số lượng: `}
                 </Text>
-                <Text style={{ width: "15%", fontSize: 10, textAlign: "center" }}>
+                <Text style={{ width: "15%", fontSize: 10, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`200`}
                 </Text>
                 <Text style={{ width: "19%", opacity: 0 }}>
                     {` Khối lượng: `}
                 </Text>
-                <Text style={{ width: "8%", fontSize: 9, textAlign: "center" }}>
+                <Text style={{ width: "8%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {` 2kg `}
                 </Text>
             </View>
@@ -479,19 +479,19 @@ const PDF7 = () => (
                 <Text style={{ width: "3%", opacity: 0 }}>
                     {`4/ `}
                 </Text>
-                <Text style={{ width: "37%", fontSize: 9, textAlign: "center" }}>
+                <Text style={{ width: "37%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`Gà móng đỏ `}
                 </Text>
                 <Text style={{ width: "11%", opacity: 0 }}>
                     {` Số lượng: `}
                 </Text>
-                <Text style={{ width: "15%", fontSize: 10, textAlign: "center" }}>
+                <Text style={{ width: "15%", fontSize: 10, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {`1000`}
                 </Text>
                 <Text style={{ width: "19%", opacity: 0 }}>
                     {` Khối lượng: `}
                 </Text>
-                <Text style={{ width: "8%", fontSize: 9, textAlign: "center" }}>
+                <Text style={{ width: "8%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                     {` 2.500 kg `}
                 </Text>
             </View>
@@ -502,7 +502,7 @@ const PDF7 = () => (
                     <Text style={{ fontSize: 9, color: "white" }}>
                         {` #`}
                     </Text>
-                    <Text style={{ fontSize: 9, color: "black" }}>
+                    <Text style={{ fontSize: 9, color: "black", maxLines: 2, textOverflow: "ellipsis" }}>
                         {`adawdawdawdawddddddddddddddddsssssssssssssssssssdddddddddddddddddddddddddsssgggggggggggdd `}
                     </Text>
                 </Text>
@@ -514,7 +514,7 @@ const PDF7 = () => (
                     <Text style={{ fontSize: 9, color: "white" }}>
                         {` # `}
                     </Text>
-                    <Text style={{ fontSize: 9, color: "black" }}>
+                    <Text style={{ fontSize: 9, color: "black", maxLines: 4, textOverflow: "ellipsis" }}>
                         {` Business Users (Product Owners) Như một điều luật, đây là những người đưa ra quyết định trong việc kết thúc kiểm thử. Họ cũng xác định chất lượng công việc đã hoàn thành. Điều quan trọng nhất với họ là kết quả cuối cùng, được chuyển thành dạng ngắn và rút gọn nhất (CÓ hay KHÔNG). Thông tin nên được trình bày dưới dạng trực quan (đồ thị, sơ đồ). `}
                     </Text>
                 </Text>
@@ -526,7 +526,7 @@ const PDF7 = () => (
                     <Text style={{ fontSize: 9, color: "white" }}>
                         {` ## `}
                     </Text>
-                    <Text style={{ fontSize: 9, color: "black" }}>
+                    <Text style={{ fontSize: 9, color: "black", maxLines: 2, textOverflow: "ellipsis" }}>
                         {` Đạt chuẩn yêu cầuddddddddddddddddddddddddddddddddddgggggdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd `}
                     </Text>
                 </Text>
@@ -538,7 +538,7 @@ const PDF7 = () => (
                     <Text style={{ fontSize: 9, color: "white" }}>
                         {` ## `}
                     </Text>
-                    <Text style={{ fontSize: 9, color: "black" }}>
+                    <Text style={{ fontSize: 9, color: "black", maxLines: 2, textOverflow: "ellipsis" }}>
                         {`Khôngdddddddddddddddddddddddddddddddddddddddddgggddddddddadadadadadadawcó `}
                     </Text>
                 </Text>

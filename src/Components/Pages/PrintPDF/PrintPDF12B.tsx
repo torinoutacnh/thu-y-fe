@@ -121,7 +121,7 @@ export function PrintPDF12B(props: any) {
     useEffect(() => {
         setLoading(true);
         fetch(process.env.REACT_APP_API.concat(ReportApiRoute.getSingleReport, "?")
-            + new URLSearchParams({ reportId: "4c7d5197-9bd9-4a9f-9011-9577294adc89" }), {
+            + new URLSearchParams({ reportId: "2999cd66-b415-4db0-bce3-cd4fca99663e" }), {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

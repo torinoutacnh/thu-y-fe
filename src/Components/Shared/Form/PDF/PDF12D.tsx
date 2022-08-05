@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
         height: "100%",
         paddingTop: "5px",
         paddingBottom: "3px",
-        alignItems: "center"
+        alignItems: "center", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "5px", paddingRight: "5px"
     },
 
     colBody26: {
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         height: "100%",
         paddingTop: "5px",
         paddingBottom: "3px",
-        alignItems: "center"
+        alignItems: "center", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "2px", paddingRight: "2px"
     },
 
     colBody18: {
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
         borderBottom: "1px solid white",
         height: "100%",
         paddingTop: "3.5px",
-        paddingBottom: "3.5px",
+        paddingBottom: "3.5px", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "2px", paddingRight: "2px"
     },
     colBody16: {
         width: "16%",
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
         borderLeft: "1px solid white",
         height: "100%",
         paddingTop: "5px",
-        paddingBottom: "3px",
+        paddingBottom: "3px", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "2px", paddingRight: "2px"
     },
 
     colBody15: {
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
         borderLeft: "1px solid white",
         height: "100%",
         paddingTop: "5px",
-        paddingBottom: "3px",
+        paddingBottom: "3px", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "2px", paddingRight: "2px"
     },
 
 
@@ -193,7 +193,9 @@ const styles = StyleSheet.create({
     table: {
         width: "100%",
         marginTop: "26px",
-        textAlign: "center"
+        textAlign: "center",
+        marginLeft: "10px"
+
     },
     row_header: {
         display: 'flex',
@@ -246,7 +248,7 @@ const PDF12D = (props: any) => {
                 <Text style={styles.colBody18}>{'đóng gói'}</Text>
                 <Text style={styles.colBody16}>{'100'}</Text>
                 <Text style={styles.colBody15}>{'2kg'}</Text>
-                <Text style={styles.colBody26}>{'muc dich'}</Text>
+                <Text style={styles.colBody26}>{'mục đích'}</Text>
             </View>
         )
     }
@@ -337,8 +339,8 @@ const PDF12D = (props: any) => {
                     <Text style={{ fontSize: 10, width: "46%", color: "white" }}>
                         {`Họ tên chủ hàng (hoặc người đại diện): `}
                     </Text>
-                    <Text style={{ fontSize: 10, maxWidth: "54%" }}>
-                        {`nguyen van a`}
+                    <Text style={{ fontSize: 10, maxWidth: "54%", maxLines: 1, textOverflow: "ellipsis" }}>
+                        {`Nguyễn Văn A`}
                     </Text>
                 </View>
 
@@ -346,8 +348,8 @@ const PDF12D = (props: any) => {
                     <Text style={{ fontSize: 10, width: "23%", color: "white" }}>
                         {`Địa chỉ giao dịch: `}
                     </Text>
-                    <Text style={{ fontSize: 9, maxWidth: "77%", marginTop: "1px" }}>
-                        {`ho chi minh`}
+                    <Text style={{ fontSize: 9, maxWidth: "77%", marginTop: "1px", maxLines: 1, textOverflow: "ellipsis" }}>
+                        {`Hồ Chí Minh`}
                     </Text>
                 </View>
 
@@ -358,7 +360,7 @@ const PDF12D = (props: any) => {
                         <Text style={{ width: "43%", marginTop: 0, fontSize: 10, color: "white" }}>
                             {`Điện thoại: `}
                         </Text>
-                        <Text style={{ fontSize: 10, maxWidth: "47%", paddingLeft: "5px" }}>
+                        <Text style={{ fontSize: 10, maxWidth: "47%", paddingLeft: "5px", maxLines: 1, textOverflow: "ellipsis" }}>
                             {'0338786210'}
                         </Text>
                     </View>
@@ -367,7 +369,7 @@ const PDF12D = (props: any) => {
                         <Text style={{ width: "26%", marginTop: 0, fontSize: 10, color: "white" }}>
                             {`Fax: `}
                         </Text>
-                        <Text style={{ fontSize: 10, maxWidth: "70%", paddingLeft: "8px" }}>
+                        <Text style={{ fontSize: 10, maxWidth: "70%", paddingLeft: "8px", maxLines: 1, textOverflow: "ellipsis" }}>
                             {'123123123'}
                         </Text>
                     </View>
@@ -376,7 +378,7 @@ const PDF12D = (props: any) => {
                         <Text style={{ width: "33%", marginTop: 0, fontSize: 10, color: "white" }}>
                             {`Email: `}
                         </Text>
-                        <Text style={{ fontSize: 10, maxWidth: "67%", paddingLeft: "2px" }}>
+                        <Text style={{ fontSize: 10, maxWidth: "67%", paddingLeft: "2px", maxLines: 1, textOverflow: "ellipsis" }}>
                             {'abc@gmail.com'}
                         </Text>
                     </View>
@@ -399,18 +401,18 @@ const PDF12D = (props: any) => {
 
                     <View style={[styles.row_body, styles.bold]}>
                         <Text style={[styles.colBody25, { fontStyle: 'bold', color: "white" }]}>{'Tổng số'}</Text>
-                        <Text style={[styles.colBody18, { fontStyle: 'bold' }]}>{' '}</Text>
-                        <Text style={[styles.colBody16, { fontStyle: 'bold' }]}>{' '}</Text>
-                        <Text style={[styles.colBody15, { fontStyle: 'bold' }]}>{' '}</Text>
-                        <Text style={[styles.colBody26, { fontStyle: 'bold' }]}>{' '}</Text>
+                        <Text style={[styles.colBody18, { fontStyle: 'bold', maxLines: 1, textOverflow: "ellipsis" }]}>{' '}</Text>
+                        <Text style={[styles.colBody16, { fontStyle: 'bold', maxLines: 1, textOverflow: "ellipsis" }]}>{' '}</Text>
+                        <Text style={[styles.colBody15, { fontStyle: 'bold', maxLines: 1, textOverflow: "ellipsis" }]}>{' '}</Text>
+                        <Text style={[styles.colBody26, { fontStyle: 'bold', maxLines: 1, textOverflow: "ellipsis" }]}>{' '}</Text>
                     </View>
                 </View>
 
                 <View style={{ marginTop: "7px", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-                    <Text style={{ width: "28%", marginTop: 0, fontSize: 10, color: "white" }}>
+                    <Text style={{ width: "30%", marginTop: 0, fontSize: 10, color: "white" }}>
                         {`Tổng số (viết bằng chữ): `}
                     </Text>
-                    <Text style={{ fontSize: 9, width: "67%", maxLines: 1 }}>
+                    <Text style={{ fontSize: 9, width: "70%", maxLines: 1, textOverflow: "ellipsis" }}>
                         {`chín mươi con`}
                     </Text>
                 </View>
@@ -419,8 +421,8 @@ const PDF12D = (props: any) => {
                     <Text style={{ width: "39%", marginTop: 0, fontSize: 10, color: "white" }}>
                         {`Tên cơ sở sản xuất, sơ chế, bảo quản: `}
                     </Text>
-                    <Text style={{ fontSize: 9, width: "61%", maxLines: 1, paddingLeft: "14px" }}>
-                        {`co so san xuat`}
+                    <Text style={{ fontSize: 9, width: "61%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "14px" }}>
+                        {`cơ sở sản xuất abc`}
                     </Text>
                 </View>
 
@@ -428,7 +430,7 @@ const PDF12D = (props: any) => {
                     <Text style={{ width: "13%", marginTop: 0, fontSize: 10, color: "white" }}>
                         {`Địa chỉ: `}
                     </Text>
-                    <Text style={{ fontSize: 9, width: "87%", maxLines: 1, paddingLeft: "4px" }}>
+                    <Text style={{ fontSize: 9, width: "87%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "4px" }}>
                         {`tp hồ chí minh`}
                     </Text>
                 </View>
@@ -437,16 +439,16 @@ const PDF12D = (props: any) => {
                     <Text style={{ width: "36%", marginTop: 0, fontSize: 10, color: "white" }}>
                         {`Tên tổ chức, cá nhân nhận hàng: `}
                     </Text>
-                    <Text style={{ fontSize: 9, width: "64%", maxLines: 1, paddingLeft: "9px" }}>
-                        {`to chuc nhan hang`}
+                    <Text style={{ fontSize: 9, width: "64%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "9px" }}>
+                        {`tổ chức nhận hàng xyz`}
                     </Text>
                 </View>
 
                 <View style={{ marginTop: "3px", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-                    <Text style={{ width: "10%", marginTop: 0, fontSize: 10, color: "white" }}>
+                    <Text style={{ width: "15%", marginTop: 0, fontSize: 10, color: "white" }}>
                         {`Địa chỉ: `}
                     </Text>
-                    <Text style={{ fontSize: 9, width: "90%", maxLines: 1, paddingLeft: "5px" }}>
+                    <Text style={{ fontSize: 9, width: "85%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "5px" }}>
                         {`tp hồ chí minh`}
                     </Text>
                 </View>
@@ -456,28 +458,28 @@ const PDF12D = (props: any) => {
                 <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "3px" }}>
 
                     <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "35%" }}>
-                        <Text style={{ width: "43%", marginTop: 0, fontSize: 10, color: "white" }}>
+                        <Text style={{ width: "47%", marginTop: 0, fontSize: 10, color: "white" }}>
                             {`Điện thoại: `}
                         </Text>
-                        <Text style={{ fontSize: 9, maxWidth: "47%" }}>
+                        <Text style={{ fontSize: 9, maxWidth: "53%", maxLines: 1, textOverflow: "ellipsis" }}>
                             {'0338786210'}
                         </Text>
                     </View>
 
                     <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "23%" }}>
-                        <Text style={{ width: "26%", marginTop: 0, fontSize: 10, color: "white" }}>
+                        <Text style={{ width: "30%", marginTop: 0, fontSize: 10, color: "white" }}>
                             {`Fax: `}
                         </Text>
-                        <Text style={{ fontSize: 9, maxWidth: "70%", paddingLeft: "8px" }}>
+                        <Text style={{ fontSize: 9, maxWidth: "70%", paddingLeft: "8px", maxLines: 1, textOverflow: "ellipsis" }}>
                             {'123123123'}
                         </Text>
                     </View>
 
                     <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "23%" }}>
-                        <Text style={{ width: "37%", marginTop: 0, fontSize: 10, color: "white", paddingLeft: "20px" }}>
+                        <Text style={{ width: "50%", marginTop: 0, fontSize: 10, color: "white", paddingLeft: "20px" }}>
                             {`Email: `}
                         </Text>
-                        <Text style={{ fontSize: 9, maxWidth: "64%" }}>
+                        <Text style={{ fontSize: 9, maxWidth: "50%", maxLines: 1, textOverflow: "ellipsis" }}>
                             {'abc@gmail.com'}
                         </Text>
                     </View>
@@ -490,7 +492,7 @@ const PDF12D = (props: any) => {
                     <Text style={{ width: "22%", marginTop: 0, fontSize: 10, color: "white" }}>
                         {`Nơi đến cuối cùng: `}
                     </Text>
-                    <Text style={{ fontSize: 9, width: "78%", maxLines: 1, paddingLeft: "5px" }}>
+                    <Text style={{ fontSize: 9, width: "78%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "5px" }}>
                         {`tp hồ chí minh`}
                     </Text>
                 </View>
@@ -504,80 +506,83 @@ const PDF12D = (props: any) => {
                     <Text style={{ width: "6%", color: "white" }}>
                         {`1/ `}
                     </Text>
-                    <Text style={{ width: "36%", fontSize: 9, textAlign: "center" }}>
+                    <Text style={{ width: "36%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                         {`động vật 1`}
                     </Text>
                     <Text style={{ width: "11%", color: "white" }}>
                         {` Số lượng: `}
                     </Text>
-                    <Text style={{ width: "15%", fontSize: 10, textAlign: "center" }}>
+                    <Text style={{ width: "15%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                         {`100`}
                     </Text>
                     <Text style={{ width: "17%", color: "white" }}>
                         {` Khối lượng: `}
                     </Text>
-                    <Text style={{ width: "8%", fontSize: 9, textAlign: "center", }}>
+                    <Text style={{ width: "15%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                         {` 100kg `}
                     </Text>
                 </View>
-                <View style={{ display: "flex", flexDirection: "row", fontSize: 10, flexWrap: "wrap", lineHeight: 1.7, paddingLeft: "20px" }}>
+                <View style={{ display: "flex", flexDirection: "row", fontSize: 10, flexWrap: "wrap", lineHeight: 1.7, marginTop: 1, paddingLeft: "20px" }}>
                     <Text style={{ width: "6%", color: "white" }}>
                         {`1/ `}
                     </Text>
-                    <Text style={{ width: "36%", fontSize: 9, textAlign: "center" }}>
+                    <Text style={{ width: "36%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                         {`động vật 1`}
                     </Text>
                     <Text style={{ width: "11%", color: "white" }}>
                         {` Số lượng: `}
                     </Text>
-                    <Text style={{ width: "15%", fontSize: 10, textAlign: "center" }}>
+                    <Text style={{ width: "15%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                         {`100`}
                     </Text>
                     <Text style={{ width: "17%", color: "white" }}>
                         {` Khối lượng: `}
                     </Text>
-                    <Text style={{ width: "8%", fontSize: 9, textAlign: "center", }}>
+                    <Text style={{ width: "15%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                         {` 100kg `}
                     </Text>
                 </View>
-                <View style={{ display: "flex", flexDirection: "row", fontSize: 10, flexWrap: "wrap", lineHeight: 1.7, paddingLeft: "20px" }}>
+                <View style={{ display: "flex", flexDirection: "row", fontSize: 10, flexWrap: "wrap", lineHeight: 1.7, marginTop: 1, paddingLeft: "20px" }}>
                     <Text style={{ width: "6%", color: "white" }}>
                         {`1/ `}
                     </Text>
-                    <Text style={{ width: "36%", fontSize: 9, textAlign: "center" }}>
+                    <Text style={{ width: "36%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                         {`động vật 1`}
                     </Text>
                     <Text style={{ width: "11%", color: "white" }}>
                         {` Số lượng: `}
                     </Text>
-                    <Text style={{ width: "15%", fontSize: 10, textAlign: "center" }}>
+                    <Text style={{ width: "15%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                         {`100`}
                     </Text>
                     <Text style={{ width: "17%", color: "white" }}>
                         {` Khối lượng: `}
                     </Text>
-                    <Text style={{ width: "8%", fontSize: 9, textAlign: "center", }}>
+                    <Text style={{ width: "15%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
                         {` 100kg `}
                     </Text>
                 </View>
+
+
+
 
                 <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
 
                     <View style={{ width: "48%", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-                        <Text style={{ width: "52%", marginTop: 0, fontSize: 10, maxLines: 1, color: "white" }}>
+                        <Text style={{ width: "55%", marginTop: 0, fontSize: 10, maxLines: 1, color: "white" }}>
                             {`Phương tiện vận chuyển: `}
                         </Text>
-                        <Text style={{ fontSize: 9, maxWidth: "48%", maxLines: 1, paddingLeft: "20px" }}>
-                            {`o to`}
+                        <Text style={{ fontSize: 9, maxWidth: "45%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "20px" }}>
+                            {`Container 18 tấn`}
                         </Text>
                     </View>
 
                     <View style={{ width: "52%", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-                        <Text style={{ width: "37%", marginTop: 0, fontSize: 10, maxLines: 1, color: "white", }}>
+                        <Text style={{ width: "40%", marginTop: 0, fontSize: 10, maxLines: 1, color: "white", }}>
                             {`Biển kiểm soát: `}
                         </Text>
-                        <Text style={{ fontSize: 9, maxWidth: "50%", maxLines: 1 }}>
-                            {`61F1 123345`}
+                        <Text style={{ fontSize: 9, maxWidth: "60%", maxLines: 1, textOverflow: "ellipsis" }}>
+                            {`61F1 12345`}
                         </Text>
                     </View>
 
@@ -588,7 +593,7 @@ const PDF12D = (props: any) => {
                     <Text style={{ width: "45%", marginTop: 0, fontSize: 10, color: "white" }}>
                         {`Điều kiện bảo quản hàng khi vận chuyển: `}
                     </Text>
-                    <Text style={{ fontSize: 9, width: "55%", maxLines: 1, paddingLeft: "9px" }}>
+                    <Text style={{ fontSize: 9, width: "55%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "9px" }}>
                         {`bảo quản tốt`}
                     </Text>
                 </View>
@@ -597,8 +602,8 @@ const PDF12D = (props: any) => {
                     <Text style={{ width: "33%", marginTop: "0px", fontSize: 10, maxLines: 1, color: "white", }}>
                         {`Các vật dụng khác có liên quan: `}
                     </Text>
-                    <Text style={{ fontSize: 9, maxWidth: "49%", maxLines: 1, marginTop: "0px", paddingLeft: "20px" }}>
-                        {`vat dung lien quan 1 2 3`}
+                    <Text style={{ fontSize: 9, maxWidth: "67%", maxLines: 1, textOverflow: "ellipsis", marginTop: "0px", paddingLeft: "20px" }}>
+                        {`vật dụng liên quan 1 2 3`}
                     </Text>
                 </View>
 
@@ -625,30 +630,30 @@ const PDF12D = (props: any) => {
 
 
                 <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "1px" }}>
-                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "8%", maxLines: 1, textAlign: "right", }}>
+                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "8%", maxLines: 1, textOverflow: "ellipsis", textAlign: "right", }}>
+                        {`123 `}
+                    </Text>
+                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "7%", maxLines: 1, textOverflow: "ellipsis", textAlign: "right", }}>
                         {`123`}
                     </Text>
-                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "7%", maxLines: 1, textAlign: "right", }}>
-                        {`123`}
-                    </Text>
-                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "8%", color: "white" }}>
+                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "9%", color: "white" }}>
                         {`ngày`}
                     </Text>
-                    <Text style={{ marginTop: 0, marginLeft: "3px", fontSize: 9, fontWeight: "bold", width: "4%", textAlign: "right" }}>
+                    <Text style={{ marginTop: 0, marginLeft: "3px", fontSize: 9, fontWeight: "bold", width: "4%", textAlign: "right", maxLines: 1, textOverflow: "ellipsis" }}>
                         {`${day_giatridenngay}`}
                     </Text>
-                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "5%", textAlign: "right" }}>
+                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "5%", textAlign: "right", maxLines: 1, textOverflow: "ellipsis" }}>
                         {`${month_giatridenngay}`}
                     </Text>
-                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "5%", textAlign: "right" }}>
+                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "5%", textAlign: "right", maxLines: 1, textOverflow: "ellipsis" }}>
                         {`${year_giatridenngay}`}
                     </Text>
                     <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "7%", color: "white", }}>
                         {` của`}
                     </Text>
 
-                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "33%", maxLines: 1, }}>
-                        {`co quan x`}
+                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "33%", maxLines: 1, textOverflow: "ellipsis" }}>
+                        {`cơ quan xyz`}
                     </Text>
 
                 </View>
@@ -657,26 +662,26 @@ const PDF12D = (props: any) => {
 
 
                 <View style={{ marginTop: "2px", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-                    <Text style={{ width: "58%", marginTop: 0, fontSize: 10, color: "white" }}>
+                    <Text style={{ width: "59%", marginTop: 0, fontSize: 10, color: "white" }}>
                         {`3/ Sản phậm động vật trên đáp ứng các yêu cầu sau:`}
                     </Text>
-                    <Text style={{ fontSize: 9, width: "42%", maxLines: 1 }}>
+                    <Text style={{ fontSize: 9, width: "41%", maxLines: 1, textOverflow: "ellipsis" }}>
                         {`yêu cầu 1 2 3 4 5 6 7`}
                     </Text>
                 </View>
 
 
                 <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "2px" }}>
-                    <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "59%", color: "white" }}>
+                    <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "60%", color: "white" }}>
                         {`4/ Sản phẩm đã được khử trùng tiêu độc bằng:`}
                     </Text>
-                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "20%", maxLines: 1, paddingLeft: "12px", }}>
-                        {`dung dich a`}
+                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "20%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "12px", }}>
+                        {`dung dịch abc`}
                     </Text>
-                    <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "9%", color: "white", }}>
+                    <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "8%", color: "white", }}>
                         {`nồng độ `}
                     </Text>
-                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "8%", maxLines: 1, }}>
+                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "8%", maxLines: 1, textOverflow: "ellipsis" }}>
                         {`100`}
                     </Text>
                 </View>
@@ -690,17 +695,17 @@ const PDF12D = (props: any) => {
 
 
                 <View style={{ marginTop: "4px", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-                    <Text style={{ width: "45%", marginTop: 0, fontSize: 10, color: "white" }}>
+                    <Text style={{ width: "47%", marginTop: 0, fontSize: 10, color: "white" }}>
                         {`thú y, đã được khử trùng tiêu độc bằng`}
                     </Text>
-                    <Text style={{ fontSize: 9, width: "25%", maxLines: 1, paddingLeft: "13px" }}>
-                        {`tieu doc a`}
+                    <Text style={{ fontSize: 9, width: "25%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "13px" }}>
+                        {`tiêu độc xyz`}
                     </Text>
 
-                    <Text style={{ fontSize: 9, width: "15%", maxLines: 1, color: "white" }}>
+                    <Text style={{ fontSize: 9, width: "13%", maxLines: 1, color: "white" }}>
                         {`nồng độ`}
                     </Text>
-                    <Text style={{ fontSize: 9, width: "15%", maxLines: 1 }}>
+                    <Text style={{ fontSize: 9, width: "15%", maxLines: 1, textOverflow: "ellipsis" }}>
                         {`100%`}
                     </Text>
 
@@ -715,13 +720,13 @@ const PDF12D = (props: any) => {
                         <Text style={{ marginTop: 0, fontSize: 10, width: "45%", color: "white" }}>
                             {`Giấy có giá trị đến ngày`}
                         </Text>
-                        <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "11%", textAlign: "right" }}>
+                        <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "11%", textAlign: "right", maxLines: 1, textOverflow: "ellipsis" }}>
                             {`${day_giatridenngay}`}
                         </Text>
-                        <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "9%", textAlign: "right" }}>
+                        <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "9%", textAlign: "right", maxLines: 1, textOverflow: "ellipsis" }}>
                             {`${month_giatridenngay}`}
                         </Text>
-                        <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "14%", textAlign: "right" }}>
+                        <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "14%", textAlign: "right", maxLines: 1, textOverflow: "ellipsis" }}>
                             {`${year_giatridenngay}`}
                         </Text>
                     </View>
@@ -732,7 +737,7 @@ const PDF12D = (props: any) => {
                                 {`Cấp tại `}
                             </Text>
 
-                            <Text style={{ marginTop: 0, fontSize: 9, width: "30%", maxLines: 1 }}>
+                            <Text style={{ marginTop: 0, fontSize: 9, width: "30%", maxLines: 1, textOverflow: "ellipsis", }}>
                                 {`TP.HCM`}
                             </Text>
 
@@ -740,13 +745,13 @@ const PDF12D = (props: any) => {
                                 {` ngày`}
                             </Text>
 
-                            <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "14%", textAlign: "right" }}>
+                            <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "14%", textAlign: "right", maxLines: 1, textOverflow: "ellipsis" }}>
                                 {`${day_ngaycap}`}
                             </Text>
-                            <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "13%", textAlign: "right" }}>
+                            <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "13%", textAlign: "right", maxLines: 1, textOverflow: "ellipsis" }}>
                                 {`${month_ngaycap}`}
                             </Text>
-                            <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "15%", textAlign: "right" }}>
+                            <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "15%", textAlign: "right", maxLines: 1, textOverflow: "ellipsis" }}>
                                 {`${year_ngaycap}`}
                             </Text>
                         </View>

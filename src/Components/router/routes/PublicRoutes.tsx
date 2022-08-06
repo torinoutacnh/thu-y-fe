@@ -1,7 +1,7 @@
-import LoginPage from "Components/Pages/Login/Login";
-import RegisterPage from "Components/Pages/Register/Register";
-import { VerifyEmail } from "Components/Pages/Register/VerifyEmail";
-import { VerifyForgotPassword } from "Components/Pages/User/VerifyForgotPassword";
+import LoginPage from "Components/Pages/authentication/Login";
+import RegisterPage from "Components/Pages/authentication/Register";
+import { VerifyEmail } from "Components/Pages/authentication/VerifyEmail";
+import { VerifyForgotPassword } from "Components/Pages/authentication/VerifyForgotPassword";
 import { Route } from "react-router-dom";
 import { publicEndpoints } from ".";
 

@@ -15,7 +15,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./header.css";
 
-import { ChangePassword } from "Components/Pages/User/ChangePassword";
+import { ChangePassword } from "Components/Pages/authentication/ChangePassword";
 
 const Header = () => {
   const navigate = useNavigate();

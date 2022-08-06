@@ -6,7 +6,7 @@ import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
 import { IconType } from "antd/lib/notification";
 import logoThuY from "../../../Static/image/logo.png";
-import { SendEmailForgotPassword } from "../User/SendEmailForgotPassword";
+import { SendEmailForgotPassword } from "./SendEmailForgotPassword";
 import AccountApiEndpoint from "Api/AccountApiRoute";
 import { publicEndpoints, generalEndpoints } from "Components/router/routes";
 

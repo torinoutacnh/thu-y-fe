@@ -12,6 +12,29 @@
     display: none;
 }
 
+.card {
+    --height-card: 100px;
+    background: #fff;
+    text-align: center;
+    height: var(--height-card);
+    line-height: var(--height-card);
+    font-size: 1.5vmin;
+    cursor: pointer;
+    display: block;
+}
+
+.card:hover {
+    background: rgb(255, 163, 163);
+    color: white;
+    font-weight: bold;
+}
+
+@media screen and (min-width: 769px) {
+    .card {
+        margin-bottom: 0;
+    }
+}
+
 @media screen and (max-width:768px){
     .main-table{
         display: none;

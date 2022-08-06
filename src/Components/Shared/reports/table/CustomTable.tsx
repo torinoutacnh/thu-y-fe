@@ -162,7 +162,7 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
     return (
       <>
         <Space className="space-media">
-          <PrintPopup />
+          <PrintPopup id={props.id} />
           {reportType === ReportType["ĐK-KDĐV-001"] && (
             <Button
               onClick={() => mapFormAction(props.id, ReportType["CN-KDĐV-UQ"])}

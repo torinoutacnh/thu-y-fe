@@ -1,5 +1,5 @@
 import HomePage from "Components/Pages/Home/Home";
-import { NotFound } from "Components/Pages/NotFound";
+import { NotFound } from "Components/Pages/Home/NotFound";
 import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";
 import { Route } from "react-router-dom";
 import { generalEndpoints, publicEndpoints } from ".";

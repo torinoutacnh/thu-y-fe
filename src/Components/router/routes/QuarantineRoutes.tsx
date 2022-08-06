@@ -1,39 +1,13 @@
 import {
+  CreateQuarantineReportPage,
   MedicalHygiene,
   QuarantinePage,
   RegisterQuarantinePage,
+  UpdateQuarantineReportPage,
 } from "Components/Pages/Quarantine";
 import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";
 import { Route } from "react-router-dom";
-import { publicEndpoints } from "./PublicRoutes";
-import React from "react";
-import { RoleType } from "Components/Shared/Models/User";
-import UpdateQuarantineReportPage from "Components/Pages/Quarantine/update";
-import CreateQuarantineReportPage from "Components/Pages/Quarantine/create";
-
-const quarantineEndpoints = {
-  get basepath() {
-    return "/kiem-dich";
-  },
-  get home() {
-    return this.basepath;
-  },
-  get vsyt() {
-    return this.basepath.concat("/bien-ban-ve-sinh-y-te");
-  },
-  get cnkd() {
-    return this.basepath.concat("/chung-nhan-kiem-dich");
-  },
-  get dkkd() {
-    return this.basepath.concat("/dang-ky-kiem-dich");
-  },
-  get createreport() {
-    return this.basepath.concat("/tao-bao-cao");
-  },
-  get updatereport() {
-    return this.basepath.concat("/cap-nhat-bao-cao");
-  },
-};
+import { publicEndpoints, quarantineEndpoints } from ".";
 
 const QuarantineRoutes = [
   <Route
@@ -83,4 +57,4 @@ const QuarantineRoutes = [
   />,
 ];
 
-export { QuarantineRoutes, quarantineEndpoints };
+export { QuarantineRoutes };

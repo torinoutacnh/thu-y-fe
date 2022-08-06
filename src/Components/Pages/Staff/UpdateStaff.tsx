@@ -1,6 +1,6 @@
 import { Button, Form, Input, Modal, Radio, notification } from "antd";
 import { ApiRoute, UserApiRoute } from "Api";
-import { staffEndpoints } from "Components/router/StaffRoutes";
+import { staffEndpoints } from "Components/router/routes";
 import { RoleType, SexType, UserModel } from "Components/Shared/Models/User";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
@@ -13,24 +13,27 @@ function UpdateStaff() {
   const { user } = useAuth();
   const { setLoading } = useLoading();
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id && user) {
       setLoading(true);
-      fetch(process.env.REACT_APP_API.concat(UserApiRoute.Base, "?") + new URLSearchParams({ id: id }), {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer ".concat(user.token),
-        },
-
-      })
+      fetch(
+        process.env.REACT_APP_API.concat(UserApiRoute.Base, "?") +
+          new URLSearchParams({ id: id }),
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer ".concat(user.token),
+          },
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           // console.log("get user update >>>>> ", data.data)
 
-          const tmp: UserModel = data.data
+          const tmp: UserModel = data.data;
 
           form.setFieldsValue({
             id: tmp.id,
@@ -41,8 +44,7 @@ function UpdateStaff() {
             address: tmp.address,
             sex: tmp.sex,
             role: tmp.role,
-          })
-
+          });
         })
         .catch((error) => console.log(error))
         .finally(() => {
@@ -60,20 +62,14 @@ function UpdateStaff() {
 
   type NotificationType = "success" | "info" | "warning" | "error";
 
-  const openNotificationWithIcon = (
-    type: NotificationType,
-    title: string,
-
-  ) => {
+  const openNotificationWithIcon = (type: NotificationType, title: string) => {
     notification[type]({
       message: title,
-
     });
   };
 
   const onFinishUpdate = () => {
     if (user) {
-
       const newUser = {
         id: form.getFieldValue("id"),
         name: form.getFieldValue("name"),
@@ -83,8 +79,8 @@ function UpdateStaff() {
         email: form.getFieldValue("email"),
         address: form.getFieldValue("address"),
         sex: form.getFieldValue("sex"),
-        role: form.getFieldValue("role")
-      }
+        role: form.getFieldValue("role"),
+      };
 
       setLoading(true);
       fetch(process.env.REACT_APP_API.concat(UserApiRoute.update, "?"), {
@@ -95,36 +91,30 @@ function UpdateStaff() {
         },
         body: JSON.stringify(newUser),
       })
-        .then((res) => { return res.json() })
+        .then((res) => {
+          return res.json();
+        })
         .then((data) => {
-          console.log("update success ", data)
-          openNotificationWithIcon("success", "Cập nhật nhân viên thành công")
+          console.log("update success ", data);
+          openNotificationWithIcon("success", "Cập nhật nhân viên thành công");
           form.resetFields();
-          navigate(staffEndpoints.home)
-
+          navigate(staffEndpoints.home);
         })
         .catch((error) => {
-          openNotificationWithIcon("error", "Cập nhật nhân viên thất bại")
-          console.log(error)
+          openNotificationWithIcon("error", "Cập nhật nhân viên thất bại");
+          console.log(error);
           setLoading(false);
-        })
-
+        });
     }
-  }
+  };
 
   return (
     <>
-      <Form
-        id="update-user-form"
-        layout="vertical"
-        form={form}
-      >
+      <Form id="update-user-form" layout="vertical" form={form}>
         <Form.Item>
           <b>Cập nhật thông tin nhân viên</b>
         </Form.Item>
-
         <Form.Item
-
           label={"ID"}
           name={"id"}
           rules={[
@@ -137,7 +127,6 @@ function UpdateStaff() {
         >
           <Input disabled={true} />
         </Form.Item>
-
         <Form.Item
           label={"Tên nhân viên"}
           name={"name"}
@@ -171,10 +160,6 @@ function UpdateStaff() {
         >
           <Input />
         </Form.Item>
-
-
-
-
         <Form.Item
           label={"Số điện thoại"}
           name={"phone"}
@@ -203,19 +188,17 @@ function UpdateStaff() {
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Mật khẩu"
           name="password"
           rules={[
             {
               required: true,
-              message: "Nhập mật khẩu!"
-            }
+              message: "Nhập mật khẩu!",
+            },
           ]}
         >
-          <Input.Password
-            minLength={6} />
+          <Input.Password minLength={6} />
         </Form.Item>
         <Form.Item label={"Địa chỉ"} name={"address"}>
           <Input />
@@ -264,17 +247,18 @@ function UpdateStaff() {
             })}
           </Radio.Group>
         </Form.Item>
-
-        <Button type="primary" onClick={() => { navigate(staffEndpoints.home) }}>
+        <Button
+          type="primary"
+          onClick={() => {
+            navigate(staffEndpoints.home);
+          }}
+        >
           Quay lại
         </Button>
-
         &nbsp;&nbsp;&nbsp;&nbsp;
-
         <Button type="primary" onClick={() => onFinishUpdate()}>
           Cập nhật
         </Button>
-
       </Form>
     </>
   );

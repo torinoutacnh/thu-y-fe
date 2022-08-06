@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
 import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
-import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
+import { quarantineEndpoints } from "Components/router/routes";
 import useWindowSize from "Modules/hooks/useWindowSize";
 import { IconType } from "antd/lib/notification";
 import { ReportModel } from "Components/Shared/Models/Form";

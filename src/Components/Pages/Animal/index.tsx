@@ -1,19 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
-import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Table, Button, Input, Descriptions, PageHeader } from "antd";
+import { useState, useEffect, useRef } from "react";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Table, Button, PageHeader } from "antd";
 import AnimalApiRoute from "Api/AnimalApiRoute";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
-import { RouteEndpoints } from "Components/router/MainRouter";
-import { AnimalSexType } from "Components/Shared/Models/Animal";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
 import useWindowSize from "Modules/hooks/useWindowSize";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
 import { AnimalModel } from "Components/Shared/Models/Animal";
 import CreateAnimal from "./CreateAnimal";
-import { Form, Modal, Select, notification, Space } from "antd";
+import { notification, Space } from "antd";
 import UpdateAnimal from "./UpdateAnimal";
+import { animalEndpoints } from "Components/router/routes";
 
 const AnimalHome = () => {
   const [listsAnimal, setListAnimal] = useState<AnimalModel[]>([]);
@@ -75,12 +74,12 @@ const AnimalHome = () => {
       key: 5,
       render: (record) => (
         <>
-          <Link to={RouteEndpoints.animal.updateAnimal.replace(":id", record.id)}>
+          <Link to={animalEndpoints.updateAnimal.replace(":id", record.id)}>
             <Button
               type="link"
               color="blue"
               icon={<EditOutlined />}
-            // onClick={() => { console.log("id record update", record.id) }}
+              // onClick={() => { console.log("id record update", record.id) }}
             >
               Cập nhật
             </Button>
@@ -124,14 +123,15 @@ const AnimalHome = () => {
 
             <tr>
               <Space>
-                <Link to={RouteEndpoints.animal.updateAnimal.replace(":id", record.id)}>
+                <Link
+                  to={animalEndpoints.updateAnimal.replace(":id", record.id)}
+                >
                   <Button
                     type="link"
                     color="blue"
                     // onClick={() => { console.log("id record update", record.id) }}
                     icon={<EditOutlined />}
                   >
-
                     Cập nhật
                   </Button>
                 </Link>
@@ -150,7 +150,6 @@ const AnimalHome = () => {
       },
     },
   ];
-
 
   ////////////////////////////////////////////NOTIFICATION//////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -176,10 +175,6 @@ const AnimalHome = () => {
       description: message,
     });
   };
-
-
-
-
 
   /////////////////////////////////////////DELETE ANIMAL/////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -228,10 +223,6 @@ const AnimalHome = () => {
       });
   };
 
-
-
-
-
   /////////////////////////////////////////Update after create/////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -239,28 +230,28 @@ const AnimalHome = () => {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const UpdateAnimalHandler = (animal: object) => {
-    return (
-      <UpdateAnimal />
-    )
+    return <UpdateAnimal />;
   };
-
 
   const UpdateAnimalAfterCreate = () => {
     setPage({ ...page, pageSize: page.pageSize - 1 });
-  }
+  };
 
   //////////////////////////////////////////////////// RENDER //////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
   return (
     <>
-
       <PageHeader
         title="Quản lý động vật"
-        extra={[<CreateAnimal key={getKeyThenIncreaseKey()} UpdateAnimalAfterCreate={UpdateAnimalAfterCreate} />]}
+        extra={[
+          <CreateAnimal
+            key={getKeyThenIncreaseKey()}
+            UpdateAnimalAfterCreate={UpdateAnimalAfterCreate}
+          />,
+        ]}
       />
 
       <Table

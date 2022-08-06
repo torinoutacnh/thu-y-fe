@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { Form, Input, Button, Checkbox, notification, Space } from "antd";
 
-import { RouteEndpoints } from "Components/router/MainRouter";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
-import { publicEndpoints } from "Components/router/PublicRoutes";
 import { IconType } from "antd/lib/notification";
 import logoThuY from "../../../Static/image/logo.png";
 import { SendEmailForgotPassword } from "../User/SendEmailForgotPassword";
 import AccountApiEndpoint from "Api/AccountApiRoute";
+import { publicEndpoints, generalEndpoints } from "Components/router/routes";
 
 export default function LoginPage() {
   return <LoginForm />;
@@ -65,7 +64,7 @@ const LoginForm = () => {
       .then((data) => {
         setUser(data);
         openNotification("Đăng nhập thành công", "success");
-        navigate(RouteEndpoints.home.basepath, { replace: true });
+        navigate(generalEndpoints.home, { replace: true });
       })
       .catch((error) => {
         openNotification(error.message, "error", console.log(error));

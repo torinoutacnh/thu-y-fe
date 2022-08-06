@@ -3,8 +3,7 @@ import { getKeyThenIncreaseKey } from "antd/lib/message";
 import { IconType } from "antd/lib/notification";
 import { ColumnsType } from "antd/lib/table";
 import { FormApiRoute, ReportApiRoute } from "Api";
-import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
-import { ReportType } from "Components/Shared/reports";
+import { QuarantineReportType, ReportType } from "Components/Shared/reports";
 import {
   AttrsToColumns,
   ReportsToSource,
@@ -14,6 +13,11 @@ import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PrintPopup from "./PrintPopup";
+import {
+  quarantineEndpoints,
+  abattoirEndpoints,
+} from "Components/router/routes";
 
 const MapTable = ({ reportType }: { reportType: ReportType }) => {
   const [form, setForm] = useState<FormModel>();
@@ -81,9 +85,10 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
 
   const editAction = (id: string) => {
     const params = { id: id };
-    const path =
-      quarantineEndpoints.updatereport.concat("?") +
-      new URLSearchParams(params);
+    const endpoint = QuarantineReportType[reportType]
+      ? quarantineEndpoints.updatereport
+      : abattoirEndpoints.updatereport;
+    const path = endpoint.concat("?") + new URLSearchParams(params);
     navigate(path);
   };
 
@@ -157,6 +162,7 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
     return (
       <>
         <Space className="space-media">
+          <PrintPopup />
           {reportType === ReportType["ĐK-KDĐV-001"] && (
             <Button
               onClick={() => mapFormAction(props.id, ReportType["CN-KDĐV-UQ"])}

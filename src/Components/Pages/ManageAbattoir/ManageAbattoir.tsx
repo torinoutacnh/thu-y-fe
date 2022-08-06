@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { useState, useEffect, useRef } from "react";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import {
   Table,
   Button,
-  Input,
   Descriptions,
   PageHeader,
   notification,
@@ -16,11 +15,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
 import useWindowSize from "Modules/hooks/useWindowSize";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
-import Createabattoir from "./CreateAbattoir";
-import { manageabattoirEndpoints } from "Components/router/ManageAbattoirRoutes";
+import { manageabattoirEndpoints } from "Components/router/routes";
 import { AbattoirModel } from "Components/Shared/Models/Abattoir";
 import CreateAbattoir from "./CreateAbattoir";
-import UpdateAbattoir from "./UpdateAbattoir";
 
 const ManageAbattoir = () => {
   const [listAbattoir, setListAbattoir] = useState<AbattoirModel[]>([]);

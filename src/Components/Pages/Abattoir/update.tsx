@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "Modules/hooks/useAuth";
 import { FormApiRoute, ReportApiRoute } from "Api";
-import { useParams } from "react-router-dom";
-import { RenderForm } from "Components/Shared/reports";
+import { useSearchParams } from "react-router-dom";
+import { RenderForm, ReportType } from "Components/Shared/reports";
 import { FormModel, ReportModel } from "Components/Shared/Models/Form";
-import { ReportType } from "Components/Shared/reports";
+import { useLoading } from "Modules/hooks/useLoading";
 
-export default function UpdateAbattoirReport() {
+export default function UpdateAbattoirReportPage() {
   const [form, setForm] = useState<FormModel>();
   const [report, setReport] = useState<ReportModel>();
   const { user } = useAuth();
-  const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const { setLoading } = useLoading();
 
-  const search = { code: process.env.REACT_APP_CODE_GIET_MO };
+  const id = searchParams.get("id");
+
   useEffect(() => {
-    if (user?.token && search.code) {
+    if (user?.token && report?.formId) {
       fetch(
         process.env.REACT_APP_API.concat(FormApiRoute.getform, "?") +
-          new URLSearchParams(search),
+          new URLSearchParams({ code: report.formId }),
         {
           method: "GET",
           headers: {
@@ -32,10 +34,10 @@ export default function UpdateAbattoirReport() {
         })
         .catch((error) => console.log(error));
     }
-  }, [user.token, search.code]);
+  }, [user.token, report?.formId]);
 
   useEffect(() => {
-    if (id && form && user?.token) {
+    if (id && user?.token) {
       fetch(
         process.env.REACT_APP_API.concat(ReportApiRoute.getSingleReport, "?") +
           new URLSearchParams({ reportId: id }),
@@ -49,11 +51,16 @@ export default function UpdateAbattoirReport() {
       )
         .then((res) => res.json())
         .then((data) => {
+          console.log(data);
           setReport(data.data);
         })
         .catch((error) => console.log(error));
     }
-  }, [form?.attributes, form?.id]);
+  }, [id, user?.token]);
+
+  useEffect(() => {
+    form?.id && report?.id ? setLoading(false) : setLoading(true);
+  }, [form?.id, report?.id]);
 
   return (
     <>
@@ -62,7 +69,7 @@ export default function UpdateAbattoirReport() {
           form={form}
           reportvalue={report}
           submitmethod={"POST"}
-          reportType={ReportType["NK-001"]}
+          reportType={ReportType[form?.formCode as any] as any}
         />
       )}
     </>

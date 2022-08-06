@@ -1,26 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
-import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Table, Button, Input, Descriptions, PageHeader } from "antd";
-import AnimalApiRoute from "Api/AnimalApiRoute";
+import { useState, useEffect, useRef } from "react";
+import { Table } from "antd";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
-import { RouteEndpoints } from "Components/router/MainRouter";
-import { AnimalSexType } from "Components/Shared/Models/Animal";
-import { Link, useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
 import useWindowSize from "Modules/hooks/useWindowSize";
-import { getKeyThenIncreaseKey } from "antd/lib/message";
-import { AnimalModel } from "Components/Shared/Models/Animal";
 import { useParams } from "react-router-dom";
-import { Form, Modal, Select, notification, Space } from "antd";
+import { notification } from "antd";
 import { ManageReceiptRoute } from "Api";
 import { ReceiptReportModel } from "Components/Shared/Models/Receipt";
 
 const ReceiptReportIndex = () => {
+  const { id } = useParams();
 
-  const { id } = useParams()
-
-  console.log("id >>>>", id)
+  console.log("id >>>>", id);
 
   const [listRR, setListRR] = useState<ReceiptReportModel[]>([]);
   const { user } = useAuth();
@@ -30,7 +22,7 @@ const ReceiptReportIndex = () => {
   const [page, setPage] = useState({
     pageNumber: 0,
     pageSize: 10000,
-    allocateId: id
+    allocateId: id,
   });
 
   const getKey = () => {
@@ -105,7 +97,6 @@ const ReceiptReportIndex = () => {
     //                 Xem chi tiết
     //             </Button>
 
-
     //         </>
     //     ),
     // },
@@ -167,7 +158,6 @@ const ReceiptReportIndex = () => {
     },
   ];
 
-
   ////////////////////////////////////////////NOTIFICATION//////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -192,10 +182,6 @@ const ReceiptReportIndex = () => {
       description: message,
     });
   };
-
-
-
-
 
   /////////////////////////////////////////DELETE ANIMAL/////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -244,16 +230,11 @@ const ReceiptReportIndex = () => {
   //     });
   // };
 
-
-
-
-
   /////////////////////////////////////////Update after create/////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
   // const UpdateAnimalAfterCreate = () => {
   //   setPage({ ...page, pageSize: page.pageSize - 1 });
@@ -263,7 +244,6 @@ const ReceiptReportIndex = () => {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
   return (
     <>

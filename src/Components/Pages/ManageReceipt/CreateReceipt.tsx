@@ -1,21 +1,11 @@
-import {
-  Button,
-  Form,
-  Input,
-  Modal,
-  Radio,
-  notification,
-  ConfigProvider,
-} from "antd";
+import { Button, Form, Input, Modal, notification } from "antd";
 import { useAuth } from "Modules/hooks/useAuth";
 import { PlusOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
+import { useState } from "react";
 import { ManageReceiptRoute } from "Api";
-import { DatePicker, Space } from "antd";
+import { DatePicker } from "antd";
 
-import moment from "moment";
 import "moment/locale/zh-cn";
-import locale from "antd/es/locale/zh_CN";
 const CreateReceipt = (props: any) => {
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);

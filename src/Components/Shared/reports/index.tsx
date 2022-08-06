@@ -1,5 +1,6 @@
 import { TableProps } from "antd";
 import {
+  AbattoirReportType,
   QuarantineReportType,
   RenderProps,
   ReportType,
@@ -7,5 +8,11 @@ import {
 import { RenderForm } from "./form/RenderComponent";
 import { MapTable } from "./table/CustomTable";
 
-export { RenderForm, MapTable, ReportType, QuarantineReportType };
+export {
+  RenderForm,
+  MapTable,
+  ReportType,
+  QuarantineReportType,
+  AbattoirReportType,
+};
 export type { RenderProps, TableProps };

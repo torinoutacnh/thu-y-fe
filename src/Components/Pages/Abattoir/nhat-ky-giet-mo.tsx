@@ -7,12 +7,13 @@ import { Button, notification, PageHeader, Space, Table } from "antd";
 import { FileAddOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
-import { abattoirEndpoints } from "Components/router/AbattoirRoutes";
+import { abattoirEndpoints } from "Components/router/routes";
 import { ColumnsType } from "antd/lib/table";
 import moment from "moment";
 import useWindowSize from "Modules/hooks/useWindowSize";
 import { IconType } from "antd/lib/notification";
 import { ReportModel } from "Components/Shared/Models/Form";
+import { ReportType } from "Components/Shared/reports";
 
 interface AbattoirReportModel {
   reportId?: string;
@@ -162,14 +163,13 @@ const AbattoirPage = () => {
           <>
             <Space>
               <Button
-                onClick={() =>
-                  navigate(
-                    abattoirEndpoints.updatereport.replace(
-                      ":id",
-                      record.reportId
-                    )
-                  )
-                }
+                onClick={() => {
+                  const params = { id: record.reportId };
+                  const path =
+                    abattoirEndpoints.updatereport.concat("?") +
+                    new URLSearchParams(params);
+                  navigate(path);
+                }}
                 type="link"
               >
                 Cập nhật
@@ -222,14 +222,13 @@ const AbattoirPage = () => {
             <tr>
               <Space>
                 <Button
-                  onClick={() =>
-                    navigate(
-                      abattoirEndpoints.updatereport.replace(
-                        ":id",
-                        record.reportId
-                      )
-                    )
-                  }
+                  onClick={() => {
+                    const params = { id: record.reportId };
+                    const path =
+                      abattoirEndpoints.updatereport.concat("?") +
+                      new URLSearchParams(params);
+                    navigate(path);
+                  }}
                   type="link"
                 >
                   Cập nhật
@@ -259,7 +258,11 @@ const AbattoirPage = () => {
             icon={<FileAddOutlined />}
             type="primary"
             onClick={() => {
-              navigate(abattoirEndpoints.createreport);
+              const params = { code: ReportType["NK-001"] };
+              const path =
+                abattoirEndpoints.createreport.concat("?") +
+                new URLSearchParams(params as any);
+              navigate(path);
             }}
           >
             Tạo báo cáo

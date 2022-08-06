@@ -1,10 +1,7 @@
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import { RouteEndpoints } from "Components/router/MainRouter";
+import { Navigate, Outlet } from "react-router-dom";
+import React from "react";
 import { useAuth } from "Modules/hooks/useAuth";
-import { publicEndpoints } from "Components/router/PublicRoutes";
-import Cookies from "js-cookie";
-import { RoleType } from "Components/Shared/Models/User";
+import { publicEndpoints } from "Components/router/routes";
 
 export { PrivateOutlet, PrivateRoute };
 

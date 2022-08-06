@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
-import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Table, Button, Input, Descriptions, PageHeader, Space, notification } from "antd";
-import { ApiRoute, UserApiRoute } from "Api";
+import { useState, useEffect, useRef } from "react";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Table, Button, Space, notification, PageHeader } from "antd";
+import { UserApiRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
-import { RouteEndpoints } from "Components/router/MainRouter";
 import { UserModel, RoleType, SexType } from "Components/Shared/Models/User";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
 import useWindowSize from "Modules/hooks/useWindowSize";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
 import CreateStaff from "./CreateStaff";
-import { staffEndpoints } from "Components/router/StaffRoutes";
+import { staffEndpoints } from "Components/router/routes";
 
 const StaffHome = () => {
   const [liststaff, setListStaff] = useState<UserModel[]>([]);
@@ -33,14 +32,9 @@ const StaffHome = () => {
 
   type NotificationType = "success" | "info" | "warning" | "error";
 
-  const openNotificationWithIcon = (
-    type: NotificationType,
-    title: string,
-
-  ) => {
+  const openNotificationWithIcon = (type: NotificationType, title: string) => {
     notification[type]({
       message: title,
-
     });
   };
 
@@ -49,7 +43,7 @@ const StaffHome = () => {
       setLoading(true);
       fetch(
         process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
-        new URLSearchParams(page as any),
+          new URLSearchParams(page as any),
         {
           method: "GET",
           headers: {
@@ -76,7 +70,7 @@ const StaffHome = () => {
     setLoading(true);
     fetch(
       process.env.REACT_APP_API.concat(UserApiRoute.delete, "?") +
-      new URLSearchParams({ id }),
+        new URLSearchParams({ id }),
       {
         method: "POST",
         headers: {
@@ -87,12 +81,12 @@ const StaffHome = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
-        openNotificationWithIcon("success", "Xóa nhân viên thành công")
+        console.log(data);
+        openNotificationWithIcon("success", "Xóa nhân viên thành công");
       })
       .catch((error) => {
-        console.log(error)
-        openNotificationWithIcon("error", "Xóa nhân viên thất bại")
+        console.log(error);
+        openNotificationWithIcon("error", "Xóa nhân viên thất bại");
       })
       .finally(() => GetStaff());
   };
@@ -250,7 +244,12 @@ const StaffHome = () => {
     <>
       <PageHeader
         title="Quản lý nhân viên"
-        extra={[<CreateStaff key={getKeyThenIncreaseKey()} updateAfterCreate={updateAfterCreate} />]}
+        extra={[
+          <CreateStaff
+            key={getKeyThenIncreaseKey()}
+            updateAfterCreate={updateAfterCreate}
+          />,
+        ]}
       />
 
       <Table

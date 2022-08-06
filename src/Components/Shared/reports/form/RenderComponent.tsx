@@ -19,9 +19,11 @@ import { SealFields } from "./RenderComponent.Seal";
 import { RenderFormAttrs } from "./RenderComponent.FormAttr";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
-import { ApiRoute, ReportApiRoute } from "Api";
-import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
-import { abattoirEndpoints } from "Components/router/AbattoirRoutes";
+import { ReportApiRoute } from "Api";
+import {
+  abattoirEndpoints,
+  quarantineEndpoints,
+} from "Components/router/routes";
 import { IconType } from "antd/lib/notification";
 
 const RenderForm: React.FC<RenderProps> = ({
@@ -65,7 +67,11 @@ const RenderForm: React.FC<RenderProps> = ({
         break;
       }
       case ReportType["NK-001"]: {
-        navigate(abattoirEndpoints.home);
+        navigate(abattoirEndpoints.nkgm);
+        break;
+      }
+      case ReportType["CN-KDSPĐV-UQ"]: {
+        navigate(abattoirEndpoints.cnkdxkdv);
         break;
       }
     }
@@ -169,6 +175,14 @@ const RenderForm: React.FC<RenderProps> = ({
       case ReportType["BB-VSTY"]: {
         return <></>;
       }
+      case ReportType["CN-KDSPĐV-UQ"]: {
+        return (
+          <>
+            <AnimalFields mainFormRef={formref} report={report} />
+            <SealFields mainFormRef={formref} report={report} />
+          </>
+        );
+      }
       default:
         return <></>;
     }
@@ -211,10 +225,6 @@ const RenderForm: React.FC<RenderProps> = ({
           <Form.Item name={"type"} initialValue={0} hidden={true}>
             <Input />
           </Form.Item>
-          {/* <AnimalFields report={reportvalue} mainFormRef={formref} />
-          {reportType && reportType === ReportType["CN-KDĐV-UQ"] && (
-            <SealFields mainFormRef={formref} report={reportvalue} />
-          )} */}
           {RenderAnimalAndSealTabs(reportType, formref, reportvalue)}
           <RenderFormAttrs form={form} />
           <Row align="middle" justify="center">

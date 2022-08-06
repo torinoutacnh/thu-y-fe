@@ -3,24 +3,24 @@ import { getKeyThenIncreaseKey } from "antd/lib/message";
 import { useNavigate } from "react-router-dom";
 import { MapTable } from "../../Shared/reports/table/CustomTable";
 import { FileAddOutlined } from "@ant-design/icons";
-import { quarantineEndpoints } from "Components/router/routes";
 import { ReportType } from "Components/Shared/reports";
+import { abattoirEndpoints } from "Components/router/routes";
 
-const RegisterQuarantinePage = () => {
+const CNKDSPDV = () => {
   const navigate = useNavigate();
   return (
     <>
       <PageHeader
-        title="Biên bản đăng ký kiểm dịch động vật"
+        title="Giấy chứng nhận kiểm dịch sản phẩm động vật ra khỏi địa bàn cấp tỉnh"
         extra={[
           <Button
             key={getKeyThenIncreaseKey()}
             icon={<FileAddOutlined />}
             type="primary"
             onClick={() => {
-              const params = { code: ReportType["ĐK-KDĐV-001"] };
+              const params = { code: ReportType["CN-KDSPĐV-UQ"] };
               const path =
-                quarantineEndpoints.createreport.concat("?") +
+                abattoirEndpoints.createreport.concat("?") +
                 new URLSearchParams(params as any);
               navigate(path);
             }}
@@ -29,9 +29,9 @@ const RegisterQuarantinePage = () => {
           </Button>,
         ]}
       />
-      <MapTable reportType={ReportType["ĐK-KDĐV-001"]} />
+      <MapTable reportType={ReportType["CN-KDSPĐV-UQ"]} />
     </>
   );
 };
 
-export default RegisterQuarantinePage;
+export default CNKDSPDV;

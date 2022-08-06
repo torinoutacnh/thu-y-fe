@@ -1,11 +1,10 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Form, Input, Button, Radio, notification } from "antd";
 import { Link } from "react-router-dom";
-import { RouteEndpoints } from "Components/router/MainRouter";
-import { ApiRoute, UserApiRoute } from "Api";
-import { publicEndpoints } from "Components/router/PublicRoutes";
+import { UserApiRoute } from "Api";
 import { useLoading } from "Modules/hooks/useLoading";
 import { useNavigate } from "react-router-dom";
+import { publicEndpoints } from "Components/router/routes";
 
 export default function RegisterPage() {
   return (
@@ -89,33 +88,35 @@ const RegisterForm = () => {
   };
 
   const checkPassword = () => {
-    if (form.getFieldValue("password") === form.getFieldValue("confirmPassword")) {
-      return true
+    if (
+      form.getFieldValue("password") === form.getFieldValue("confirmPassword")
+    ) {
+      return true;
     }
 
     form.setFields([
       {
-        name: 'confirmPassword',
-        errors: ['Xác nhận mật khẩu không khớp'],
+        name: "confirmPassword",
+        errors: ["Xác nhận mật khẩu không khớp"],
       },
     ]);
-    return false
-  }
+    return false;
+  };
 
-  const registerSuccess = "Registration successful, please check your email for verification instructions"
-  const success = "success"
-  const error = "error"
-  const titleSuccess = "Đăng ký tài khoản thành công"
-  const messageSuccess = "Vào mail kích hoạt tài khoản ngay nào"
-  const titleError = "Đăng ký tài khoản thất bại"
-  const messageError = "Tên tài khoản đã tồn tại"
-
+  const registerSuccess =
+    "Registration successful, please check your email for verification instructions";
+  const success = "success";
+  const error = "error";
+  const titleSuccess = "Đăng ký tài khoản thành công";
+  const messageSuccess = "Vào mail kích hoạt tài khoản ngay nào";
+  const titleError = "Đăng ký tài khoản thất bại";
+  const messageError = "Tên tài khoản đã tồn tại";
 
   const Register = async () => {
     if (!validateUser()) return;
     if (!checkPassword()) return;
 
-    setLoading(true)
+    setLoading(true);
     fetch(process.env.REACT_APP_API.concat(UserApiRoute.register), {
       method: "POST",
       headers: {
@@ -125,43 +126,39 @@ const RegisterForm = () => {
       body: JSON.stringify(user),
     })
       .then((res) => {
-        return res.json()
-      }
-      )
+        return res.json();
+      })
       .then((data) => {
         console.log("register message >>>>>>>", data.message);
-        setLoading(false)
+        setLoading(false);
 
-        let s1: NotificationType, s2: string, s3: string
+        let s1: NotificationType, s2: string, s3: string;
 
         if (data.message === registerSuccess) {
-          s1 = success
-          s2 = titleSuccess
-          s3 = messageSuccess
-        }
-        else {
-          s1 = error
-          s2 = titleError
-          s3 = messageError
+          s1 = success;
+          s2 = titleSuccess;
+          s3 = messageSuccess;
+        } else {
+          s1 = error;
+          s2 = titleError;
+          s3 = messageError;
         }
 
         openNotificationWithIcon(s1, s2, s3);
 
         if (data.message === registerSuccess) {
-          navigate(publicEndpoints.login)
+          navigate(publicEndpoints.login);
         }
-
       })
       .catch((error) => {
-        console.log("register error >>>>>>>", error)
-        setLoading(false)
+        console.log("register error >>>>>>>", error);
+        setLoading(false);
         openNotificationWithIcon(
           "error",
           "ERROR",
           `Tạo tài khoản không thành công`
         );
-      })
-
+      });
 
     // console.log("form >>>>>>>>> ", user)
   };
@@ -194,12 +191,13 @@ const RegisterForm = () => {
         rules={[
           {
             required: true,
-            message: "Nhập số điện thoại người dùng!"
+            message: "Nhập số điện thoại người dùng!",
           },
           {
             message: "Số điện thoại không đúng định dạng!",
             pattern: new RegExp("(84|0[3|5|7|8|9])+([0-9]{8})"),
-          },]}
+          },
+        ]}
       >
         <Input
           onChange={(e) => {
@@ -220,7 +218,7 @@ const RegisterForm = () => {
         rules={[
           {
             required: true,
-            message: "Nhập email!"
+            message: "Nhập email!",
           },
           {
             message: "Email không đúng định dạng!",
@@ -252,7 +250,6 @@ const RegisterForm = () => {
         rules={[{ required: true, message: "Chọn giới tính!" }]}
       >
         <Radio.Group
-
           onChange={(e) => {
             setUser({ ...user, sex: e.target.value, role: 2 });
             // console.log(user);
@@ -282,8 +279,8 @@ const RegisterForm = () => {
         rules={[
           {
             required: true,
-            message: "Nhập mật khẩu!"
-          }
+            message: "Nhập mật khẩu!",
+          },
         ]}
       >
         <Input.Password
@@ -312,7 +309,8 @@ const RegisterForm = () => {
             setUser({ ...user, confirmPassword: e.target.value });
             // console.log(user);
           }}
-          value={user.confirmPassword ?? ""} />
+          value={user.confirmPassword ?? ""}
+        />
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -326,6 +324,6 @@ const RegisterForm = () => {
           Đã có tài khoản ?
         </Link>
       </Form.Item>
-    </Form >
+    </Form>
   );
 };

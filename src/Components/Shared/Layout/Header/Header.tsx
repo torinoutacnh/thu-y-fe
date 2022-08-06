@@ -1,17 +1,19 @@
 import { Button, PageHeader } from "antd";
-import { abattoirEndpoints } from "Components/router/AbattoirRoutes";
-import { RouteEndpoints } from "Components/router/MainRouter";
-import { manageabattoirEndpoints } from "Components/router/ManageAbattoirRoutes";
-import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
-import { staffEndpoints } from "Components/router/StaffRoutes";
-import { managereceiptEndpoints } from "Components/router/ManageReceiptRoutes";
+import { RouteEndpoints } from "Components/router";
+import {
+  staffEndpoints,
+  manageReceiptEndpoints,
+  quarantineEndpoints,
+  manageabattoirEndpoints,
+  abattoirEndpoints,
+  animalEndpoints,
+  generalEndpoints,
+} from "Components/router/routes";
 import logoThuY from "../../../../Static/image/logo.png";
 import { useAuth } from "Modules/hooks/useAuth";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./header.css";
-
-import { publicEndpoints } from "Components/router/PublicRoutes";
 
 import { ChangePassword } from "Components/Pages/User/ChangePassword";
 
@@ -76,7 +78,7 @@ const Header = () => {
               alt="logo"
               width={30}
               onClick={() => {
-                navigate(RouteEndpoints.home.basepath);
+                navigate(generalEndpoints.home);
               }}
             />
             <h4>PHẦN MỀM QUẢN LÝ KIỂM SOÁT GIẾT MỔ VÀ KIỂM DỊCH</h4>
@@ -151,8 +153,13 @@ const Header = () => {
                         }`}
                       >
                         <li>
-                          <Link to={abattoirEndpoints.home}>
+                          <Link to={abattoirEndpoints.nkgm}>
                             Báo cáo giết mổ
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to={abattoirEndpoints.cnkdxkdv}>
+                            Chứng nhận kiểm dịch
                           </Link>
                         </li>
                         <li>
@@ -193,7 +200,7 @@ const Header = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link to={RouteEndpoints.animal.basepath}>
+                          <Link to={animalEndpoints.home}>
                             Quản lý động vật
                           </Link>
                         </li>
@@ -208,7 +215,7 @@ const Header = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link to={managereceiptEndpoints.home}>
+                          <Link to={manageReceiptEndpoints.home}>
                             Quản lý hóa đơn
                           </Link>
                         </li>

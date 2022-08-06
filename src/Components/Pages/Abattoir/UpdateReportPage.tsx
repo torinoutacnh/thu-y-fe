@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "Modules/hooks/useAuth";
-import { ApiRoute, FormApiRoute, ReportApiRoute } from "Api";
+import { FormApiRoute, ReportApiRoute } from "Api";
 import { useParams } from "react-router-dom";
-import { RenderForm } from "Components/Shared/Form";
-import {
-  FormModel,
-  ReportModel,
-  ReportQueryModel,
-} from "Components/Shared/Models/Form";
-import { ReportType } from "Components/Shared/Form/Define/FormInterface";
+import { RenderForm } from "Components/Shared/reports";
+import { FormModel, ReportModel } from "Components/Shared/Models/Form";
+import { ReportType } from "Components/Shared/reports";
 
 export default function UpdateAbattoirReport() {
   const [form, setForm] = useState<FormModel>();

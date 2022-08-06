@@ -1,20 +1,19 @@
-import { Button, notification, Space, Table } from "antd";
+import { Button, Descriptions, List, notification, Space, Table } from "antd";
+import { getKeyThenIncreaseKey } from "antd/lib/message";
 import { IconType } from "antd/lib/notification";
 import { ColumnsType } from "antd/lib/table";
 import { FormApiRoute, ReportApiRoute } from "Api";
 import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
-import { ReportType } from "Components/Shared/Form/Define/FormInterface";
+import { ReportType } from "Components/Shared/reports";
 import {
   AttrsToColumns,
   ReportsToSource,
-} from "Components/Shared/Form/Define/FormMapping";
+} from "Components/Shared/reports/table/FormMapping";
 import { FormModel } from "Components/Shared/Models/Form";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import "../../../../Static/css/antd-override.css";
 
 const MapTable = ({ reportType }: { reportType: ReportType }) => {
   const [form, setForm] = useState<FormModel>();
@@ -147,37 +146,35 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
         fixed: "right",
         align: "center",
         width: 100,
-        render: (record) => (
-          <>
-            <Space className="space-media">
-              {reportType === ReportType["ĐK-KDĐV-001"] && (
-                <Button
-                  onClick={() =>
-                    mapFormAction(record.id, ReportType["CN-KDĐV-UQ"])
-                  }
-                  type="link"
-                >
-                  Tạo form 7
-                </Button>
-              )}
-              <Button onClick={() => editAction(record.id)} type="link">
-                Cập nhật
-              </Button>
-              <Button
-                onClick={() => deleteAction(record.id)}
-                type="link"
-                danger
-              >
-                Xóa
-              </Button>
-            </Space>
-          </>
-        ),
+        render: (record) => <ActionCol id={record.id} />,
       });
       setColumns(cols);
     }
     getReports();
   }, [form?.id]);
+
+  const ActionCol = (props: { id: string }) => {
+    return (
+      <>
+        <Space className="space-media">
+          {reportType === ReportType["ĐK-KDĐV-001"] && (
+            <Button
+              onClick={() => mapFormAction(props.id, ReportType["CN-KDĐV-UQ"])}
+              type="link"
+            >
+              Tạo form 7
+            </Button>
+          )}
+          <Button onClick={() => editAction(props.id)} type="link">
+            Cập nhật
+          </Button>
+          <Button onClick={() => deleteAction(props.id)} type="link" danger>
+            Xóa
+          </Button>
+        </Space>
+      </>
+    );
+  };
 
   return (
     <>
@@ -187,7 +184,69 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
         rowKey={"key"}
         dataSource={datasource}
         scroll={{ x: "100%" }}
+        className={"main-table"}
       />
+
+      <List
+        itemLayout="vertical"
+        size="small"
+        dataSource={datasource}
+        className={"responsive-table"}
+        bordered={false}
+        renderItem={(item) => {
+          return (
+            <List.Item key={item.id}>
+              <Descriptions
+                bordered
+                layout="horizontal"
+                size="small"
+                style={{ marginTop: 20, marginBottom: 20 }}
+                column={{ xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
+              >
+                {columns.map((c, i) => {
+                  return (
+                    <Descriptions.Item
+                      key={getKeyThenIncreaseKey()}
+                      label={c.title.toString()}
+                    >
+                      {i + 1 !== columns.length ? (
+                        item[(c as any).dataIndex]
+                      ) : (
+                        <ActionCol id={item.id} />
+                      )}
+                    </Descriptions.Item>
+                  );
+                })}
+              </Descriptions>
+            </List.Item>
+          );
+        }}
+      ></List>
+      {/* <Descriptions
+        bordered
+        layout="horizontal"
+        size="small"
+        column={{ xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
+        className={"responsive-table"}
+        style={{ marginBottom: 20 }}
+      >
+        {datasource.map((x) => {
+          return columns.map((c, i) => {
+            return (
+              <Descriptions.Item
+                key={getKeyThenIncreaseKey()}
+                label={c.title.toString()}
+              >
+                {i + 1 !== columns.length ? (
+                  x[(c as any).dataIndex]
+                ) : (
+                  <ActionCol id={x.id} />
+                )}
+              </Descriptions.Item>
+            );
+          });
+        })}
+      </Descriptions> */}
     </>
   );
 };

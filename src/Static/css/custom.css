@@ -8,6 +8,29 @@
     align-items: flex-start;
 }
 
+.responsive-table {
+    display: none;
+}
+
+@media screen and (max-width:768px){
+    .main-table{
+        display: none;
+    }
+
+    .responsive-table{
+        display: block;
+    }
+
+    .space-media {
+        display: block;
+        text-align: end;
+    }
+
+    .space-media div{
+        display: inline-block;
+    }
+}
+
 /* @media screen and (max-width:768px) {
     .ant-table-content table,tr,tbody,td,th{
         display: block;

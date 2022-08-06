@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { RenderForm } from "Components/Shared/Form";
+import { useEffect, useState } from "react";
+import { RenderForm } from "Components/Shared/reports";
 import { useAuth } from "Modules/hooks/useAuth";
-import { ApiRoute, FormApiRoute } from "Api";
+import { FormApiRoute } from "Api";
 import { FormModel } from "Components/Shared/Models/Form";
-import { ReportType } from "Components/Shared/Form/Define/FormInterface";
+import { ReportType } from "Components/Shared/reports";
 import { useLoading } from "Modules/hooks/useLoading";
 
 export default function CreateAbattoirReport() {

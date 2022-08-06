@@ -8,7 +8,7 @@ import {
   notification,
   FormInstance,
 } from "antd";
-import { RenderProps, ReportType } from "../Define/FormInterface";
+import { RenderProps, ReportType } from "../interfaces/FormInterface";
 import React, { useEffect } from "react";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ReportModel } from "Components/Shared/Models/Form";
@@ -118,7 +118,7 @@ const RenderForm: React.FC<RenderProps> = ({
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-
+          openNotification("Thành công !", "success");
           // navigate(quarantineEndpoints.home);
         })
         .catch((error) => console.log(error))

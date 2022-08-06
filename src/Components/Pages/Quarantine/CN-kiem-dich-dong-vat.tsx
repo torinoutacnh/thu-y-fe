@@ -13,8 +13,8 @@ import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
 import useWindowSize from "Modules/hooks/useWindowSize";
 import { IconType } from "antd/lib/notification";
 import { ReportModel } from "Components/Shared/Models/Form";
-import { ReportType } from "Components/Shared/Form/Define/FormInterface";
 import { RoleType } from "Components/Shared/Models/User";
+import { ReportType } from "Components/Shared/reports";
 
 interface QuarantineReportModel {
   reportId?: string;

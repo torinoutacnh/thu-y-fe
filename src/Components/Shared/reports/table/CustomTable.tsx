@@ -18,6 +18,7 @@ import {
   quarantineEndpoints,
   abattoirEndpoints,
 } from "Components/router/routes";
+import { PrinterOutlined } from "@ant-design/icons";
 
 const MapTable = ({ reportType }: { reportType: ReportType }) => {
   const [form, setForm] = useState<FormModel>();
@@ -27,6 +28,7 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
 
   const { user } = useAuth();
   const { setLoading } = useLoading();
+  const { showModal, Popup } = PrintPopup();
 
   const getForm = () => {
     if (user) {
@@ -162,7 +164,13 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
     return (
       <>
         <Space className="space-media">
-          <PrintPopup id={props.id} />
+          <Button
+            type="link"
+            onClick={() => showModal(props.id)}
+            icon={<PrinterOutlined />}
+          >
+            In
+          </Button>
           {reportType === ReportType["ĐK-KDĐV-001"] && (
             <Button
               onClick={() => mapFormAction(props.id, ReportType["CN-KDĐV-UQ"])}
@@ -228,31 +236,8 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
           );
         }}
       ></List>
-      {/* <Descriptions
-        bordered
-        layout="horizontal"
-        size="small"
-        column={{ xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
-        className={"responsive-table"}
-        style={{ marginBottom: 20 }}
-      >
-        {datasource.map((x) => {
-          return columns.map((c, i) => {
-            return (
-              <Descriptions.Item
-                key={getKeyThenIncreaseKey()}
-                label={c.title.toString()}
-              >
-                {i + 1 !== columns.length ? (
-                  x[(c as any).dataIndex]
-                ) : (
-                  <ActionCol id={x.id} />
-                )}
-              </Descriptions.Item>
-            );
-          });
-        })}
-      </Descriptions> */}
+
+      <Popup />
     </>
   );
 };

@@ -7,14 +7,15 @@ import { ReportApiRoute } from "Api";
 import { ReportModel } from "Components/Shared/Models/Form";
 import { useAuth } from "Modules/hooks/useAuth";
 
-export default function PrintPopup(props: { id: string }) {
+export default function PrintPopup() {
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const [report, setReport] = useState<ReportModel>();
+  const [id, setId] = useState<string>();
   const { user } = useAuth();
-  const { id } = props;
 
-  const showModal = () => {
+  const showModal = (id: string) => {
+    setId(id);
     setVisible(true);
   };
 
@@ -52,40 +53,41 @@ export default function PrintPopup(props: { id: string }) {
     }
   }, [id, user?.token]);
 
-  return (
-    <>
-      <Button type="link" onClick={showModal} icon={<PrinterOutlined />}>
-        In
-      </Button>
-      <Modal
-        visible={visible}
-        title=""
-        onOk={handleOk}
-        onCancel={handleCancel}
-        closable={false}
-        width={"96%"}
-        bodyStyle={{ height: "100vh", margin: 0, padding: 0 }}
-        style={{ top: 20 }}
-        footer={[
-          <Button key="back" onClick={handleCancel}>
-            Return
-          </Button>,
-          <Button
-            key="submit"
-            type="primary"
-            loading={loading}
-            onClick={handleOk}
-          >
-            Submit
-          </Button>,
-        ]}
-      >
-        {report && (
-          <PDFViewer width={"100%"} height={"100%"} style={{ border: 0 }}>
-            <PDF7 />
-          </PDFViewer>
-        )}
-      </Modal>
-    </>
-  );
+  const Popup = () => {
+    return (
+      <>
+        <Modal
+          visible={visible}
+          title=""
+          onOk={handleOk}
+          onCancel={handleCancel}
+          closable={false}
+          width={"96%"}
+          bodyStyle={{ height: "100vh", margin: 0, padding: 0 }}
+          style={{ top: 20 }}
+          footer={[
+            <Button key="back" onClick={handleCancel}>
+              Return
+            </Button>,
+            <Button
+              key="submit"
+              type="primary"
+              loading={loading}
+              onClick={handleOk}
+            >
+              Submit
+            </Button>,
+          ]}
+        >
+          {report && (
+            <PDFViewer width={"100%"} height={"100%"} style={{ border: 0 }}>
+              <PDF7 report={report} />
+            </PDFViewer>
+          )}
+        </Modal>
+      </>
+    );
+  };
+
+  return { showModal, Popup };
 }

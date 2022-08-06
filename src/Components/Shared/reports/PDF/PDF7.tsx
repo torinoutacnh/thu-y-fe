@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Font,
 } from "@react-pdf/renderer";
+import { ReportModel } from "Components/Shared/Models/Form";
 
 Font.register({
   family: "NotoSerif",
@@ -249,7 +250,9 @@ const styles = StyleSheet.create({
  * @param id : report id
  * return pdf with report value
  */
-const PDF7 = () => {
+const PDF7 = (props: { report: ReportModel }) => {
+  console.log(props.report);
+
   return (
     <Document>
       <Page style={styles.body}>

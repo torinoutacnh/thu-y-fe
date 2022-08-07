@@ -6,6 +6,8 @@ import { PDF7 } from "../PDF/PDF7";
 import { ReportApiRoute } from "Api";
 import { ReportModel } from "Components/Shared/Models/Form";
 import { useAuth } from "Modules/hooks/useAuth";
+import { ReportType } from "../interfaces/FormInterface";
+import { PDF12B } from "../PDF/PDF12B";
 
 export default function PrintPopup() {
   const [loading, setLoading] = useState(false);
@@ -53,7 +55,22 @@ export default function PrintPopup() {
     }
   }, [id, user?.token]);
 
-  const Popup = () => {
+  /**Create popup for pdf viewer
+   * @param props
+   * return pdf base on report type
+   */
+  const Popup = (props: { reportType: ReportType }) => {
+    const { reportType } = props;
+    const GetPDF = () => {
+      switch (reportType) {
+        case ReportType["CN-KDĐV-UQ"]: {
+          return <PDF7 report={report} />;
+        }
+        case ReportType["ĐK-KDĐV-001"]: {
+          return <PDF12B report={report} />;
+        }
+      }
+    };
     return (
       <>
         <Modal
@@ -81,7 +98,7 @@ export default function PrintPopup() {
         >
           {report && (
             <PDFViewer width={"100%"} height={"100%"} style={{ border: 0 }}>
-              <PDF7 report={report} />
+              <GetPDF />
             </PDFViewer>
           )}
         </Modal>

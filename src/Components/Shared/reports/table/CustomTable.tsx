@@ -237,9 +237,9 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
         }}
       ></List>
 
-      <Popup />
+      <Popup reportType={reportType} />
     </>
   );
 };
 
-export { MapTable };
+export default MapTable;

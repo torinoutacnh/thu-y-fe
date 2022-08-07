@@ -1,9 +1,8 @@
 import { PageHeader, Button } from "antd";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
 import { useNavigate } from "react-router-dom";
-import { MapTable } from "../../Shared/reports/table/CustomTable";
 import { FileAddOutlined } from "@ant-design/icons";
-import { ReportType } from "Components/Shared/reports";
+import { MapTable, ReportType } from "Components/Shared/reports";
 import { abattoirEndpoints } from "Components/router/routes";
 
 const CNKDSPDV = () => {

@@ -1,6 +1,5 @@
 import {
   Input,
-  Col,
   Form,
   Button,
   Space,
@@ -265,4 +264,4 @@ const RenderForm: React.FC<RenderProps> = ({
   );
 };
 
-export { RenderForm };
+export default RenderForm;

@@ -1,21 +1,36 @@
 import { ColumnsType } from "antd/lib/table";
 import {
   AttributeModel,
+  DataTypes,
   ReportModel,
   ReportValueModel,
 } from "Components/Shared/Models/Form";
+import moment from "moment";
+
+const RenderValueFormat = (dataType: DataTypes, data: string) => {
+  switch (dataType) {
+    case DataTypes.DateControl: {
+      return moment(data).format("DD/MM/yyyy").toString();
+    }
+
+    default:
+      return data;
+  }
+};
 
 const AttrsToColumns = (attrs: AttributeModel[]) => {
   attrs.sort((a, b) => a.sortNo - b.sortNo);
-  const columns: ColumnsType<any> = attrs.map((_, idx) => {
+  const columns: ColumnsType<any> = attrs.map((_) => {
     return {
       title: _.name,
       dataIndex: _.id,
-      key: idx,
+      key: _.sortNo,
       render(value, record, index) {
         return (
           <>
-            <p data-label={_.name}>{record[_.id]}</p>
+            <p data-label={_.name}>
+              {RenderValueFormat(_.dataType, record[_.id])}
+            </p>
           </>
         );
       },

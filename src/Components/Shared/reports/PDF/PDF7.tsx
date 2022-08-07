@@ -7,6 +7,7 @@ import {
   Font,
 } from "@react-pdf/renderer";
 import { ReportModel } from "Components/Shared/Models/Form";
+import { PDFModel } from "./mapper/map-report";
 
 Font.register({
   family: "NotoSerif",
@@ -247,11 +248,40 @@ const styles = StyleSheet.create({
 });
 
 /**Create Document Component
- * @param id : report id
+ * @param props : { report: ReportModel }
  * return pdf with report value
  */
 const PDF7 = (props: { report: ReportModel }) => {
-  console.log(props.report);
+  const { report } = props;
+  const pdf = PDFModel(report);
+  console.log(report, pdf);
+
+  const AnimalRender = () => {
+    const render = [];
+    for (let index = 0; index < 3; index++) {
+      const element = pdf.animals[index] ? (
+        <View style={[styles.row_body, styles.bold]} key={index}>
+          <Text style={styles.colBody25}>{pdf.animals[index].name}</Text>
+          <Text style={styles.colBody13}></Text>
+          <Text style={styles.colBody12_1}></Text>
+          <Text style={styles.colBody12_2}> </Text>
+          <Text style={styles.colBody13}>{pdf.animals[index].amount}</Text>
+          <Text style={styles.colBody31}></Text>
+        </View>
+      ) : (
+        <View style={[styles.row_body, styles.bold]} key={index}>
+          <Text style={styles.colBody25}></Text>
+          <Text style={styles.colBody13}></Text>
+          <Text style={styles.colBody12_1}></Text>
+          <Text style={styles.colBody12_2}> </Text>
+          <Text style={styles.colBody13}></Text>
+          <Text style={styles.colBody31}></Text>
+        </View>
+      );
+      render.push(element);
+    }
+    return render.map((x) => x);
+  };
 
   return (
     <Document>
@@ -446,31 +476,7 @@ const PDF7 = (props: { report: ReportModel }) => {
             <Text style={styles.col13}>{"Số lượng\n(Con)"}</Text>
             <Text style={styles.col31}>{"Mục đích sử dụng"}</Text>
           </View>
-
-          <View style={[styles.row_body, styles.bold]}>
-            <Text style={styles.colBody25}>{"heo"}</Text>
-            <Text style={styles.colBody13}>{"5"}</Text>
-            <Text style={styles.colBody12_1}>{"x"}</Text>
-            <Text style={styles.colBody12_2}> </Text>
-            <Text style={styles.colBody13}>{"30"}</Text>
-            <Text style={styles.colBody31}>{"mục đính "}</Text>
-          </View>
-          <View style={[styles.row_body, styles.bold]}>
-            <Text style={styles.colBody25}>{"heo"}</Text>
-            <Text style={styles.colBody13}>{"5"}</Text>
-            <Text style={styles.colBody12_1}> </Text>
-            <Text style={styles.colBody12_2}>{"x"}</Text>
-            <Text style={styles.colBody13}>{"30"}</Text>
-            <Text style={styles.colBody31}>{"mục đính "}</Text>
-          </View>
-          <View style={[styles.row_body, styles.bold]}>
-            <Text style={styles.colBody25}>{"heo"}</Text>
-            <Text style={styles.colBody13}>{"5"}</Text>
-            <Text style={styles.colBody12_1}>{"x"}</Text>
-            <Text style={styles.colBody12_2}> </Text>
-            <Text style={styles.colBody13}>{"30"}</Text>
-            <Text style={styles.colBody31}>{"mục đính "}</Text>
-          </View>
+          {AnimalRender()}
 
           <View style={[styles.row_body, styles.bold]}>
             <Text
@@ -481,7 +487,11 @@ const PDF7 = (props: { report: ReportModel }) => {
             <Text style={[styles.colBody13, { fontStyle: "bold" }]}> </Text>
             <Text style={[styles.colBody12_1, { fontStyle: "bold" }]}> </Text>
             <Text style={[styles.colBody12_2, { fontStyle: "bold" }]}> </Text>
-            <Text style={[styles.colBody13, { fontStyle: "bold" }]}> </Text>
+            <Text style={[styles.colBody13, { fontStyle: "bold" }]}>
+              {pdf.animals.reduce((a, b) => {
+                return a + b.amount;
+              }, 0)}
+            </Text>
             <Text style={[styles.colBody31, { fontStyle: "bold" }]}> </Text>
           </View>
         </View>

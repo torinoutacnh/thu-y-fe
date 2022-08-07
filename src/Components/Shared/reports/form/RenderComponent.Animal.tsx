@@ -28,7 +28,7 @@ import form, { FormInstance } from "antd/lib/form";
 
 const AnimalFields = (props: {
   report?: ReportModel;
-  mainFormRef: FormInstance;
+  mainFormRef: FormInstance<ReportModel>;
 }) => {
   const { mainFormRef } = props;
   const [report, setReport] = useState<ReportModel>(props.report);
@@ -76,6 +76,8 @@ const AnimalFields = (props: {
 
   const AddAnimal = (add: any) => {
     const val = form.getFieldsValue();
+    console.log(val);
+
     if (user) {
       setConfirmLoading(true);
       fetch(process.env.REACT_APP_API.concat(listAnimalApiRoute.create), {
@@ -137,6 +139,8 @@ const AnimalFields = (props: {
   };
 
   const SaveAnimalList = () => {
+    console.log(mainFormRef.getFieldsValue());
+    return;
     if (user) {
       setLoading(true);
       fetch(process.env.REACT_APP_API.concat(listAnimalApiRoute.update), {
@@ -204,13 +208,28 @@ const AnimalFields = (props: {
                         },
                       ]}
                     >
-                      <Select>
+                      <Select
+                        onSelect={(obj) => {
+                          const curval = mainFormRef.getFieldsValue();
+                          curval.listAnimals[field.key].animalName =
+                            animals.find((x) => x.id === obj).name;
+                          mainFormRef.setFieldsValue(curval);
+                        }}
+                      >
                         {animals.map((item) => (
                           <Select.Option key={item.id} value={item.id}>
                             {item.name}
                           </Select.Option>
                         ))}
                       </Select>
+                    </Form.Item>
+                    <Form.Item
+                      {...field}
+                      key={getkey()}
+                      name={[field.name, "animalName"]}
+                      hidden
+                    >
+                      <Input />
                     </Form.Item>
                     <Form.Item
                       {...field}
@@ -328,7 +347,15 @@ const AnimalFields = (props: {
                             },
                           ]}
                         >
-                          <Select>
+                          <Select
+                            onSelect={(obj) => {
+                              const curval = form.getFieldsValue();
+                              curval.animalName = animals.find(
+                                (x) => x.id === obj
+                              ).name;
+                              form.setFieldsValue(curval);
+                            }}
+                          >
                             {animals.map((item) => (
                               <Select.Option key={item.id} value={item.id}>
                                 {item.name}
@@ -336,33 +363,9 @@ const AnimalFields = (props: {
                             ))}
                           </Select>
                         </Form.Item>
-                        {/* <Form.Item
-                          label={"Động vật"}
-                          name={"animalName"}
-                          rules={[
-                            {
-                              required: true,
-                              message: "Chọn động vật!",
-                            },
-                          ]}
-                        >
-                          <Select
-                            onSelect={() => {
-                              form.setFieldsValue({
-                                animalName: animals.find(
-                                  (x) =>
-                                    x.name === form.getFieldValue("animalName")
-                                ).id,
-                              });
-                            }}
-                          >
-                            {animals.map((item) => (
-                              <Select.Option key={item.id} value={item.name}>
-                                {item.name}
-                              </Select.Option>
-                            ))}
-                          </Select>
-                        </Form.Item> */}
+                        <Form.Item name={"animalName"} hidden={true}>
+                          <Input />
+                        </Form.Item>
                         <Form.Item
                           label={"Số lượng"}
                           name={"amount"}

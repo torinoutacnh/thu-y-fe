@@ -92,11 +92,21 @@ export function VerifyForgotPassword() {
       })
       .then((data) => {
         console.log("register message >>>>>>>", data.message);
-        openNotificationWithIcon(
-          "success",
-          "Đặt lại mật khẩu thành công",
-          "Bạn sẽ được chuyển đến trang đăng nhập"
-        );
+        if (data.message === "Invalid token") {
+          openNotificationWithIcon(
+            "error",
+            "Cấp lại mật khẩu thất bại",
+            `Vui lòng thử lại`
+          );
+        }
+        else {
+          openNotificationWithIcon(
+            "success",
+            "Đặt lại mật khẩu thành công",
+            "Bạn sẽ được chuyển đến trang đăng nhập"
+          );
+        }
+
       })
       .catch((error) => {
         console.log("register error >>>>>>>", error);

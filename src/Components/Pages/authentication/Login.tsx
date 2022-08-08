@@ -11,9 +11,7 @@ import AccountApiEndpoint from "Api/AccountApiRoute";
 import { publicEndpoints, generalEndpoints } from "Components/router/routes";
 
 import { PDFViewer } from "@react-pdf/renderer";
-import { PDF12B } from "Components/Shared/Form/PDF/PDF12B";
 import { Row } from "antd";
-import { PDF12D } from "Components/Shared/Form/PDF/PDF12D";
 
 export default function LoginPage() {
   return <LoginForm />;

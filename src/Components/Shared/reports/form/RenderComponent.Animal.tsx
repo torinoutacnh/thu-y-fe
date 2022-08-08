@@ -140,7 +140,6 @@ const AnimalFields = (props: {
 
   const SaveAnimalList = () => {
     console.log(mainFormRef.getFieldsValue());
-    return;
     if (user) {
       setLoading(true);
       fetch(process.env.REACT_APP_API.concat(listAnimalApiRoute.update), {

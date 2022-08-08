@@ -8,6 +8,8 @@ import { ReportModel } from "Components/Shared/Models/Form";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ReportType } from "../interfaces/FormInterface";
 import { PDF12B } from "../PDF/PDF12B";
+import { PDF1 } from "../PDF/PDF1";
+import { PDF12D } from "../PDF/PDF12D";
 
 export default function PrintPopup() {
   const [loading, setLoading] = useState(false);
@@ -37,7 +39,7 @@ export default function PrintPopup() {
     if (id && user?.token) {
       fetch(
         process.env.REACT_APP_API.concat(ReportApiRoute.getSingleReport, "?") +
-          new URLSearchParams({ reportId: id }),
+        new URLSearchParams({ reportId: id }),
         {
           method: "GET",
           headers: {
@@ -64,10 +66,16 @@ export default function PrintPopup() {
     const GetPDF = () => {
       switch (reportType) {
         case ReportType["CN-KDĐV-UQ"]: {
+          return <PDF12B report={report} />;
+        }
+        case ReportType["CN-KDSPĐV-UQ"]: {
+          return <PDF12D report={report} />;
+        }
+        case ReportType["BB-VSTY"]: {
           return <PDF7 report={report} />;
         }
         case ReportType["ĐK-KDĐV-001"]: {
-          return <PDF12B report={report} />;
+          return <PDF1 />;
         }
       }
     };
@@ -82,19 +90,21 @@ export default function PrintPopup() {
           width={"96%"}
           bodyStyle={{ height: "100vh", margin: 0, padding: 0 }}
           style={{ top: 20 }}
-          footer={[
-            <Button key="back" onClick={handleCancel}>
-              Return
-            </Button>,
-            <Button
-              key="submit"
-              type="primary"
-              loading={loading}
-              onClick={handleOk}
-            >
-              Submit
-            </Button>,
-          ]}
+          footer={
+            [
+              // <Button key="back" onClick={handleCancel}>
+              //   Return
+              // </Button>,
+              // <Button
+              //   key="submit"
+              //   type="primary"
+              //   loading={loading}
+              //   onClick={handleOk}
+              // >
+              //   Submit
+              // </Button>,
+            ]
+          }
         >
           {report && (
             <PDFViewer width={"100%"} height={"100%"} style={{ border: 0 }}>

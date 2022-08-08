@@ -1,24 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
-import { PlusOutlined } from "@ant-design/icons";
-import { Table, Button, Input, Descriptions, PageHeader, Radio } from "antd";
-import AnimalApiRoute from "Api/AnimalApiRoute";
+import { useEffect } from "react";
+import { Button, Input } from "antd";
 import { useAuth } from "Modules/hooks/useAuth";
-import { ColumnsType } from "antd/lib/table";
-import { RouteEndpoints } from "Components/router/MainRouter";
-import { AnimalSexType } from "Components/Shared/Models/Animal";
-import { Link, useNavigate } from "react-router-dom";
+import { RouteEndpoints } from "Components/router";
+import { useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
-import useWindowSize from "Modules/hooks/useWindowSize";
-import { getKeyThenIncreaseKey } from "antd/lib/message";
-import { AnimalModel } from "Components/Shared/Models/Animal";
-import { Form, Modal, Select, notification, Space } from "antd";
+import { Form, notification } from "antd";
 import { useParams } from "react-router-dom";
-import { AllocateModel } from "Components/Shared/Models/Allocate";
-
-
+import { animalEndpoints } from "Components/router/routes";
 
 const UpdateAllocate = () => {
-
   const { setLoading } = useLoading();
   const { user } = useAuth();
   const { id } = useParams();
@@ -28,9 +18,8 @@ const UpdateAllocate = () => {
   const page = {
     pageNumber: 0,
     pageSize: 1000,
-    id: id
-
-  }
+    id: id,
+  };
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -40,7 +29,7 @@ const UpdateAllocate = () => {
     bottom: 50,
     duration: 3,
     rtl: true,
-    maxCount: 1000
+    maxCount: 1000,
   });
 
   type NotificationType = "success" | "info" | "warning" | "error";
@@ -75,8 +64,7 @@ const UpdateAllocate = () => {
         // console.log(">>>> res", res)
       })
       .then((data) => {
-
-        console.log("data", data.data[0])
+        console.log("data", data.data[0]);
 
         form.setFieldsValue({
           id: data.data[0].id,
@@ -86,24 +74,21 @@ const UpdateAllocate = () => {
           userName: data.data[0].userName,
           codeName: data.data[0].codeName,
           codeNumber: data.data[0].codeNumber,
-          receiptName: data.data[0].receiptName
-        })
-
-
+          receiptName: data.data[0].receiptName,
+        });
       })
       .catch((error) => console.log(error))
       .finally(() => {
         setLoading(false);
       });
-  }, [page.pageSize, page.pageNumber])
+  }, [page.pageSize, page.pageNumber]);
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const onFinishUpdate = () => {
-
-    console.log("update finish >>>> ", form.getFieldsValue())
+    console.log("update finish >>>> ", form.getFieldsValue());
 
     // setLoading(true);
     // fetch(process.env.REACT_APP_API.concat(AnimalApiRoute.update), {
@@ -137,34 +122,21 @@ const UpdateAllocate = () => {
     //     );
     //     setLoading(false);
     //   })
-
-
-
-  }
+  };
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
   //
   return (
     <>
-
       {/* {console.log("update data >>>>>>>>", animalUpdate)} */}
 
-      <Form
-        id="update-animal-form"
-        layout="vertical"
-        form={form}
-
-
-      >
+      <Form id="update-animal-form" layout="vertical" form={form}>
         <Form.Item>
           <b>Cập nhật thông tin động vật</b>
         </Form.Item>
-
         <Form.Item
           label={"id"}
           name={"id"}
@@ -172,13 +144,12 @@ const UpdateAllocate = () => {
             {
               required: true,
               message: "Nhập số lượng",
-              type: "string"
-            }
+              type: "string",
+            },
           ]}
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label={"userId"}
           name={"userId"}
@@ -186,13 +157,12 @@ const UpdateAllocate = () => {
             {
               required: true,
               message: "Nhập số lượng",
-              type: "string"
-            }
+              type: "string",
+            },
           ]}
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label={"receiptId"}
           name={"receiptId"}
@@ -200,36 +170,28 @@ const UpdateAllocate = () => {
             {
               required: true,
               message: "Nhập số lượng",
-              type: "string"
-            }
+              type: "string",
+            },
           ]}
         >
           <Input />
         </Form.Item>
-
-
-
-
         <Form.Item
           label={"Số lượng"}
           name={"amount"}
           rules={[
             {
               required: true,
-              message: "Nhập số lượng"
-
+              message: "Nhập số lượng",
             },
             {
               message: "Bao gồm các số 0-9!",
               pattern: new RegExp("[0-9]"),
             },
           ]}
-
         >
           <Input />
         </Form.Item>
-
-
         <Form.Item
           label={"Tên mã hóa đơn"}
           name={"codeName"}
@@ -237,16 +199,12 @@ const UpdateAllocate = () => {
             {
               required: true,
               message: "Nhập số lượng",
-              type: "string"
-            }
+              type: "string",
+            },
           ]}
-
         >
           <Input />
         </Form.Item>
-
-
-
         <Form.Item
           label={"Số mã hóa đơn"}
           name={"codeNumber"}
@@ -254,36 +212,26 @@ const UpdateAllocate = () => {
             {
               required: true,
               message: "Nhập số lượng",
-              type: "string"
-            }
+              type: "string",
+            },
           ]}
-
         >
           <Input />
         </Form.Item>
-
-
-
-
-
-
-
-
-        <Button type="primary" onClick={() => { navigate(RouteEndpoints.animal.basepath) }}>
+        <Button
+          type="primary"
+          onClick={() => {
+            navigate(animalEndpoints.home);
+          }}
+        >
           Quay lại
         </Button>
-
         &nbsp;&nbsp;&nbsp;&nbsp;
-
         <Button type="primary" onClick={() => onFinishUpdate()}>
           Cập nhật
         </Button>
-
-
       </Form>
-
     </>
-
   );
 };
 

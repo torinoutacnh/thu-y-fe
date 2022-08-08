@@ -6,9 +6,9 @@ import loginReducer, {
 } from "Modules/Redux/reducer/loginReducer";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import { publicEndpoints } from "Components/router/PublicRoutes";
 import moment from "moment";
 import AccountApiEndpoint from "Api/AccountApiRoute";
+import { publicEndpoints } from "Components/router/routes";
 
 export const useAuth = () => {
   const dispatch = useStoreDispatch();

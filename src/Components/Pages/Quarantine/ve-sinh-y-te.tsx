@@ -1,11 +1,9 @@
 import { PageHeader, Button } from "antd";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
-import { ReportType } from "Components/Shared/Form/Define/FormInterface";
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import { MapTable } from "../../Shared/Form/Define/CustomTable";
 import { FileAddOutlined } from "@ant-design/icons";
-import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
+import { quarantineEndpoints } from "Components/router/routes";
+import { MapTable, ReportType } from "Components/Shared/reports";
 
 const MedicalHygiene = () => {
   const navigate = useNavigate();

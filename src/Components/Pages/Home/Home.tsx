@@ -1,14 +1,14 @@
-import React from "react";
-import { Card, Col, Row } from "antd";
-import "./home.css";
-import { quarantineEndpoints } from "Components/router/QuarantineRoutes";
+import { Col, Row } from "antd";
 import { Link } from "react-router-dom";
-import { abattoirEndpoints } from "Components/router/AbattoirRoutes";
-import { RouteEndpoints } from "Components/router/MainRouter";
+import {
+  quarantineEndpoints,
+  generalEndpoints,
+  abattoirEndpoints,
+} from "Components/router/routes";
 
 export default function HomePage() {
   return (
-    <div className="container-home">
+    <div className="margin--top--3">
       <h1>Quản lý kiểm dịch</h1>
       <div
         className="card__box"
@@ -25,8 +25,8 @@ export default function HomePage() {
             </Link>
           </Col>
           <Col xs={24} sm={24} md={8} lg={8}>
-            <Link to={RouteEndpoints.notfound}>
-              <div className="card m20">BIÊN BẢN VSTY (MS 7)</div>
+            <Link to={generalEndpoints.notfound}>
+              <div className="card ">BIÊN BẢN VSTY (MS 7)</div>
             </Link>
           </Col>
           <Col xs={24} sm={24} md={8} lg={8}>
@@ -50,12 +50,12 @@ export default function HomePage() {
             </Link>
           </Col>
           <Col xs={24} sm={24} md={8} lg={8}>
-            <Link to={RouteEndpoints.notfound}>
+            <Link to={generalEndpoints.notfound}>
               <div className="card">HÓA ĐƠN GIẾT MỔ</div>
             </Link>
           </Col>
           <Col xs={24} sm={24} md={8} lg={8}>
-            <Link to={RouteEndpoints.notfound}>
+            <Link to={generalEndpoints.notfound}>
               <div className="card">BÁO CÁO DOANH THU</div>
             </Link>
           </Col>

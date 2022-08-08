@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "Modules/hooks/useAuth";
 import { FormApiRoute, ReportApiRoute } from "Api";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { RenderForm } from "Components/Shared/Form";
+import { useSearchParams } from "react-router-dom";
+import { RenderForm, ReportType } from "Components/Shared/reports";
 import { FormModel, ReportModel } from "Components/Shared/Models/Form";
-import { QuarantineReportType } from "Components/Shared/Form/Define/FormInterface";
 import { useLoading } from "Modules/hooks/useLoading";
 
 export default function UpdateQuarantineReportPage() {
@@ -70,7 +69,7 @@ export default function UpdateQuarantineReportPage() {
           form={form}
           reportvalue={report}
           submitmethod={"POST"}
-          reportType={QuarantineReportType[form?.formCode as any] as any}
+          reportType={ReportType[form?.formCode as any] as any}
         />
       )}
     </>

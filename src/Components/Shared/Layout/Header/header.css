@@ -104,8 +104,13 @@
     display: none;
     margin-left: 2rem;
 }
+@media screen and (max-width: 900px) and (min-width:768px){
+    .header_menu{
+        width:40%;
+    }
+}
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 768px) {
     #menu-responsive {
         display: initial;
         transition: 0.2s linear;

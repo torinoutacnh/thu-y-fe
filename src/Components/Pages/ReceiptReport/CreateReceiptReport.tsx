@@ -1,34 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
-import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Table, Button, Input, Descriptions, PageHeader, AutoComplete, InputNumber } from "antd";
-import AnimalApiRoute from "Api/AnimalApiRoute";
+import { useState } from "react";
+import { Button, Input } from "antd";
 import { useAuth } from "Modules/hooks/useAuth";
-import { ColumnsType } from "antd/lib/table";
-import { RouteEndpoints } from "Components/router/MainRouter";
-import { AnimalSexType } from "Components/Shared/Models/Animal";
-import { Link, useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
-import useWindowSize from "Modules/hooks/useWindowSize";
-import { getKeyThenIncreaseKey } from "antd/lib/message";
-import { AnimalModel } from "Components/Shared/Models/Animal";
-import { Form, Modal, Select, notification, Space } from "antd";
-import { ManageReceiptRoute, UserApiRoute } from "Api";
-import { UserModel } from "Components/Shared/Models/User";
-import { StringGradients } from "antd/lib/progress/progress";
-import { type } from "os";
-import { managereceiptRoutes } from "Components/router/ManageReceiptRoutes";
-
+import { Form, Modal, notification } from "antd";
+import { ManageReceiptRoute } from "Api";
 
 export function CreateReceiptReport(props: any) {
-
-
-  const { userId, userName, receiptAllocateId, codeName, codeNumber } = props
+  const { userId, userName, receiptAllocateId, codeName, codeNumber } = props;
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
   const { user } = useAuth();
   const { setLoading } = useLoading();
-
 
   const showModal = () => {
     setVisible(true);
@@ -46,27 +29,20 @@ export function CreateReceiptReport(props: any) {
     rtl: true,
   });
   type NotificationType = "success" | "info" | "warning" | "error";
-  const openNotificationWithIcon = (
-    type: NotificationType,
-    title: string
-
-  ) => {
+  const openNotificationWithIcon = (type: NotificationType, title: string) => {
     notification[type]({
-      message: title
-
+      message: title,
     });
   };
 
   function getCurrentDateTime() {
-    const tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
-    const localISOTime = (new Date(Date.now() - tzoffset)).toISOString()
+    const tzoffset = new Date().getTimezoneOffset() * 60000; //offset in milliseconds
+    const localISOTime = new Date(Date.now() - tzoffset).toISOString();
     const mySqlDT = localISOTime;
     return mySqlDT;
   }
 
   const CreateReceiptReportFinish = () => {
-
-
     const receiptReport = {
       id: "id",
       userId: userId,
@@ -76,48 +52,48 @@ export function CreateReceiptReport(props: any) {
       codeName: codeName,
       codeNumber: codeNumber,
       dateUse: getCurrentDateTime(),
-      pageUse: form.getFieldValue("pageUse")
-    }
-
+      pageUse: form.getFieldValue("pageUse"),
+    };
 
     // console.log("receiptReport >>>>>>>> ", receiptReport)
 
-
     if (user?.token) {
-      setVisible(false)
-      setLoading(true)
-      fetch(process.env.REACT_APP_API.concat(ManageReceiptRoute.createReceiptReport), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer ".concat(user.token),
-        },
-        body: JSON.stringify(receiptReport),
-      })
+      setVisible(false);
+      setLoading(true);
+      fetch(
+        process.env.REACT_APP_API.concat(
+          ManageReceiptRoute.createReceiptReport
+        ),
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer ".concat(user.token),
+          },
+          body: JSON.stringify(receiptReport),
+        }
+      )
         .then((res) => {
           return res.json();
         })
         .then((data) => {
-          console.log("create receiptReport ok >>>>>>> ", data)
+          console.log("create receiptReport ok >>>>>>> ", data);
           window.location.reload();
-          openNotificationWithIcon("success", "Sử dụng hóa đơn thành công")
-          form.resetFields()
-          setLoading(false)
+          openNotificationWithIcon("success", "Sử dụng hóa đơn thành công");
+          form.resetFields();
+          setLoading(false);
         })
         .catch((error) => {
-          console.log("create receiptReport error >>>>>>> ", error)
-          openNotificationWithIcon("error", "Sử dụng hóa đơn thất bại")
-          setLoading(false)
-        })
-
+          console.log("create receiptReport error >>>>>>> ", error);
+          openNotificationWithIcon("error", "Sử dụng hóa đơn thất bại");
+          setLoading(false);
+        });
     }
-
-  }
+  };
 
   return (
     <>
-
-      <span onClick={() => showModal()}>Sử dụng hóa đơn </span>
+      <a onClick={() => showModal()}>Sử dụng hóa đơn </a>
       <Modal
         title="Sử dụng hóa đơn"
         visible={visible}
@@ -147,7 +123,6 @@ export function CreateReceiptReport(props: any) {
         >
           {/* /////////////////////////////////////////// */}
 
-
           <Form.Item
             label={"Tên hóa đơn sử dụng"}
             name={"receiptName"}
@@ -155,16 +130,12 @@ export function CreateReceiptReport(props: any) {
               {
                 required: true,
                 message: "Nhập số lượng",
-                type: "string"
-              }
+                type: "string",
+              },
             ]}
-
           >
             <Input />
           </Form.Item>
-
-
-
 
           <Form.Item
             label={"Số trang sử dụng"}
@@ -172,25 +143,20 @@ export function CreateReceiptReport(props: any) {
             rules={[
               {
                 required: true,
-                message: "Nhập số lượng"
-
+                message: "Nhập số lượng",
               },
               {
                 message: "Bao gồm các số 0-9!",
                 pattern: new RegExp("[0-9]"),
               },
             ]}
-
           >
             <Input />
           </Form.Item>
-
-
-
 
           {/* /////////////////////////////////////////// */}
         </Form>
       </Modal>
     </>
-  )
+  );
 }

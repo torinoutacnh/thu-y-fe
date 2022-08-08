@@ -1,0 +1,91 @@
+.ant-table-thead .ant-table-cell{
+    word-wrap: normal;
+    width: 150px;
+}   
+
+.space-media {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.responsive-table {
+    display: none;
+}
+
+.card {
+    --height-card: 100px;
+    background: #fff;
+    text-align: center;
+    height: var(--height-card);
+    line-height: var(--height-card);
+    font-size: 1.5vmin;
+    cursor: pointer;
+    display: block;
+}
+
+.card:hover {
+    background: rgb(255, 163, 163);
+    color: white;
+    font-weight: bold;
+}
+
+@media screen and (min-width: 769px) {
+    .card {
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width:768px){
+    .main-table{
+        display: none;
+    }
+
+    .responsive-table{
+        display: block;
+    }
+
+    .space-media {
+        display: block;
+        text-align: end;
+    }
+
+    .space-media div{
+        display: inline-block;
+    }
+}
+
+/* @media screen and (max-width:768px) {
+    .ant-table-content table,tr,tbody,td,th{
+        display: block;
+        position: relative;
+    }
+    .space-media{
+        flex-direction: row;
+        align-items: flex-end;
+        right:0;
+    }
+    .ant-table-content table tr{
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+    }
+        .ant-table-content table thead{
+            display: none;
+        }
+        .ant-table-content td p{
+            display: flex;
+            justify-content: space-between;
+        }
+        .ant-table-content td p::before{
+            content: attr(data-label)": ";
+            text-align: left;
+            font-weight: bold;
+            text-transform: uppercase;
+            width: 40%;
+            padding-inline: 10px;
+        }
+    
+    .ant-table-content tr td:last-child{
+        margin-bottom: 50px;
+    }
+} */

@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Table, Button, Input, Descriptions, PageHeader, Radio } from "antd";
+import { useState, useEffect } from "react";
+import { Button, Input } from "antd";
 import { useAuth } from "Modules/hooks/useAuth";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
-import { Form, Modal, Select, notification, Space, DatePicker } from "antd";
+import { Form, notification } from "antd";
 import { useParams } from "react-router-dom";
 import { ManageReceiptRoute } from "Api";
 import { ReceiptModel } from "Components/Shared/Models/Receipt";
@@ -12,7 +12,6 @@ const UpdateReceipt = (props: any) => {
   const { setLoading } = useLoading();
   const { user } = useAuth();
   const [receiptrUpdate, setReceiptUpdate] = useState<ReceiptModel>();
-  const [listReceipt, setListReceipt] = useState<ReceiptModel[]>([]);
   const { id } = useParams();
   const navigate = useNavigate();
   const [form] = Form.useForm();
@@ -159,7 +158,6 @@ const UpdateReceipt = (props: any) => {
             {
               required: true,
               message: "Nhập số trang!",
-
             },
             {
               message: "Bao gồm các số 0-9!",

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   FileDoneOutlined,
   EditOutlined,
@@ -7,23 +7,21 @@ import {
 import {
   Table,
   Button,
-  Input,
   Descriptions,
   PageHeader,
   notification,
   Space,
 } from "antd";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
-import { ApiRoute, ManageReceiptRoute, UserApiRoute } from "Api";
+import { ManageReceiptRoute, UserApiRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
 import useWindowSize from "Modules/hooks/useWindowSize";
 import { ReceiptModel } from "Components/Shared/Models/Receipt";
-import { managereceiptEndpoints } from "Components/router/ManageReceiptRoutes";
+import { manageReceiptEndpoints } from "Components/router/routes";
 import CreateReceipt from "./CreateReceipt";
-import { ChangePassword } from "../User/ChangePassword";
 import { CreateAllocate } from "./CreateAllocate";
 import { UserModel } from "Components/Shared/Models/User";
 
@@ -89,7 +87,7 @@ const ManageReceipt = () => {
 
     fetch(
       process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
-      new URLSearchParams(page2 as any),
+        new URLSearchParams(page2 as any),
       {
         method: "GET",
         headers: {
@@ -186,7 +184,7 @@ const ManageReceipt = () => {
       render: (record) => (
         <>
           <Link
-            to={managereceiptEndpoints.updatereceipt.replace(":id", record.id)}
+            to={manageReceiptEndpoints.updatereceipt.replace(":id", record.id)}
           >
             <Button type="link" color="blue" icon={<EditOutlined />}>
               Cập nhật
@@ -252,7 +250,7 @@ const ManageReceipt = () => {
         <Descriptions.Item label={"Xử lý"}>
           <>
             <Link
-              to={managereceiptEndpoints.updatereceipt.replace(":id", data.id)}
+              to={manageReceiptEndpoints.updatereceipt.replace(":id", data.id)}
             >
               <Button type="link" color="blue" icon={<EditOutlined />}>
                 Cập nhật

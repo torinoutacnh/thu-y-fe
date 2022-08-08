@@ -1,4 +1,4 @@
-import MainRouter from "Components/router/MainRouter";
+import MainRouter from "Components/router";
 import MainLayout from "Components/Shared/Layout";
 import appStore from "Modules/Redux";
 import { Provider } from "react-redux";

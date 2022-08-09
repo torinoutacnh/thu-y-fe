@@ -13,9 +13,9 @@ import logoThuY from "../../../../Static/image/logo.png";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./header.css";
 
 import { ChangePassword } from "Components/Pages/authentication/ChangePassword";
+import { RoleType } from "Components/Shared/Models/User";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -176,64 +176,66 @@ const Header = () => {
                     </div>
                   </div>
                 </li>
-                <li onClick={handleClicElements3}>
-                  <div className="dropdown-menu">
-                    <Button type="link" className="dropdown-menu__btn">
-                      Quản trị admin
-                      <span
-                        className={`icon ${
-                          iconRotate3 ? "iconRotate--90" : "iconRotate-0"
-                        }`}
-                      >
-                        <i className="fa-solid fa-angle-left"></i>
-                      </span>
-                    </Button>
-                    <div className="dropdown-content">
-                      <ul
-                        className={`dropdown-content-1 ${
-                          showItems3 ? "showItems" : ""
-                        }`}
-                      >
-                        <li>
-                          <Link to={staffEndpoints.home}>
-                            Quản lý nhân viên
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={animalEndpoints.home}>
-                            Quản lý động vật
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={quarantineEndpoints.home}>
-                            Quản lý đơn giá
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={manageabattoirEndpoints.home}>
-                            Quản lý lò mổ
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={manageReceiptEndpoints.home}>
-                            Quản lý hóa đơn
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={quarantineEndpoints.home}>
-                            Doanh thu tổng
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={RouteEndpoints.myAllocate}>
-                            Hóa đơn của tôi
-                          </Link>
-                        </li>
-                      </ul>
+                {user?.role === RoleType["Quản lý"] && (
+                  <li onClick={handleClicElements3}>
+                    <div className="dropdown-menu">
+                      <Button type="link" className="dropdown-menu__btn">
+                        Quản trị admin
+                        <span
+                          className={`icon ${
+                            iconRotate3 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
+                        >
+                          <i className="fa-solid fa-angle-left"></i>
+                        </span>
+                      </Button>
+                      <div className="dropdown-content">
+                        <ul
+                          className={`dropdown-content-1 ${
+                            showItems3 ? "showItems" : ""
+                          }`}
+                        >
+                          <li>
+                            <Link to={staffEndpoints.home}>
+                              Quản lý nhân viên
+                            </Link>
+                          </li>
+                          <li>
+                            <Link to={animalEndpoints.home}>
+                              Quản lý động vật
+                            </Link>
+                          </li>
+                          <li>
+                            <Link to={quarantineEndpoints.home}>
+                              Quản lý đơn giá
+                            </Link>
+                          </li>
+                          <li>
+                            <Link to={manageabattoirEndpoints.home}>
+                              Quản lý lò mổ
+                            </Link>
+                          </li>
+                          <li>
+                            <Link to={manageReceiptEndpoints.home}>
+                              Quản lý hóa đơn
+                            </Link>
+                          </li>
+                          <li>
+                            <Link to={quarantineEndpoints.home}>
+                              Doanh thu tổng
+                            </Link>
+                          </li>
+                          <li>
+                            <Link to={RouteEndpoints.myAllocate}>
+                              Hóa đơn của tôi
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
-                </li>
-                <li onClick={handleClicElements4} className="mb20">
+                  </li>
+                )}
+                <li onClick={handleClicElements4} className="m--x--2">
                   <div className="dropdown-menu">
                     <Button type="link" className="dropdown-menu__btn">
                       Tài khoản
@@ -261,19 +263,6 @@ const Header = () => {
                     </div>
                   </div>
                 </li>
-                {/* <li>
-                  <div style={{ marginTop: 20, float: "right" }}>
-                    <Button
-                      danger
-                      style={{ color: "red", borderRadius: 5 }}
-                      type="default"
-                      className="dropdown-menu__btn"
-                      onClick={singOut}
-                    >
-                      Đăng xuất
-                    </Button>
-                  </div>
-                </li> */}
               </ul>
             </>
           ) : (

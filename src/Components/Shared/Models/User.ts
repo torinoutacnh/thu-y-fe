@@ -22,9 +22,11 @@ interface UserLoginModel {
 }
 
 enum RoleType{
-  "Nhân viên kiểm dịch"=1,
-  "Nhân viên lò mổ"=2,
-  "Quản lý"=3,
+  // "Nhân viên kiểm dịch"=1,
+  // "Nhân viên lò mổ"=2,
+  // "Quản lý"=3,
+  "Nhân viên"=1,
+  "Quản lý"=2,
 }
 
 enum SexType{

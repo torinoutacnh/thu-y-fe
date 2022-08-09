@@ -7,12 +7,12 @@ import { ManageReceiptRoutes } from "./routes/ReceiptRoutes";
 import { useAuth } from "Modules/hooks/useAuth";
 import { MyAllocateReceipt } from "Components/Pages/ManageReceipt/MyAllocateReceipt";
 import ReceiptReportIndex from "Components/Pages/ReceiptReport";
-import FormTest from "Components/Pages/TestPages";
 import { GeneralRoutes } from "./routes/GeneralRoutes";
 import { AnimalRoutes } from "./routes/AnimalEndpoints";
 import { ManageAbattoirRoutes } from "./routes/AbattoirAdminRoutes";
 import { PublicRoutes } from "./routes/PublicRoutes";
 import { publicEndpoints } from "./routes";
+import { RoleType } from "Components/Shared/Models/User";
 
 export class RouteEndpoints {
   static userInfo = "/thong-tin-ca-nhan";
@@ -20,8 +20,6 @@ export class RouteEndpoints {
   static myAllocate = "/hoa-don-cua-toi";
 
   static receiptReportWithIdAllocate = "/chi-tiet-hoa-don-cua-toi/:id";
-
-  ///////////////////////////////////////////////////
 }
 
 export default function MainRouter() {
@@ -29,14 +27,21 @@ export default function MainRouter() {
   return (
     <Routes>
       {PublicRoutes.map((route) => route)}
+
       {/* home, not found,... etc */}
       {GeneralRoutes.map((route) => route)}
+
+      {/* Employee routes */}
       {QuarantineRoutes.map((route) => route)}
       {AbattoirRoutes.map((route) => route)}
-      {ManageAbattoirRoutes.map((route) => route)}
-      {ManageReceiptRoutes.map((route) => route)}
-      {StaffRoutes.map((route) => route)}
-      {AnimalRoutes.map((route) => route)}
+
+      {/* Manager routes */}
+      {user?.role === RoleType["Quản lý"] &&
+        ManageAbattoirRoutes.map((route) => route)}
+      {user?.role === RoleType["Quản lý"] &&
+        ManageReceiptRoutes.map((route) => route)}
+      {user?.role === RoleType["Quản lý"] && StaffRoutes.map((route) => route)}
+      {user?.role === RoleType["Quản lý"] && AnimalRoutes.map((route) => route)}
 
       <Route
         path={RouteEndpoints.myAllocate}
@@ -58,8 +63,6 @@ export default function MainRouter() {
         key="update-allocate-receipt"
       />
 
-      {/* /////////////////////////////////////////////// */}
-      <Route path={"/test"} element={<FormTest />} key="test form" />
       <Route path="*" element={<h1>Not found</h1>} />
     </Routes>
   );

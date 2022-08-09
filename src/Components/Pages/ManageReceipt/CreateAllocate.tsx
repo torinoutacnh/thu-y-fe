@@ -58,22 +58,26 @@ export function CreateAllocate(props: any) {
     const index = listId.findIndex((item) => item.value === value);
 
     if (index === -1) {
-      setTmpName("không tìm thấy nhân viên");
-    } else {
-      const tmpdata: IdModel = listId[index];
-      const tmp: string = tmpdata.name;
-      setTmpName(tmp);
+      setTmpName("không tìm thấy nhân viên")
     }
-  };
+    else {
+      const tmpdata: IdModel = listId[index]
+      const tmp: string = tmpdata.name
+      setTmpName(tmp)
+    }
+
+  }
 
   const CreateAllocateFinish = () => {
-    const index = listId.findIndex(
-      (item) => item.value === form.getFieldValue("userName")
-    );
-    const selectID = listId[index].id;
+
+    const index = listId.findIndex(item => item.value === form.getFieldValue("userName"))
+    const selectID = listId[index].id
+
+
 
     // const allocate = { ...form.getFieldsValue(), userId: selectID, id: "id" }
     const allocate = {
+
       id: "id",
       userId: selectID,
       receiptId: idReceipt,
@@ -82,50 +86,53 @@ export function CreateAllocate(props: any) {
       codeName: codeName,
       codeNumber: codeNumber,
       receiptName: form.getFieldValue("receiptName"),
-    };
 
-    console.log("allocate >>>>>>>> ", allocate);
+
+
+
+    }
+
+
+    console.log("allocate >>>>>>>> ", allocate)
 
     // console.log("list user >>>>>>>> ", listUsername)
     // console.log("list id >>>>>>>> ", listId)
     // console.log("select id >>>>>>>> ", selectID)
 
     if (user?.token) {
-      setVisible(false);
-      setLoading(true);
-      fetch(
-        process.env.REACT_APP_API.concat(
-          ManageReceiptRoute.createAllocateReceipt
-        ),
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer ".concat(user.token),
-          },
-          body: JSON.stringify(allocate),
-        }
-      )
+      setVisible(false)
+      setLoading(true)
+      fetch(process.env.REACT_APP_API.concat(ManageReceiptRoute.createAllocateReceipt), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer ".concat(user.token),
+        },
+        body: JSON.stringify(allocate),
+      })
         .then((res) => {
           return res.json();
         })
         .then((data) => {
-          console.log("create allocate ok >>>>>>> ", data);
-          openNotificationWithIcon("success", "Cấp hóa đơn thành công");
-          form.resetFields();
+          console.log("create allocate ok >>>>>>> ", data)
+          openNotificationWithIcon("success", "Cấp hóa đơn thành công")
+          form.resetFields()
           window.location.reload();
-          setLoading(false);
+          setLoading(false)
         })
         .catch((error) => {
-          console.log("create allocate not >>>>>>> ", error);
-          openNotificationWithIcon("error", "Cấp hóa đơn thất bại");
-          setLoading(false);
-        });
+          console.log("create allocate not >>>>>>> ", error)
+          openNotificationWithIcon("error", "Cấp hóa đơn thất bại")
+          setLoading(false)
+        })
+
     }
-  };
+
+  }
 
   return (
     <>
+
       <a onClick={() => showModal()}>Cấp hóa đơn </a>
       <Modal
         title="Cấp hóa đơn"

@@ -4,6 +4,11 @@ const UserApiRoute = {
   get Base() {
     return "/user";
   },
+
+  get getSingle() {
+    return "/user/get-single";
+  },
+
   get register() {
     return "/accounts/register";
   },

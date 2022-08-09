@@ -78,6 +78,7 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
           console.log(data.data);
 
           const src = ReportsToSource(data.data);
+          console.log(src);
           setDatasource(src);
         })
         .catch((error) => console.log(error))
@@ -173,7 +174,7 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
           </Button>
           {reportType === ReportType["ĐK-KDĐV-001"] && (
             <Button
-              onClick={() => mapFormAction(props.id, ReportType["CN-KDĐV-UQ"])}
+              onClick={() => mapFormAction(props.id, ReportType["BB-VSTY"])}
               type="link"
             >
               Tạo form 7

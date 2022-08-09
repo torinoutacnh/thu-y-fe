@@ -18,17 +18,14 @@ function UpdateStaff() {
   useEffect(() => {
     if (id && user) {
       setLoading(true);
-      fetch(
-        process.env.REACT_APP_API.concat(UserApiRoute.Base, "?") +
-          new URLSearchParams({ id: id }),
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer ".concat(user.token),
-          },
-        }
-      )
+      fetch(process.env.REACT_APP_API.concat(UserApiRoute.Base, "?") + new URLSearchParams({ id: id }), {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer ".concat(user.token),
+        },
+
+      })
         .then((res) => res.json())
         .then((data) => {
           // console.log("get user update >>>>> ", data.data)
@@ -44,7 +41,8 @@ function UpdateStaff() {
             address: tmp.address,
             sex: tmp.sex,
             role: tmp.role,
-          });
+          })
+
         })
         .catch((error) => console.log(error))
         .finally(() => {
@@ -68,7 +66,23 @@ function UpdateStaff() {
     });
   };
 
+  const checkpass = () => {
+    const tmp = form.getFieldValue("password")
+    if (tmp.length === 0) {
+      form.setFields([
+        {
+          name: 'password',
+          errors: ['Nhập mật khẩu'],
+        },
+      ]);
+      return true
+    }
+    return false
+  }
+
   const onFinishUpdate = () => {
+
+    if (checkpass()) return
     if (user) {
       const newUser = {
         id: form.getFieldValue("id"),
@@ -79,8 +93,8 @@ function UpdateStaff() {
         email: form.getFieldValue("email"),
         address: form.getFieldValue("address"),
         sex: form.getFieldValue("sex"),
-        role: form.getFieldValue("role"),
-      };
+        role: form.getFieldValue("role")
+      }
 
       setLoading(true);
       fetch(process.env.REACT_APP_API.concat(UserApiRoute.update, "?"), {
@@ -188,6 +202,7 @@ function UpdateStaff() {
         >
           <Input />
         </Form.Item>
+
         <Form.Item
           label="Mật khẩu"
           name="password"
@@ -198,8 +213,11 @@ function UpdateStaff() {
             },
           ]}
         >
-          <Input.Password minLength={6} />
+          <Input.Password
+            minLength={6} />
         </Form.Item>
+
+
         <Form.Item label={"Địa chỉ"} name={"address"}>
           <Input />
         </Form.Item>

@@ -10,6 +10,9 @@ import { SendEmailForgotPassword } from "./SendEmailForgotPassword";
 import AccountApiEndpoint from "Api/AccountApiRoute";
 import { publicEndpoints, generalEndpoints } from "Components/router/routes";
 
+import { PDFViewer } from "@react-pdf/renderer";
+import { Row } from "antd";
+
 export default function LoginPage() {
   return <LoginForm />;
 }
@@ -149,7 +152,16 @@ const LoginForm = () => {
         <Form.Item style={{ justifyContent: "center" }}>
           <SendEmailForgotPassword />
         </Form.Item>
-      </Form>
+      </Form >
     </>
   );
+
+  // return (
+  //   <Row align="middle" style={{ height: "100vh" }}>
+  //     <PDFViewer width={"100%"} height={"100%"}>
+  //       <PDF12D />
+  //     </PDFViewer>
+  //   </Row>
+  // )
+
 };

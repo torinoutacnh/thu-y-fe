@@ -1,0 +1,840 @@
+import React from "react";
+import {
+    Document,
+    Page,
+    Text,
+    View,
+    StyleSheet,
+    Image,
+    Font
+} from "@react-pdf/renderer";
+
+Font.register({
+    family: "NotoSerif",
+    fonts: [
+        { src: require("./font/NotoSerif-Regular.ttf") }, // font-style: normal, font-weight: normal
+        { src: require("./font/NotoSerif-Italic.ttf"), fontStyle: 'italic' },
+        { src: require("./font/NotoSerif-Bold.ttf"), fontStyle: 'bold' },
+        { src: require("./font/NotoSerif-BoldItalic.ttf"), fontStyle: 'boldItalic' },
+    ]
+});
+
+const styles = StyleSheet.create({
+    body: {
+        fontFamily: "NotoSerif",
+        paddingHorizontal: 35,
+        fontWeight: 300,
+        margin: "99.5 -10 0 -9",
+        fontSize: 10,
+        lineHeight: 1.2,
+    },
+
+    text: {
+        margin: 12,
+        fontSize: 12,
+        textAlign: "justify",
+        fontFamily: "Times-Roman",
+    },
+
+    pageNumber: {
+        position: "absolute",
+        fontSize: 12,
+        bottom: 30,
+        left: 0,
+        right: 0,
+        textAlign: "center",
+        color: "grey",
+    },
+
+    borderColor: {
+        color: "white"
+    },
+
+    col36: {
+        width: "36%",
+        height: "13mm",
+        fontSize: 9,
+        border: "1px solid borderColor",
+        padding: "10px",
+        fontStyle: "bold",
+    },
+
+    col14: {
+        width: "14%",
+        height: "13mm",
+        fontSize: 9,
+        border: "1px solid borderColor",
+        fontStyle: "bold",
+        color: "black"
+    },
+
+    col10: {
+        width: "10%",
+        height: "13mm",
+        fontSize: 9,
+        border: "1px solid borderColor",
+        fontStyle: "bold",
+        color: "black"
+    },
+
+    col20: {
+        width: "20%",
+        height: "13mm",
+        fontSize: 9,
+        border: "1px solid borderColor",
+        fontStyle: "bold",
+        color: "black"
+    },
+
+    colBody36: {
+        width: "36%",
+        height: "6.5mm",
+        fontSize: 8,
+        border: "none",        
+        justifyContent: "center",
+        padding: "3px 0",
+    },
+
+    colBody14: {
+        width: "14%",
+        height: "6.5mm",
+        fontSize: 8,
+        border: "none",
+        padding: "3px 0 3px 14px",
+    },
+
+    colBody10: {
+        width: "10%",
+        height: "6.5mm",
+        fontSize: 8,
+        border: "none",
+        padding: "3px 0 3px 15px",
+    },
+
+    colBody20_hp1: {
+        width: "10%",
+        height: "6.5mm",
+        fontSize: 8,
+        border: "none",
+        padding: "3px 0 3px 13px",
+    },
+
+    colBody20_hp2: {
+        width: "10%",
+        height: "6.5mm",
+        fontSize: 8,
+        border: "none",
+        padding: "3px 0 3px 18px",
+    },
+
+    colBody20: {
+        width: "20%",
+        height: "6.5mm",
+        fontSize: 8,
+        border: "none",
+        padding: "3px 0 3px 30px",
+    },
+
+    col31_6: {
+        width: "31.66%",
+        height: "6.5mm",
+        fontSize: 8,
+        border: "none",        
+        justifyContent: "center",
+        padding: "3px 0",
+    },
+
+    col20_5: {
+        width: "20.55%",
+        height: "6.5mm",
+        fontSize: 8,
+        border: "none",
+        padding: "3px 0 3px 15px",
+    },
+
+    col12_7: {
+        width: "12.79%",
+        height: "6.5mm",
+        fontSize: 8,
+        border: "none",
+        padding: "3px 0 3px 10px",
+    },
+
+    col15: {
+        width: "15%",
+        height: "6.5mm",
+        fontSize: 8,
+        border: "none",
+        padding: "3px 0 3px 20px",
+    },
+
+    col52_2: {
+        width: "52.2%",
+        height: "6.5mm",
+        fontSize: 8,
+        border: "1px solid borderColor",
+        padding: "3px 0",
+    },
+
+    table: {
+        width: "100%",
+        textAlign: "center"
+    },
+
+    row_header: {
+        display: 'flex',
+        flexDirection: 'row',
+        borderTop: '1px solid white',
+        alignItems: "center",
+        justifyContent: "center"
+    },
+
+    row_body: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: "center",
+        justifyContent: "center"
+    },
+
+    header: {
+        borderTop: 'none',
+      },
+
+    bold: {
+        fontWeight: 'bold',
+    },
+});
+
+// Create Document Component
+const PDF1 = () => (
+    <Document>
+        <Page style={styles.body}>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }}>
+                <Text style={{ width: "9%", opacity: 0 }}>
+                    {`Kính gửi: `}
+                </Text>
+                <Text style={{ width: "59%" , fontSize: 8, maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Chi cục thú y TP.HCM `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ width: "37%", opacity: 0 }}>
+                    {`Họ tên chủ hàng (hoặc người đại diện): `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "63%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {` Nguyễn Văn A `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 0.5 }}>
+                <Text style={{ width: "18%", opacity: 0 }}>
+                    {`Địa chỉ giao dịch: `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "82%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`46A Lê Trung Nghĩa, P.12, Q.Tân Bình, TP.HCM `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ width: "25%", opacity: 0 }}>
+                    {`Chứng minh nhân dân số: `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "28%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`103549521962 `}
+                </Text>
+                <Text style={{ width: "12%", opacity: 0 }}>
+                    {`Cấp ngày `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "3%", textAlign: "center" }}>
+                    {` 05 `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "6%", textAlign: "center" }}>
+                    {` 08 `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "5%", textAlign: "center" }}>
+                    {` 2020 `}
+                </Text>
+                <Text style={{ width: "4%", opacity: 0 }}>
+                    {`tại `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "17%", marginTop: 0.5, maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`CA TP.HCM `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 0.5 }}>
+                <Text style={{ width: "12%", opacity: 0 }}>
+                    {`Điện thoại: `}
+                </Text>
+                <Text style={{ width: "26%" , fontSize: 9, maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`0123456789 `}
+                </Text>
+                <Text style={{ width: "6%", opacity: 0 }}>
+                    {` Fax: `}
+                </Text>
+                <Text style={{ width: "14%", fontSize: 9, maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`12378123123 `}
+                </Text>
+                <Text style={{ width: "10%", opacity: 0 }}>
+                    {` Email: `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "34%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`abacadawdad@gmail.com `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ opacity: 0 }}>
+                    {`Đề nghị được làm thủ tục kiểm dịch số hàng sau: `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ opacity: 0 }}>
+                    {`I/ ĐỘNG VẬT: `}
+                </Text>
+            </View>
+
+            <View style={[styles.table, { marginTop: 7 }]}>
+                <View style={[styles.row_header, styles.bold, styles.header, { opacity: 0 }]}>
+                    <Text style={styles.col36}>{'Loại động vật'}</Text>
+                    <Text style={styles.col14}>{'Giống'}</Text>
+                    <Text style={styles.col10}>{'Tuổi'}</Text>
+                    <View style={styles.col20}>
+                        <Text style={{ width: "100%", height: "50%", border: '1px solid borderColor' }}>{'Tính biệt'}</Text>
+                        <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "100%" }}>
+                        <Text style={{ width: "50%" }}>{'Đực'}</Text>
+                        <Text style={{ width: "50%" }}>{'Cái'}</Text>
+                        </View>
+                    </View>
+                    <Text style={styles.col20}>{'Mục đích sử dụng'}</Text>
+                </View>
+
+                <View style={[styles.row_body]}>
+                    <Text style={styles.colBody36}>{'Heo'}</Text>
+                    <Text style={styles.colBody14}>{'Loại 1'}</Text>
+                    <Text style={styles.colBody10}>{'5'}</Text>
+                    <Text style={styles.colBody20_hp1}>{'x'}</Text>
+                    <Text style={styles.colBody20_hp2}>{'x'}</Text>
+                    <Text style={styles.colBody20}>{'mục đính '}</Text>
+                </View>
+
+                <View style={[styles.row_body]}>
+                    <Text style={[styles.colBody36, { fontStyle: 'bold', opacity: 0 }]}>{'Tổng số'}</Text>
+                    <Text style={[styles.colBody14, { fontStyle: 'bold' }]}>{'  '}</Text>
+                    <Text style={[styles.colBody10, { fontStyle: 'bold' }]}>{'  '}</Text>
+                    <Text style={[styles.colBody20_hp1, { fontStyle: 'bold' }]}>{'  '}</Text>
+                    <Text style={[styles.colBody20_hp2, { fontStyle: 'bold' }]}> {'  '}</Text>
+                    <Text style={[styles.colBody20, { fontStyle: 'bold' }]}>{'  '}</Text>
+                </View>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 5 }}>
+                <Text style={{ fontSize: 10, width: "24%", opacity: 0 }}>
+                    {`Tổng số (viết bằng chữ): `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "76%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Hai trăm bảy mươi lăm`}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ fontSize: 10, width: "15%", opacity: 0 }}>
+                    {`Nơi xuất phát: `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "85%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`46A, Lê Trung Nghĩa, P.12, Q. Tân Bình, TP. Hồ Chí Minh `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 0.5 }}>
+                <Text style={{ fontSize: 10, width: "28.5%", opacity: 0 }}>
+                    {`Tình trạng sức khỏe động vật: `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "71.5%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Lượng lớn động vật có dấu hiệu mãn tính với thức ăn `}
+                </Text>
+            </View>
+            
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 1 }}>
+                <Text style={{ fontSize: 10, width: "55%", opacity: 0 }}>
+                    {`Số động vật trên xuất phát từ vùng/cơ sở an toàn với bệnh: `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "45%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Cúm gia cầm `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ fontSize: 9, width: "16%", opacity: 0 }}>
+                    {`theo Quyết định số `}
+                </Text>
+                <Text style={{ fontSize: 8, width: "12%", textAlign:"center", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`351DV `}
+                </Text>
+                <Text style={{ fontSize: 8, width: "11%", textAlign:"center", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`KDYTDV `}
+                </Text>
+                <Text style={{ fontSize: 10, width: "5%", opacity: 0 }}>
+                    {`ngày `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "2.5%", textAlign:"center" }}>
+                    {`05 `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "6%", textAlign:"center" }}>
+                    {`08 `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "6%", textAlign:"center" }}>
+                    {`2022 `}
+                </Text>
+                <Text style={{ fontSize: 10, width: "8%", opacity: 0 }}>
+                    {`của `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "26%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Chi cục thú y TP.HCM `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "7%", opacity: 0 }}>
+                    {`(nếu có).`}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ opacity: 0 }}>
+                    {`Số động vật trên đã được xét nghiệm các bênh sau (nếu có):`}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 2.5 }}>
+                <Text style={{ width: "3%", opacity: 0 }}>
+                    {`1/`}
+                </Text>
+                <Text style={{ width: "22%" , fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Gà `}
+                </Text>
+                <Text style={{ width: "21%", opacity: 0 }}>
+                    {`Kết quả xét nghiệm số `}
+                </Text>
+                <Text style={{ width: "11%", fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`103`}
+                </Text>
+                <Text style={{ width: "16%", fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`KTYTDV `}
+                </Text>
+                <Text style={{ width: "5%", opacity: 0 }}>
+                    {`ngày `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "5%", textAlign: "center" }}>
+                    {` 05 `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "5%", textAlign: "center" }}>
+                    {` 08 `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "6%", textAlign: "center" }}>
+                    {` 2020 `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+            <Text style={{ width: "3%", opacity: 0 }}>
+                    {`2/`}
+                </Text>
+                <Text style={{ width: "22%" , fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Gà `}
+                </Text>
+                <Text style={{ width: "21%", opacity: 0 }}>
+                    {`Kết quả xét nghiệm số `}
+                </Text>
+                <Text style={{ width: "11%", fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`103`}
+                </Text>
+                <Text style={{ width: "16%", fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`KTYTDV `}
+                </Text>
+                <Text style={{ width: "5%", opacity: 0 }}>
+                    {`ngày `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "5%", textAlign: "center" }}>
+                    {` 05 `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "5%", textAlign: "center" }}>
+                    {` 08 `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "6%", textAlign: "center" }}>
+                    {` 2020 `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ opacity: 0 }}>
+                    {`Số động vật trên đã được tiêm phòng vắc xin với các bệnh sau (loại vắc xin, nơi sản xuất):`}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ width: "3%", opacity: 0 }}>
+                    {`1/`}
+                </Text>
+                <Text style={{ width: "63%" , fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Ngừa cúm ở gia cầm `}
+                </Text>
+                <Text style={{ width: "16.2%", opacity: 0 }}>
+                    {`tiêm phòng ngày`}
+                </Text>
+                <Text style={{ fontSize: 9, width: "4%", textAlign: "center" }}>
+                    {` 05 `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "7%", textAlign: "center" }}>
+                    {` 08 `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "6%" }}>
+                    {` 2020 `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ width: "3%", opacity: 0 }}>
+                    {`2/`}
+                </Text>
+                <Text style={{ width: "63%" , fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Ngừa cúm ở gia cầm `}
+                </Text>
+                <Text style={{ width: "16.2%", opacity: 0 }}>
+                    {`tiêm phòng ngày `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "4%", textAlign: "center" }}>
+                    {` 05 `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "7%", textAlign: "center" }}>
+                    {` 08 `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "6%" }}>
+                    {` 2020 `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ opacity: 0 }}>
+                    {`II/ SẢN PHẨM ĐỘNG VẬT: `}
+                </Text>
+            </View>
+
+            <View style={[styles.table, { marginTop: 4 }]}>
+                <View style={[styles.row_header, styles.bold, styles.header, { opacity: 0 }]}>
+                    <Text style={styles.col31_6}>{'Tên hàng'}</Text>
+                    <Text style={styles.col20_5}>{'Quy cách đóng gói'}</Text>
+                    <Text style={styles.col12_7}>{'Số lượng (2)'}</Text>
+                    <Text style={styles.col15}>{'Khối lượng (kg)'}</Text>
+                    <Text style={styles.colBody20}>{'Mục đích sử dụng'}</Text>
+                </View>
+
+                <View style={[styles.row_body]}>
+                    <Text style={styles.col31_6}>{'Heo'}</Text>
+                    <Text style={styles.col20_5}>{'Loại 1'}</Text>
+                    <Text style={styles.col12_7}>{'5'}</Text>
+                    <Text style={styles.col15}>{'100'}</Text>
+                    <Text style={styles.colBody20}>{'mục đích '}</Text>
+                </View>
+
+                <View style={[styles.row_body]}>
+                    <Text style={[styles.col52_2, { fontStyle: 'bold', opacity: 0 }]}>{'Tổng số'}</Text>
+                    <Text style={[styles.col12_7, { fontStyle: 'bold' }]}>{'5'}</Text>
+                    <Text style={[styles.col15, { fontStyle: 'bold' }]}>{'100'}</Text>
+                    <Text style={[styles.colBody20, { fontStyle: 'bold' }]}>{'1'}</Text>
+                </View>
+            </View>
+            
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 5 }}>
+                <Text style={{ fontSize: 10, width: "24%", opacity: 0 }}>
+                    {`Tổng số (viết bằng chữ): `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "76%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Hai trăm bảy mươi lăm`}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 0.5 }}>
+                <Text style={{ opacity: 0 }}>
+                    {`Số động vật trên đã được xét nghiệm các chỉ tiêu vệ sinh thú y theo kết quả xét nghiệm số`}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 0.5 }}>
+                <Text style={{ fontSize: 8, width: "11%", textAlign:"center", marginTop: 0.5, maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`351DV `}
+                </Text>
+                <Text style={{ fontSize: 8, width: "19%", textAlign:"center", marginTop: 0.5, maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`KDYTDV `}
+                </Text>
+                <Text style={{ fontSize: 10, width: "3.5%", opacity: 0 }}>
+                    {`d `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "5%", textAlign:"center" }}>
+                    {`05 `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "5%", textAlign:"center" }}>
+                    {`08 `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "7%", textAlign:"center" }}>
+                    {`2022 `}
+                </Text>
+                <Text style={{ fontSize: 10, width: "6%", opacity: 0 }}>
+                    {`của `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "23%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Chi cục thú y TP.HCM `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "7%", opacity: 0 }}>
+                    {`(nếu có).`}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ width: "27%", opacity: 0 }}>
+                    {`Tên, địa chỉ cơ sở sản xuất: `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "73%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {` Nguyễn Văn A `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 0.5 }}>
+                <Text style={{ width: "12%", opacity: 0 }}>
+                    {`Điện thoại: `}
+                </Text>
+                <Text style={{ width: "33%" , fontSize: 9, maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`0123456789 `}
+                </Text>
+                <Text style={{ width: "8%", opacity: 0 }}>
+                    {` Fax: `}
+                </Text>
+                <Text style={{ fontSize: 9, maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`12378123123 `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 1 }}>
+                <Text style={{ opacity: 0 }}>
+                    {`III/ CÁC THÔNG TIN KHÁC: `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ fontSize: 10, width: "32%", opacity: 0 }}>
+                    {`Tên tổ chức, cá nhân nhập hàng: `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "68%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Lê Thị C `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ fontSize: 10, width: "9%", opacity: 0 }}>
+                    {`Địa chỉ: `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "81%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`46A, Lê Trung Nghĩa, P.12, Q. Tân Bình, TP. Hồ Chí Minh `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ width: "12%", opacity: 0 }}>
+                    {`Điện thoại: `}
+                </Text>
+                <Text style={{ width: "22%" , fontSize: 9, maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`0123456789 `}
+                </Text>
+                <Text style={{ width: "5%", opacity: 0 }}>
+                    {` Fax: `}
+                </Text>
+                <Text style={{ fontSize: 9, maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`12378123123 `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 0.5 }}>
+                <Text style={{ fontSize: 10, width: "21%", opacity: 0 }}>
+                    {`Nơi đến (cuối cùng): `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "79%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`46A, Lê Trung Nghĩa, P.12, Q. Tân Bình, TP. Hồ Chí Minh `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 0.5 }}>
+                <Text style={{ fontSize: 10, width: "25%", opacity: 0 }}>
+                    {`Phương tiện vận chuyển: `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "75%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Xe bán tải `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ opacity: 0 }}>
+                    {`Nơi giao hàng trong quá trình vận chuyển (nếu có):`}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ width: "3%", opacity: 0 }}>
+                    {`1/`}
+                </Text>
+                <Text style={{ width: "34%" , fontSize: 8, maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Chi cục thú y quận 5 `}
+                </Text>
+                <Text style={{ width: "9%", opacity: 0 }}>
+                    {`Số lượng: `}
+                </Text>
+                <Text style={{ fontSize: 9, width: "8%", textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {` 1 `}
+                </Text>
+                <Text style={{ width: "15%", opacity: 0 }}>
+                    {`Khối lượng: `}
+                </Text>
+                <Text style={{ fontSize: 8, maxLines: 1, textOverflow: "ellipsis" }}>
+                    {` 100kg `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 1 }}>
+                <Text style={{ fontSize: 10, width: "49%", opacity: 0 }}>
+                    {`Điều kiện bảo quản hàng trong quá trình vận chuyển: `}
+                </Text>
+                <Text style={{ fontSize: 8, maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Đạt chuẩn `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ fontSize: 10, width: "37%", opacity: 0 }}>
+                    {`Các vật dụng khác liên quan kèm theo: `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "63%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Thiết bị tiêm phòng `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ fontSize: 10, width: "30%", opacity: 0 }}>
+                    {`Các giấy tờ kèm theo: `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "70%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`Giấy chứng nhận kiểm dịch `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ fontSize: 10, width: "20%", opacity: 0 }}>
+                    {`Địa điểm kiểm dịch: `}
+                </Text>
+                <Text style={{ fontSize: 8, maxWidth: "80%", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`46A, Lê Trung Nghĩa, P.12, Q. Tân Bình, TP. Hồ Chí Minh `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 0.5 }}>
+                <Text style={{ fontSize: 10, width: "20%", opacity: 0 }}>
+                    {`Thời gian kiểm dịch: `}
+                </Text>
+                <Text style={{ fontSize: 8, maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`20 / 11 / 2020 `}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <Text style={{ opacity: 0 }}>
+                    {`Tôi cam đoan việc đăng ký trên hoàn toàn đúng sự thật và cam kết chấp hành đúng pháp luật thú y.`}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 3.5 }}>
+                <Text style={{ width: "70%", textAlign: "center", opacity: 0 }}>
+                    {`Ý KIẾN CỦA CƠ QUAN KIỂM DỊCH ĐỘNG VẬT`}
+                </Text>
+                <Text style={{ fontSize: 10, width: "15%", opacity: 0 }}>
+                    {`Đăng ký tại `}
+                </Text>
+                <Text style={{ fontSize: 8, width: "15%", textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`TP.Hồ Chí Minh`}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", fontSize: 9, marginTop: 3 }}>
+                <Text style={{ width: "28%", opacity: 0 }}>
+                    {`Đồng ý kiểm dịch tại địa điểm`}
+                </Text>
+                <Text style={{ fontSize: 8, width: "10%", textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`TP.HCM`}
+                </Text>
+                <Text style={{ width: "7.2%", opacity: 0 }}>
+                    {`vào hồi`}
+                </Text>
+                <Text style={{ fontSize: 9, width: "3%", textAlign: "center" }}>
+                    {`15`}
+                </Text>
+                <Text style={{ width: "3%", opacity: 0 }}>
+                    {`giờ`}
+                </Text>
+                <Text style={{ fontSize: 9, width: "4%", textAlign: "center" }}>
+                    {`00`}
+                </Text>
+                <Text style={{ width: "4.8%", opacity: 0 }}>
+                    {`ngày`}
+                </Text>
+                <Text style={{ fontSize: 9, width: "3%", textAlign: "center" }}>
+                    {`05`}
+                </Text>
+                <Text style={{ fontSize: 9, width: "4.5%", textAlign: "center" }}>
+                    {`08`}
+                </Text>
+                <Text style={{ fontSize: 9, width: "4%" }}>
+                    {`2022`}
+                </Text>
+                <Text style={{ width: "7.7%", opacity: 0, textAlign: "center"}}>
+                    {`D`}
+                </Text>
+                <Text style={{ fontSize: 9, width: "4%", textAlign: "center" }}>
+                    {`05`}
+                </Text>
+                <Text style={{ width: "6.5%", opacity: 0 }}>
+                    {`m`}
+                </Text>
+                <Text style={{ fontSize: 9, width: "3%", textAlign: "center" }}>
+                    {`05`}
+                </Text>
+                <Text style={{ width: "5.5%", opacity: 0 }}>
+                    {`y`}
+                </Text>
+                <Text style={{ fontSize: 9, width: "4%", marginRight: -13 }}>
+                    {`2022`}
+                </Text>
+            </View>
+
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", fontSize: 9, marginTop: 1 }}>
+                <Text style={{ width: "4%", opacity: 0, marginLeft: "14.5%" }}>
+                    {`Vào sổ đăng ký số`}
+                </Text>
+                <Text style={{ fontSize: 9, width: "9%", textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
+                    {`3223`}
+                </Text>
+                <Text style={{ width: "6.5%", opacity: 0 }}>
+                    {`ngày`}
+                </Text>
+                <Text style={{ fontSize: 9, width: "3.2%", textAlign: "center" }}>
+                    {`05`}
+                </Text>
+                <Text style={{ fontSize: 9, width: "4.2%", textAlign: "center" }}>
+                    {`08`}
+                </Text>
+                <Text style={{ fontSize: 9, width: "5%", textAlign: "center" }}>
+                    {`2022`}
+                </Text>
+            </View>
+
+        </Page>
+    </Document >
+);
+
+export { PDF1 };

@@ -1,9 +1,11 @@
-import { Row, Col, Form, Input, DatePicker } from "antd";
+import { Row, Col, Form, Input, DatePicker, Radio } from "antd";
+import { AnimalSexType } from "Components/Shared/Models/Animal";
 import {
   AttributeModel,
   DataTypes,
   FormModel,
 } from "Components/Shared/Models/Form";
+import { SexType } from "Components/Shared/Models/User";
 import moment from "moment";
 import React, { useRef } from "react";
 
@@ -141,6 +143,27 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           ]}
         >
           <Input />
+        </Form.Item>
+      );
+    }
+    case DataTypes.RadioControl: {
+      // const options = attr.api_d.split(',').map(x=>Number(x));
+      return (
+        <Form.Item
+          label={attr.name}
+          labelCol={{ span: 24 }}
+          wrapperCol={{ span: 24 }}
+          name={["values", idx, "value"]}
+          initialValue={attr.value ?? null}
+        >
+          <Radio.Group>
+            <Radio value={"Đực"}>
+              {AnimalSexType[1]}
+            </Radio>
+            <Radio value={"Cái"}>
+              {AnimalSexType[2]}
+            </Radio>
+          </Radio.Group>
         </Form.Item>
       );
     }

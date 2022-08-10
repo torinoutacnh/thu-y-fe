@@ -257,7 +257,7 @@ const PDF12D = (props: any) => {
     // console.log(arrDate);
 
 
-    const sum = Number(pdf.attrs[40].value) * Number(pdf.attrs[39].value) + Number(pdf.attrs[45].value) * Number(pdf.attrs[44].value) + Number(pdf.attrs[50].value) * Number(pdf.attrs[49].value)
+    const sum = Number(pdf.attrs[40].value) + Number(pdf.attrs[45].value) + Number(pdf.attrs[50].value)
 
     const ani = () => {
         return (
@@ -647,10 +647,10 @@ const PDF12D = (props: any) => {
 
                 <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "1px" }}>
                     <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "8%", maxLines: 1, textOverflow: "ellipsis", textAlign: "right", }}>
-                        {pdf.attrs[27].value}
+                        {pdf.attrs[27].value?.split('/')[0]}
                     </Text>
                     <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "7%", maxLines: 1, textOverflow: "ellipsis", textAlign: "right", }}>
-                        {/* {`123`} */}
+                        {pdf.attrs[27].value?.split('/')[1]}
                     </Text>
                     <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "9%", color: "white" }}>
                         {`ngày`}
@@ -658,7 +658,7 @@ const PDF12D = (props: any) => {
                     <Text style={{ marginTop: 0, marginLeft: "3px", fontSize: 9, fontWeight: "bold", width: "4%", textAlign: "right", maxLines: 1, textOverflow: "ellipsis" }}>
                         {`${day_ngayxetnghiem}`}
                     </Text>
-                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "5%", textAlign: "right", maxLines: 1, textOverflow: "ellipsis" }}>
+                    <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "4%", textAlign: "right", maxLines: 1, textOverflow: "ellipsis" }}>
                         {`${month_ngayxetnghiem}`}
                     </Text>
                     <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "5%", textAlign: "right", maxLines: 1, textOverflow: "ellipsis" }}>
@@ -677,7 +677,7 @@ const PDF12D = (props: any) => {
 
 
 
-                <View style={{ marginTop: "2px", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                <View style={{ marginTop: "1px", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
                     <Text style={{ width: "59%", marginTop: 0, fontSize: 10, color: "white" }}>
                         {`3/ Sản phậm động vật trên đáp ứng các yêu cầu sau:`}
                     </Text>

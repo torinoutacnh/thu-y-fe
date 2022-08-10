@@ -10,20 +10,20 @@ import logoHome from "../../../Static/image/logo.png"
 
 export default function HomePage() {
   return (
-    <div className="container" style={{display: "flex", fontWeight: 500, lineHeight: 3}}>
+    <div className="container" style={{ display: "flex", fontWeight: 500, lineHeight: 3 }}>
       <div className="logo-home" style={{ flex: 1 }}>
         <img src={logoHome} alt="Chi cục thú ý Đồng Nai" style={{
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           width: '100%',
           margin: '7% 0',
-          }} 
+        }}
         />
       </div>
       <div className="list-form" style={{
         flex: 2,
       }}>
-        <div 
+        <div
           className="header-container"
           style={{
             backgroundColor: 'rgb(46 58 70)',
@@ -35,26 +35,26 @@ export default function HomePage() {
         >
           PHẦN MỀM QUẢN LÝ KIỂM SOÁT GIẾT MỔ VÀ KIỂM DỊCH
         </div>
-        <div 
+        <div
           className="list-item"
-          style={{ 
+          style={{
             display: 'flex',
             marginTop: '5px',
             lineHeight: 4,
           }}
         >
-          <div 
+          <div
             className="list-item_1"
             style={{
               flex: 1,
             }}
-            >
+          >
             <div className="header_list-item_1" style={{ paddingLeft: '10px', fontSize: '18px' }}>QUẢN LÝ KIỂM DỊCH</div>
             <div className="content_list-item_1">
               <ul style={{
-                    listStyle: 'none',
-                  }}>
-                <li 
+                listStyle: 'none',
+              }}>
+                <li
                   style={{
                     textAlign: 'center',
                     margin: '5% 5% 10% -5%',
@@ -65,7 +65,7 @@ export default function HomePage() {
                   ĐƠN ĐĂNG KÝ KDĐV (MS 1)
                 </li>
                 <li
-                  style={{                    
+                  style={{
                     textAlign: 'center',
                     margin: '10% 5% 10% -5%',
                     border: '3px dashed rgb(75 148 221)',
@@ -74,30 +74,30 @@ export default function HomePage() {
                 >
                   BIÊN BẢN VSTY (MS 7)
                 </li>
-                <li style={{                      
-                      textAlign: 'center',
-                      margin: '10% 5% 0 -5%',
-                      border: '3px dashed rgb(75 148 221)',
-                      borderRadius: '20px',
-                    }}
+                <li style={{
+                  textAlign: 'center',
+                  margin: '10% 5% 0 -5%',
+                  border: '3px dashed rgb(75 148 221)',
+                  borderRadius: '20px',
+                }}
                 >
                   GIẤY CNKD (MS 12B)
                 </li>
               </ul>
             </div>
           </div>
-          <div 
+          <div
             className="list-item_2"
             style={{
               flex: 1,
             }}
-            >
+          >
             <div className="header_list-item_2" style={{ paddingLeft: '10px', fontSize: '18px' }}>QUẢN LÝ GIẾT MỔ</div>
             <div className="content_list-item_2">
               <ul style={{
-                    listStyle: 'none',
-                  }}>
-                <li 
+                listStyle: 'none',
+              }}>
+                <li
                   style={{
                     textAlign: 'center',
                     margin: '5% 5% 10% -5%',
@@ -108,7 +108,7 @@ export default function HomePage() {
                   BÁO CÁO GIẾT MỔ
                 </li>
                 <li
-                  style={{                    
+                  style={{
                     textAlign: 'center',
                     margin: '10% 5% 10% -5%',
                     border: '3px dashed rgb(75 148 221)',
@@ -117,12 +117,12 @@ export default function HomePage() {
                 >
                   HÓA ĐƠN GIẾT MỔ
                 </li>
-                <li style={{                      
-                      textAlign: 'center',
-                      margin: '10% 5% 0 -5%',
-                      border: '3px dashed rgb(75 148 221)',
-                      borderRadius: '20px',
-                    }}
+                <li style={{
+                  textAlign: 'center',
+                  margin: '10% 5% 0 -5%',
+                  border: '3px dashed rgb(75 148 221)',
+                  borderRadius: '20px',
+                }}
                 >
                   BÁO CÁO DOANH THU
                 </li>

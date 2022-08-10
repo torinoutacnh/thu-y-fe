@@ -8,6 +8,10 @@ import {
     Image,
     Font
 } from "@react-pdf/renderer";
+import { ReportModel } from "Components/Shared/Models/Form";
+import { PDFModel } from "./mapper/map-report";
+import { ToVietnamese } from "./ConvertNumberToVietnamese";
+import { getDateCurrent } from "Utils/DateTimeUtils";
 
 Font.register({
     family: "NotoSerif",
@@ -206,8 +210,57 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const PDF1 = () => (
-    <Document>
+const PDF1 = (props: { report: ReportModel }) => {
+    const { report } = props;
+    const pdf = PDFModel(report);
+
+    const year_ngaycapcmnd = pdf.attrs[5].value.slice(0,4)
+    const month_ngaycapcmnd = pdf.attrs[5].value.slice(5,7)
+    const day_ngaycapcmnd = pdf.attrs[5].value.slice(8,10)
+
+    const year_ngayquyetdinh = pdf.attrs[19].value.slice(0,4)
+    const month_ngayquyetdinh = pdf.attrs[19].value.slice(5,7)
+    const day_ngayquyetdinh = pdf.attrs[19].value.slice(8,10)
+
+    const year_ngayxetnghiem1 = pdf.attrs[23].value.slice(0, 4)
+    const month_ngayxetnghiem1 = pdf.attrs[23].value.slice(5, 7)
+    const day_ngayxetnghiem1 = pdf.attrs[23].value.slice(8, 10)
+
+    const year_ngayxetnghiem2 = pdf.attrs[26].value.slice(0, 4)
+    const month_ngayxetnghiem2 = pdf.attrs[26].value.slice(5, 7)
+    const day_ngayxetnghiem2 = pdf.attrs[26].value.slice(8, 10)
+
+    const year_ngaytiem1 = pdf.attrs[28].value.slice(0, 4)
+    const month_ngaytiem1 = pdf.attrs[28].value.slice(5, 7)
+    const day_ngaytiem1 = pdf.attrs[28].value.slice(8, 10)
+
+    const year_ngaytiem2 = pdf.attrs[30].value.slice(0, 4)
+    const month_ngaytiem2 = pdf.attrs[30].value.slice(5, 7)
+    const day_ngaytiem2 = pdf.attrs[30].value.slice(8, 10)
+
+    const year_ngayxetnghiemvsty = pdf.attrs[37].value.slice(0, 4)
+    const month_ngayxetnghiemvsty = pdf.attrs[37].value.slice(5, 7)
+    const day_ngayxetnghiemvsty = pdf.attrs[37].value.slice(8, 10)
+
+    const year_ngaykiemdich = pdf.attrs[60].value.slice(0, 4)
+    const month_ngaykiemdich = pdf.attrs[60].value.slice(5, 7)
+    const day_ngaykiemdich = pdf.attrs[60].value.slice(8, 10)
+
+    const year_ngayvaosodk = pdf.attrs[62].value.slice(0, 4)
+    const month_ngayvaosodk = pdf.attrs[62].value.slice(5, 7)
+    const day_ngayvaosodk = pdf.attrs[62].value.slice(8, 10)
+
+    const tmp = getDateCurrent()
+    const arrDate = tmp.split("-")
+
+    const tinhbiet = pdf.attrs[13].value.split("/")
+    const quyetdinh = pdf.attrs[18].value.split("/")
+    const xetnghiem1 = pdf.attrs[22].value.split("/")
+    const xetnghiem2 = pdf.attrs[25].value.split("/")
+    const xetnghiemvsty = pdf.attrs[36].value.split("/")
+
+    return (
+        <Document>
         <Page style={styles.body}>
 
             <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }}>
@@ -215,7 +268,7 @@ const PDF1 = () => (
                     {`Kính gửi: `}
                 </Text>
                 <Text style={{ width: "59%" , fontSize: 8, maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Chi cục thú y TP.HCM `}
+                    {pdf.attrs[1].value}
                 </Text>
             </View>
 
@@ -224,7 +277,7 @@ const PDF1 = () => (
                     {`Họ tên chủ hàng (hoặc người đại diện): `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "63%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {` Nguyễn Văn A `}
+                    {pdf.attrs[2].value}
                 </Text>
             </View>
 
@@ -233,7 +286,7 @@ const PDF1 = () => (
                     {`Địa chỉ giao dịch: `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "82%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`46A Lê Trung Nghĩa, P.12, Q.Tân Bình, TP.HCM `}
+                    {pdf.attrs[3].value}
                 </Text>
             </View>
 
@@ -242,25 +295,25 @@ const PDF1 = () => (
                     {`Chứng minh nhân dân số: `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "28%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`103549521962 `}
+                    {pdf.attrs[4].value}
                 </Text>
                 <Text style={{ width: "12%", opacity: 0 }}>
                     {`Cấp ngày `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "3%", textAlign: "center" }}>
-                    {` 05 `}
-                </Text>
-                <Text style={{ fontSize: 9, width: "6%", textAlign: "center" }}>
-                    {` 08 `}
+                    {` ${day_ngaycapcmnd} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "5%", textAlign: "center" }}>
-                    {` 2020 `}
+                    {` ${month_ngaycapcmnd} `}
                 </Text>
-                <Text style={{ width: "4%", opacity: 0 }}>
+                <Text style={{ fontSize: 9, width: "5%", textAlign: "center" }}>
+                    {` ${year_ngaycapcmnd} `}
+                </Text>
+                <Text style={{ width: "5%", opacity: 0 }}>
                     {`tại `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "17%", marginTop: 0.5, maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`CA TP.HCM `}
+                    {pdf.attrs[6].value}
                 </Text>
             </View>
 
@@ -269,19 +322,19 @@ const PDF1 = () => (
                     {`Điện thoại: `}
                 </Text>
                 <Text style={{ width: "26%" , fontSize: 9, maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`0123456789 `}
+                    {pdf.attrs[7].value}
                 </Text>
                 <Text style={{ width: "6%", opacity: 0 }}>
                     {` Fax: `}
                 </Text>
                 <Text style={{ width: "14%", fontSize: 9, maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`12378123123 `}
+                    {pdf.attrs[8].value}
                 </Text>
                 <Text style={{ width: "10%", opacity: 0 }}>
                     {` Email: `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "34%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`abacadawdad@gmail.com `}
+                    {pdf.attrs[9].value}
                 </Text>
             </View>
 
@@ -312,22 +365,22 @@ const PDF1 = () => (
                     <Text style={styles.col20}>{'Mục đích sử dụng'}</Text>
                 </View>
 
-                <View style={[styles.row_body]}>
-                    <Text style={styles.colBody36}>{'Heo'}</Text>
-                    <Text style={styles.colBody14}>{'Loại 1'}</Text>
-                    <Text style={styles.colBody10}>{'5'}</Text>
-                    <Text style={styles.colBody20_hp1}>{'x'}</Text>
-                    <Text style={styles.colBody20_hp2}>{'x'}</Text>
-                    <Text style={styles.colBody20}>{'mục đính '}</Text>
+                <View style={[styles.row_header, styles.bold, styles.header]}>
+                    <Text style={styles.colBody36}>{pdf.attrs[10].value}</Text>
+                    <Text style={styles.colBody14}>{pdf.attrs[11].value}</Text>
+                    <Text style={styles.colBody10}>{pdf.attrs[12].value}</Text>
+                    <Text style={[styles.colBody20_hp1]}>{tinhbiet[0]}</Text>
+                    <Text style={[styles.colBody20_hp2]}>{tinhbiet[1]}</Text>
+                    <Text style={styles.colBody20}>{pdf.attrs[14].value}</Text>
                 </View>
 
                 <View style={[styles.row_body]}>
                     <Text style={[styles.colBody36, { fontStyle: 'bold', opacity: 0 }]}>{'Tổng số'}</Text>
-                    <Text style={[styles.colBody14, { fontStyle: 'bold' }]}>{'  '}</Text>
-                    <Text style={[styles.colBody10, { fontStyle: 'bold' }]}>{'  '}</Text>
-                    <Text style={[styles.colBody20_hp1, { fontStyle: 'bold' }]}>{'  '}</Text>
-                    <Text style={[styles.colBody20_hp2, { fontStyle: 'bold' }]}> {'  '}</Text>
-                    <Text style={[styles.colBody20, { fontStyle: 'bold' }]}>{'  '}</Text>
+                    <Text style={[styles.colBody14, { fontStyle: 'bold' }]}>{' '}</Text>
+                    <Text style={[styles.colBody10, { fontStyle: 'bold' }]}>{' '}</Text>
+                    <Text style={[styles.colBody20_hp1, { fontStyle: 'bold' }]}>{tinhbiet[0]}</Text>
+                    <Text style={[styles.colBody20_hp2, { fontStyle: 'bold' }]}> {tinhbiet[1]}</Text>
+                    <Text style={[styles.colBody20, { fontStyle: 'bold' }]}>{' '}</Text>
                 </View>
             </View>
 
@@ -336,16 +389,16 @@ const PDF1 = () => (
                     {`Tổng số (viết bằng chữ): `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "76%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Hai trăm bảy mươi lăm`}
+                    {`${ToVietnamese (Number(tinhbiet[0]) + Number(tinhbiet[1]))} con`}
                 </Text>
             </View>
 
-            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+            <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 0.5 }}>
                 <Text style={{ fontSize: 10, width: "15%", opacity: 0 }}>
                     {`Nơi xuất phát: `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "85%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`46A, Lê Trung Nghĩa, P.12, Q. Tân Bình, TP. Hồ Chí Minh `}
+                    {pdf.attrs[15].value}
                 </Text>
             </View>
 
@@ -354,7 +407,7 @@ const PDF1 = () => (
                     {`Tình trạng sức khỏe động vật: `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "71.5%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Lượng lớn động vật có dấu hiệu mãn tính với thức ăn `}
+                    {pdf.attrs[16].value}
                 </Text>
             </View>
             
@@ -363,7 +416,7 @@ const PDF1 = () => (
                     {`Số động vật trên xuất phát từ vùng/cơ sở an toàn với bệnh: `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "45%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Cúm gia cầm `}
+                    {pdf.attrs[17].value}
                 </Text>
             </View>
 
@@ -372,28 +425,28 @@ const PDF1 = () => (
                     {`theo Quyết định số `}
                 </Text>
                 <Text style={{ fontSize: 8, width: "12%", textAlign:"center", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`351DV `}
+                    {quyetdinh[0]}
                 </Text>
                 <Text style={{ fontSize: 8, width: "11%", textAlign:"center", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`KDYTDV `}
+                    {quyetdinh[1]}
                 </Text>
-                <Text style={{ fontSize: 10, width: "5%", opacity: 0 }}>
+                <Text style={{ fontSize: 10, width: "4.5%", opacity: 0 }}>
                     {`ngày `}
                 </Text>
-                <Text style={{ fontSize: 9, width: "2.5%", textAlign:"center" }}>
-                    {`05 `}
+                <Text style={{ fontSize: 9, width: "3%", textAlign:"center" }}>
+                    {` ${day_ngayquyetdinh} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "6%", textAlign:"center" }}>
-                    {`08 `}
+                    {` ${month_ngayquyetdinh} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "6%", textAlign:"center" }}>
-                    {`2022 `}
+                    {` ${year_ngayquyetdinh} `}
                 </Text>
                 <Text style={{ fontSize: 10, width: "8%", opacity: 0 }}>
                     {`của `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "26%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Chi cục thú y TP.HCM `}
+                    {pdf.attrs[20].value}
                 </Text>
                 <Text style={{ fontSize: 9, width: "7%", opacity: 0 }}>
                     {`(nếu có).`}
@@ -411,28 +464,28 @@ const PDF1 = () => (
                     {`1/`}
                 </Text>
                 <Text style={{ width: "22%" , fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Gà `}
+                    {pdf.attrs[21].value}
                 </Text>
                 <Text style={{ width: "21%", opacity: 0 }}>
                     {`Kết quả xét nghiệm số `}
                 </Text>
                 <Text style={{ width: "11%", fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`103`}
+                    {xetnghiem1[0]}
                 </Text>
                 <Text style={{ width: "16%", fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`KTYTDV `}
+                    {xetnghiem1[1]}
                 </Text>
                 <Text style={{ width: "5%", opacity: 0 }}>
                     {`ngày `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "5%", textAlign: "center" }}>
-                    {` 05 `}
+                    {` ${day_ngayxetnghiem1} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "5%", textAlign: "center" }}>
-                    {` 08 `}
+                    {` ${month_ngayxetnghiem1} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "6%", textAlign: "center" }}>
-                    {` 2020 `}
+                    {` ${year_ngayxetnghiem1} `}
                 </Text>
             </View>
 
@@ -441,28 +494,28 @@ const PDF1 = () => (
                     {`2/`}
                 </Text>
                 <Text style={{ width: "22%" , fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Gà `}
+                    {pdf.attrs[24].value}
                 </Text>
                 <Text style={{ width: "21%", opacity: 0 }}>
                     {`Kết quả xét nghiệm số `}
                 </Text>
                 <Text style={{ width: "11%", fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`103`}
+                    {xetnghiem2[0]}
                 </Text>
                 <Text style={{ width: "16%", fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`KTYTDV `}
+                    {xetnghiem2[1]}
                 </Text>
                 <Text style={{ width: "5%", opacity: 0 }}>
                     {`ngày `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "5%", textAlign: "center" }}>
-                    {` 05 `}
+                    {` ${day_ngayxetnghiem2} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "5%", textAlign: "center" }}>
-                    {` 08 `}
+                    {` ${month_ngayxetnghiem2} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "6%", textAlign: "center" }}>
-                    {` 2020 `}
+                    {` ${year_ngayxetnghiem2} `}
                 </Text>
             </View>
 
@@ -477,19 +530,19 @@ const PDF1 = () => (
                     {`1/`}
                 </Text>
                 <Text style={{ width: "63%" , fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Ngừa cúm ở gia cầm `}
+                    {pdf.attrs[27].value}
                 </Text>
                 <Text style={{ width: "16.2%", opacity: 0 }}>
                     {`tiêm phòng ngày`}
                 </Text>
                 <Text style={{ fontSize: 9, width: "4%", textAlign: "center" }}>
-                    {` 05 `}
+                    {` ${day_ngaytiem1} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "7%", textAlign: "center" }}>
-                    {` 08 `}
+                    {` ${month_ngaytiem1} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "6%" }}>
-                    {` 2020 `}
+                    {` ${year_ngaytiem1} `}
                 </Text>
             </View>
 
@@ -498,19 +551,19 @@ const PDF1 = () => (
                     {`2/`}
                 </Text>
                 <Text style={{ width: "63%" , fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Ngừa cúm ở gia cầm `}
+                    {pdf.attrs[29].value}
                 </Text>
                 <Text style={{ width: "16.2%", opacity: 0 }}>
                     {`tiêm phòng ngày `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "4%", textAlign: "center" }}>
-                    {` 05 `}
+                    {` ${day_ngaytiem2} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "7%", textAlign: "center" }}>
-                    {` 08 `}
+                    {` ${month_ngaytiem2} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "6%" }}>
-                    {` 2020 `}
+                    {` ${year_ngaytiem2} `}
                 </Text>
             </View>
 
@@ -530,18 +583,18 @@ const PDF1 = () => (
                 </View>
 
                 <View style={[styles.row_body]}>
-                    <Text style={styles.col31_6}>{'Heo'}</Text>
-                    <Text style={styles.col20_5}>{'Loại 1'}</Text>
-                    <Text style={styles.col12_7}>{'5'}</Text>
-                    <Text style={styles.col15}>{'100'}</Text>
-                    <Text style={styles.colBody20}>{'mục đích '}</Text>
+                    <Text style={styles.col31_6}>{pdf.attrs[31].value}</Text>
+                    <Text style={styles.col20_5}>{pdf.attrs[32].value}</Text>
+                    <Text style={styles.col12_7}>{pdf.attrs[33].value}</Text>
+                    <Text style={styles.col15}>{pdf.attrs[34].value}</Text>
+                    <Text style={styles.colBody20}>{pdf.attrs[35].value}</Text>
                 </View>
 
                 <View style={[styles.row_body]}>
                     <Text style={[styles.col52_2, { fontStyle: 'bold', opacity: 0 }]}>{'Tổng số'}</Text>
-                    <Text style={[styles.col12_7, { fontStyle: 'bold' }]}>{'5'}</Text>
-                    <Text style={[styles.col15, { fontStyle: 'bold' }]}>{'100'}</Text>
-                    <Text style={[styles.colBody20, { fontStyle: 'bold' }]}>{'1'}</Text>
+                    <Text style={[styles.col12_7, { fontStyle: 'bold' }]}>{pdf.attrs[33].value}</Text>
+                    <Text style={[styles.col15, { fontStyle: 'bold' }]}>{pdf.attrs[33].value * pdf.attrs[34].value}</Text>
+                    <Text style={[styles.colBody20, { fontStyle: 'bold' }]}>{' '}</Text>
                 </View>
             </View>
             
@@ -550,7 +603,7 @@ const PDF1 = () => (
                     {`Tổng số (viết bằng chữ): `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "76%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Hai trăm bảy mươi lăm`}
+                    {`${ToVietnamese (pdf.attrs[33].value * pdf.attrs[34].value)} ki-lô-gam`}
                 </Text>
             </View>
 
@@ -562,28 +615,28 @@ const PDF1 = () => (
 
             <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: 0.5 }}>
                 <Text style={{ fontSize: 8, width: "11%", textAlign:"center", marginTop: 0.5, maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`351DV `}
+                    {xetnghiemvsty[0]}
                 </Text>
                 <Text style={{ fontSize: 8, width: "19%", textAlign:"center", marginTop: 0.5, maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`KDYTDV `}
+                    {xetnghiemvsty[1]}
                 </Text>
                 <Text style={{ fontSize: 10, width: "3.5%", opacity: 0 }}>
                     {`d `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "5%", textAlign:"center" }}>
-                    {`05 `}
+                    {` ${day_ngayxetnghiemvsty} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "5%", textAlign:"center" }}>
-                    {`08 `}
+                    {` ${month_ngayxetnghiemvsty} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "7%", textAlign:"center" }}>
-                    {`2022 `}
+                    {` ${year_ngayxetnghiemvsty} `}
                 </Text>
                 <Text style={{ fontSize: 10, width: "6%", opacity: 0 }}>
                     {`của `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "23%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Chi cục thú y TP.HCM `}
+                    {pdf.attrs[38].value}
                 </Text>
                 <Text style={{ fontSize: 9, width: "7%", opacity: 0 }}>
                     {`(nếu có).`}
@@ -595,7 +648,7 @@ const PDF1 = () => (
                     {`Tên, địa chỉ cơ sở sản xuất: `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "73%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {` Nguyễn Văn A `}
+                    {pdf.attrs[39].value}
                 </Text>
             </View>
 
@@ -604,13 +657,13 @@ const PDF1 = () => (
                     {`Điện thoại: `}
                 </Text>
                 <Text style={{ width: "33%" , fontSize: 9, maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`0123456789 `}
+                    {pdf.attrs[40].value}
                 </Text>
                 <Text style={{ width: "8%", opacity: 0 }}>
                     {` Fax: `}
                 </Text>
                 <Text style={{ fontSize: 9, maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`12378123123 `}
+                    {pdf.attrs[41].value}
                 </Text>
             </View>
 
@@ -625,7 +678,7 @@ const PDF1 = () => (
                     {`Tên tổ chức, cá nhân nhập hàng: `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "68%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Lê Thị C `}
+                    {pdf.attrs[42].value}
                 </Text>
             </View>
 
@@ -634,7 +687,7 @@ const PDF1 = () => (
                     {`Địa chỉ: `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "81%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`46A, Lê Trung Nghĩa, P.12, Q. Tân Bình, TP. Hồ Chí Minh `}
+                    {pdf.attrs[43].value}
                 </Text>
             </View>
 
@@ -643,13 +696,13 @@ const PDF1 = () => (
                     {`Điện thoại: `}
                 </Text>
                 <Text style={{ width: "22%" , fontSize: 9, maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`0123456789 `}
+                    {pdf.attrs[44].value}
                 </Text>
                 <Text style={{ width: "5%", opacity: 0 }}>
                     {` Fax: `}
                 </Text>
                 <Text style={{ fontSize: 9, maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`12378123123 `}
+                    {pdf.attrs[45].value}
                 </Text>
             </View>
 
@@ -658,7 +711,7 @@ const PDF1 = () => (
                     {`Nơi đến (cuối cùng): `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "79%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`46A, Lê Trung Nghĩa, P.12, Q. Tân Bình, TP. Hồ Chí Minh `}
+                    {pdf.attrs[46].value}
                 </Text>
             </View>
 
@@ -667,7 +720,7 @@ const PDF1 = () => (
                     {`Phương tiện vận chuyển: `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "75%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Xe bán tải `}
+                    {pdf.attrs[47].value}
                 </Text>
             </View>
 
@@ -682,19 +735,19 @@ const PDF1 = () => (
                     {`1/`}
                 </Text>
                 <Text style={{ width: "34%" , fontSize: 8, maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Chi cục thú y quận 5 `}
+                    {pdf.attrs[48].value}
                 </Text>
                 <Text style={{ width: "9%", opacity: 0 }}>
                     {`Số lượng: `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "8%", textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {` 1 `}
+                    {pdf.attrs[49].value}
                 </Text>
                 <Text style={{ width: "15%", opacity: 0 }}>
                     {`Khối lượng: `}
                 </Text>
                 <Text style={{ fontSize: 8, maxLines: 1, textOverflow: "ellipsis" }}>
-                    {` 100kg `}
+                    {pdf.attrs[50].value}
                 </Text>
             </View>
 
@@ -703,7 +756,7 @@ const PDF1 = () => (
                     {`Điều kiện bảo quản hàng trong quá trình vận chuyển: `}
                 </Text>
                 <Text style={{ fontSize: 8, maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Đạt chuẩn `}
+                    {pdf.attrs[51].value}
                 </Text>
             </View>
 
@@ -712,7 +765,7 @@ const PDF1 = () => (
                     {`Các vật dụng khác liên quan kèm theo: `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "63%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Thiết bị tiêm phòng `}
+                    {pdf.attrs[52].value}
                 </Text>
             </View>
 
@@ -721,7 +774,7 @@ const PDF1 = () => (
                     {`Các giấy tờ kèm theo: `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "70%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`Giấy chứng nhận kiểm dịch `}
+                    {pdf.attrs[53].value}
                 </Text>
             </View>
 
@@ -730,7 +783,7 @@ const PDF1 = () => (
                     {`Địa điểm kiểm dịch: `}
                 </Text>
                 <Text style={{ fontSize: 8, maxWidth: "80%", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`46A, Lê Trung Nghĩa, P.12, Q. Tân Bình, TP. Hồ Chí Minh `}
+                    {pdf.attrs[54].value}
                 </Text>
             </View>
 
@@ -739,7 +792,7 @@ const PDF1 = () => (
                     {`Thời gian kiểm dịch: `}
                 </Text>
                 <Text style={{ fontSize: 8, maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`20 / 11 / 2020 `}
+                    {pdf.attrs[55].value}
                 </Text>
             </View>
 
@@ -757,7 +810,7 @@ const PDF1 = () => (
                     {`Đăng ký tại `}
                 </Text>
                 <Text style={{ fontSize: 8, width: "15%", textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`TP.Hồ Chí Minh`}
+                    {pdf.attrs[56].value}
                 </Text>
             </View>
 
@@ -766,49 +819,49 @@ const PDF1 = () => (
                     {`Đồng ý kiểm dịch tại địa điểm`}
                 </Text>
                 <Text style={{ fontSize: 8, width: "10%", textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`TP.HCM`}
+                    {pdf.attrs[57].value}
                 </Text>
-                <Text style={{ width: "7.2%", opacity: 0 }}>
+                <Text style={{ width: "7.1%", opacity: 0 }}>
                     {`vào hồi`}
                 </Text>
                 <Text style={{ fontSize: 9, width: "3%", textAlign: "center" }}>
-                    {`15`}
+                    {pdf.attrs[58].value}
                 </Text>
                 <Text style={{ width: "3%", opacity: 0 }}>
                     {`giờ`}
                 </Text>
                 <Text style={{ fontSize: 9, width: "4%", textAlign: "center" }}>
-                    {`00`}
+                    {pdf.attrs[59].value}
                 </Text>
                 <Text style={{ width: "4.8%", opacity: 0 }}>
                     {`ngày`}
                 </Text>
                 <Text style={{ fontSize: 9, width: "3%", textAlign: "center" }}>
-                    {`05`}
+                    {` ${day_ngaykiemdich} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "4.5%", textAlign: "center" }}>
-                    {`08`}
+                    {` ${month_ngaykiemdich} `}
                 </Text>
-                <Text style={{ fontSize: 9, width: "4%" }}>
-                    {`2022`}
+                <Text style={{ fontSize: 9, width: "4.5%" }}>
+                    {` ${year_ngaykiemdich} `}
                 </Text>
-                <Text style={{ width: "7.7%", opacity: 0, textAlign: "center"}}>
+                <Text style={{ width: "7.1%", opacity: 0, textAlign: "center"}}>
                     {`D`}
                 </Text>
                 <Text style={{ fontSize: 9, width: "4%", textAlign: "center" }}>
-                    {`05`}
+                    {arrDate[2]}
                 </Text>
                 <Text style={{ width: "6.5%", opacity: 0 }}>
                     {`m`}
                 </Text>
                 <Text style={{ fontSize: 9, width: "3%", textAlign: "center" }}>
-                    {`05`}
+                    {arrDate[1]}
                 </Text>
                 <Text style={{ width: "5.5%", opacity: 0 }}>
                     {`y`}
                 </Text>
                 <Text style={{ fontSize: 9, width: "4%", marginRight: -13 }}>
-                    {`2022`}
+                    {arrDate[0]}
                 </Text>
             </View>
 
@@ -817,24 +870,26 @@ const PDF1 = () => (
                     {`Vào sổ đăng ký số`}
                 </Text>
                 <Text style={{ fontSize: 9, width: "9%", textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                    {`3223`}
+                    {pdf.attrs[61].value}
                 </Text>
                 <Text style={{ width: "6.5%", opacity: 0 }}>
                     {`ngày`}
                 </Text>
                 <Text style={{ fontSize: 9, width: "3.2%", textAlign: "center" }}>
-                    {`05`}
+                    {` ${day_ngayvaosodk} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "4.2%", textAlign: "center" }}>
-                    {`08`}
+                    {` ${month_ngayvaosodk} `}
                 </Text>
                 <Text style={{ fontSize: 9, width: "5%", textAlign: "center" }}>
-                    {`2022`}
+                    {` ${year_ngayvaosodk} `}
                 </Text>
             </View>
 
         </Page>
     </Document >
-);
+    )
+    
+}
 
 export { PDF1 };

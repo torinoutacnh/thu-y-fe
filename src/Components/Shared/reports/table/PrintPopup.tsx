@@ -75,7 +75,7 @@ export default function PrintPopup() {
           return <PDF7 report={report} />;
         }
         case ReportType["ĐK-KDĐV-001"]: {
-          return <PDF1 />;
+          return <PDF1 report={report} />;
         }
       }
     };

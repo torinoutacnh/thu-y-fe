@@ -265,7 +265,7 @@ const PDF7 = (props: { report: ReportModel }) => {
   const pdf = PDFModel(report);
   // pdf.attrs.map((item, index) => {
   //   return (
-  //     console.log(index, " ===> ", item.attributeName, " ===> ", item.value)
+  //     console.log(index, "     =>>>    ", item.attributeName, "     =>>>    ", item.value)
   //   )
   // })
 

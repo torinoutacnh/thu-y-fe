@@ -20,12 +20,12 @@ export default function HomePage() {
       >
         <Row gutter={16}>
           <Col xs={24} sm={24} md={8} lg={8}>
-            <Link to={quarantineEndpoints.basepath}>
+            <Link to={quarantineEndpoints.dkkd}>
               <div className="card">ĐƠN ĐĂNG KÝ KDĐV (MS 1)</div>
             </Link>
           </Col>
           <Col xs={24} sm={24} md={8} lg={8}>
-            <Link to={generalEndpoints.notfound}>
+            <Link to={quarantineEndpoints.vsyt}>
               <div className="card ">BIÊN BẢN VSTY (MS 7)</div>
             </Link>
           </Col>

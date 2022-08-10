@@ -1,4 +1,4 @@
-import { PDFViewer } from "@react-pdf/renderer";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { Button, Modal } from "antd";
 import { useEffect, useState } from "react";
 import { PrinterOutlined } from "@ant-design/icons";
@@ -10,6 +10,8 @@ import { ReportType } from "../interfaces/FormInterface";
 import { PDF12B } from "../PDF/PDF12B";
 import { PDF1 } from "../PDF/PDF1";
 import { PDF12D } from "../PDF/PDF12D";
+import { Link } from "react-router-dom";
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 export default function PrintPopup() {
   const [loading, setLoading] = useState(false);
@@ -17,6 +19,7 @@ export default function PrintPopup() {
   const [report, setReport] = useState<ReportModel>();
   const [id, setId] = useState<string>();
   const { user } = useAuth();
+
 
   const showModal = (id: string) => {
     setId(id);
@@ -83,33 +86,33 @@ export default function PrintPopup() {
       <>
         <Modal
           visible={visible}
-          title=""
           onOk={handleOk}
           onCancel={handleCancel}
           closable={false}
           width={"96%"}
-          bodyStyle={{ height: "100vh", margin: 0, padding: 0 }}
+          bodyStyle={{ height: isMobile ? "auto" : "100vh", margin: 0, padding: 0 }}
           style={{ top: 20 }}
-          footer={
-            [
-              // <Button key="back" onClick={handleCancel}>
-              //   Return
-              // </Button>,
-              // <Button
-              //   key="submit"
-              //   type="primary"
-              //   loading={loading}
-              //   onClick={handleOk}
-              // >
-              //   Submit
-              // </Button>,
-            ]
-          }
+          footer={null}
+          title={null}
         >
           {report && (
-            <PDFViewer width={"100%"} height={"100%"} style={{ border: 0 }}>
-              <GetPDF />
-            </PDFViewer>
+
+            isMobile ?
+              <>
+                <PDFDownloadLink document={<GetPDF />} fileName="Report.pdf">
+                  {({ blob, url, loading, error }) => {
+                    return (loading ? <span style={{ width: "100%", height: "30px", textAlign: "center" }}>{"ĐANG TẢI DỮ LIỆU..."}</span> : <Button style={{ width: "100%" }}>{"Tải xuống PDF"}</Button>)
+                  }}
+                </PDFDownloadLink>
+
+              </>
+              :
+              <>
+                <PDFViewer width={"100%"} height={"100%"} style={{ border: 0 }}>
+                  <GetPDF />
+                </PDFViewer>
+              </>
+
           )}
         </Modal>
       </>

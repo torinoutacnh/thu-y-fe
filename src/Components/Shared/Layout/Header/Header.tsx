@@ -29,6 +29,17 @@ const Header = () => {
 
   const navRef = useRef(null);
 
+  const toggleMenu = () => {
+    if (user) {
+      const menu = document.querySelector("#menu-responsive") as HTMLElement;
+      const navbar = document.querySelector(".nav-bar-top");
+
+      menu.classList.toggle("fa-times");
+      navbar.classList.toggle("active");
+
+    }
+  }
+
   useEffect(() => {
     if (user) {
       const menu = document.querySelector("#menu-responsive") as HTMLElement;
@@ -92,41 +103,40 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Kiểm dịch
                       <span
-                        className={`icon ${
-                          iconRotate1 ? "iconRotate--90" : "iconRotate-0"
-                        }`}
+                        className={`icon ${iconRotate1 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${
-                          showItems1 ? "showItems" : ""
-                        }`}
+                        className={`dropdown-content-1 ${showItems1 ? "showItems" : ""
+                          }`}
                       >
                         <li>
-                          <Link to={quarantineEndpoints.dkkd}>
+                          <Link to={quarantineEndpoints.dkkd} onClick={() => { toggleMenu() }}>
                             Đăng ký kiểm dịch
+
                           </Link>
                         </li>
                         <li>
-                          <Link to={quarantineEndpoints.cnkd}>
+                          <Link to={quarantineEndpoints.cnkd} onClick={() => { toggleMenu() }}>
                             Chứng nhận kiểm dịch
                           </Link>
                         </li>
                         <li>
-                          <Link to={quarantineEndpoints.vsyt}>
+                          <Link to={quarantineEndpoints.vsyt} onClick={() => { toggleMenu() }}>
                             Biên bản vệ sinh y tế
                           </Link>
                         </li>
                         <li>
-                          <Link to={quarantineEndpoints.cnkd}>
+                          <Link to={quarantineEndpoints.cnkd} onClick={() => { toggleMenu() }}>
                             Hóa đơn kiểm dịch
                           </Link>
                         </li>
                         <li>
-                          <Link to={quarantineEndpoints.home}>
+                          <Link to={quarantineEndpoints.home} onClick={() => { toggleMenu() }}>
                             Báo cáo doanh thu
                           </Link>
                         </li>
@@ -139,36 +149,34 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Giết mổ
                       <span
-                        className={`icon ${
-                          iconRotate2 ? "iconRotate--90" : "iconRotate-0"
-                        }`}
+                        className={`icon ${iconRotate2 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${
-                          showItems2 ? "showItems" : ""
-                        }`}
+                        className={`dropdown-content-1 ${showItems2 ? "showItems" : ""
+                          }`}
                       >
                         <li>
-                          <Link to={abattoirEndpoints.nkgm}>
+                          <Link to={abattoirEndpoints.nkgm} onClick={() => { toggleMenu() }}>
                             Báo cáo giết mổ
                           </Link>
                         </li>
                         <li>
-                          <Link to={abattoirEndpoints.cnkdxkdv}>
+                          <Link to={abattoirEndpoints.cnkdxkdv} onClick={() => { toggleMenu() }}>
                             Chứng nhận kiểm dịch
                           </Link>
                         </li>
                         <li>
-                          <Link to={abattoirEndpoints.home}>
+                          <Link to={abattoirEndpoints.home} onClick={() => { toggleMenu() }}>
                             Hóa đơn giết mổ
                           </Link>
                         </li>
                         <li>
-                          <Link to={abattoirEndpoints.home}>
+                          <Link to={abattoirEndpoints.home} onClick={() => { toggleMenu() }}>
                             Báo cáo doanh thu
                           </Link>
                         </li>
@@ -181,51 +189,49 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Quản trị admin
                       <span
-                        className={`icon ${
-                          iconRotate3 ? "iconRotate--90" : "iconRotate-0"
-                        }`}
+                        className={`icon ${iconRotate3 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${
-                          showItems3 ? "showItems" : ""
-                        }`}
+                        className={`dropdown-content-1 ${showItems3 ? "showItems" : ""
+                          }`}
                       >
                         <li>
-                          <Link to={staffEndpoints.home}>
+                          <Link to={staffEndpoints.home} onClick={() => { toggleMenu() }}>
                             Quản lý nhân viên
                           </Link>
                         </li>
                         <li>
-                          <Link to={animalEndpoints.home}>
+                          <Link to={animalEndpoints.home} onClick={() => { toggleMenu() }}>
                             Quản lý động vật
                           </Link>
                         </li>
                         <li>
-                          <Link to={quarantineEndpoints.home}>
+                          <Link to={quarantineEndpoints.home} onClick={() => { toggleMenu() }}>
                             Quản lý đơn giá
                           </Link>
                         </li>
                         <li>
-                          <Link to={manageabattoirEndpoints.home}>
+                          <Link to={manageabattoirEndpoints.home} onClick={() => { toggleMenu() }}>
                             Quản lý lò mổ
                           </Link>
                         </li>
                         <li>
-                          <Link to={manageReceiptEndpoints.home}>
+                          <Link to={manageReceiptEndpoints.home} onClick={() => { toggleMenu() }}>
                             Quản lý hóa đơn
                           </Link>
                         </li>
                         <li>
-                          <Link to={quarantineEndpoints.home}>
+                          <Link to={quarantineEndpoints.home} onClick={() => { toggleMenu() }}>
                             Doanh thu tổng
                           </Link>
                         </li>
                         <li>
-                          <Link to={RouteEndpoints.myAllocate}>
+                          <Link to={RouteEndpoints.myAllocate} onClick={() => { toggleMenu() }}>
                             Hóa đơn của tôi
                           </Link>
                         </li>
@@ -238,20 +244,18 @@ const Header = () => {
                     <Button type="link" className="dropdown-menu__btn">
                       Tài khoản
                       <span
-                        className={`icon ${
-                          iconRotate4 ? "iconRotate--90" : "iconRotate-0"
-                        }`}
+                        className={`icon ${iconRotate4 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
                       >
                         <i className="fa-solid fa-angle-left"></i>
                       </span>
                     </Button>
                     <div className="dropdown-content">
                       <ul
-                        className={`dropdown-content-1 ${
-                          showItems4 ? "showItems" : ""
-                        }`}
+                        className={`dropdown-content-1 ${showItems4 ? "showItems" : ""
+                          }`}
                       >
-                        <li>
+                        <li onClick={() => { toggleMenu() }}>
                           <ChangePassword />
                         </li>
                         <li onClick={singOut}>

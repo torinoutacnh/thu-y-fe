@@ -14,7 +14,7 @@ interface AttributeModel {
     dataType: DataTypes;
     controlType: ControlTypes;
     sortNo: number;
-    value?:any;
+    value?: any;
     attributeCode?: string;
 }
 
@@ -24,58 +24,56 @@ interface ReportModel {
     userId: string;
     formId: string;
     type: number;
-    userName?:string;
-    dateCreated?:string;
+    userName?: string;
+    dateCreated?: string;
     values: ReportValueModel[];
-    listAnimals:AnimalModel[];
-    sealTabs:SealValueModel[];
+    listAnimals: AnimalModel[];
+    sealTabs: SealValueModel[];
 }
 
-interface UpdateReportAttrsModel{
+interface UpdateReportAttrsModel {
     reportId: string;
     values: ReportValueModel[];
 }
 
-interface SealValueModel{
+interface SealValueModel {
     id: string;
     sealCode: string;
     sealName: string;
     content: string;
     id_Pricing: string;
-    reportTicketId:string;
+    reportTicketId: string;
 }
 
 interface ReportValueModel {
     id?: string;
     attributeId: string;
-    attributeName?:string;
-    value: string|Date|number|Moment;
+    attributeName?: string;
+    value: string | Date | number | Moment;
     sort: number;
     reportId?: string;
     animalId?: string;
-    attributeCode?:string;
-    formName?:string;
+    attributeCode?: string;
+    formName?: string;
 }
 
 interface ReportQueryModel {
     pageNumber: number;
     pageSize: number;
     id?: string;
-    formId?:string;
+    formId?: string;
     type?: number;
     userId?: string;
     dateStart?: string;
     dateEnd?: string;
 }
 
-enum ControlTypes
-{
+enum ControlTypes {
     InputType = 1,
     DropDownListType = 2
 }
 
-enum DataTypes
-{
+enum DataTypes {
     TextControl = 1,
     TelControl = 2,
     DateControl = 3,
@@ -83,8 +81,9 @@ enum DataTypes
     DatetimeLocalControl = 5,
     ImageControl = 6,
     PasswordControl = 7,
-    NumberControl = 8
+    NumberControl = 8,
+    RadioControl = 9,
 }
 
-export {DataTypes,ControlTypes}
-export type {UpdateReportAttrsModel,AttributeModel,FormModel,ReportModel,ReportValueModel,ReportQueryModel,SealValueModel}
+export { DataTypes, ControlTypes }
+export type { UpdateReportAttrsModel, AttributeModel, FormModel, ReportModel, ReportValueModel, ReportQueryModel, SealValueModel }

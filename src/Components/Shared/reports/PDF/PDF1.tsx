@@ -253,11 +253,11 @@ const PDF1 = (props: { report: ReportModel }) => {
     const tmp = getDateCurrent()
     const arrDate = tmp.split("-")
 
-    const tinhbiet = pdf.attrs[13].value.split("/")
-    const quyetdinh = pdf.attrs[18].value.split("/")
-    const xetnghiem1 = pdf.attrs[22].value.split("/")
-    const xetnghiem2 = pdf.attrs[25].value.split("/")
-    const xetnghiemvsty = pdf.attrs[36].value.split("/")
+    const tinhbiet = pdf.attrs[13].value?.split("/")
+    const quyetdinh = pdf.attrs[18].value?.split("/")
+    const xetnghiem1 = pdf.attrs[22].value?.split("/")
+    const xetnghiem2 = pdf.attrs[25].value?.split("/")
+    const xetnghiemvsty = pdf.attrs[36].value?.split("/")
 
     return (
         <Document>
@@ -592,8 +592,8 @@ const PDF1 = (props: { report: ReportModel }) => {
 
                 <View style={[styles.row_body]}>
                     <Text style={[styles.col52_2, { fontStyle: 'bold', opacity: 0 }]}>{'Tổng số'}</Text>
-                    <Text style={[styles.col12_7, { fontStyle: 'bold' }]}>{pdf.attrs[33].value}</Text>
-                    <Text style={[styles.col15, { fontStyle: 'bold' }]}>{pdf.attrs[33].value * pdf.attrs[34].value}</Text>
+                    <Text style={[styles.col12_7, { fontStyle: 'bold' }]}>{Number(pdf.attrs[33].value).toLocaleString()}</Text>
+                    <Text style={[styles.col15, { fontStyle: 'bold' }]}>{Number(pdf.attrs[33].value * pdf.attrs[34].value).toLocaleString()}</Text>
                     <Text style={[styles.colBody20, { fontStyle: 'bold' }]}>{' '}</Text>
                 </View>
             </View>

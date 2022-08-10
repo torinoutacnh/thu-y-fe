@@ -516,7 +516,7 @@ const PDF7 = (props: { report: ReportModel }) => {
           </Text>
         </View>
 
-        <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", lineHeight: 1.9, marginLeft: 6, paddingTop: 1, marginTop: -2.5 }}>
+        <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", lineHeight: 1.9, marginLeft: 6, paddingTop: 1, marginTop: -3 }}>
           <Text style={{ fontSize: 11, height: "38", color: "white" }}>
             {`Phương pháp kiểm tra vệ sinh thú y của hàng : `}
             <Text style={{ fontSize: 9, color: "white" }}>

@@ -1,4 +1,4 @@
-.ant-table-thead .ant-table-cell{
+/* .ant-table-thead .ant-table-cell{
     word-wrap: normal;
     width: 150px;
 }   
@@ -52,7 +52,7 @@
     .space-media div{
         display: inline-block;
     }
-}
+} */
 
 /* @media screen and (max-width:768px) {
     .ant-table-content table,tr,tbody,td,th{
@@ -89,3 +89,41 @@
         margin-bottom: 50px;
     }
 } */
+
+/* PC */
+@media screen and (min-width: 1024px) {
+    
+}
+
+/* Tablet & moblie */
+@media screen and (max-width: 1023px) {
+    
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+    .logo-home {
+        display: none;
+    }
+
+    .list-form {
+        flex: 1;
+    }
+
+    .list-item {
+        flex-direction: column;
+    }
+
+    .header_list-item_1 {
+        line-height: 2.5;
+    }
+
+    .header_list-item_2 {
+        line-height: 2.5;
+    }
+}

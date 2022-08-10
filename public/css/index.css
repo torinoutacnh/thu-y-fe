@@ -1,9 +1,10 @@
+@import url(../../src/Static/css/custom.css);
 /* Box sizing rules */
 @import "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100&family=Edu+TAS+Beginner:wght@500&family=Great+Vibes&family=Ibarra+Real+Nova&family=Playfair+Display:wght@500&display=swap";
 *,
 *::before,
 *::after {
-  box-sizing: border-box; }
+  box-sizing: border-box; };
 
 /* Remove default margin */
 body,

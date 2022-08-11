@@ -99,7 +99,7 @@ const Header = () => {
             <>
               <div id="menu-responsive" className="fa-solid fa-bars"></div>
               <ul className="nav-bar-top" ref={navRef}>
-                <li onClick={handleClicElements1}>
+                <li onClick={handleClicElements1} className="mb20">
                   <div className="dropdown-menu">
                     <Button type="link" className="dropdown-menu__btn">
                       Kiểm dịch
@@ -185,61 +185,64 @@ const Header = () => {
                     </div>
                   </div>
                 </li>
-                <li onClick={handleClicElements3}>
-                  <div className="dropdown-menu">
-                    <Button type="link" className="dropdown-menu__btn">
-                      Quản trị admin
-                      <span
-                        className={`icon ${iconRotate3 ? "iconRotate--90" : "iconRotate-0"
-                          }`}
-                      >
-                        <i className="fa-solid fa-angle-left"></i>
-                      </span>
-                    </Button>
-                    <div className="dropdown-content">
-                      <ul
-                        className={`dropdown-content-1 ${showItems3 ? "showItems" : ""
-                          }`}
-                      >
-                        <li>
-                          <Link to={staffEndpoints.home} onClick={() => { toggleMenu() }}>
-                            Quản lý nhân viên
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={animalEndpoints.home} onClick={() => { toggleMenu() }}>
-                            Quản lý động vật
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={generalEndpoints.notfound} onClick={() => { toggleMenu() }}>
-                            Quản lý đơn giá
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={manageabattoirEndpoints.home} onClick={() => { toggleMenu() }}>
-                            Quản lý lò mổ
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={manageReceiptEndpoints.home} onClick={() => { toggleMenu() }}>
-                            Quản lý hóa đơn
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={generalEndpoints.notfound} onClick={() => { toggleMenu() }}>
-                            Doanh thu tổng
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to={RouteEndpoints.myAllocate} onClick={() => { toggleMenu() }}>
-                            Hóa đơn của tôi
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </li>
+                {user.role === RoleType['Quản lý'] &&
+                  <>
+                    <li onClick={handleClicElements3} className="mb20">
+                      <div className="dropdown-menu">
+                        <Button type="link" className="dropdown-menu__btn">
+                          Quản trị admin
+                          <span
+                            className={`icon ${iconRotate3 ? "iconRotate--90" : "iconRotate-0"
+                              }`}
+                          >
+                            <i className="fa-solid fa-angle-left"></i>
+                          </span>
+                        </Button>
+                        <div className="dropdown-content">
+                          <ul
+                            className={`dropdown-content-1 ${showItems3 ? "showItems" : ""
+                              }`}
+                          >
+                            <li>
+                              <Link to={staffEndpoints.home} onClick={() => { toggleMenu() }}>
+                                Quản lý nhân viên
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={animalEndpoints.home} onClick={() => { toggleMenu() }}>
+                                Quản lý động vật
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={generalEndpoints.notfound} onClick={() => { toggleMenu() }}>
+                                Quản lý đơn giá
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={manageabattoirEndpoints.home} onClick={() => { toggleMenu() }}>
+                                Quản lý lò mổ
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={manageReceiptEndpoints.home} onClick={() => { toggleMenu() }}>
+                                Quản lý hóa đơn
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={generalEndpoints.notfound} onClick={() => { toggleMenu() }}>
+                                Doanh thu tổng
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to={RouteEndpoints.myAllocate} onClick={() => { toggleMenu() }}>
+                                Hóa đơn của tôi
+                              </Link>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                  </>}
                 <li onClick={handleClicElements4} className="mb20">
                   <div className="dropdown-menu">
                     <Button type="link" className="dropdown-menu__btn">

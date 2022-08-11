@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import {
   Table,
   Button,
@@ -15,7 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
 import useWindowSize from "Modules/hooks/useWindowSize";
 import { getKeyThenIncreaseKey } from "antd/lib/message";
-import { manageabattoirEndpoints } from "Components/router/routes";
+import { abattoirEndpoints, manageabattoirEndpoints } from "Components/router/routes";
 import { AbattoirModel } from "Components/Shared/Models/Abattoir";
 import CreateAbattoir from "./CreateAbattoir";
 
@@ -259,10 +259,9 @@ const ManageAbattoir = () => {
       <PageHeader
         title="Quản lý lò mổ"
         extra={[
-          <CreateAbattoir
-            key={getKeyThenIncreaseKey()}
-            UpdateAbattoirAfterCreate={UpdateAbattoirAfterCreate}
-          />,
+          <Button type="primary" icon={<PlusOutlined />} onClick={() => { navigate(abattoirEndpoints.createAbattoi) }} key={1}>
+            Thêm mới
+          </Button>
         ]}
       />
 

@@ -1,25 +1,19 @@
-import { Button, Form, Input, Modal, Radio, notification } from "antd";
+import { Button, Form, Input, Modal, Radio, notification, Col, Row } from "antd";
 import { ApiRoute, UserApiRoute } from "Api";
 import { RoleType, SexType } from "Components/Shared/Models/User";
 import { useAuth } from "Modules/hooks/useAuth";
 import { PlusOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
+import FormItem from "antd/lib/form/FormItem";
+import { useNavigate } from "react-router-dom";
+import { staffEndpoints } from "Components/router/routes";
 
 function CreateStaff(props: any) {
-  const [visible, setVisible] = useState(false);
+
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
   const { user } = useAuth();
-
-  const showModal = () => {
-    setVisible(true);
-  };
-
-  const Cancel = () => {
-    form.resetFields();
-    setVisible(false);
-  };
-
+  const navigate = useNavigate()
 
   notification.config({
     placement: "topRight",
@@ -51,8 +45,6 @@ function CreateStaff(props: any) {
 
       if (user) {
 
-
-
         const newUser = {
           name: form.getFieldValue("name"),
           account: form.getFieldValue("account"),
@@ -79,14 +71,13 @@ function CreateStaff(props: any) {
             console.log(data)
             console.log("create user", newUser)
             openNotificationWithIcon("success", "Tạo nhân viên thành công")
-            props.updateAfterCreate()
+            navigate(staffEndpoints.basepath)
           })
           .catch((error) => {
             console.log(error)
             openNotificationWithIcon("error", "Tạo nhân viên thất bại")
           })
           .finally(() => {
-            setVisible(false);
             setConfirmLoading(false);
             form.resetFields();
           });
@@ -105,179 +96,179 @@ function CreateStaff(props: any) {
 
   return (
     <>
-      <Button type="primary" icon={<PlusOutlined />} onClick={showModal}>
-        Thêm mới
-      </Button>
-      <Modal
-        title="Thêm nhân viên"
-        visible={visible}
-        footer={
-          <>
-            <Button type="default" htmlType="button" onClick={Cancel}>
-              Hủy bỏ
-            </Button>
 
-            <Button
-              form="create-user-form"
-              type="primary"
-              loading={confirmLoading}
-              htmlType="submit"
+
+      <Row>
+        <Col xs={24} sm={5} md={7} lg={7}></Col>
+        <Col xs={24} sm={12} md={10} lg={10}>
+
+          <h2 style={{ textAlign: "center" }}>Tạo nhân viên</h2>
+          <Form
+            id="create-user-form"
+            layout="vertical"
+            form={form}
+            onFinish={CreateUser}
+          >
+            <Form.Item
+              label={"Tên nhân viên"}
+              name={"name"}
+              rules={[
+                {
+                  required: true,
+                  message: "Nhập tên nhân viên!",
+                  type: "string",
+                },
+              ]}
             >
-              Thêm mới
-            </Button>
-          </>
-        }
-        confirmLoading={confirmLoading}
-        onCancel={() => setVisible(false)}
-      >
-        <Form
-          id="create-user-form"
-          layout="vertical"
-          form={form}
-          onFinish={CreateUser}
-        >
-          <Form.Item
-            label={"Tên nhân viên"}
-            name={"name"}
-            rules={[
-              {
-                required: true,
-                message: "Nhập tên nhân viên!",
-                type: "string",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label={"Tên tài khoản"}
-            name={"account"}
-            rules={[
-              {
-                required: true,
-                message: "Nhập tên tài khoản!",
-                type: "string",
-              },
-              {
-                message:
-                  "Tên tài khoản không dấu gồm 8-20 ký tự và không chứa kí tự đặc biệt!",
-                pattern: new RegExp(
-                  "^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$"
-                ),
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label={"Tên tài khoản"}
+              name={"account"}
+              rules={[
+                {
+                  required: true,
+                  message: "Nhập tên tài khoản!",
+                  type: "string",
+                },
+                {
+                  message:
+                    "Tên tài khoản không dấu gồm 8-20 ký tự và không chứa kí tự đặc biệt!",
+                  pattern: new RegExp(
+                    "^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$"
+                  ),
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
 
-          <Form.Item
-            name={"password"}
-            label={"Mật khẩu"}
-            rules={[
-              {
-                required: true,
-                message: "Nhập mật khẩu!",
-                type: "string",
-              }
-            ]}
-          >
-            <Input />
-          </Form.Item>
+            <Form.Item
+              name={"password"}
+              label={"Mật khẩu"}
+              rules={[
+                {
+                  required: true,
+                  message: "Nhập mật khẩu!",
+                  type: "string",
+                }
+              ]}
+            >
+              <Input />
+            </Form.Item>
 
-          <Form.Item
-            name={"confirmPassword"}
-            label={"Nhập lại mật khẩu"}
-            rules={[
-              {
-                required: true,
-                message: "Nhập lại mật khẩu!",
-                type: "string",
-              }
-            ]}
-          >
-            <Input />
-          </Form.Item>
+            <Form.Item
+              name={"confirmPassword"}
+              label={"Nhập lại mật khẩu"}
+              rules={[
+                {
+                  required: true,
+                  message: "Nhập lại mật khẩu!",
+                  type: "string",
+                }
+              ]}
+            >
+              <Input />
+            </Form.Item>
 
 
-          <Form.Item
-            label={"Số điện thoại"}
-            name={"phone"}
-            rules={[
-              {
-                required: true,
-                message: "Nhập số điện thoại!",
-              },
-              {
-                message: "Số điện thoại không đúng định dạng!",
-                pattern: new RegExp("(84|0[3|5|7|8|9])+([0-9]{8})"),
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label={"Email"}
-            name={"email"}
-            rules={[
-              {
-                message: "Số email không đúng định dạng!",
-                pattern: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item label={"Địa chỉ"} name={"address"}>
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label={"Giới tính"}
-            name={"sex"}
-            rules={[
-              {
-                required: true,
-                message: "Chọn giới tính!",
-              },
-            ]}
-          >
-            <Radio.Group>
-              {Object.values(SexType).map((key, idx) => {
-                const val = SexType[key as any];
-                if (!isNaN(Number(val)))
-                  return (
-                    <Radio key={idx} value={val}>
-                      {SexType[val as any]}
-                    </Radio>
-                  );
-              })}
-            </Radio.Group>
-          </Form.Item>
-          <Form.Item
-            label={"Chức vụ"}
-            name={"role"}
-            rules={[
-              {
-                required: true,
-                message: "Chọn chức vụ!",
-              },
-            ]}
-          >
-            <Radio.Group>
-              {Object.values(RoleType).map((key, idx) => {
-                const val = RoleType[key as any];
-                if (!isNaN(Number(val)))
-                  return (
-                    <Radio key={idx} value={val}>
-                      {RoleType[val as any]}
-                    </Radio>
-                  );
-              })}
-            </Radio.Group>
-          </Form.Item>
-        </Form>
-      </Modal>
+            <Form.Item
+              label={"Số điện thoại"}
+              name={"phone"}
+              rules={[
+                {
+                  required: true,
+                  message: "Nhập số điện thoại!",
+                },
+                {
+                  message: "Số điện thoại không đúng định dạng!",
+                  pattern: new RegExp("(84|0[3|5|7|8|9])+([0-9]{8})"),
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label={"Email"}
+              name={"email"}
+              rules={[
+                {
+                  required: true,
+                  message: "Số email không đúng định dạng!",
+                  pattern: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item label={"Địa chỉ"} name={"address"}>
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label={"Giới tính"}
+              name={"sex"}
+              rules={[
+                {
+                  required: true,
+                  message: "Chọn giới tính!",
+                },
+              ]}
+            >
+              <Radio.Group>
+                {Object.values(SexType).map((key, idx) => {
+                  const val = SexType[key as any];
+                  if (!isNaN(Number(val)))
+                    return (
+                      <Radio key={idx} value={val}>
+                        {SexType[val as any]}
+                      </Radio>
+                    );
+                })}
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item
+              label={"Chức vụ"}
+              name={"role"}
+              rules={[
+                {
+                  required: true,
+                  message: "Chọn chức vụ!",
+                },
+              ]}
+            >
+              <Radio.Group>
+                {Object.values(RoleType).map((key, idx) => {
+                  const val = RoleType[key as any];
+                  if (!isNaN(Number(val)))
+                    return (
+                      <Radio key={idx} value={val}>
+                        {RoleType[val as any]}
+                      </Radio>
+                    );
+                })}
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item>
+              <Button
+                form="create-user-form"
+                type="primary"
+                loading={confirmLoading}
+                htmlType="submit"
+              >
+                Thêm mới
+              </Button>
+            </Form.Item>
+          </Form>
+
+        </Col>
+        <Col xs={24} sm={5} md={7} lg={7}></Col>
+      </Row>
+
+
+
     </>
   );
 }
 
 export default CreateStaff;
+

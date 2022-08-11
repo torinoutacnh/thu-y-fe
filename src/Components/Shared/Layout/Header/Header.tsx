@@ -145,7 +145,7 @@ const Header = () => {
                     </div>
                   </div>
                 </li>
-                <li onClick={handleClicElements2} className="mb20">
+                <li onClick={handleClicElements2} className="mt20">
                   <div className="dropdown-menu">
                     <Button type="link" className="dropdown-menu__btn">
                       Giết mổ
@@ -185,7 +185,7 @@ const Header = () => {
                     </div>
                   </div>
                 </li>
-                <li onClick={handleClicElements3}>
+                <li onClick={handleClicElements3} className="mt20">
                   <div className="dropdown-menu">
                     <Button type="link" className="dropdown-menu__btn">
                       Quản trị admin
@@ -240,7 +240,7 @@ const Header = () => {
                     </div>
                   </div>
                 </li>
-                <li onClick={handleClicElements4} className="mb20">
+                <li onClick={handleClicElements4} className="mt20">
                   <div className="dropdown-menu">
                     <Button type="link" className="dropdown-menu__btn">
                       Tài khoản

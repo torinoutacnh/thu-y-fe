@@ -190,12 +190,8 @@
         display: block;
     }
 
-    .mb20 {
-        margin: 20px 0;
-    }
-
-    .mt0 {
-        margin-bottom: 20px;
+    .mt20 {
+        margin-top: 20px;
     }
 
     .dropdown-menu__btn {

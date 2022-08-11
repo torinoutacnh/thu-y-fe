@@ -91,7 +91,7 @@ export function MyAllocateReceipt() {
     { title: "Số mã hóa đơn", dataIndex: "codeNumber", key: 4 },
     { title: "Số lượng", dataIndex: "amount", key: 5 },
     { title: "Tổng số trang", dataIndex: "totalPage", key: 6 },
-    { title: "Số trang còn lại", dataIndex: "rePage", key: 7 },
+    { title: "Số trang còn lại", dataIndex: "remainPage", key: 7 },
     {
       title: "Xử lý",
       dataIndex: "",
@@ -109,6 +109,7 @@ export function MyAllocateReceipt() {
               receiptAllocateId={record.id}
               codeName={record.codeName}
               codeNumber={record.codeNumber}
+              remainPage={record.remainPage}
             />
           </Button>
 
@@ -164,7 +165,7 @@ export function MyAllocateReceipt() {
             </tr>
             <tr>
               <th>Số trang còn lại :</th>
-              <td>{record.rePage}</td>
+              <td>{record.remainPage}</td>
             </tr>
             <tr>
               <Space>
@@ -179,6 +180,7 @@ export function MyAllocateReceipt() {
                     receiptAllocateId={record.id}
                     codeName={record.codeName}
                     codeNumber={record.codeNumber}
+                    remainPage={record.remainPage}
                   />
                 </Button>
 

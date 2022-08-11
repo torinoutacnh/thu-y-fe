@@ -43,7 +43,7 @@ const StaffHome = () => {
       setLoading(true);
       fetch(
         process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
-          new URLSearchParams(page as any),
+        new URLSearchParams(page as any),
         {
           method: "GET",
           headers: {
@@ -70,7 +70,7 @@ const StaffHome = () => {
     setLoading(true);
     fetch(
       process.env.REACT_APP_API.concat(UserApiRoute.delete, "?") +
-        new URLSearchParams({ id }),
+      new URLSearchParams({ id }),
       {
         method: "POST",
         headers: {
@@ -209,20 +209,11 @@ const StaffHome = () => {
             </tr>
             <tr>
               <Space>
-                <Button
-                  // onClick={() =>
-                  //   navigate(
-                  //     quarantineEndpoints.updatereport.replace(
-                  //       ":id",
-                  //       record.reportId
-                  //     ),
-                  //     { replace: true }
-                  //   )
-                  // }
-                  type="link"
-                >
-                  Cập nhật
-                </Button>
+                <Link to={staffEndpoints.updateStaff.replace(":id", record.id)}>
+                  <Button type="link" color="blue" icon={<EditOutlined />}>
+                    Cập nhật
+                  </Button>
+                </Link>
                 <Button type="link" danger>
                   Xóa
                 </Button>

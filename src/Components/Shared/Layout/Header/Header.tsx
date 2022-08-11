@@ -178,7 +178,7 @@ const Header = () => {
                 </li>
                 {user?.role === RoleType["Quản lý"] && (
                   <li onClick={handleClicElements3}>
-                    <div className="dropdown-menu">
+                    <div className="dropdown-menu mt0">
                       <Button type="link" className="dropdown-menu__btn">
                         Quản trị admin
                         <span

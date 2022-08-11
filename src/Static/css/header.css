@@ -194,6 +194,10 @@
         margin: 20px 0;
     }
 
+    .mt0 {
+        margin-bottom: 20px;
+    }
+
     .dropdown-menu__btn {
         display: flex;
         justify-content: space-between;

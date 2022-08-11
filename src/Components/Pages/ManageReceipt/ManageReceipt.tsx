@@ -87,7 +87,7 @@ const ManageReceipt = () => {
 
     fetch(
       process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
-        new URLSearchParams(page2 as any),
+      new URLSearchParams(page2 as any),
       {
         method: "GET",
         headers: {
@@ -310,10 +310,7 @@ const ManageReceipt = () => {
             <tr>
               <Space>
                 <Link
-                  to={ManageReceiptRoute.updateReceipt.replace(
-                    ":id",
-                    record.id
-                  )}
+                  to={manageReceiptEndpoints.updatereceipt.replace(":id", record.id)}
                 >
                   <Button type="link" color="blue" icon={<EditOutlined />}>
                     Cập nhật

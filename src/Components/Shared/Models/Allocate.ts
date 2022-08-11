@@ -10,7 +10,7 @@ interface AllocateModel {
     codeNumber?: string,
     receiptName?: string,
     totalPage?: number,
-    rePage?: number
+    remainPage?: number
 }
 
 export type { AllocateModel }

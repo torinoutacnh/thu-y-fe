@@ -6,7 +6,7 @@ import { Form, Modal, notification } from "antd";
 import { ManageReceiptRoute } from "Api";
 
 export function CreateReceiptReport(props: any) {
-  const { userId, userName, receiptAllocateId, codeName, codeNumber } = props;
+  const { userId, userName, receiptAllocateId, codeName, codeNumber, remainPage } = props;
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
@@ -43,6 +43,9 @@ export function CreateReceiptReport(props: any) {
   }
 
   const CreateReceiptReportFinish = () => {
+
+
+
     const receiptReport = {
       id: "id",
       userId: userId,
@@ -54,6 +57,11 @@ export function CreateReceiptReport(props: any) {
       dateUse: getCurrentDateTime(),
       pageUse: form.getFieldValue("pageUse"),
     };
+
+    if (receiptReport.pageUse > remainPage) {
+      alert("Số trang còn lại không đủ để sử dụng")
+      return
+    }
 
     // console.log("receiptReport >>>>>>>> ", receiptReport)
 

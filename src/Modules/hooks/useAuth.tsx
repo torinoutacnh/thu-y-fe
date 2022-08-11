@@ -75,6 +75,8 @@ export const useAuth = () => {
   };
 
   const singOut = () => {
+    console.log("ádsd");
+
     Cookies.remove("user", { path: "/" });
     dispatch(logout());
   };

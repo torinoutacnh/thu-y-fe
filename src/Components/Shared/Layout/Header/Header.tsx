@@ -8,6 +8,7 @@ import {
   abattoirEndpoints,
   animalEndpoints,
   generalEndpoints,
+  publicEndpoints,
 } from "Components/router/routes";
 import logoThuY from "../../../../Static/image/logo.png";
 import { useAuth } from "Modules/hooks/useAuth";
@@ -131,12 +132,12 @@ const Header = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link to={quarantineEndpoints.cnkd} onClick={() => { toggleMenu() }}>
+                          <Link to={generalEndpoints.notfound} onClick={() => { toggleMenu() }}>
                             Hóa đơn kiểm dịch
                           </Link>
                         </li>
                         <li>
-                          <Link to={quarantineEndpoints.home} onClick={() => { toggleMenu() }}>
+                          <Link to={generalEndpoints.notfound} onClick={() => { toggleMenu() }}>
                             Báo cáo doanh thu
                           </Link>
                         </li>
@@ -171,12 +172,12 @@ const Header = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link to={abattoirEndpoints.home} onClick={() => { toggleMenu() }}>
+                          <Link to={generalEndpoints.notfound} onClick={() => { toggleMenu() }}>
                             Hóa đơn giết mổ
                           </Link>
                         </li>
                         <li>
-                          <Link to={abattoirEndpoints.home} onClick={() => { toggleMenu() }}>
+                          <Link to={generalEndpoints.notfound} onClick={() => { toggleMenu() }}>
                             Báo cáo doanh thu
                           </Link>
                         </li>
@@ -211,7 +212,7 @@ const Header = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link to={quarantineEndpoints.home} onClick={() => { toggleMenu() }}>
+                          <Link to={generalEndpoints.notfound} onClick={() => { toggleMenu() }}>
                             Quản lý đơn giá
                           </Link>
                         </li>
@@ -226,7 +227,7 @@ const Header = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link to={quarantineEndpoints.home} onClick={() => { toggleMenu() }}>
+                          <Link to={generalEndpoints.notfound} onClick={() => { toggleMenu() }}>
                             Doanh thu tổng
                           </Link>
                         </li>
@@ -258,7 +259,7 @@ const Header = () => {
                         <li onClick={() => { toggleMenu() }}>
                           <ChangePassword />
                         </li>
-                        <li onClick={singOut}>
+                        <li onClick={() => { singOut(); }}>
                           <a>Đăng xuất</a>
                         </li>
                       </ul>

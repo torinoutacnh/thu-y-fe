@@ -133,7 +133,7 @@ export function CreateAllocate(props: any) {
   return (
     <>
 
-      <a onClick={() => showModal()}>Cấp hóa đơn </a>
+      <span onClick={() => showModal()}>Cấp hóa đơn </span>
       <Modal
         title="Cấp hóa đơn"
         visible={visible}

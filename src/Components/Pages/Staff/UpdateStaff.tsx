@@ -18,7 +18,7 @@ function UpdateStaff() {
   useEffect(() => {
     if (id && user) {
       setLoading(true);
-      fetch(process.env.REACT_APP_API.concat(UserApiRoute.Base, "?") + new URLSearchParams({ id: id }), {
+      fetch(process.env.REACT_APP_API.concat(UserApiRoute.getSingle, "?") + new URLSearchParams({ id: id }), {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

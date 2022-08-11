@@ -279,17 +279,17 @@ const PDF12B = (props: { report: ReportModel }) => {
   const month_giatridenngay = pdf.attrs[28].value.slice(5, 7)
   const day_giatridenngay = pdf.attrs[28].value.slice(8, 10)
 
-  const year_ngaytiem2 = pdf.attrs[37].value.slice(0, 4)
-  const month_ngaytiem2 = pdf.attrs[37].value.slice(5, 7)
-  const day_ngaytiem2 = pdf.attrs[37].value.slice(8, 10)
+  const year_ngaytiem2 = pdf.attrs[36].value.slice(0, 4)
+  const month_ngaytiem2 = pdf.attrs[36].value.slice(5, 7)
+  const day_ngaytiem2 = pdf.attrs[36].value.slice(8, 10)
 
-  const year_ngayxetnghiem = pdf.attrs[40].value.slice(0, 4)
-  const month_ngayxetnghiem = pdf.attrs[40].value.slice(5, 7)
-  const day_ngayxetnghiem = pdf.attrs[40].value.slice(8, 10)
+  const year_ngayxetnghiem = pdf.attrs[39].value.slice(0, 4)
+  const month_ngayxetnghiem = pdf.attrs[39].value.slice(5, 7)
+  const day_ngayxetnghiem = pdf.attrs[39].value.slice(8, 10)
 
-  const year_ngaytiem1 = pdf.attrs[35].value.slice(0, 4)
-  const month_ngaytiem1 = pdf.attrs[35].value.slice(5, 7)
-  const day_ngaytiem1 = pdf.attrs[35].value.slice(8, 10)
+  const year_ngaytiem1 = pdf.attrs[34].value.slice(0, 4)
+  const month_ngaytiem1 = pdf.attrs[34].value.slice(5, 7)
+  const day_ngaytiem1 = pdf.attrs[34].value.slice(8, 10)
 
 
   const tmp = getDateCurrent()
@@ -521,7 +521,7 @@ const PDF12B = (props: { report: ReportModel }) => {
               {`Phương tiện vận chuyển: `}
             </Text>
             <Text style={{ fontSize: 10, maxWidth: "50%", maxLines: 1, textOverflow: "ellipsis", }}>
-              {pdf.attrs[31].value}
+              {pdf.attrs[30].value}
             </Text>
           </View>
 
@@ -530,7 +530,7 @@ const PDF12B = (props: { report: ReportModel }) => {
               {`Biển kiểm soát: `}
             </Text>
             <Text style={{ fontSize: 10, maxWidth: "50%", maxLines: 1, textOverflow: "ellipsis", }}>
-              {pdf.attrs[32].value}
+              {pdf.attrs[31].value}
             </Text>
           </View>
 
@@ -542,7 +542,7 @@ const PDF12B = (props: { report: ReportModel }) => {
 
         <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "1px", marginLeft: "10px" }}>
           <Text style={{ width: "59%", fontSize: 9, maxLines: 1, textOverflow: "ellipsis", paddingLeft: "10px" }}>
-            {pdf.attrs[39].value}
+            {pdf.attrs[38].value}
           </Text>
 
           <View style={{ width: "41%", display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
@@ -550,7 +550,7 @@ const PDF12B = (props: { report: ReportModel }) => {
               {`Số lượng: `}
             </Text>
             <Text style={{ fontSize: 10, maxWidth: "73%", maxLines: 1 }}>
-              {pdf.attrs[38].value}
+              {pdf.attrs[37].value}
             </Text>
           </View>
         </View>
@@ -598,7 +598,7 @@ const PDF12B = (props: { report: ReportModel }) => {
 
           <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
             <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "51%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "5px" }}>
-              {pdf.attrs[33].value}
+              {pdf.attrs[32].value}
             </Text>
 
             <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "49%" }}>
@@ -634,7 +634,7 @@ const PDF12B = (props: { report: ReportModel }) => {
             </Text>
 
             <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "40%", maxLines: 1, textOverflow: "ellipsis", }}>
-              {pdf.attrs[41].value}
+              {pdf.attrs[40].value}
             </Text>
             <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "25%", fontStyle: "italic", color: "white" }}>
               {`(gửi kèm bản sao, nếu có)`}
@@ -651,7 +651,7 @@ const PDF12B = (props: { report: ReportModel }) => {
 
         <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "1px" }}>
           <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "56%", maxLines: 1, textOverflow: "ellipsis", marginLeft: "10px" }}>
-            {pdf.attrs[34].value}
+            {pdf.attrs[33].value}
           </Text>
           <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "20%", maxLines: 1, textAlign: "right", color: "white" }}>
             {`tiêm phòng ngày `}
@@ -668,7 +668,7 @@ const PDF12B = (props: { report: ReportModel }) => {
         </View>
         <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
           <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "56%", maxLines: 1, textOverflow: "ellipsis", marginLeft: "10px" }}>
-            {pdf.attrs[36].value}
+            {pdf.attrs[35].value}
           </Text>
           <Text style={{ marginTop: 0, fontSize: 11, fontWeight: "bold", width: "20%", maxLines: 1, textAlign: "right", color: "white" }}>
             {`tiêm phòng ngày `}

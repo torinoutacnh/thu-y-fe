@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { Table, Button, PageHeader } from "antd";
 import AnimalApiRoute from "Api/AnimalApiRoute";
 import { useAuth } from "Modules/hooks/useAuth";
@@ -79,7 +79,7 @@ const AnimalHome = () => {
               type="link"
               color="blue"
               icon={<EditOutlined />}
-              // onClick={() => { console.log("id record update", record.id) }}
+            // onClick={() => { console.log("id record update", record.id) }}
             >
               Cập nhật
             </Button>
@@ -122,7 +122,8 @@ const AnimalHome = () => {
             </tr>
 
             <tr>
-              <Space>
+             <th>Xử lý</th>
+             <th> <Space>
                 <Link
                   to={animalEndpoints.updateAnimal.replace(":id", record.id)}
                 >
@@ -144,12 +145,14 @@ const AnimalHome = () => {
                   Xóa
                 </Button>
               </Space>
+              </th>
             </tr>
           </>
         );
       },
     },
   ];
+ 
 
   ////////////////////////////////////////////NOTIFICATION//////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -247,10 +250,9 @@ const AnimalHome = () => {
       <PageHeader
         title="Quản lý động vật"
         extra={[
-          <CreateAnimal
-            key={getKeyThenIncreaseKey()}
-            UpdateAnimalAfterCreate={UpdateAnimalAfterCreate}
-          />,
+          <Button type="primary" icon={<PlusOutlined />} onClick={() => { navigate(animalEndpoints.createAnimal) }} key={1}>
+            Thêm mới
+          </Button>
         ]}
       />
 

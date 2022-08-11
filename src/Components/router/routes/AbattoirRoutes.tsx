@@ -5,6 +5,7 @@ import { abattoirEndpoints, publicEndpoints } from ".";
 import CNKDSPDV from "Components/Pages/Abattoir/CN-kiem-dich-san-pham-dong-vat";
 import CreateAbattoirReportPage from "Components/Pages/Abattoir/create";
 import UpdateAbattoirReportPage from "Components/Pages/Abattoir/update";
+import CreateAbattoir from "Components/Pages/ManageAbattoir/CreateAbattoir";
 
 const AbattoirRoutes = [
   <Route
@@ -43,6 +44,17 @@ const AbattoirRoutes = [
     }
     key="abattoir-page-update"
   />,
+
+  <Route
+    path={abattoirEndpoints.createAbattoi}
+    element={
+      <PrivateRoute path={publicEndpoints.login}>
+        <CreateAbattoir />
+      </PrivateRoute>
+    }
+    key="abattoir-create"
+  />,
+
 ];
 
 export { AbattoirRoutes };

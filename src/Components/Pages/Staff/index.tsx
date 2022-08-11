@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { Table, Button, Space, notification, PageHeader } from "antd";
 import { UserApiRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
@@ -208,7 +208,9 @@ const StaffHome = () => {
               <td>{RenderSexRole(record.sex)}</td>
             </tr>
             <tr>
-              <Space>
+            <th>Xử lý</th>
+             <th>
+             <Space>
                 <Link to={staffEndpoints.updateStaff.replace(":id", record.id)}>
                   <Button type="link" color="blue" icon={<EditOutlined />}>
                     Cập nhật
@@ -218,6 +220,7 @@ const StaffHome = () => {
                   Xóa
                 </Button>
               </Space>
+              </th>
             </tr>
           </>
         );
@@ -236,10 +239,9 @@ const StaffHome = () => {
       <PageHeader
         title="Quản lý nhân viên"
         extra={[
-          <CreateStaff
-            key={getKeyThenIncreaseKey()}
-            updateAfterCreate={updateAfterCreate}
-          />,
+          <Button type="primary" icon={<PlusOutlined />} onClick={() => { navigate(staffEndpoints.createStaff) }} key={1}>
+            Thêm mới
+          </Button>
         ]}
       />
 

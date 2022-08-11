@@ -1,26 +1,29 @@
 import { useState } from "react";
-import { Button, Input } from "antd";
+import { Button, Col, Input, Row } from "antd";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
 import { Form, Modal, notification } from "antd";
 import { ManageReceiptRoute } from "Api";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { manageReceiptEndpoints } from "Components/router/routes";
+import { RouteEndpoints } from "Components/router";
 
 export function CreateReceiptReport(props: any) {
-  const { userId, userName, receiptAllocateId, codeName, codeNumber, remainPage } = props;
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
   const { user } = useAuth();
   const { setLoading } = useLoading();
+  const navigate = useNavigate();
+  const [useSearch] = useSearchParams()
 
-  const showModal = () => {
-    setVisible(true);
-  };
-
-  const Cancel = () => {
-    form.resetFields();
-    setVisible(false);
-  };
+  const userId = useSearch.get("userId")
+  const userName = useSearch.get("userName")
+  const receiptAllocateId = useSearch.get("receiptAllocateId")
+  const codeName = useSearch.get("codeName")
+  const codeNumber = useSearch.get("codeNumber")
+  const remainPage = Number(useSearch.get("remainPage"))
+  const receiptName = useSearch.get("receiptName")
 
   notification.config({
     placement: "topRight",
@@ -86,9 +89,9 @@ export function CreateReceiptReport(props: any) {
         })
         .then((data) => {
           console.log("create receiptReport ok >>>>>>> ", data);
-          window.location.reload();
           openNotificationWithIcon("success", "Sử dụng hóa đơn thành công");
           form.resetFields();
+          navigate(RouteEndpoints.myAllocate)
           setLoading(false);
         })
         .catch((error) => {
@@ -101,70 +104,66 @@ export function CreateReceiptReport(props: any) {
 
   return (
     <>
-      <span onClick={() => showModal()}>Sử dụng hóa đơn </span>
-      <Modal
-        title="Sử dụng hóa đơn"
-        visible={visible}
-        footer={
-          <>
-            <Button type="default" htmlType="button" onClick={Cancel}>
-              Hủy bỏ
-            </Button>
-            <Button
-              form="create-allocate-form"
-              type="primary"
-              loading={confirmLoading}
-              htmlType="submit"
+
+      <Row>
+        <Col xs={24} sm={6} md={7} xl={7}></Col>
+        <Col xs={24} sm={12} md={10} xl={10}>
+          <h3 style={{ marginBottom: "20px", textAlign: "center" }}>Sử dụng hóa đơn: {receiptName}</h3>
+          <Form
+            id="create-receipt-report-form"
+            layout="vertical"
+            form={form}
+            onFinish={CreateReceiptReportFinish}
+          >
+            {/* /////////////////////////////////////////// */}
+
+            <Form.Item
+              label={"Tên hóa đơn sử dụng"}
+              name={"receiptName"}
+              rules={[
+                {
+                  required: true,
+                  message: "Nhập số lượng",
+                  type: "string",
+                },
+              ]}
             >
-              Thêm mới
-            </Button>
-          </>
-        }
-        confirmLoading={confirmLoading}
-        onCancel={() => setVisible(false)}
-      >
-        <Form
-          id="create-allocate-form"
-          layout="vertical"
-          form={form}
-          onFinish={CreateReceiptReportFinish}
-        >
-          {/* /////////////////////////////////////////// */}
+              <Input />
+            </Form.Item>
 
-          <Form.Item
-            label={"Tên hóa đơn sử dụng"}
-            name={"receiptName"}
-            rules={[
-              {
-                required: true,
-                message: "Nhập số lượng",
-                type: "string",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
+            <Form.Item
+              label={"Số trang sử dụng"}
+              name={"pageUse"}
+              rules={[
+                {
+                  required: true,
+                  message: "Nhập số lượng",
+                },
+                {
+                  message: "Bao gồm các số 0-9!",
+                  pattern: new RegExp("[0-9]"),
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
 
-          <Form.Item
-            label={"Số trang sử dụng"}
-            name={"pageUse"}
-            rules={[
-              {
-                required: true,
-                message: "Nhập số lượng",
-              },
-              {
-                message: "Bao gồm các số 0-9!",
-                pattern: new RegExp("[0-9]"),
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
+            <Form.Item>
+              <Button
+                form="create-receipt-report-form"
+                type="primary"
+                loading={confirmLoading}
+                htmlType="submit"
+              >
+                Thêm mới
+              </Button>
+            </Form.Item>
+            {/* /////////////////////////////////////////// */}
+          </Form>
+        </Col>
+        <Col xs={24} sm={6} md={7} xl={7}></Col>
+      </Row>
 
-          {/* /////////////////////////////////////////// */}
-        </Form>
-      </Modal>
     </>
   );
 }

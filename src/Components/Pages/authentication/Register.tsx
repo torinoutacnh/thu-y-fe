@@ -5,6 +5,7 @@ import { UserApiRoute } from "Api";
 import { useLoading } from "Modules/hooks/useLoading";
 import { useNavigate } from "react-router-dom";
 import { publicEndpoints } from "Components/router/routes";
+import { RoleType } from "Components/Shared/Models/User";
 
 export default function RegisterPage() {
   return (
@@ -251,7 +252,7 @@ const RegisterForm = () => {
       >
         <Radio.Group
           onChange={(e) => {
-            setUser({ ...user, sex: e.target.value, role: 2 });
+            setUser({ ...user, sex: e.target.value, role: RoleType['Nhân viên'] });
             // console.log(user);
           }}
           value={user.sex ?? 1}

@@ -11,6 +11,7 @@ import { notification, Space } from "antd";
 import { ManageReceiptRoute } from "Api";
 import { AllocateModel } from "Components/Shared/Models/Allocate";
 import { CreateReceiptReport } from "../ReceiptReport/CreateReceiptReport";
+import { manageReceiptEndpoints } from "Components/router/routes";
 
 export function MyAllocateReceipt() {
   const [page, setPage] = useState({
@@ -100,17 +101,27 @@ export function MyAllocateReceipt() {
         <>
           <Button
             type="link"
-            // onClick={() => deleteAnimalHandler(record.id, record.name)}
+            onClick={() => navigate(manageReceiptEndpoints.createReceiptReport.concat("?") +
+              new URLSearchParams({
+                userId: record.userId,
+                userName: record.userName,
+                receiptAllocateId: record.id,
+                codeName: record.codeName,
+                codeNumber: record.codeNumber,
+                remainPage: record.remainPage,
+                receiptName: record.receiptName
+              }))}
             icon={<ArrowRightOutlined />}
           >
-            <CreateReceiptReport
+            {/* <CreateReceiptReport
               userId={record.userId}
               userName={record.userName}
               receiptAllocateId={record.id}
               codeName={record.codeName}
               codeNumber={record.codeNumber}
               remainPage={record.remainPage}
-            />
+            /> */}
+            Sử dụng hóa đơn
           </Button>
 
           <Button
@@ -168,23 +179,41 @@ export function MyAllocateReceipt() {
               <td>{record.remainPage}</td>
             </tr>
             <tr>
-              <Space>
+              <th>Xử lý</th>
+              <th>
+                <Space>
                 <Button
                   type="link"
-                  //   onClick={() => deleteAnimalHandler(record.id, record.name)}
+                  onClick={() => navigate(manageReceiptEndpoints.createReceiptReport.concat("?") +
+                    new URLSearchParams({
+                      userId: record.userId,
+                      userName: record.userName,
+                      receiptAllocateId: record.id,
+                      codeName: record.codeName,
+                      codeNumber: record.codeNumber,
+                      remainPage: record.remainPage,
+                      receiptName: record.receiptName
+                    }))}
                   icon={<ArrowRightOutlined />}
                 >
-                  <CreateReceiptReport
-                    userId={record.userId}
-                    userName={record.userName}
-                    receiptAllocateId={record.id}
-                    codeName={record.codeName}
-                    codeNumber={record.codeNumber}
-                    remainPage={record.remainPage}
-                  />
+                  {/* <CreateReceiptReport
+              userId={record.userId}
+              userName={record.userName}
+              receiptAllocateId={record.id}
+              codeName={record.codeName}
+              codeNumber={record.codeNumber}
+              remainPage={record.remainPage}
+            /> */}
+                  Sử dụng hóa đơn
                 </Button>
 
-                <Button
+                
+              </Space>
+              </th>
+              </tr>
+              <tr>
+                <th></th>
+                <th><Button
                   icon={<EyeOutlined />}
                   type="link"
                   onClick={() => {
@@ -197,9 +226,8 @@ export function MyAllocateReceipt() {
                   }}
                 >
                   Xem chi tiết
-                </Button>
-              </Space>
-            </tr>
+                </Button></th>
+              </tr>
           </>
         );
       },

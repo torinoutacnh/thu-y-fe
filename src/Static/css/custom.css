@@ -42,6 +42,7 @@
 
     .responsive-table{
         display: block;
+
     }
 
     .space-media {
@@ -152,11 +153,6 @@
     transform: translate(0, -5px);
 }
 
-/* PC */
-@media screen and (min-width: 1024px) {
-    
-}
-
 /* Tablet & moblie */
 @media screen and (max-width: 1023px) {
     .logo-home {
@@ -168,12 +164,12 @@
     }
 
 /* Tablet */
-@media screen and (min-width: 768px) and (max-width: 1023px) {
+@media screen and (min-width: 769px) and (max-width: 1023px) {
     
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
     .list-item {
         padding: 0;
         flex-direction: column;

@@ -54,6 +54,9 @@ const abattoirEndpoints = {
   get updatereport() {
     return this.basepath.concat("/cap-nhat-bao-cao/:id");
   },
+  get createAbattoi() {
+    return this.basepath.concat("/tao-lo-mo");
+  }
 };
 
 const animalEndpoints = {
@@ -66,6 +69,9 @@ const animalEndpoints = {
   get updateAnimal() {
     return this.basepath.concat("/cap-nhat-dong-vat/:id");
   },
+  get createAnimal() {
+    return this.basepath.concat("/tao-dong-vat");
+  }
 };
 
 const generalEndpoints = {
@@ -86,6 +92,12 @@ const manageReceiptEndpoints = {
   get updatereceipt() {
     return this.basepath.concat("/cap-nhat-hoa-don/:id");
   },
+  get createAllocate() {
+    return "/cap-hoa-don"
+  },
+  get createReceiptReport() {
+    return "/su-dung-hoa-don"
+  }
 };
 
 const quarantineEndpoints = {

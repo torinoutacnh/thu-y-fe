@@ -191,8 +191,11 @@
     }
 
     .mb20 {
-        margin: 20px 0;
+        margin-top: 20px;
     }
+    .mb20:first-child {
+        margin-top: 0px;
+      }
 
     .mt0 {
         margin-bottom: 20px;

@@ -96,6 +96,9 @@ function UpdateStaff() {
         role: form.getFieldValue("role")
       }
 
+      // console.log("new user", newUser);
+      // return
+
       setLoading(true);
       fetch(process.env.REACT_APP_API.concat(UserApiRoute.update, "?"), {
         method: "POST",

@@ -1,4 +1,5 @@
 import StaffHome from "Components/Pages/Staff";
+import CreateStaff from "Components/Pages/Staff/CreateStaff";
 import UpdateStaff from "Components/Pages/Staff/UpdateStaff";
 import { PrivateRoute } from "Modules/PrivateRoute/PrivateRoute";
 import { Route } from "react-router-dom";
@@ -23,6 +24,17 @@ const StaffRoutes = [
     }
     key="staff-update"
   />,
+
+  <Route
+    path={staffEndpoints.createStaff}
+    element={
+      <PrivateRoute path={publicEndpoints.login}>
+        <CreateStaff />
+      </PrivateRoute>
+    }
+    key="staff-create"
+  />,
+
 ];
 
 export { StaffRoutes };

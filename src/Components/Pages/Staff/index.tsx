@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { Table, Button, Space, notification, PageHeader } from "antd";
 import { UserApiRoute } from "Api";
 import { useAuth } from "Modules/hooks/useAuth";
@@ -236,10 +236,9 @@ const StaffHome = () => {
       <PageHeader
         title="Quản lý nhân viên"
         extra={[
-          <CreateStaff
-            key={getKeyThenIncreaseKey()}
-            updateAfterCreate={updateAfterCreate}
-          />,
+          <Button type="primary" icon={<PlusOutlined />} onClick={() => { navigate(staffEndpoints.createStaff) }} key={1}>
+            Thêm mới
+          </Button>
         ]}
       />
 

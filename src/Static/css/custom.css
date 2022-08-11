@@ -1,4 +1,4 @@
-/* .ant-table-thead .ant-table-cell{
+ .ant-table-thead .ant-table-cell{
     word-wrap: normal;
     width: 150px;
 }   
@@ -52,7 +52,7 @@
     .space-media div{
         display: inline-block;
     }
-} */
+}
 
 /* @media screen and (max-width:768px) {
     .ant-table-content table,tr,tbody,td,th{

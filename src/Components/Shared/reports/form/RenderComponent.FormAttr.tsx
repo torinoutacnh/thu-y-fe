@@ -5,16 +5,13 @@ import {
   DataTypes,
   FormModel,
 } from "Components/Shared/Models/Form";
-import { SexType } from "Components/Shared/Models/User";
 import moment from "moment";
-import React, { useRef } from "react";
 
 function RenderFormAttrs(props: { form: FormModel }) {
   const { form } = props;
 
-  const keyref = useRef(0);
   return (
-    <Row key={keyref.current++}>
+    <Row>
       {form.attributes
         .sort((x, y) => x.sortNo - y.sortNo)
         .map((attr, idx) => {
@@ -38,9 +35,6 @@ function RenderFormAttrs(props: { form: FormModel }) {
                 name={["values", idx, "attributeName"]}
                 initialValue={attr.name}
                 hidden={true}
-                shouldUpdate={(prevValues, curValues) =>
-                  prevValues.values !== curValues.values
-                }
               >
                 <Input />
               </Form.Item>
@@ -48,9 +42,6 @@ function RenderFormAttrs(props: { form: FormModel }) {
                 name={["values", idx, "sort"]}
                 initialValue={attr.sortNo}
                 hidden={true}
-                shouldUpdate={(prevValues, curValues) =>
-                  prevValues.values !== curValues.values
-                }
               >
                 <Input />
               </Form.Item>
@@ -58,9 +49,6 @@ function RenderFormAttrs(props: { form: FormModel }) {
                 name={["values", idx, "attributeCode"]}
                 initialValue={attr.attributeCode}
                 hidden={true}
-                shouldUpdate={(prevValues, curValues) =>
-                  prevValues.values !== curValues.values
-                }
               >
                 <Input />
               </Form.Item>
@@ -157,12 +145,8 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           initialValue={attr.value ?? null}
         >
           <Radio.Group>
-            <Radio value={"Đực"}>
-              {AnimalSexType[1]}
-            </Radio>
-            <Radio value={"Cái"}>
-              {AnimalSexType[2]}
-            </Radio>
+            <Radio value={"Đực"}>{AnimalSexType[1]}</Radio>
+            <Radio value={"Cái"}>{AnimalSexType[2]}</Radio>
           </Radio.Group>
         </Form.Item>
       );

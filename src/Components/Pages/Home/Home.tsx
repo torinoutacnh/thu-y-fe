@@ -21,11 +21,11 @@ export default function HomePage() {
           </h1> 
         </div>
         <div className="list-item">
-          <div className="list-item_1" style={{ flex: 1 }}>
+          <div className="list-item_1" style={{flex: 1 }}>
             <div className="header_list-item_1">
               <h2>
                 QUẢN LÝ KIỂM DỊCH
-              </h2>
+            </h2>
             </div>
             <div className="content_list-item_1">
               <ul style={{ listStyle: 'none' }} >

@@ -93,7 +93,7 @@ export function CreateReceiptReport(props: any) {
 
   return (
     <>
-      <a onClick={() => showModal()}>Sử dụng hóa đơn </a>
+      <span onClick={() => showModal()}>Sử dụng hóa đơn </span>
       <Modal
         title="Sử dụng hóa đơn"
         visible={visible}

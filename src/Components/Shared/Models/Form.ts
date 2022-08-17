@@ -16,6 +16,7 @@ interface AttributeModel {
     sortNo: number;
     value?: any;
     attributeCode?: string;
+    attributeGroup?: string;
 }
 
 interface ReportModel {

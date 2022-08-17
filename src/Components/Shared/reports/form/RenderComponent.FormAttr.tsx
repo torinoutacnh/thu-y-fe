@@ -1,4 +1,4 @@
-import { Row, Col, Form, Input, DatePicker, Radio } from "antd";
+import { Row, Col, Form, Input, DatePicker, Radio, Collapse } from "antd";
 import { AnimalSexType } from "Components/Shared/Models/Animal";
 import {
   AttributeModel,
@@ -7,68 +7,144 @@ import {
 } from "Components/Shared/Models/Form";
 import { SexType } from "Components/Shared/Models/User";
 import moment from "moment";
-import React, { useRef } from "react";
+
+
+interface GroupAttributeModel {
+  listAttbs?: AttributeModel[]
+}
+
 
 function RenderFormAttrs(props: { form: FormModel }) {
   const { form } = props;
+  const { Panel } = Collapse;
 
-  const keyref = useRef(0);
+  const uniqueNameGroup = [...new Set(form.attributes.map(obj => obj.attributeGroup))];
+
+  const list: GroupAttributeModel[] = uniqueNameGroup.map(name => {
+    return (
+      { listAttbs: form.attributes.filter(i => i.attributeGroup === name).sort((x, y) => x.sortNo - y.sortNo) }
+    )
+  }).sort((x, y) => x.listAttbs[0].sortNo - y.listAttbs[0].sortNo)
+
+
+
+  console.log("list => ", list);
+
+
   return (
-    <Row key={keyref.current++}>
-      {form.attributes
-        .sort((x, y) => x.sortNo - y.sortNo)
-        .map((attr, idx) => {
+
+    <Collapse style={{ marginBottom: "20px" }}>
+
+      {
+        list.map((item, index) => {
           return (
-            <Col
-              key={idx}
-              lg={8}
-              md={12}
-              sm={12}
-              xs={24}
-              style={{ paddingRight: 30 }}
-            >
-              <Form.Item
-                name={["values", idx, "attributeId"]}
-                initialValue={attr.id}
-                hidden={true}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name={["values", idx, "attributeName"]}
-                initialValue={attr.name}
-                hidden={true}
-                shouldUpdate={(prevValues, curValues) =>
-                  prevValues.values !== curValues.values
+            <Panel header={<h4>{item.listAttbs[0].attributeGroup}</h4>} key={index}>
+              <Row>
+                {
+                  item.listAttbs.map((i, idx) => {
+                    return (
+
+                      <Col
+                        key={i.sortNo}
+                        lg={8}
+                        md={12}
+                        sm={12}
+                        xs={24}
+                        style={{ paddingRight: 30 }}
+                      >
+                        <Form.Item
+                          name={["values", i.sortNo, "attributeId"]}
+                          initialValue={i.id}
+                          hidden={true}
+                        >
+                          <Input />
+                        </Form.Item>
+
+                        <Form.Item
+                          name={["values", i.sortNo, "attributeName"]}
+                          initialValue={i.name}
+                          hidden={true}
+                        >
+                          <Input />
+                        </Form.Item>
+
+                        <Form.Item
+                          name={["values", i.sortNo, "sort"]}
+                          initialValue={i.sortNo}
+                          hidden={true}
+                        >
+                          <Input />
+                        </Form.Item>
+
+                        <Form.Item
+                          name={["values", i.sortNo, "attributeCode"]}
+                          initialValue={i.attributeCode}
+                          hidden={true}
+                        >
+                          <Input />
+                        </Form.Item>
+
+                        <RenderControl attr={i} idx={i.sortNo} />
+                      </Col>
+
+                    )
+                  })
                 }
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name={["values", idx, "sort"]}
-                initialValue={attr.sortNo}
-                hidden={true}
-                shouldUpdate={(prevValues, curValues) =>
-                  prevValues.values !== curValues.values
-                }
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name={["values", idx, "attributeCode"]}
-                initialValue={attr.attributeCode}
-                hidden={true}
-                shouldUpdate={(prevValues, curValues) =>
-                  prevValues.values !== curValues.values
-                }
-              >
-                <Input />
-              </Form.Item>
-              <RenderControl attr={attr} idx={idx} />
-            </Col>
-          );
-        })}
-    </Row>
+              </Row>
+            </Panel>
+          )
+        })
+      }
+
+    </Collapse>
+
+
+    // <Row>
+    //   {form.attributes
+    //     .sort((x, y) => x.sortNo - y.sortNo)
+    //     .map((attr, idx) => {
+    //       return (
+    //         <Col
+    //           key={idx}
+    //           lg={8}
+    //           md={12}
+    //           sm={12}
+    //           xs={24} 
+    //           style={{ paddingRight: 30 }}
+    //         >
+    //           <Form.Item
+    //             name={["values", idx, "attributeId"]}
+    //             initialValue={attr.id}
+    //             hidden={true}
+    //           >
+    //             <Input />
+    //           </Form.Item>
+    //           <Form.Item
+    //             name={["values", idx, "attributeName"]}
+    //             initialValue={attr.name}
+    //             hidden={true}
+    //           >
+    //             <Input />
+    //           </Form.Item>
+    //           <Form.Item
+    //             name={["values", idx, "sort"]}
+    //             initialValue={attr.sortNo}
+    //             hidden={true}
+    //           >
+    //             <Input />
+    //           </Form.Item>
+    //           <Form.Item
+    //             name={["values", idx, "attributeCode"]}
+    //             initialValue={attr.attributeCode}
+    //             hidden={true}
+    //           >
+    //             <Input />
+    //           </Form.Item>
+    //           <RenderControl attr={attr} idx={idx} />
+    //         </Col>
+    //       );
+    //     })}
+    // </Row>
   );
 }
 
@@ -116,10 +192,11 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           wrapperCol={{ span: 24 }}
           name={["values", idx, "value"]}
           initialValue={
-            attr.value ? moment(attr.value, "yyyyMMdd hh:mm:s") : moment()
+            // attr.value ? moment(attr.value, "yyyyMMdd hh:mm:s") : moment()
+            null
           }
           getValueProps={(i) => {
-            return { value: i ? moment(i) : moment() };
+            return { value: i ? moment(i) : null };
           }}
         >
           <DatePicker format={"DD/MM/YYYY"} style={{ width: "100%" }} />

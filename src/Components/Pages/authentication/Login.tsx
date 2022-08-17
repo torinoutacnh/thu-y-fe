@@ -157,11 +157,9 @@ const LoginForm = () => {
   );
 
   // return (
-  //   <Row align="middle" style={{ height: "100vh" }}>
-  //     <PDFViewer width={"100%"} height={"100%"}>
-  //       <PDF12D />
-  //     </PDFViewer>
-  //   </Row>
+  //   <>
+  //     <InputPdf12b/>
+  //   </>
   // )
 
 };

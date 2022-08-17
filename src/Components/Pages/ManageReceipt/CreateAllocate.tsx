@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
-import { Button, Input, AutoComplete, Col, Row } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Input, AutoComplete, Col, Row, Modal } from "antd";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
-import { Form, Modal, notification } from "antd";
+import { Form, notification } from "antd";
 import { ManageReceiptRoute, UserApiRoute } from "Api";
 import { UserModel } from "Components/Shared/Models/User";
 import { manageReceiptEndpoints } from "Components/router/routes";
+import { FileDoneOutlined } from "@ant-design/icons";
+import '../../../Static/css/custom.css';
 
 export function CreateAllocate(props: any) {
 
@@ -20,13 +22,13 @@ export function CreateAllocate(props: any) {
     name: string;
   }
 
-  const [searchParams] = useSearchParams();
-  const idReceipt = searchParams.get("idReceipt");
-  const codeName = searchParams.get("codeName");
-  const codeNumber = searchParams.get("codeNumber");
+  // const [searchParams] = useSearchParams();
+  // const idReceipt = searchParams.get("idReceipt");
+  // const codeName = searchParams.get("codeName");
+  // const codeNumber = searchParams.get("codeNumber");
 
   const [TmpName, setTmpName] = useState("");
-  const { arrUser, arrId } = props;
+  const { idReceipt, arrUser, arrId, codeName, codeNumber } = props;
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [listUsername, setListUsername] = useState<usernameModel[]>(arrUser);
@@ -36,7 +38,7 @@ export function CreateAllocate(props: any) {
   const { user } = useAuth();
   const { setLoading } = useLoading();
   const [page, setPage] = useState({
-    pageIndex: 1,
+    pageIndex: 0,
     pageNumber: 1000,
   });
   const [liststaff, setListStaff] = useState<UserModel[]>();
@@ -62,7 +64,7 @@ export function CreateAllocate(props: any) {
   }, [liststaff]);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(false)
     fetch(
       process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
       new URLSearchParams(page as any),
@@ -96,6 +98,15 @@ export function CreateAllocate(props: any) {
     });
   };
 
+  const Cancel = () => {
+    form.resetFields();
+    setVisible(false);
+  };
+  
+  const showModal = () => {
+    setVisible(true);
+  };
+
   const onChangeAutoComplete = (value: any, data: any) => {
     const index = listId.findIndex((item) => item.value === value);
 
@@ -119,7 +130,6 @@ export function CreateAllocate(props: any) {
 
     // const allocate = { ...form.getFieldsValue(), userId: selectID, id: "id" }
     const allocate = {
-
       id: "id",
       userId: selectID,
       receiptId: idReceipt,
@@ -128,10 +138,6 @@ export function CreateAllocate(props: any) {
       codeName: codeName,
       codeNumber: codeNumber,
       receiptName: form.getFieldValue("receiptName"),
-
-
-
-
     }
 
 
@@ -171,6 +177,8 @@ export function CreateAllocate(props: any) {
 
   }
 
+  const [searchString, setSearchString] = useState();
+
   return (
     <>
 
@@ -179,8 +187,164 @@ export function CreateAllocate(props: any) {
         liststaff && listId && listUsername &&
         <>
           {setLoading(false)}
+          <Button type="link" icon={<FileDoneOutlined />} onClick={() => showModal()}>Cấp hóa đơn</Button>
+          <Modal
+            title={`Cấp hóa đơn: ${codeName}`}
+            visible={visible}
+            data-backdrop="static" 
+            data-keyboard="false"
+            footer={
+              <>
+                <Button type="default" htmlType="button" onClick={Cancel}>
+                  Hủy bỏ
+                </Button>
+                <Button
+                  form="create-allocate-form"
+                  type="primary"
+                  loading={confirmLoading}
+                  htmlType="submit"
+                >
+                  Thêm mới
+                </Button>
+              </>
+            }
+            confirmLoading={confirmLoading}
+            onCancel={() => setVisible(false)}
+          >
+            <Form
+              id="create-allocate-form"
+              layout="vertical"
+              form={form}
+              onFinish={CreateAllocateFinish}
+            >
 
-          <Row>
+              <Form.Item
+                hidden={true}
+                label={"Mã hóa đơn"}
+                name={"receiptId"}
+                rules={[
+                  {
+                    required: true,
+
+                    type: "string",
+                  },
+                ]}
+                initialValue={idReceipt}
+              >
+                <Input disabled={true} />
+              </Form.Item>
+
+              <Form.Item
+                label={"Tên hóa đơn cấp phát"}
+                name={"receiptName"}
+                hidden={true}
+                rules={[
+                  {
+                    required: true,
+                    message: "Nhập số lượng",
+                    type: "string",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                className="pd0-mg0"
+                label={"Tên tài khoản"}
+                name={"userName"}
+                
+                rules={[
+                  {
+                    required: true,
+                    type: "string",
+                  },
+                ]}
+              >
+                <AutoComplete
+                  style={{ width: 200 }}
+                  options={listUsername}
+                  placeholder="Nhập để tìm kiếm"
+                  filterOption={(inputValue, option) =>
+                    option?.value
+                      .toUpperCase()
+                      .indexOf(inputValue.toUpperCase()) !== -1
+                  }
+                  onChange={onChangeAutoComplete}
+                />
+              </Form.Item>
+
+              <Form.Item
+                className="pd0-mg0"
+                name={"tmpName"}
+                rules={[
+                  {
+                    type: "string",
+                  },
+                ]}
+               
+              >
+                <span style={{ color: "gray" }}>Tên nhân viên: {TmpName}</span>
+              </Form.Item>
+
+              <Form.Item
+                className="pd0-mg0"
+                label={"Số lượng"}
+                name={"amount"}
+                rules={[
+                  {
+                    required: true,
+                    message: "Nhập số lượng",
+                  },
+                  {
+                    message: "Bao gồm các số 0-9!",
+                    pattern: new RegExp("[0-9]"),
+                  },
+                ]}
+              >
+                <Input 
+                //   type="text"
+                //  value={searchString}
+                //  onChange={(e) => setSearchString(e.preventDefault)}
+                />
+              </Form.Item>
+
+              <Form.Item
+                hidden={true}
+                label={"Tên mã hóa đơn"}
+                name={"codeName"}
+                rules={[
+                  {
+                    required: true,
+                    message: "Nhập số lượng",
+                    type: "string",
+                  },
+                ]}
+                initialValue={codeName}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                hidden={true}
+                label={"Số mã hóa đơn"}
+                name={"codeNumber"}
+                rules={[
+                  {
+                    required: true,
+                    message: "Nhập số lượng",
+                    type: "string",
+                  },
+                ]}
+                initialValue={codeNumber}
+              >
+                <Input />
+              </Form.Item>
+
+            </Form>
+          </Modal>
+  
+          {/* <Row>
             <Col xs={24} sm={6} md={7} lg={7}></Col>
             <Col xs={24} sm={12} md={10} lg={10}>
               <h3 style={{ textAlign: "center" }}>Cấp phát hóa đơn: {codeName}</h3>
@@ -189,9 +353,9 @@ export function CreateAllocate(props: any) {
                 layout="vertical"
                 form={form}
                 onFinish={CreateAllocateFinish}
-              >
+              > */}
                 {/* /////////////////////////////////////////// */}
-                <Form.Item
+                {/* <Form.Item
                   hidden={true}
                   label={"Mã hóa đơn"}
                   name={"receiptId"}
@@ -313,13 +477,13 @@ export function CreateAllocate(props: any) {
                   >
                     Thêm mới
                   </Button>
-                </Form.Item>
+                </Form.Item> */}
 
                 {/* /////////////////////////////////////////// */}
-              </Form>
+              {/* </Form>
             </Col>
             <Col xs={24} sm={6} md={7} lg={7}></Col>
-          </Row>
+          </Row> */}
         </>
       }
 

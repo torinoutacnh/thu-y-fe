@@ -490,7 +490,7 @@ const PDF1 = (props: { report: ReportModel }) => {
             </View>
 
             <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-            <Text style={{ width: "3%", opacity: 0 }}>
+                <Text style={{ width: "3%", opacity: 0 }}>
                     {`2/`}
                 </Text>
                 <Text style={{ width: "22%" , fontSize: 8, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>

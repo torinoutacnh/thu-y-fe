@@ -168,18 +168,24 @@ const ManageReceipt = () => {
           >
             Xóa
           </Button>
-
-          <Button type="link" icon={<FileDoneOutlined />}
+          <CreateAllocate
+            idReceipt={record.id}
+            arrUser={listUsername}
+            arrId={listId}
+            codeName={record.codeName}
+            codeNumber={record.codeNumber}
+          />
+          {/* <Button type="link" icon={<FileDoneOutlined />}
             onClick={() => navigate(manageReceiptEndpoints.createAllocate.concat("?") + new URLSearchParams({ idReceipt: record.id, codeName: record.codeName, codeNumber: record.codeNumber }))}>
-            {/* <CreateAllocate
+            <CreateAllocate
               idReceipt={record.id}
               arrUser={listUsername}
               arrId={listId}
               codeName={record.codeName}
               codeNumber={record.codeNumber}
-            /> */}
+            /> 
             Cấp hóa đơn
-          </Button>
+          </Button> */}
         </>
       ),
     },
@@ -240,12 +246,19 @@ const ManageReceipt = () => {
             <tr>
               <th></th>
               <th>
-                <Space>
+                {/* <Space>
                   <Button type="link" icon={<FileDoneOutlined />}
                   onClick={() => navigate(manageReceiptEndpoints.createAllocate.concat("?") + new URLSearchParams({ idReceipt: record.id, codeName: record.codeName, codeNumber: record.codeNumber }))}>
                   Cấp hóa đơn
                 </Button>
-                </Space>
+                </Space> */}
+                <CreateAllocate 
+                  idReceipt={record.id}
+                  arrUser={listUsername}
+                  arrId={listId}
+                  codeName={record.codeName}
+                  codeNumber={record.codeNumber}
+                />
               </th>
             </tr>
           </>

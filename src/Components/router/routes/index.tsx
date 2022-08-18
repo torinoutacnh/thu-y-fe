@@ -119,6 +119,7 @@ const quarantineEndpoints = {
   get createreport() {
     return this.basepath.concat("/tao-bao-cao");
   },
+
   get updatereport() {
     return this.basepath.concat("/cap-nhat-bao-cao");
   },

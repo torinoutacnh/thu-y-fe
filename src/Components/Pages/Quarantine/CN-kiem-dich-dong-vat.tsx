@@ -301,7 +301,7 @@ export default QuarantinePage;
 //             onClick={() => {
 //               const params = { code: ReportType["CN-KDĐV-UQ"] };
 //               const path =
-//                 quarantineEndpoints.createreport.concat("?") +
+//                 quarantineEndpoints.createreport1.concat("?") +
 //                 new URLSearchParams(params as any);
 //               navigate(path);
 //             }}

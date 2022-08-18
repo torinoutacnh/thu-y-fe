@@ -15,7 +15,7 @@ import { staffEndpoints } from "Components/router/routes";
 const StaffHome = () => {
   const [liststaff, setListStaff] = useState<UserModel[]>([]);
   const [page, setPage] = useState({
-    pageIndex: 1,
+    pageIndex: 0,
     pageNumber: 100,
   });
   const { user } = useAuth();

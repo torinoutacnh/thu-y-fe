@@ -46,6 +46,7 @@ const QuarantineRoutes = [
     }
     key="quarantine-page-create"
   />,
+
   <Route
     path={quarantineEndpoints.updatereport}
     element={

@@ -33,70 +33,73 @@ function RenderFormAttrs(props: { form: FormModel }) {
 
   return (
 
-    <Collapse style={{ marginBottom: "20px" }}>
+    <>
 
-      {
-        list.map((item, index) => {
-          return (
-            <Panel header={<h4>{item.listAttbs[0].attributeGroup}</h4>} key={index}>
-              <Row>
-                {
-                  item.listAttbs.map((i, idx) => {
-                    return (
+      <Collapse style={{ marginBottom: "20px" }}>
 
-                      <Col
-                        key={i.sortNo}
-                        lg={8}
-                        md={12}
-                        sm={12}
-                        xs={24}
-                        style={{ paddingRight: 30 }}
-                      >
-                        <Form.Item
-                          name={["values", i.sortNo, "attributeId"]}
-                          initialValue={i.id}
-                          hidden={true}
+        {
+          list.map((item, index) => {
+            return (
+              <Panel header={<h4>{item.listAttbs[0].attributeGroup}</h4>} key={index}>
+                <Row>
+                  {
+                    item.listAttbs.map((i, idx) => {
+                      return (
+
+                        <Col
+                          key={i.sortNo}
+                          lg={8}
+                          md={12}
+                          sm={12}
+                          xs={24}
+                          style={{ paddingRight: 30 }}
                         >
-                          <Input />
-                        </Form.Item>
+                          <Form.Item
+                            name={["values", i.sortNo, "attributeId"]}
+                            initialValue={i.id}
+                            hidden={true}
+                          >
+                            <Input />
+                          </Form.Item>
 
-                        <Form.Item
-                          name={["values", i.sortNo, "attributeName"]}
-                          initialValue={i.name}
-                          hidden={true}
-                        >
-                          <Input />
-                        </Form.Item>
+                          <Form.Item
+                            name={["values", i.sortNo, "attributeName"]}
+                            initialValue={i.name}
+                            hidden={true}
+                          >
+                            <Input />
+                          </Form.Item>
 
-                        <Form.Item
-                          name={["values", i.sortNo, "sort"]}
-                          initialValue={i.sortNo}
-                          hidden={true}
-                        >
-                          <Input />
-                        </Form.Item>
+                          <Form.Item
+                            name={["values", i.sortNo, "sort"]}
+                            initialValue={i.sortNo}
+                            hidden={true}
+                          >
+                            <Input />
+                          </Form.Item>
 
-                        <Form.Item
-                          name={["values", i.sortNo, "attributeCode"]}
-                          initialValue={i.attributeCode}
-                          hidden={true}
-                        >
-                          <Input />
-                        </Form.Item>
+                          <Form.Item
+                            name={["values", i.sortNo, "attributeCode"]}
+                            initialValue={i.attributeCode}
+                            hidden={true}
+                          >
+                            <Input />
+                          </Form.Item>
 
-                        <RenderControl attr={i} idx={i.sortNo} />
-                      </Col>
+                          <RenderControl attr={i} idx={i.sortNo} />
+                        </Col>
 
-                    )
-                  })
-                }
-              </Row>
-            </Panel>
-          )
-        })
-      }
+                      )
+                    })
+                  }
+                </Row>
+              </Panel>
+            )
+          })
+        }
 
-    </Collapse>
+      </Collapse>
+    </>
 
 
     // <Row>

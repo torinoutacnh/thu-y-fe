@@ -27,6 +27,7 @@ interface ReportModel {
     type: number;
     userName?: string;
     dateCreated?: string;
+    serialNumber?: string;
     values: ReportValueModel[];
     listAnimals: AnimalModel[];
     sealTabs: SealValueModel[];

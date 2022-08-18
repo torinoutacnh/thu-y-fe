@@ -36,7 +36,7 @@ export function CreateAllocate(props: any) {
   const { user } = useAuth();
   const { setLoading } = useLoading();
   const [page, setPage] = useState({
-    pageIndex: 1,
+    pageIndex: 0,
     pageNumber: 1000,
   });
   const [liststaff, setListStaff] = useState<UserModel[]>();

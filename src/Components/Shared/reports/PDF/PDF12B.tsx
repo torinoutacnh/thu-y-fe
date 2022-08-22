@@ -275,6 +275,9 @@ const PDF12B = (props: { report: ReportModel }) => {
   //   )
   // })
 
+  // console.log("pdf value >>>>>> ", pdf);
+
+
   const year_giatridenngay = pdf.attrs[28].value.slice(0, 4)
   const month_giatridenngay = pdf.attrs[28].value.slice(5, 7)
   const day_giatridenngay = pdf.attrs[28].value.slice(8, 10)

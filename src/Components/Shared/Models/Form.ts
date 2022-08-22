@@ -16,6 +16,7 @@ interface AttributeModel {
     sortNo: number;
     value?: any;
     attributeCode?: string;
+    attributeGroup?: string;
 }
 
 interface ReportModel {
@@ -26,6 +27,7 @@ interface ReportModel {
     type: number;
     userName?: string;
     dateCreated?: string;
+    serialNumber?: string;
     values: ReportValueModel[];
     listAnimals: AnimalModel[];
     sealTabs: SealValueModel[];

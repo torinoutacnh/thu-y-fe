@@ -10,7 +10,7 @@ const RegisterQuarantinePage = () => {
   return (
     <>
       <PageHeader
-        title="Biên bản đăng ký kiểm dịch động vật"
+        title="Đăng ký kiểm dịch động vật"
         extra={[
           <Button
             key={getKeyThenIncreaseKey()}

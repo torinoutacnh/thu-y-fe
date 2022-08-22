@@ -6,9 +6,12 @@ import {
   Row,
   notification,
   FormInstance,
+  Radio,
+  RadioChangeEvent,
+  Col,
 } from "antd";
 import { RenderProps, ReportType } from "../interfaces/FormInterface";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ReportModel } from "Components/Shared/Models/Form";
 import { LeftOutlined, SaveOutlined, PlusOutlined } from "@ant-design/icons";
@@ -24,13 +27,20 @@ import {
   quarantineEndpoints,
 } from "Components/router/routes";
 import { IconType } from "antd/lib/notification";
+import { LogLEvel } from "Components/Shared/Constant/LogLevel";
+import useLog from "Modules/hooks/useLog";
+
+
 
 const RenderForm: React.FC<RenderProps> = ({
   form,
   reportvalue,
   submitmethod,
   reportType,
+  pdf1,
+  pdf7
 }) => {
+
   const [formref] = Form.useForm<ReportModel>();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -51,6 +61,8 @@ const RenderForm: React.FC<RenderProps> = ({
     });
   };
 
+  const loglevel = useLog();
+
   const RedirectToHome = (reportType: ReportType) => {
     switch (reportType) {
       case ReportType["CN-KDĐV-UQ"]: {
@@ -58,11 +70,27 @@ const RenderForm: React.FC<RenderProps> = ({
         break;
       }
       case ReportType["ĐK-KDĐV-001"]: {
-        navigate(quarantineEndpoints.dkkd);
+
+        navigate(quarantineEndpoints.createreport + "?" + new URLSearchParams(
+          {
+            code: String(ReportType['BB-VSTY']),
+            id: pdf1,
+            pdf1: pdf1,
+            pdf7: pdf7 ?? ""
+          }),
+          { replace: true });
         break;
       }
       case ReportType["BB-VSTY"]: {
-        navigate(quarantineEndpoints.vsyt);
+
+        navigate(quarantineEndpoints.createreport + "?" + new URLSearchParams(
+          {
+            code: String(ReportType['CN-KDĐV-UQ']),
+            id: pdf1,
+            pdf1: pdf1,
+            pdf7: pdf7
+          }),
+          { replace: true });
         break;
       }
       case ReportType["NK-001"]: {
@@ -77,8 +105,9 @@ const RenderForm: React.FC<RenderProps> = ({
   };
 
   function submit() {
-    // console.log(" submit create => ", formref.getFieldsValue());
-    // return
+    // console.log(formref.getFieldsValue());
+    // return;
+
     if (user?.token) {
       setLoading(true);
       fetch(process.env.REACT_APP_API.concat(ReportApiRoute.create), {
@@ -97,15 +126,29 @@ const RenderForm: React.FC<RenderProps> = ({
 
           if (!data.data) throw new Error("Thất bại !");
           openNotification("Thành công!", "success");
+
+          if (reportType === ReportType['ĐK-KDĐV-001']) {
+            pdf1 = data.data
+          }
+          else if (reportType === ReportType["BB-VSTY"]) {
+            pdf7 = data.data
+          }
+          formref.resetFields()
+          console.log("report type", reportType);
+
+
           RedirectToHome(reportType);
         })
         .catch((error) => {
           openNotification(error.message, "error");
-          console.log(error);
+          if (LogLEvel.Dev === loglevel) {
+            console.log(error);
+          }
         })
         .finally(() => setLoading(false));
     }
   }
+
 
   function UpdateAttribute() {
     console.log(
@@ -134,11 +177,15 @@ const RenderForm: React.FC<RenderProps> = ({
   }
 
   useEffect(() => {
-    if (reportvalue) {
-      reportvalue.values.sort((a, b) => a.sort - b.sort);
-      formref.resetFields(), [reportvalue];
-    }
-  }, [reportvalue?.id, form?.id]);
+    // if (reportvalue) {
+    //   reportvalue.values.sort((a, b) => a.sort - b.sort);
+    //   formref.resetFields(), [reportvalue];
+    // }
+    console.log("hẻe");
+
+    reportvalue?.values.sort((a, b) => a.sort - b.sort);
+    formref.resetFields(), [reportvalue];
+  }, [reportvalue?.id, form]);
 
   const TransformReport = (report: ReportModel) => {
     report?.values.sort((a, b) => a.sort - b.sort);
@@ -189,78 +236,94 @@ const RenderForm: React.FC<RenderProps> = ({
     }
   };
 
+
+
   return (
     <>
       {user && form && (
-        <Form
-          layout="horizontal"
-          title={form.formName}
-          onFinish={submit}
-          form={formref}
-          initialValues={TransformReport(reportvalue)}
-        >
-          <Form.Item>
-            <h2>
-              {form.formCode} - {form.formNumber}
-            </h2>
-          </Form.Item>
-          <Form.Item name={"id"} initialValue={reportvalue?.id} hidden={true}>
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name={"reportId"}
-            initialValue={reportvalue?.id}
-            hidden={true}
+        <>
+
+
+          <Form
+            layout="horizontal"
+            title={form.formName}
+            onFinish={submit}
+            form={formref}
+            initialValues={TransformReport(reportvalue)}
           >
-            <Input />
-          </Form.Item>
-          <Form.Item name={"formId"} initialValue={form.id} hidden={true}>
-            <Input />
-          </Form.Item>
-          <Form.Item name={"name"} initialValue={form.formName} hidden={true}>
-            <Input />
-          </Form.Item>
-          <Form.Item name={"userId"} initialValue={user.userId} hidden={true}>
-            <Input />
-          </Form.Item>
-          <Form.Item name={"type"} initialValue={0} hidden={true}>
-            <Input />
-          </Form.Item>
-          {RenderAnimalAndSealTabs(reportType, formref, reportvalue)}
-          <RenderFormAttrs form={form} />
-          <Row align="middle" justify="center">
             <Form.Item>
-              <Space>
-                <Button
-                  icon={<LeftOutlined />}
-                  onClick={() => {
-                    RedirectToHome(reportType);
-                  }}
-                >
-                  Trở về
-                </Button>
-                {reportvalue ? (
-                  <Button
-                    icon={<SaveOutlined />}
-                    type="primary"
-                    htmlType="button"
-                    onClick={UpdateAttribute}
-                  >
-                    Cập nhật
-                  </Button>
-                ) : (
-                  <Button
-                    icon={<PlusOutlined />}
-                    type="primary"
-                    htmlType="submit"
-                  >
-                    Tạo báo cáo
-                  </Button>
-                )}
-              </Space>
+              <h3 style={{ textAlign: "center" }}>
+                {form.formCode} - {form.formNumber}
+              </h3>
             </Form.Item>
-          </Row>
-        </Form>
+            <Form.Item name={"id"} initialValue={reportvalue?.id} hidden={true}>
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name={"reportId"}
+              initialValue={reportvalue?.id}
+              hidden={true}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item name={"formId"} initialValue={form.id} hidden={true}>
+              <Input />
+            </Form.Item>
+            <Form.Item name={"name"} initialValue={form.formName} hidden={true}>
+              <Input />
+            </Form.Item>
+            <Form.Item name={"userId"} initialValue={user.userId} hidden={true}>
+              <Input />
+            </Form.Item>
+            <Form.Item name={"type"} initialValue={0} hidden={true}>
+              <Input />
+            </Form.Item>
+            <Form.Item
+              style={{ width: "40%" }}
+              label={"Số"}
+              labelCol={{ span: 24 }}
+              wrapperCol={{ span: 24 }}
+              name={"serialNumber"}
+              initialValue={reportvalue?.serialNumber ?? null}
+            >
+              <Input />
+            </Form.Item>
+            {RenderAnimalAndSealTabs(reportType, formref, reportvalue)}
+            <RenderFormAttrs form={form} />
+            <Row align="middle" justify="center">
+              <Form.Item>
+                <Space>
+                  <Button
+                    icon={<LeftOutlined />}
+                    onClick={() => {
+                      RedirectToHome(reportType);
+                    }}
+                  >
+                    Trở về
+                  </Button>
+                  {reportvalue ? (
+                    <Button
+                      icon={<SaveOutlined />}
+                      type="primary"
+                      htmlType="button"
+                      onClick={UpdateAttribute}
+                    >
+                      Cập nhật
+                    </Button>
+                  ) : (
+                    <Button
+                      icon={<PlusOutlined />}
+                      type="primary"
+                      htmlType="submit"
+                    >
+                      Tạo báo cáo
+                    </Button>
+                  )}
+                </Space>
+              </Form.Item>
+            </Row>
+          </Form>
+        </>
       )}
     </>
   );

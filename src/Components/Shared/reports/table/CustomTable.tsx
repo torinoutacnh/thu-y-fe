@@ -95,13 +95,13 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
     navigate(path);
   };
 
-  const mapFormAction = (id: string, code: ReportType) => {
-    const params = { id: id, code: code };
-    const path =
-      quarantineEndpoints.createreport.concat("?") +
-      new URLSearchParams(params as any);
-    navigate(path);
-  };
+  // const mapFormAction = (id: string, code: ReportType) => {
+  //   const params = { id: id, code: code };
+  //   const path =
+  //     quarantineEndpoints.createreport.concat("?") +
+  //     new URLSearchParams(params as any);
+  //   navigate(path);
+  // };
 
   const openNotification = (
     message: string,
@@ -172,14 +172,14 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
           >
             In
           </Button>
-          {reportType === ReportType["ĐK-KDĐV-001"] && (
+          {/* {reportType === ReportType["ĐK-KDĐV-001"] && (
             <Button
               onClick={() => mapFormAction(props.id, ReportType["BB-VSTY"])}
               type="link"
             >
               Tạo form 7
             </Button>
-          )}
+          )} */}
           <Button onClick={() => editAction(props.id)} type="link">
             Cập nhật
           </Button>

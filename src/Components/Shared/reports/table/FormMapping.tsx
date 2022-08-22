@@ -10,7 +10,7 @@ import moment from "moment";
 const RenderValueFormat = (dataType: DataTypes, data: string) => {
   switch (dataType) {
     case DataTypes.DateControl: {
-      return moment(data).format("DD/MM/yyyy").toString();
+      return data ? moment(data).format("DD/MM/yyyy").toString() : "";
     }
 
     default:

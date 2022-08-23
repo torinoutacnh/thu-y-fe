@@ -198,7 +198,8 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
         columns={columns}
         rowKey={"key"}
         dataSource={datasource}
-        scroll={{ x: "100%" }}
+        scroll={{ x: reportType === ReportType["BB-VSTY"] ? 4000 : 8000, y: 400 }}
+
         className={"main-table"}
       />
 

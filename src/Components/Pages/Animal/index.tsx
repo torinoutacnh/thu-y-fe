@@ -254,6 +254,7 @@ const AnimalHome = () => {
       />
 
       <Table
+        scroll={{ y: "100%" }}
         columns={windowSize.width > 768 ? AnimalColumns : resColumns}
         rowKey={"reportId"}
         dataSource={listsAnimal}

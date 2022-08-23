@@ -257,6 +257,7 @@ const ManageReceipt = () => {
       />
 
       <Table
+        scroll={{ y: "100%" }}
         locale={{ emptyText: "Không có hóa đơn!" }}
         columns={windowSize.width > 768 ? ReceiptColumns : resColumns}
         rowKey={"id"}

@@ -4,6 +4,7 @@ import {
   AttributeModel,
   DataTypes,
   FormModel,
+  MucDichSDĐV,
 } from "Components/Shared/Models/Form";
 import { SexType } from "Components/Shared/Models/User";
 import moment from "moment";
@@ -35,12 +36,12 @@ function RenderFormAttrs(props: { form: FormModel }) {
 
     <>
 
-      <Collapse style={{ marginBottom: "20px" }}>
+      <Collapse style={{ marginBottom: "20px" }} destroyInactivePanel={false}>
 
         {
           list.map((item, index) => {
             return (
-              <Panel header={<h4>{item.listAttbs[0].attributeGroup}</h4>} key={index}>
+              <Panel header={<h4>{item.listAttbs[0].attributeGroup}</h4>} key={index} >
                 <Row>
                   {
                     item.listAttbs.map((i, idx) => {
@@ -48,16 +49,17 @@ function RenderFormAttrs(props: { form: FormModel }) {
 
                         <Col
                           key={i.sortNo}
-                          lg={8}
-                          md={12}
-                          sm={12}
+                          lg={6}
+                          md={8}
+                          sm={8}
                           xs={24}
-                          style={{ paddingRight: 30 }}
+                          style={{ paddingRight: 10 }}
                         >
                           <Form.Item
                             name={["values", i.sortNo, "attributeId"]}
                             initialValue={i.id}
                             hidden={true}
+
                           >
                             <Input />
                           </Form.Item>
@@ -174,7 +176,7 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
           name={["values", idx, "value"]}
-          initialValue={attr.value ?? ""}
+          initialValue={attr.value ?? null}
           rules={[
             {
               type: "number",
@@ -227,7 +229,8 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
       );
     }
     case DataTypes.RadioControl: {
-      // const options = attr.api_d.split(',').map(x=>Number(x));
+      const tmp = attr.api_DropDownlist.split(",")
+
       return (
         <Form.Item
           label={attr.name}
@@ -237,12 +240,19 @@ function RenderControl(props: { attr: AttributeModel; idx: number }) {
           initialValue={attr.value ?? null}
         >
           <Radio.Group>
-            <Radio value={"Đực"}>
-              {AnimalSexType[1]}
+            {/* <Radio value={"Làm giống"}>
+              {MucDichSDĐV[2]}
             </Radio>
-            <Radio value={"Cái"}>
-              {AnimalSexType[2]}
-            </Radio>
+            <Radio value={"Giết mổ"}>
+              {MucDichSDĐV[1]}
+            </Radio> */}
+            {tmp.map((item, index) => {
+              return (
+                <Radio value={item} key={index}>
+                  {item}
+                </Radio>
+              )
+            })}
           </Radio.Group>
         </Form.Item>
       );

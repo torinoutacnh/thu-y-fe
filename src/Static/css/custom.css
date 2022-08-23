@@ -1,7 +1,17 @@
-.ant-table-thead .ant-table-cell{
+.ant-form-item {
+    margin-bottom: 5px;
+}
+
+.ant-form-vertical .ant-form-item-label,
+.ant-col-24.ant-form-item-label,
+.ant-col-xl-24.ant-form-item-label {
+    padding: 0;
+}
+
+.ant-table-thead .ant-table-cell {
     word-wrap: normal;
     width: 150px;
-}   
+}
 
 .space-media {
     flex-direction: column;
@@ -35,12 +45,12 @@
     }
 }
 
-@media screen and (max-width:768px){
-    .main-table{
+@media screen and (max-width:768px) {
+    .main-table {
         display: none;
     }
 
-    .responsive-table{
+    .responsive-table {
         display: block;
     }
 
@@ -49,7 +59,7 @@
         text-align: end;
     }
 
-    .space-media div{
+    .space-media div {
         display: inline-block;
     }
 }
@@ -92,7 +102,7 @@
 
 .container {
     display: flex;
-    font-weight: 500; 
+    font-weight: 500;
     line-height: 3;
 }
 
@@ -155,9 +165,7 @@
 }
 
 /* PC */
-@media screen and (min-width: 1024px) {
-    
-}
+@media screen and (min-width: 1024px) {}
 
 /* Tablet & moblie */
 @media screen and (max-width: 1023px) {
@@ -169,38 +177,36 @@
         flex: 1;
     }
 
-/* Tablet */
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-    
-}
+    /* Tablet */
+    @media screen and (min-width: 768px) and (max-width: 1023px) {}
 
-/* Mobile */
-@media screen and (max-width: 767px) {
-    .list-item {
-        padding: 0;
-        flex-direction: column;
-    }
+    /* Mobile */
+    @media screen and (max-width: 767px) {
+        .list-item {
+            padding: 0;
+            flex-direction: column;
+        }
 
-    .header_list-item_1,
-    .header_list-item_2 {
-        line-height: 2.5;
-        text-align: center;
-        margin-top: 5px;
-    }
+        .header_list-item_1,
+        .header_list-item_2 {
+            line-height: 2.5;
+            text-align: center;
+            margin-top: 5px;
+        }
 
-    .header_list-item_1 h2,
-    .header_list-item_2 h2 {
-        padding: 0;
-    }
+        .header_list-item_1 h2,
+        .header_list-item_2 h2 {
+            padding: 0;
+        }
 
-    .content_list-item_1 ul,
-    .content_list-item_2 ul {
-        padding: 0;
-    }
+        .content_list-item_1 ul,
+        .content_list-item_2 ul {
+            padding: 0;
+        }
 
-    .content_list-item_1 li,
-    .content_list-item_2 li {
-        margin: 5%;
+        .content_list-item_1 li,
+        .content_list-item_2 li {
+            margin: 5%;
+        }
     }
-}
 }

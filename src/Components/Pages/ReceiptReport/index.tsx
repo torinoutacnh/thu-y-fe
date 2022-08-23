@@ -250,6 +250,7 @@ const ReceiptReportIndex = () => {
       {console.log("receipt report >>>>> ", listRR)}
 
       <Table
+        scroll={{ y: "100%" }}
         columns={windowSize.width > 768 ? ReceiptReportColumn : resColumns}
         rowKey={"reportId"}
         dataSource={listRR}

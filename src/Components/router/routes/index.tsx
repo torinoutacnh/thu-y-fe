@@ -56,6 +56,9 @@ const abattoirEndpoints = {
   },
   get createAbattoi() {
     return this.basepath.concat("/tao-lo-mo");
+  },
+  get revenue() {
+    return "doanh-thu-giet-mo"
   }
 };
 

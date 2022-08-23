@@ -21,4 +21,5 @@ export {
 export const ApiRoute = {
   getseals: "/sealconfig",
   createsealtab: "/sealconfig",
+  excelFiles: "/files/excel"
 };

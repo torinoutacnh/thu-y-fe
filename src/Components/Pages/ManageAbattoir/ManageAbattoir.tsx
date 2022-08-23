@@ -266,6 +266,7 @@ const ManageAbattoir = () => {
       />
 
       <Table
+        scroll={{ y: "100%" }}
         locale={{ emptyText: "Không có lò mổ!" }}
         columns={windowSize.width > 768 ? AbattoirColumns : resColumns}
         rowKey={"id"}

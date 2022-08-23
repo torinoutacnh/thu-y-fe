@@ -149,48 +149,52 @@ const ManageAbattoir = () => {
       render: (record, key, index) => {
         return (
           <>
-            <tr>
-              <th>Tên lò mổ :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "35%" }}>Tên lò mổ :</th>
               <td>{record.name}</td>
             </tr>
-            <tr>
-              <th>Địa chỉ :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "35%" }}>Địa chỉ :</th>
               <td>{record.address}</td>
             </tr>
-            <tr>
-              <th>Tên người quản lý :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "35%" }}>Tên quản lý :</th>
               <td>{record.managerName}</td>
             </tr>
-            <tr>
-              <th>Email :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "35%" }}>Email :</th>
               <td>{record.email}</td>
             </tr>
-            <tr>
-              <th>Số điện thoại :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "35%" }}>Số điện thoại :</th>
               <td>{record.phone}</td>
             </tr>
 
-            <tr>
-              <Space>
-                <Link
-                  to={manageabattoirEndpoints.updateabattoir.replace(
-                    ":id",
-                    record.id
-                  )}
-                >
-                  <Button type="link" color="blue" icon={<EditOutlined />}>
-                    Cập nhật
+            <tr style={{ width: "100%" }}>
+              <th>Xử lý</th>
+              <th>
+                <Space>
+                  <Link
+                    to={manageabattoirEndpoints.updateabattoir.replace(
+                      ":id",
+                      record.id
+                    )}
+                  >
+                    <Button type="link" color="blue" icon={<EditOutlined />}>
+                      Cập nhật
+                    </Button>
+                  </Link>
+                  <Button
+                    type="link"
+                    danger
+                    onClick={() => deleteAbattoirHandler(record.id, record.name)}
+                    icon={<DeleteOutlined />}
+                  >
+                    Xóa
                   </Button>
-                </Link>
-                <Button
-                  type="link"
-                  danger
-                  onClick={() => deleteAbattoirHandler(record.id, record.name)}
-                  icon={<DeleteOutlined />}
-                >
-                  Xóa
-                </Button>
-              </Space>
+                </Space>
+              </th>
+
             </tr>
           </>
         );

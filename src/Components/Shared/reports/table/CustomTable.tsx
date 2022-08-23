@@ -164,15 +164,14 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
   const ActionCol = (props: { id: string }) => {
     return (
       <>
-        <Space className="space-media">
-          <Button
-            type="link"
-            onClick={() => showModal(props.id)}
-            icon={<PrinterOutlined />}
-          >
-            In
-          </Button>
-          {/* {reportType === ReportType["ĐK-KDĐV-001"] && (
+        <Button
+          type="link"
+          onClick={() => showModal(props.id)}
+          icon={<PrinterOutlined />}
+        >
+          In
+        </Button>
+        {/* {reportType === ReportType["ĐK-KDĐV-001"] && (
             <Button
               onClick={() => mapFormAction(props.id, ReportType["BB-VSTY"])}
               type="link"
@@ -180,13 +179,12 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
               Tạo form 7
             </Button>
           )} */}
-          <Button onClick={() => editAction(props.id)} type="link">
-            Cập nhật
-          </Button>
-          <Button onClick={() => deleteAction(props.id)} type="link" danger>
-            Xóa
-          </Button>
-        </Space>
+        <Button onClick={() => editAction(props.id)} type="link">
+          Cập nhật
+        </Button>
+        <Button onClick={() => deleteAction(props.id)} type="link" danger>
+          Xóa
+        </Button>
       </>
     );
   };

@@ -104,25 +104,26 @@ const AnimalHome = () => {
       render: (record, key, index) => {
         return (
           <>
-            <tr>
-              <th>Tên động vật :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "35%" }}>Tên động vật :</th>
               <td>{record.name}</td>
             </tr>
-            <tr>
-              <th>Mô tả :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "35%" }}>Mô tả :</th>
               <td>{record.description}</td>
             </tr>
-            <tr>
-              <th>Tuổi :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "35%" }}>Tuổi :</th>
               <td>{record.dayAge}</td>
             </tr>
-            <tr>
-              <th>Giá kiểm dịch :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "35%" }}>Giá kiểm dịch :</th>
               <td>{record.pricing}</td>
             </tr>
 
-            <tr>
-              <Space>
+            <tr style={{ width: "100%" }}>
+              <th>Xử lý</th>
+              <th> <Space>
                 <Link
                   to={animalEndpoints.updateAnimal.replace(":id", record.id)}
                 >
@@ -144,12 +145,14 @@ const AnimalHome = () => {
                   Xóa
                 </Button>
               </Space>
+              </th>
             </tr>
           </>
         );
       },
     },
   ];
+
 
   ////////////////////////////////////////////NOTIFICATION//////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

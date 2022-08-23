@@ -31,35 +31,42 @@ const styles = StyleSheet.create({
     fontWeight: 300
 
   },
+
   title: {
     fontSize: 24,
     textAlign: "center",
   },
+
   author: {
     fontSize: 12,
     textAlign: "center",
     marginBottom: 40,
   },
+
   subtitle: {
     fontSize: 18,
     margin: 12,
   },
+
   text: {
     margin: 12,
     fontSize: 12,
     textAlign: "justify",
     fontFamily: "Times-Roman",
   },
+
   image: {
     marginVertical: 15,
     marginHorizontal: 100,
   },
+
   header1: {
     fontSize: 12,
     textAlign: "center",
     color: "black",
     fontStyle: "bold"
   },
+
   header1_1: {
     fontSize: 13,
     textAlign: "center",
@@ -110,7 +117,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-
   pageNumber: {
     position: "absolute",
     fontSize: 12,
@@ -120,8 +126,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "grey",
   },
-
-
 
   note: {
     position: "absolute",
@@ -158,6 +162,7 @@ const styles = StyleSheet.create({
     fontStyle: "bold",
     color: "black"
   },
+
   col24: {
     width: "22%",
     fontSize: 9,
@@ -165,6 +170,7 @@ const styles = StyleSheet.create({
     fontStyle: "bold",
     color: "black"
   },
+
   col13: {
     width: "12%",
     fontSize: 9,
@@ -174,6 +180,7 @@ const styles = StyleSheet.create({
     fontStyle: "bold",
     color: "black"
   },
+
   colBody25: {
     width: "25%",
     fontSize: 9,
@@ -206,6 +213,7 @@ const styles = StyleSheet.create({
     paddingTop: "3px",
     paddingBottom: "3px",
   },
+
   colBody12_1: {
     width: "12%",
     fontSize: 9,
@@ -215,6 +223,7 @@ const styles = StyleSheet.create({
     paddingTop: "3px",
     paddingBottom: "3px",
   },
+
   colBody12_2: {
     width: "12%",
     fontSize: 9,
@@ -226,12 +235,12 @@ const styles = StyleSheet.create({
     paddingBottom: "3px",
   },
 
-
   table: {
     width: "100%",
     marginTop: 5,
     textAlign: "center"
   },
+
   row_header: {
     display: 'flex',
     flexDirection: 'row',
@@ -250,6 +259,7 @@ const styles = StyleSheet.create({
   header: {
     borderTop: 'none',
   },
+
   bold: {
     fontWeight: 'bold',
   },
@@ -263,15 +273,16 @@ const styles = StyleSheet.create({
 const PDF7 = (props: { report: ReportModel }) => {
   const { report } = props;
   const pdf = PDFModel(report);
+
   // pdf.attrs.map((item, index) => {
   //   return (
   //     console.log(index, "     =>>>    ", item.attributeName, "     =>>>    ", item.value)
   //   )
   // })
 
-  const year = pdf.attrs[3].value.slice(0, 4)
-  const month = pdf.attrs[3].value.slice(5, 7)
-  const day = pdf.attrs[3].value.slice(8, 10)
+  const year = pdf.attrs[2].value.slice(0, 4)
+  const month = pdf.attrs[2].value.slice(5, 7)
+  const day = pdf.attrs[2].value.slice(8, 10)
 
   return (
     <Document>
@@ -316,13 +327,13 @@ const PDF7 = (props: { report: ReportModel }) => {
             {`Hôm nay, vào hồi `}
           </Text>
           <Text style={{ width: "4%", fontSize: 10, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[1].value}
+            {pdf.attrs[0].value}
           </Text>
           <Text style={{ width: "6.5%", opacity: 0 }}>
             {` giờ `}
           </Text>
           <Text style={{ width: "4%", fontSize: 10, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[2].value}
+            {pdf.attrs[1].value}
           </Text>
           <Text style={{ width: "12%", opacity: 0 }}>
             {` phút, ngày`}
@@ -349,7 +360,7 @@ const PDF7 = (props: { report: ReportModel }) => {
             {`Tại địa điểm : `}
           </Text>
           <Text style={{ fontSize: 9, maxWidth: "84%", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[4].value}
+            {pdf.attrs[3].value}
           </Text>
         </View>
 
@@ -362,13 +373,13 @@ const PDF7 = (props: { report: ReportModel }) => {
             {`1/ Ông/bà : `}
           </Text>
           <Text style={{ fontSize: 9, width: "40%", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[5].value}
+            {pdf.attrs[4].value}
           </Text>
           <Text style={{ fontSize: 11, width: "13%", opacity: 0 }}>
             {`Chức vụ : `}
           </Text>
           <Text style={{ fontSize: 9, maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[6].value}
+            {pdf.attrs[5].value}
           </Text>
         </View>
 
@@ -377,7 +388,7 @@ const PDF7 = (props: { report: ReportModel }) => {
             {`Là cán bộ cơ quan kiểm dịch động vật : `}
           </Text>
           <Text style={{ fontSize: 9, maxWidth: "58%", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[7].value}
+            {pdf.attrs[6].value}
           </Text>
         </View>
 
@@ -386,7 +397,7 @@ const PDF7 = (props: { report: ReportModel }) => {
             {`2/ Ông/bà : `}
           </Text>
           <Text style={{ fontSize: 9, width: "41%", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[8].value}
+            {pdf.attrs[7].value}
           </Text>
           <Text style={{ fontSize: 11, opacity: 0 }}>
             {`là chủ hàng (hoặc người đại diện) `}
@@ -398,7 +409,7 @@ const PDF7 = (props: { report: ReportModel }) => {
             {`Địa chỉ giao dịch : `}
           </Text>
           <Text style={{ fontSize: 9, maxWidth: "78%", paddingTop: 0.5, maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[9].value}
+            {pdf.attrs[8].value}
           </Text>
         </View>
 
@@ -407,19 +418,19 @@ const PDF7 = (props: { report: ReportModel }) => {
             {`Số điện thoại : `}
           </Text>
           <Text style={{ width: "23%", fontSize: 10, paddingTop: 1, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[10].value}
+            {pdf.attrs[9].value}
           </Text>
           <Text style={{ width: "6%", opacity: 0 }}>
             {` Fax : `}
           </Text>
           <Text style={{ width: "19%", fontSize: 10, paddingTop: 1, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[11].value}
+            {pdf.attrs[10].value}
           </Text>
           <Text style={{ width: "9%", opacity: 0 }}>
             {` Email : `}
           </Text>
           <Text style={{ fontSize: 9, paddingTop: 1, maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[12].value}
+            {pdf.attrs[11].value}
           </Text>
         </View>
 
@@ -428,7 +439,7 @@ const PDF7 = (props: { report: ReportModel }) => {
             {`Trong khi tiến hành kiểm tra vệ sinh thú y lô hàng : `}
           </Text>
           <Text style={{ fontSize: 9, maxWidth: "47%", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[13].value}
+            {pdf.attrs[12].value}
           </Text>
         </View>
 
@@ -437,19 +448,19 @@ const PDF7 = (props: { report: ReportModel }) => {
             {`1/ `}
           </Text>
           <Text style={{ width: "37%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[14].value}
+            {pdf.attrs[13].value}
           </Text>
           <Text style={{ width: "11%", opacity: 0 }}>
             {` Số lượng: `}
           </Text>
           <Text style={{ width: "15%", fontSize: 10, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[15].value}
+            {pdf.attrs[14].value}
           </Text>
           <Text style={{ width: "19%", opacity: 0 }}>
             {` Khối lượng: `}
           </Text>
           <Text style={{ width: "8%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[16].value}
+            {pdf.attrs[15].value}
           </Text>
         </View>
 
@@ -458,19 +469,19 @@ const PDF7 = (props: { report: ReportModel }) => {
             {`2/ `}
           </Text>
           <Text style={{ width: "37%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[17].value}
+            {pdf.attrs[16].value}
           </Text>
           <Text style={{ width: "11%", opacity: 0 }}>
             {` Số lượng: `}
           </Text>
           <Text style={{ width: "15%", fontSize: 10, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[18].value}
+            {pdf.attrs[17].value}
           </Text>
           <Text style={{ width: "19%", opacity: 0 }}>
             {` Khối lượng: `}
           </Text>
           <Text style={{ width: "8%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[19].value}
+            {pdf.attrs[18].value}
           </Text>
         </View>
 
@@ -479,19 +490,19 @@ const PDF7 = (props: { report: ReportModel }) => {
             {`3/ `}
           </Text>
           <Text style={{ width: "37%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[20].value}
+            {pdf.attrs[19].value}
           </Text>
           <Text style={{ width: "11%", opacity: 0 }}>
             {` Số lượng: `}
           </Text>
           <Text style={{ width: "15%", fontSize: 10, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[21].value}
+            {pdf.attrs[20].value}
           </Text>
           <Text style={{ width: "19%", opacity: 0 }}>
             {` Khối lượng: `}
           </Text>
           <Text style={{ width: "8%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[22].value}
+            {pdf.attrs[21].value}
           </Text>
         </View>
 
@@ -500,19 +511,19 @@ const PDF7 = (props: { report: ReportModel }) => {
             {`4/ `}
           </Text>
           <Text style={{ width: "37%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[23].value}
+            {pdf.attrs[22].value}
           </Text>
           <Text style={{ width: "11%", opacity: 0 }}>
             {` Số lượng: `}
           </Text>
           <Text style={{ width: "15%", fontSize: 10, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[24].value}
+            {pdf.attrs[23].value}
           </Text>
           <Text style={{ width: "19%", opacity: 0 }}>
             {` Khối lượng: `}
           </Text>
           <Text style={{ width: "8%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-            {pdf.attrs[25].value}
+            {pdf.attrs[24].value}
           </Text>
         </View>
 
@@ -523,7 +534,7 @@ const PDF7 = (props: { report: ReportModel }) => {
               {` #`}
             </Text>
             <Text style={{ fontSize: 9, color: "black", maxLines: 2, textOverflow: "ellipsis" }}>
-              {pdf.attrs[26].value}
+              {pdf.attrs[25].value}
             </Text>
           </Text>
         </View>
@@ -535,7 +546,7 @@ const PDF7 = (props: { report: ReportModel }) => {
               {` # `}
             </Text>
             <Text style={{ fontSize: 9, color: "black", maxLines: 4, textOverflow: "ellipsis" }}>
-              {pdf.attrs[27].value}
+              {pdf.attrs[26].value}
             </Text>
           </Text>
         </View>
@@ -547,7 +558,7 @@ const PDF7 = (props: { report: ReportModel }) => {
               {` ## `}
             </Text>
             <Text style={{ fontSize: 9, color: "black", maxLines: 2, textOverflow: "ellipsis" }}>
-              {pdf.attrs[28].value}
+              {pdf.attrs[27].value}
             </Text>
           </Text>
         </View>
@@ -559,7 +570,7 @@ const PDF7 = (props: { report: ReportModel }) => {
               {` ## `}
             </Text>
             <Text style={{ fontSize: 9, color: "black", maxLines: 2, textOverflow: "ellipsis" }}>
-              {pdf.attrs[29].value}
+              {pdf.attrs[28].value}
             </Text>
           </Text>
         </View>

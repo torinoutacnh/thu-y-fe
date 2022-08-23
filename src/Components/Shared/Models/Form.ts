@@ -17,6 +17,7 @@ interface AttributeModel {
     value?: any;
     attributeCode?: string;
     attributeGroup?: string;
+    api_DropDownlist?: string;
 }
 
 interface ReportModel {
@@ -75,6 +76,11 @@ enum ControlTypes {
     DropDownListType = 2
 }
 
+enum MucDichSDĐV {
+    "Giết mổ" = 1,
+    "Làm giống" = 2
+}
+
 enum DataTypes {
     TextControl = 1,
     TelControl = 2,
@@ -87,5 +93,5 @@ enum DataTypes {
     RadioControl = 9,
 }
 
-export { DataTypes, ControlTypes }
+export { DataTypes, ControlTypes, MucDichSDĐV }
 export type { UpdateReportAttrsModel, AttributeModel, FormModel, ReportModel, ReportValueModel, ReportQueryModel, SealValueModel }

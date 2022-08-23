@@ -246,6 +246,7 @@ const StaffHome = () => {
       />
 
       <Table
+        scroll={{ y: "100%" }}
         columns={windowSize.width > 768 ? UserColumns : resColumns}
         rowKey={"id"}
         dataSource={liststaff}

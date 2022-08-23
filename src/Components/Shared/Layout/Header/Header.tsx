@@ -80,6 +80,16 @@ const Header = () => {
     setIconRotate4(!iconRotate4);
   }
 
+
+  const [showItems5, setShowItems5] = useState(false);
+  const [iconRotate5, setIconRotate5] = useState(false);
+  function handleClicElements5() {
+    setShowItems5(!showItems5);
+    setIconRotate5(!iconRotate5);
+  }
+
+
+
   return (
     <>
       <PageHeader>
@@ -136,11 +146,7 @@ const Header = () => {
                             Hóa đơn kiểm dịch
                           </Link>
                         </li>
-                        <li>
-                          <Link to={generalEndpoints.notfound} onClick={() => { toggleMenu() }}>
-                            Báo cáo doanh thu
-                          </Link>
-                        </li>
+
                       </ul>
                     </div>
                   </div>
@@ -176,9 +182,48 @@ const Header = () => {
                             Hóa đơn giết mổ
                           </Link>
                         </li>
+
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+                <li className="mb20">
+                  <div className="dropdown-menu">
+
+                    <Link to={RouteEndpoints.myAllocate} onClick={() => { toggleMenu() }}>
+                      <Button type="link" className="dropdown-menu__btn" >
+                        Hoá đơn của tôi
+                      </Button>
+                    </Link>
+
+
+                  </div>
+                </li>
+                <li onClick={handleClicElements5} className="mb20">
+                  <div className="dropdown-menu">
+                    <Button type="link" className="dropdown-menu__btn">
+                      Doanh thu
+                      <span
+                        className={`icon ${iconRotate5 ? "iconRotate--90" : "iconRotate-0"
+                          }`}
+                      >
+                        <i className="fa-solid fa-angle-left"></i>
+                      </span>
+                    </Button>
+                    <div className="dropdown-content">
+                      <ul
+                        className={`dropdown-content-1 ${showItems5 ? "showItems" : ""
+                          }`}
+                      >
+
                         <li>
                           <Link to={generalEndpoints.notfound} onClick={() => { toggleMenu() }}>
-                            Báo cáo doanh thu
+                            Doanh thu kiểm dịch
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to={abattoirEndpoints.revenue} onClick={() => { toggleMenu() }}>
+                            Doanh thu giết mổ
                           </Link>
                         </li>
                       </ul>
@@ -233,11 +278,7 @@ const Header = () => {
                                 Doanh thu tổng
                               </Link>
                             </li>
-                            <li>
-                              <Link to={RouteEndpoints.myAllocate} onClick={() => { toggleMenu() }}>
-                                Hóa đơn của tôi
-                              </Link>
-                            </li>
+
                           </ul>
                         </div>
                       </div>

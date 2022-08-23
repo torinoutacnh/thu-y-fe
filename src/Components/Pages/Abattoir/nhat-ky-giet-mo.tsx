@@ -48,7 +48,7 @@ const AbattoirPage = () => {
       setLoading(true);
       fetch(
         process.env.REACT_APP_API.concat(ReportApiRoute.animalkilling, "?") +
-          new URLSearchParams({ userId: user.userId }),
+        new URLSearchParams({ userId: user.userId }),
         {
           method: "GET",
           headers: {
@@ -270,6 +270,7 @@ const AbattoirPage = () => {
         ]}
       />
       <Table
+        scroll={{ y: "100%" }}
         columns={windowSize.width > 768 ? columns : resColumns}
         rowKey={"reportId"}
         dataSource={reports}

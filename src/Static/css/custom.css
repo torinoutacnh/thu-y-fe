@@ -1,3 +1,13 @@
+.ant-form-item {
+  margin-bottom: 5px;
+}
+
+.ant-form-vertical .ant-form-item-label,
+.ant-col-24.ant-form-item-label,
+.ant-col-xl-24.ant-form-item-label {
+  padding: 0;
+}
+
 .ant-table-thead .ant-table-cell {
   word-wrap: normal;
   width: 150px;
@@ -149,7 +159,12 @@
 
 .content_list-item_1 li:hover,
 .content_list-item_2 li:hover {
-  transform: translate(0, -1px);
+  transform: translate(0, -5px);
+  border-color: #1890ff;
+}
+
+/* PC */
+@media screen and (min-width: 1024px) {
 }
 
 /* Tablet & moblie */
@@ -163,11 +178,11 @@
   }
 
   /* Tablet */
-  @media screen and (min-width: 769px) and (max-width: 1023px) {
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
   }
 
   /* Mobile */
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     .list-item {
       padding: 0;
       flex-direction: column;
@@ -194,14 +209,5 @@
     .content_list-item_2 li {
       margin: 5%;
     }
-  }
-
-  .ant-modal-body {
-    padding: 10px 20px;
-  }
-
-  .pd0-mg0 {
-    padding: 0;
-    margin: 0;
   }
 }

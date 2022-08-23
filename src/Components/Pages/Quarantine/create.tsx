@@ -29,6 +29,29 @@ export default function CreateQuarantineReportPage() {
     navigate("/not-found", { replace: true });
   }
 
+  async function Load() {
+    setLoading(true);
+    const search = { code: typeF, refReportId: id ?? " ", refReportNumber: numberSearch ?? "" };
+    const path =
+      process.env.REACT_APP_API.concat(FormApiRoute.getform, "?") +
+      new URLSearchParams(search as any);
+    const res = await fetch(path, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer ".concat(user.token),
+      },
+    });
+
+    const data = await res.json();
+
+    if (res.status >= 400) console.log(data.message)
+
+    setForm(data.data);
+    console.log("get form >>>> ", data.data);
+    setLoading(false)
+  }
+
 
   useEffect(() => {
     if (user && code) {
@@ -53,6 +76,7 @@ export default function CreateQuarantineReportPage() {
         })
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
+      // Load()
     }
   }, [user?.userId, id, typeF, numberSearch]);
 
@@ -73,7 +97,7 @@ export default function CreateQuarantineReportPage() {
     <>
       {form && (
         <>
-          <Row>
+          <Row style={{ marginBottom: "20px" }}>
             <Col xs={24} sm={12} md={12} lg={12} style={{ display: "flex", justifyContent: "center" }}>
               <Radio.Group value={typeF} onChange={(e: RadioChangeEvent) => onChangeRadioTypeF(e)}>
                 <Radio value={ReportType[2]}>{ReportType[2]}</Radio>

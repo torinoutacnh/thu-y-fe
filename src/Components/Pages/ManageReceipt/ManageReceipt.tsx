@@ -185,7 +185,7 @@ const ManageReceipt = () => {
               codeNumber={record.codeNumber}
             /> */}
             Cấp hóa đơn
-          </Button> */}
+          </Button>
         </>
       ),
     },

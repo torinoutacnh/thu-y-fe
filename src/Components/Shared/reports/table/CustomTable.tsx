@@ -201,7 +201,7 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
         className={"main-table"}
       />
 
-      {/* <List
+      <List
         itemLayout="vertical"
         size="small"
         dataSource={datasource}
@@ -216,41 +216,6 @@ const MapTable = ({ reportType }: { reportType: ReportType }) => {
                 size="small"
                 style={{ marginTop: 20, marginBottom: 20 }}
                 column={{ xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
-              >
-                {columns.map((c, i) => {
-                  return (
-                    <Descriptions.Item
-                      key={getKeyThenIncreaseKey()}
-                      label={c.title.toString()}
-                    >
-                      {i + 1 !== columns.length ? (
-                        item[(c as any).dataIndex]
-                      ) : (
-                        <ActionCol id={item.id} />
-                      )}
-                    </Descriptions.Item>
-                  );
-                })}
-              </Descriptions>
-            </List.Item>
-          );
-        }}
-      ></List> */}
-
-      <List
-        itemLayout="vertical"
-        size="small"
-        dataSource={datasource}
-        className={"responsive-table"}
-        bordered={false}
-        renderItem={(item) => {
-          return (
-            <List.Item key={item.id}>
-              <Descriptions
-                bordered
-                size="small"
-                contentStyle={{ marginRight: "10%", width: '90%'}}
-                column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
               >
                 {columns.map((c, i) => {
                   return (

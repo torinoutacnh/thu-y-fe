@@ -150,53 +150,53 @@ export function MyAllocateReceipt() {
       render: (record, key, index) => {
         return (
           <>
-            <tr>
-              <th>Tên hóa đơn :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "37%" }}>Tên hóa đơn :</th>
               <td>{record.receiptName}</td>
             </tr>
-            <tr>
-              <th>Tên tài khoản :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "37%" }}>Tên tài khoản :</th>
               <td>{record.userName}</td>
             </tr>
-            <tr>
-              <th>Tên mã hóa đơn :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "37%" }}>Tên mã hóa đơn :</th>
               <td>{record.codeName}</td>
             </tr>
-            <tr>
-              <th>Số mã hóa đơn :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "37%" }}>Số mã hóa đơn :</th>
               <td>{record.codeNumber}</td>
             </tr>
-            <tr>
-              <th>Số lượng :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "37%" }}>Số lượng :</th>
               <td>{record.amount}</td>
             </tr>
-            <tr>
-              <th>Tổng số trang :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "37%" }}>Tổng số trang :</th>
               <td>{record.totalPage}</td>
             </tr>
-            <tr>
-              <th>Số trang còn lại :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "37%" }}>Số trang còn lại :</th>
               <td>{record.remainPage}</td>
             </tr>
             <tr>
               <th>Xử lý</th>
               <th>
                 <Space>
-                <Button
-                  type="link"
-                  onClick={() => navigate(manageReceiptEndpoints.createReceiptReport.concat("?") +
-                    new URLSearchParams({
-                      userId: record.userId,
-                      userName: record.userName,
-                      receiptAllocateId: record.id,
-                      codeName: record.codeName,
-                      codeNumber: record.codeNumber,
-                      remainPage: record.remainPage,
-                      receiptName: record.receiptName
-                    }))}
-                  icon={<ArrowRightOutlined />}
-                >
-                  {/* <CreateReceiptReport
+                  <Button
+                    type="link"
+                    onClick={() => navigate(manageReceiptEndpoints.createReceiptReport.concat("?") +
+                      new URLSearchParams({
+                        userId: record.userId,
+                        userName: record.userName,
+                        receiptAllocateId: record.id,
+                        codeName: record.codeName,
+                        codeNumber: record.codeNumber,
+                        remainPage: record.remainPage,
+                        receiptName: record.receiptName
+                      }))}
+                    icon={<ArrowRightOutlined />}
+                  >
+                    {/* <CreateReceiptReport
               userId={record.userId}
               userName={record.userName}
               receiptAllocateId={record.id}
@@ -204,30 +204,30 @@ export function MyAllocateReceipt() {
               codeNumber={record.codeNumber}
               remainPage={record.remainPage}
             /> */}
-                  Sử dụng hóa đơn
-                </Button>
+                    Sử dụng hóa đơn
+                  </Button>
 
-                
-              </Space>
+
+                </Space>
               </th>
-              </tr>
-              <tr>
-                <th></th>
-                <th><Button
-                  icon={<EyeOutlined />}
-                  type="link"
-                  onClick={() => {
-                    navigate(
-                      RouteEndpoints.receiptReportWithIdAllocate.replace(
-                        ":id",
-                        record.id
-                      )
-                    );
-                  }}
-                >
-                  Xem chi tiết
-                </Button></th>
-              </tr>
+            </tr>
+            <tr>
+              <th></th>
+              <th><Button
+                icon={<EyeOutlined />}
+                type="link"
+                onClick={() => {
+                  navigate(
+                    RouteEndpoints.receiptReportWithIdAllocate.replace(
+                      ":id",
+                      record.id
+                    )
+                  );
+                }}
+              >
+                Xem chi tiết
+              </Button></th>
+            </tr>
           </>
         );
       },

@@ -179,47 +179,47 @@ const StaffHome = () => {
         };
         return (
           <>
-            <tr>
-              <th>Họ tên :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "30%" }}>Họ tên :</th>
               <td>{record.name}</td>
             </tr>
-            <tr>
-              <th>Tài khoản :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "30%" }}>Tài khoản :</th>
               <td>{record.account}</td>
             </tr>
-            <tr>
-              <th>Địa chỉ :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "30%" }}>Địa chỉ :</th>
               <td>{record.address}</td>
             </tr>
-            <tr>
-              <th>Email :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "30%" }}>Email :</th>
               <td>{record.email}</td>
             </tr>
-            <tr>
-              <th>Số điện thoại :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "30%" }}>Số điện thoại :</th>
               <td>{record.phone}</td>
             </tr>
-            <tr>
-              <th>Chức vụ:</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "30%" }}>Chức vụ:</th>
               <td>{record.role}</td>
             </tr>
-            <tr>
-              <th>Giới tính :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "30%" }}>Giới tính :</th>
               <td>{RenderSexRole(record.sex)}</td>
             </tr>
-            <tr>
-            <th>Xử lý</th>
-             <th>
-             <Space>
-                <Link to={staffEndpoints.updateStaff.replace(":id", record.id)}>
-                  <Button type="link" color="blue" icon={<EditOutlined />}>
-                    Cập nhật
+            <tr style={{ width: "100%" }}>
+              <th>Xử lí</th>
+              <th>
+                <Space>
+                  <Link to={staffEndpoints.updateStaff.replace(":id", record.id)}>
+                    <Button type="link" color="blue" icon={<EditOutlined />}>
+                      Cập nhật
+                    </Button>
+                  </Link>
+                  <Button type="link" danger>
+                    Xóa
                   </Button>
-                </Link>
-                <Button type="link" danger>
-                  Xóa
-                </Button>
-              </Space>
+                </Space>
               </th>
             </tr>
           </>

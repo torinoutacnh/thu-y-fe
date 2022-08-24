@@ -168,22 +168,22 @@ const ManageReceipt = () => {
           >
             Xóa
           </Button>
-          <CreateAllocate
+          {/* <CreateAllocate
             idReceipt={record.id}
             arrUser={listUsername}
             arrId={listId}
             codeName={record.codeName}
             codeNumber={record.codeNumber}
-          />
-          {/* <Button type="link" icon={<FileDoneOutlined />}
+          /> */}
+          <Button type="link" icon={<FileDoneOutlined />}
             onClick={() => navigate(manageReceiptEndpoints.createAllocate.concat("?") + new URLSearchParams({ idReceipt: record.id, codeName: record.codeName, codeNumber: record.codeNumber }))}>
-            <CreateAllocate
+            {/*  <CreateAllocate
               idReceipt={record.id}
               arrUser={listUsername}
               arrId={listId}
               codeName={record.codeName}
               codeNumber={record.codeNumber}
-            /> 
+            /> */}
             Cấp hóa đơn
           </Button> */}
         </>
@@ -198,67 +198,67 @@ const ManageReceipt = () => {
       render: (record, key, index) => {
         return (
           <>
-            <tr>
-              <th>Tên hóa đơn :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "37%" }}>Tên hóa đơn :</th>
               <td>{record.name}</td>
             </tr>
-            <tr>
-              <th>Tên mã hóa đơn :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "37%" }}>Tên mã hóa đơn :</th>
               <td>{record.codeName}</td>
             </tr>
-            <tr>
-              <th>Số mã hóa đơn:</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "37%" }}>Số mã hóa đơn:</th>
               <td>{record.codeNumber}</td>
             </tr>
-            <tr>
-              <th>Ngày hiệu lực :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "37%" }}>Ngày hiệu lực :</th>
               <td>{record.effectiveDate}</td>
             </tr>
-            <tr>
-              <th>Số trang :</th>
+            <tr style={{ width: "100%" }}>
+              <th style={{ width: "37%" }}>Số trang :</th>
               <td>{record.page}</td>
             </tr>
 
-            <tr>
-            <th>Xử lý</th>
-             <th>
-             <Space>
-                <Link
-                  to={manageReceiptEndpoints.updatereceipt.replace(":id", record.id)}
-                >
-                  <Button type="link" color="blue" icon={<EditOutlined />}>
-                    Cập nhật
+            <tr style={{ width: "100%" }}>
+              <th>Xử lí</th>
+              <th>
+                <Space>
+                  <Link
+                    to={manageReceiptEndpoints.updatereceipt.replace(":id", record.id)}
+                  >
+                    <Button type="link" color="blue" icon={<EditOutlined />}>
+                      Cập nhật
+                    </Button>
+                  </Link>
+                  <Button
+                    type="link"
+                    danger
+                    onClick={() => deleteReceiptHandler(record.id, record.name)}
+                    icon={<DeleteOutlined />}
+                  >
+                    Xóa
                   </Button>
-                </Link>
-                <Button
-                  type="link"
-                  danger
-                  onClick={() => deleteReceiptHandler(record.id, record.name)}
-                  icon={<DeleteOutlined />}
-                >
-                  Xóa
-                </Button>
-                
-              </Space>
+
+                </Space>
               </th>
-              
+
             </tr>
             <tr>
               <th></th>
               <th>
-                {/* <Space>
+                <Space>
                   <Button type="link" icon={<FileDoneOutlined />}
-                  onClick={() => navigate(manageReceiptEndpoints.createAllocate.concat("?") + new URLSearchParams({ idReceipt: record.id, codeName: record.codeName, codeNumber: record.codeNumber }))}>
-                  Cấp hóa đơn
-                </Button>
-                </Space> */}
-                <CreateAllocate 
+                    onClick={() => navigate(manageReceiptEndpoints.createAllocate.concat("?") + new URLSearchParams({ idReceipt: record.id, codeName: record.codeName, codeNumber: record.codeNumber }))}>
+                    Cấp hóa đơn
+                  </Button>
+                </Space>
+                {/* <CreateAllocate
                   idReceipt={record.id}
                   arrUser={listUsername}
                   arrId={listId}
                   codeName={record.codeName}
                   codeNumber={record.codeNumber}
-                />
+                /> */}
               </th>
             </tr>
           </>

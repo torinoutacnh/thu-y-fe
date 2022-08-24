@@ -35,12 +35,18 @@ function RenderFormAttrs(props: { form: FormModel }) {
 
     <>
 
-      <Collapse style={{ marginBottom: "20px" }} destroyInactivePanel={false}>
+      <Collapse
+        style={{ marginBottom: "20px" }}
+      >
 
         {
           list.map((item, index) => {
             return (
-              <Panel header={<h4>{item.listAttbs[0].attributeGroup}</h4>} key={index} >
+              <Panel
+                header={<h4>{item.listAttbs[0].attributeGroup}</h4>}
+                key={index}
+                forceRender={true}
+              >
                 <Row>
                   {
                     item.listAttbs.map((i, idx) => {

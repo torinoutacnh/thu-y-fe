@@ -280,9 +280,9 @@ const PDF7 = (props: { report: ReportModel }) => {
   //   )
   // })
 
-  const year = pdf.attrs[2]?.value.slice(0, 4) ?? ""
-  const month = pdf.attrs[2]?.value.slice(5, 7) ?? ""
-  const day = pdf.attrs[2]?.value.slice(8, 10) ?? ""
+  const year = pdf.attrs[2]?.value?.slice(0, 4) ?? ""
+  const month = pdf.attrs[2]?.value?.slice(5, 7) ?? ""
+  const day = pdf.attrs[2]?.value?.slice(8, 10) ?? ""
 
   return (
     <Document>

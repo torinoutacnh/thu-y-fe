@@ -63,10 +63,10 @@ const RenderForm: React.FC<RenderProps> = ({
 
   const loglevel = useLog();
 
-  const RedirectToHome = (reportType: ReportType) => {
+  const RedirectToPageNext = (reportType: ReportType) => {
     switch (reportType) {
       case ReportType["CN-KDĐV-UQ"]: {
-        navigate(quarantineEndpoints.cnkd);
+        navigate(quarantineEndpoints.dkkd);
         break;
       }
       case ReportType["ĐK-KDĐV-001"]: {
@@ -105,7 +105,7 @@ const RenderForm: React.FC<RenderProps> = ({
   };
 
   function submit() {
-    // console.log(formref.getFieldsValue());
+    console.log("submit create", formref.getFieldsValue());
     // return;
 
     if (user?.token) {
@@ -125,7 +125,7 @@ const RenderForm: React.FC<RenderProps> = ({
           console.log(data);
 
           if (!data.data) throw new Error("Thất bại !");
-          openNotification("Thành công!", "success");
+          openNotification("Thành công", "success");
 
           if (reportType === ReportType['ĐK-KDĐV-001']) {
             pdf1 = data.data
@@ -137,7 +137,7 @@ const RenderForm: React.FC<RenderProps> = ({
           console.log("report type", reportType);
 
 
-          RedirectToHome(reportType);
+          RedirectToPageNext(reportType);
         })
         .catch((error) => {
           openNotification(error.message, "error");
@@ -151,9 +151,8 @@ const RenderForm: React.FC<RenderProps> = ({
 
 
   function UpdateAttribute() {
-    console.log(
+    console.log("submit update",
       formref.getFieldsValue(),
-      JSON.stringify(formref.getFieldsValue())
     );
     if (user?.token) {
       setLoading(true);
@@ -165,10 +164,16 @@ const RenderForm: React.FC<RenderProps> = ({
         },
         body: JSON.stringify(formref.getFieldsValue()),
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (res.status >= 400) {
+            openNotification("Cập nhật thất bại ", "error");
+            throw new Error("error")
+          }
+          return res.json()
+        })
         .then((data) => {
-          console.log(data);
-          openNotification("Thành công !", "success");
+          console.log("update attbs => ", data);
+          openNotification("Cập nhật thành công ", "success");
           // navigate(quarantineEndpoints.home);
         })
         .catch((error) => console.log(error))
@@ -181,7 +186,6 @@ const RenderForm: React.FC<RenderProps> = ({
     //   reportvalue.values.sort((a, b) => a.sort - b.sort);
     //   formref.resetFields(), [reportvalue];
     // }
-    console.log("hẻe");
 
     reportvalue?.values.sort((a, b) => a.sort - b.sort);
     formref.resetFields(), [reportvalue];
@@ -296,7 +300,7 @@ const RenderForm: React.FC<RenderProps> = ({
                   <Button
                     icon={<LeftOutlined />}
                     onClick={() => {
-                      RedirectToHome(reportType);
+                      RedirectToPageNext(reportType);
                     }}
                   >
                     Trở về

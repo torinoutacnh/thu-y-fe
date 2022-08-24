@@ -243,13 +243,13 @@ const PDF12D = (props: any) => {
     // console.log("pdf =>>>>> ", pdf);
 
 
-    const year_ngayxetnghiem = pdf.attrs[28].value.slice(0, 4)
-    const month_ngayxetnghiem = pdf.attrs[28].value.slice(5, 7)
-    const day_ngayxetnghiem = pdf.attrs[28].value.slice(8, 10)
+    const year_ngayxetnghiem = pdf.attrs[42]?.value?.slice(0, 4) ?? ""
+    const month_ngayxetnghiem = pdf.attrs[42]?.value?.slice(5, 7) ?? ""
+    const day_ngayxetnghiem = pdf.attrs[42]?.value?.slice(8, 10) ?? ""
 
-    const year_giatridenngay = pdf.attrs[33].value.slice(0, 4)
-    const month_giatridenngay = pdf.attrs[33].value.slice(5, 7)
-    const day_giatridenngay = pdf.attrs[33].value.slice(8, 10)
+    const year_giatridenngay = pdf.attrs[49]?.value?.slice(0, 4) ?? ""
+    const month_giatridenngay = pdf.attrs[49]?.value?.slice(5, 7) ?? ""
+    const day_giatridenngay = pdf.attrs[49]?.value?.slice(8, 10) ?? ""
 
 
     const tmp: string = getDateCurrent()
@@ -257,7 +257,7 @@ const PDF12D = (props: any) => {
     // console.log(arrDate);
 
 
-    const sum = Number(pdf.attrs[40].value) + Number(pdf.attrs[45].value) + Number(pdf.attrs[50].value)
+    const sum = Number(pdf.attrs[8]?.value) + Number(pdf.attrs[13]?.value) + Number(pdf.attrs[18]?.value)
 
     const ani = () => {
         return (
@@ -330,7 +330,7 @@ const PDF12D = (props: any) => {
                         {`Họ tên chủ hàng (hoặc người đại diện): `}
                     </Text>
                     <Text style={{ fontSize: 10, maxWidth: "54%", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[1].value}
+                        {pdf.attrs[0]?.value}
                     </Text>
                 </View>
 
@@ -339,7 +339,7 @@ const PDF12D = (props: any) => {
                         {`Địa chỉ giao dịch: `}
                     </Text>
                     <Text style={{ fontSize: 9, maxWidth: "77%", marginTop: "1px", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[2].value}
+                        {pdf.attrs[1]?.value}
                     </Text>
                 </View>
 
@@ -351,7 +351,7 @@ const PDF12D = (props: any) => {
                             {`Điện thoại: `}
                         </Text>
                         <Text style={{ fontSize: 10, maxWidth: "47%", paddingLeft: "5px", maxLines: 1, textOverflow: "ellipsis" }}>
-                            {pdf.attrs[3].value}
+                            {pdf.attrs[2]?.value}
                         </Text>
                     </View>
 
@@ -360,7 +360,7 @@ const PDF12D = (props: any) => {
                             {`Fax: `}
                         </Text>
                         <Text style={{ fontSize: 10, maxWidth: "70%", paddingLeft: "8px", maxLines: 1, textOverflow: "ellipsis" }}>
-                            {pdf.attrs[4].value}
+                            {pdf.attrs[3]?.value}
                         </Text>
                     </View>
 
@@ -369,7 +369,7 @@ const PDF12D = (props: any) => {
                             {`Email: `}
                         </Text>
                         <Text style={{ fontSize: 9, maxWidth: "67%", paddingLeft: "2px", maxLines: 1, textOverflow: "ellipsis" }}>
-                            {pdf.attrs[5].value}
+                            {pdf.attrs[4]?.value}
                         </Text>
                     </View>
 
@@ -385,27 +385,27 @@ const PDF12D = (props: any) => {
 
 
                     <View style={[styles.row_body, styles.bold]}>
-                        <Text style={styles.colBody25}>{pdf.attrs[37].value}</Text>
-                        <Text style={styles.colBody18}>{pdf.attrs[38].value}</Text>
-                        <Text style={styles.colBody16}>{pdf.attrs[39].value}</Text>
-                        <Text style={styles.colBody15}>{pdf.attrs[40].value}</Text>
-                        <Text style={styles.colBody26}>{pdf.attrs[41].value}</Text>
+                        <Text style={styles.colBody25}>{pdf.attrs[5]?.value}</Text>
+                        <Text style={styles.colBody18}>{pdf.attrs[6]?.value}</Text>
+                        <Text style={styles.colBody16}>{pdf.attrs[7]?.value}</Text>
+                        <Text style={styles.colBody15}>{pdf.attrs[8]?.value}</Text>
+                        <Text style={styles.colBody26}>{pdf.attrs[9]?.value}</Text>
                     </View>
 
                     <View style={[styles.row_body, styles.bold]}>
-                        <Text style={styles.colBody25}>{pdf.attrs[42].value}</Text>
-                        <Text style={styles.colBody18}>{pdf.attrs[43].value}</Text>
-                        <Text style={styles.colBody16}>{pdf.attrs[44].value}</Text>
-                        <Text style={styles.colBody15}>{pdf.attrs[45].value}</Text>
-                        <Text style={styles.colBody26}>{pdf.attrs[46].value}</Text>
+                        <Text style={styles.colBody25}>{pdf.attrs[10]?.value}</Text>
+                        <Text style={styles.colBody18}>{pdf.attrs[11]?.value}</Text>
+                        <Text style={styles.colBody16}>{pdf.attrs[12]?.value}</Text>
+                        <Text style={styles.colBody15}>{pdf.attrs[13]?.value}</Text>
+                        <Text style={styles.colBody26}>{pdf.attrs[14]?.value}</Text>
                     </View>
 
                     <View style={[styles.row_body, styles.bold]}>
-                        <Text style={styles.colBody25}>{pdf.attrs[47].value}</Text>
-                        <Text style={styles.colBody18}>{pdf.attrs[48].value}</Text>
-                        <Text style={styles.colBody16}>{pdf.attrs[49].value}</Text>
-                        <Text style={styles.colBody15}>{pdf.attrs[50].value}</Text>
-                        <Text style={styles.colBody26}>{pdf.attrs[51].value}</Text>
+                        <Text style={styles.colBody25}>{pdf.attrs[15]?.value}</Text>
+                        <Text style={styles.colBody18}>{pdf.attrs[16]?.value}</Text>
+                        <Text style={styles.colBody16}>{pdf.attrs[17]?.value}</Text>
+                        <Text style={styles.colBody15}>{pdf.attrs[18]?.value}</Text>
+                        <Text style={styles.colBody26}>{pdf.attrs[19]?.value}</Text>
                     </View>
 
 
@@ -414,7 +414,7 @@ const PDF12D = (props: any) => {
                         <Text style={[styles.colBody18, { fontStyle: 'bold', maxLines: 1, textOverflow: "ellipsis" }]}>{' '}</Text>
                         <Text style={[styles.colBody16, { fontStyle: 'bold', maxLines: 1, textOverflow: "ellipsis" }]}>
                             {
-                                Number(pdf.attrs[39].value) + Number(pdf.attrs[44].value) + Number(pdf.attrs[49].value)
+                                Number(pdf.attrs[8]?.value) + Number(pdf.attrs[13]?.value) + Number(pdf.attrs[18]?.value)
                             }
                         </Text>
                         <Text style={[styles.colBody15, { fontStyle: 'bold', maxLines: 1, textOverflow: "ellipsis" }]}>
@@ -438,7 +438,7 @@ const PDF12D = (props: any) => {
                         {`Tên cơ sở sản xuất, sơ chế, bảo quản: `}
                     </Text>
                     <Text style={{ fontSize: 9, width: "61%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "14px" }}>
-                        {pdf.attrs[6].value}
+                        {pdf.attrs[20]?.value}
                     </Text>
                 </View>
 
@@ -447,7 +447,7 @@ const PDF12D = (props: any) => {
                         {`Địa chỉ: `}
                     </Text>
                     <Text style={{ fontSize: 9, width: "87%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "4px" }}>
-                        {pdf.attrs[7].value}
+                        {pdf.attrs[21]?.value}
                     </Text>
                 </View>
 
@@ -456,7 +456,7 @@ const PDF12D = (props: any) => {
                         {`Tên tổ chức, cá nhân nhận hàng: `}
                     </Text>
                     <Text style={{ fontSize: 9, width: "64%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "9px" }}>
-                        {pdf.attrs[8].value}
+                        {pdf.attrs[22]?.value}
                     </Text>
                 </View>
 
@@ -465,7 +465,7 @@ const PDF12D = (props: any) => {
                         {`Địa chỉ: `}
                     </Text>
                     <Text style={{ fontSize: 9, width: "85%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "5px" }}>
-                        {pdf.attrs[9].value}
+                        {pdf.attrs[23]?.value}
                     </Text>
                 </View>
 
@@ -478,7 +478,7 @@ const PDF12D = (props: any) => {
                             {`Điện thoại: `}
                         </Text>
                         <Text style={{ fontSize: 9, maxWidth: "53%", maxLines: 1, textOverflow: "ellipsis" }}>
-                            {pdf.attrs[10].value}
+                            {pdf.attrs[24]?.value}
                         </Text>
                     </View>
 
@@ -487,7 +487,7 @@ const PDF12D = (props: any) => {
                             {`Fax: `}
                         </Text>
                         <Text style={{ fontSize: 9, maxWidth: "70%", paddingLeft: "8px", maxLines: 1, textOverflow: "ellipsis" }}>
-                            {pdf.attrs[11].value}
+                            {pdf.attrs[25]?.value}
                         </Text>
                     </View>
 
@@ -496,7 +496,7 @@ const PDF12D = (props: any) => {
                             {`Email: `}
                         </Text>
                         <Text style={{ fontSize: 9, width: "73%", maxLines: 1, textOverflow: "ellipsis" }}>
-                            {pdf.attrs[12].value}
+                            {pdf.attrs[26]?.value}
                         </Text>
                     </View>
 
@@ -509,7 +509,7 @@ const PDF12D = (props: any) => {
                         {`Nơi đến cuối cùng: `}
                     </Text>
                     <Text style={{ fontSize: 9, width: "78%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "5px" }}>
-                        {pdf.attrs[13].value}
+                        {pdf.attrs[27]?.value}
                     </Text>
                 </View>
 
@@ -523,59 +523,59 @@ const PDF12D = (props: any) => {
                         {`1/ `}
                     </Text>
                     <Text style={{ width: "36%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[14].value}
+                        {pdf.attrs[28]?.value}
                     </Text>
                     <Text style={{ width: "11%", color: "white" }}>
                         {` Số lượng: `}
                     </Text>
                     <Text style={{ width: "15%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[15].value}
+                        {pdf.attrs[29]?.value}
                     </Text>
                     <Text style={{ width: "17%", color: "white" }}>
                         {` Khối lượng: `}
                     </Text>
                     <Text style={{ width: "15%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[16].value}
+                        {pdf.attrs[30]?.value}
                     </Text>
                 </View>
                 <View style={{ display: "flex", flexDirection: "row", fontSize: 10, flexWrap: "wrap", lineHeight: 1.7, marginTop: 1, paddingLeft: "20px" }}>
                     <Text style={{ width: "6%", color: "white" }}>
-                        {`1/ `}
+                        {`2/ `}
                     </Text>
                     <Text style={{ width: "36%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[17].value}
+                        {pdf.attrs[31]?.value}
                     </Text>
                     <Text style={{ width: "11%", color: "white" }}>
                         {` Số lượng: `}
                     </Text>
                     <Text style={{ width: "15%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[18].value}
+                        {pdf.attrs[32]?.value}
                     </Text>
                     <Text style={{ width: "17%", color: "white" }}>
                         {` Khối lượng: `}
                     </Text>
                     <Text style={{ width: "15%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[19].value}
+                        {pdf.attrs[33]?.value}
                     </Text>
                 </View>
                 <View style={{ display: "flex", flexDirection: "row", fontSize: 10, flexWrap: "wrap", lineHeight: 1.7, marginTop: 1, paddingLeft: "20px" }}>
                     <Text style={{ width: "6%", color: "white" }}>
-                        {`1/ `}
+                        {`3/ `}
                     </Text>
                     <Text style={{ width: "36%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[20].value}
+                        {pdf.attrs[34]?.value}
                     </Text>
                     <Text style={{ width: "11%", color: "white" }}>
                         {` Số lượng: `}
                     </Text>
                     <Text style={{ width: "15%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[21].value}
+                        {pdf.attrs[35]?.value}
                     </Text>
                     <Text style={{ width: "17%", color: "white" }}>
                         {` Khối lượng: `}
                     </Text>
                     <Text style={{ width: "15%", fontSize: 9, textAlign: "center", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[22].value}
+                        {pdf.attrs[36]?.value}
                     </Text>
                 </View>
 
@@ -589,7 +589,7 @@ const PDF12D = (props: any) => {
                             {`Phương tiện vận chuyển: `}
                         </Text>
                         <Text style={{ fontSize: 9, maxWidth: "45%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "20px" }}>
-                            {pdf.attrs[23].value}
+                            {pdf.attrs[37]?.value}
                         </Text>
                     </View>
 
@@ -598,7 +598,7 @@ const PDF12D = (props: any) => {
                             {`Biển kiểm soát: `}
                         </Text>
                         <Text style={{ fontSize: 9, maxWidth: "60%", maxLines: 1, textOverflow: "ellipsis" }}>
-                            {pdf.attrs[24].value}
+                            {pdf.attrs[38]?.value}
                         </Text>
                     </View>
 
@@ -610,7 +610,7 @@ const PDF12D = (props: any) => {
                         {`Điều kiện bảo quản hàng khi vận chuyển: `}
                     </Text>
                     <Text style={{ fontSize: 9, width: "55%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "9px" }}>
-                        {pdf.attrs[25].value}
+                        {pdf.attrs[39]?.value}
                     </Text>
                 </View>
 
@@ -619,7 +619,7 @@ const PDF12D = (props: any) => {
                         {`Các vật dụng khác có liên quan: `}
                     </Text>
                     <Text style={{ fontSize: 9, maxWidth: "67%", maxLines: 1, textOverflow: "ellipsis", marginTop: "0px", paddingLeft: "20px" }}>
-                        {pdf.attrs[26].value}
+                        {pdf.attrs[40]?.value}
                     </Text>
                 </View>
 
@@ -647,10 +647,10 @@ const PDF12D = (props: any) => {
 
                 <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", marginTop: "1px" }}>
                     <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "8%", maxLines: 1, textOverflow: "ellipsis", textAlign: "right", }}>
-                        {pdf.attrs[27].value?.split('/')[0]}
+                        {pdf.attrs[41]?.value?.split('/')[0]}
                     </Text>
                     <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "7%", maxLines: 1, textOverflow: "ellipsis", textAlign: "right", }}>
-                        {pdf.attrs[27].value?.split('/')[1]}
+                        {pdf.attrs[41]?.value?.split('/')[1]}
                     </Text>
                     <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "9%", color: "white" }}>
                         {`ngày`}
@@ -669,7 +669,7 @@ const PDF12D = (props: any) => {
                     </Text>
 
                     <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "33%", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[29].value}
+                        {pdf.attrs[43]?.value}
                     </Text>
 
                 </View>
@@ -682,7 +682,7 @@ const PDF12D = (props: any) => {
                         {`3/ Sản phậm động vật trên đáp ứng các yêu cầu sau:`}
                     </Text>
                     <Text style={{ fontSize: 9, width: "41%", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[30].value}
+                        {pdf.attrs[44]?.value}
                     </Text>
                 </View>
 
@@ -692,13 +692,13 @@ const PDF12D = (props: any) => {
                         {`4/ Sản phẩm đã được khử trùng tiêu độc bằng:`}
                     </Text>
                     <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "20%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "12px", }}>
-                        {pdf.attrs[31].value}
+                        {pdf.attrs[45]?.value}
                     </Text>
                     <Text style={{ marginTop: 0, fontSize: 10, fontWeight: "bold", width: "8%", color: "white", }}>
                         {`nồng độ `}
                     </Text>
                     <Text style={{ marginTop: 0, fontSize: 9, fontWeight: "bold", width: "8%", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[32].value}
+                        {pdf.attrs[46]?.value}
                     </Text>
                 </View>
 
@@ -715,14 +715,14 @@ const PDF12D = (props: any) => {
                         {`thú y, đã được khử trùng tiêu độc bằng`}
                     </Text>
                     <Text style={{ fontSize: 9, width: "25%", maxLines: 1, textOverflow: "ellipsis", paddingLeft: "13px" }}>
-                        {pdf.attrs[36].value}
+                        {pdf.attrs[47]?.value}
                     </Text>
 
                     <Text style={{ fontSize: 9, width: "13%", maxLines: 1, color: "white" }}>
                         {`nồng độ`}
                     </Text>
                     <Text style={{ fontSize: 9, width: "15%", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[35].value}
+                        {pdf.attrs[48]?.value}
                     </Text>
 
                 </View>
@@ -754,7 +754,7 @@ const PDF12D = (props: any) => {
                             </Text>
 
                             <Text style={{ marginTop: 0, fontSize: 9, width: "30%", maxLines: 1, textOverflow: "ellipsis", }}>
-                                {pdf.attrs[34].value}
+                                {pdf.attrs[50]?.value}
                             </Text>
 
                             <Text style={{ marginTop: 0, fontSize: 11, width: "12%", textAlign: "left", color: "white" }}>

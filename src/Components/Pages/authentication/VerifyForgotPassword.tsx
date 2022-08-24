@@ -149,7 +149,7 @@ export function VerifyForgotPassword() {
                 },
               ]}
             >
-              <Input />
+              <Input.Password />
             </Form.Item>
 
             <Form.Item
@@ -163,7 +163,7 @@ export function VerifyForgotPassword() {
                 },
               ]}
             >
-              <Input />
+              <Input.Password />
             </Form.Item>
 
             <Button type="primary" htmlType="submit">

@@ -22,8 +22,9 @@ import useWindowSize from "Modules/hooks/useWindowSize";
 import { ReceiptModel } from "Components/Shared/Models/Receipt";
 import { manageReceiptEndpoints } from "Components/router/routes";
 import CreateReceipt from "./CreateReceipt";
-import { CreateAllocate } from "./CreateAllocate";
+import { CreateAllocate, IdModel, usernameModel } from "./CreateAllocate";
 import { UserModel } from "Components/Shared/Models/User";
+import { ReportModel } from "Components/Shared/Models/Form";
 
 const ManageReceipt = () => {
   const [listReceipt, setListReceipt] = useState<ReceiptModel[]>([]);
@@ -63,8 +64,44 @@ const ManageReceipt = () => {
   const navigate = useNavigate();
   const windowSize = useWindowSize();
 
-  const [listUsername, setListUsername] = useState([]);
-  const [listId, setListId] = useState([]);
+
+  /////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////
+  const [pageUser, setPageUser] = useState({
+    pageIndex: 0,
+    pageNumber: 1000,
+  });
+
+  const [liststaff, setListStaff] = useState<UserModel[]>();
+  const [listUsername, setListUsername] = useState<usernameModel[]>();
+  const [listId, setListId] = useState<IdModel[]>();
+  const [isShowModal, setIsShowModal] = useState(false)
+
+  useEffect(() => {
+    if (liststaff) {
+      const tmp = liststaff.map((item, index) => {
+        return { value: item.account };
+      });
+      setListUsername(tmp);
+      // console.log("listUsername >>>>>>>>>> ", listUsername)
+    }
+  }, [liststaff]);
+
+  useEffect(() => {
+    if (liststaff) {
+      const tmp = liststaff.map((item, index) => {
+        return { value: item.account, id: item.id, name: item.name };
+      });
+      setListId(tmp);
+      // console.log("listId >>>>>>>>>> ", listId)
+    }
+  }, [liststaff]);
+
+
+  /////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////
 
 
 
@@ -74,29 +111,51 @@ const ManageReceipt = () => {
 
     //////////////////////////////////////////////
     if (user?.token) {
+
       fetch(
-        process.env.REACT_APP_API.concat(ManageReceiptRoute.getReceipt),
+        process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
+        new URLSearchParams(pageUser as any),
         {
-          method: "POST",
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: "Bearer ".concat(user.token),
           },
-          body: JSON.stringify(page),
         }
       )
-        .then((res) => {
-          return res.json();
-        })
+        .then((res) => res.json())
         .then((data) => {
-          setListReceipt(data.data);
+          setListStaff(data.data);
+          ////////////////////////////////////////////////////////////
+          fetch(
+            process.env.REACT_APP_API.concat(ManageReceiptRoute.getReceipt),
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer ".concat(user.token),
+              },
+              body: JSON.stringify(page),
+            }
+          )
+            .then((res) => {
+              return res.json();
+            })
+            .then((data) => {
+              setListReceipt(data.data);
+            })
+            .catch((error) => console.log(error))
+            .finally(() => setLoading(false));
+          ////////////////////////////////////////////////////////////
         })
         .catch((error) => console.log(error))
-        .finally(() => setLoading(false));
+
+
     }
     /////////////////////////////////////////////
 
   };
+
 
   useEffect(() => {
     GetReceipt();
@@ -141,6 +200,16 @@ const ManageReceipt = () => {
         );
       });
   };
+  const [dataReceipt, setDataReceipt] = useState<ReceiptModel>()
+  const onClickShowModal = (data: ReceiptModel) => {
+    setIsShowModal(true)
+    setDataReceipt(data)
+  }
+  const onClickHideModal = () => {
+    setIsShowModal(false)
+    setDataReceipt(null)
+  }
+
   const ReceiptColumns: ColumnsType<ReceiptModel> = [
     { title: "Tên hóa đơn", dataIndex: "name", key: 1 },
     { title: "Tên mã hóa đơn", dataIndex: "codeName", key: 2 },
@@ -176,7 +245,9 @@ const ManageReceipt = () => {
             codeNumber={record.codeNumber}
           /> */}
           <Button type="link" icon={<FileDoneOutlined />}
-            onClick={() => navigate(manageReceiptEndpoints.createAllocate.concat("?") + new URLSearchParams({ idReceipt: record.id, codeName: record.codeName, codeNumber: record.codeNumber }))}>
+            // onClick={() => navigate(manageReceiptEndpoints.createAllocate.concat("?") + new URLSearchParams({ idReceipt: record.id, codeName: record.codeName, codeNumber: record.codeNumber }))}
+            onClick={() => { onClickShowModal(record) }}
+          >
             {/*  <CreateAllocate
               idReceipt={record.id}
               arrUser={listUsername}
@@ -248,7 +319,9 @@ const ManageReceipt = () => {
               <th>
                 <Space>
                   <Button type="link" icon={<FileDoneOutlined />}
-                    onClick={() => navigate(manageReceiptEndpoints.createAllocate.concat("?") + new URLSearchParams({ idReceipt: record.id, codeName: record.codeName, codeNumber: record.codeNumber }))}>
+                    // onClick={() => navigate(manageReceiptEndpoints.createAllocate.concat("?") + new URLSearchParams({ idReceipt: record.id, codeName: record.codeName, codeNumber: record.codeNumber }))}
+                    onClick={() => { onClickShowModal(record) }}
+                  >
                     Cấp hóa đơn
                   </Button>
                 </Space>
@@ -288,6 +361,19 @@ const ManageReceipt = () => {
         rowKey={"id"}
         dataSource={listReceipt}
       />
+
+      {
+        isShowModal && dataReceipt &&
+        <CreateAllocate
+          idReceipt={dataReceipt.id}
+          arrUser={listUsername}
+          arrId={listId}
+          codeName={dataReceipt.codeName}
+          codeNumber={dataReceipt.codeNumber}
+          receiptName={dataReceipt.name}
+          onClickHideModal={onClickHideModal}
+        />
+      }
     </>
   );
 };

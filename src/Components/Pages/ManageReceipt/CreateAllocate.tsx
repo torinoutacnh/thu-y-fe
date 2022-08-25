@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Input, AutoComplete, Col, Row } from "antd";
+import { Button, Input, AutoComplete, Col, Row, Space } from "antd";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
@@ -7,39 +7,46 @@ import { Form, Modal, notification } from "antd";
 import { ManageReceiptRoute, UserApiRoute } from "Api";
 import { UserModel } from "Components/Shared/Models/User";
 import { manageReceiptEndpoints } from "Components/router/routes";
+import "./modal.scss"
+import useWindowSize from "Modules/hooks/useWindowSize";
+
+export interface usernameModel {
+  value: string;
+}
+
+export interface IdModel {
+  value: string;
+  id: string;
+  name: string;
+}
 
 export function CreateAllocate(props: any) {
 
-  interface usernameModel {
-    value: string;
-  }
+  const { idReceipt, arrUser, arrId, codeName, codeNumber, receiptName, onClickHideModal } = props;
 
-  interface IdModel {
-    value: string;
-    id: string;
-    name: string;
-  }
-
-  const [searchParams] = useSearchParams();
-  const idReceipt = searchParams.get("idReceipt");
-  const codeName = searchParams.get("codeName");
-  const codeNumber = searchParams.get("codeNumber");
+  // const [searchParams] = useSearchParams();
+  // const idReceipt = searchParams.get("idReceipt");
+  // const codeName = searchParams.get("codeName");
+  // const codeNumber = searchParams.get("codeNumber");
+  // const { arrUser, arrId } = props;
 
   const [TmpName, setTmpName] = useState("");
-  const { arrUser, arrId } = props;
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [listUsername, setListUsername] = useState<usernameModel[]>(arrUser);
-  const [listId, setListId] = useState<IdModel[]>(arrId);
+
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const { user } = useAuth();
   const { setLoading } = useLoading();
+
   const [page, setPage] = useState({
     pageIndex: 0,
     pageNumber: 1000,
   });
+
   const [liststaff, setListStaff] = useState<UserModel[]>();
+  const [listUsername, setListUsername] = useState<usernameModel[]>(arrUser);
+  const [listId, setListId] = useState<IdModel[]>(arrId);
 
   useEffect(() => {
     if (liststaff) {
@@ -61,26 +68,26 @@ export function CreateAllocate(props: any) {
     }
   }, [liststaff]);
 
-  useEffect(() => {
-    setLoading(true)
-    fetch(
-      process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
-      new URLSearchParams(page as any),
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer ".concat(user.token),
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setListStaff(data.data);
-      })
-      .catch((error) => console.log(error))
+  // useEffect(() => {
+  //   setLoading(true)
+  //   fetch(
+  //     process.env.REACT_APP_API.concat(UserApiRoute.getUser, "?") +
+  //     new URLSearchParams(page as any),
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: "Bearer ".concat(user.token),
+  //       },
+  //     }
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setListStaff(data.data);
+  //     })
+  //     .catch((error) => console.log(error))
 
-  }, [])
+  // }, [])
 
 
   notification.config({
@@ -159,6 +166,7 @@ export function CreateAllocate(props: any) {
           openNotificationWithIcon("success", "Cấp hóa đơn thành công")
           form.resetFields()
           navigate(manageReceiptEndpoints.basepath)
+          onClickHideModal()
           setLoading(false)
         })
         .catch((error) => {
@@ -171,157 +179,173 @@ export function CreateAllocate(props: any) {
 
   }
 
+  const windowSize = useWindowSize();
+
   return (
     <>
 
-
-      {
-        liststaff && listId && listUsername &&
-        <>
-          {setLoading(false)}
-
-          <Row>
-            <Col xs={24} sm={6} md={7} lg={7}></Col>
-            <Col xs={24} sm={12} md={10} lg={10}>
-              <h3 style={{ textAlign: "center" }}>Cấp phát hóa đơn: {codeName}</h3>
-              <Form
-                id="create-allocate-form"
-                layout="vertical"
-                form={form}
-                onFinish={CreateAllocateFinish}
-              >
-                {/* /////////////////////////////////////////// */}
-                <Form.Item
-                  hidden={true}
-                  label={"Mã hóa đơn"}
-                  name={"receiptId"}
-                  rules={[
-                    {
-                      required: true,
-
-                      type: "string",
-                    },
-                  ]}
-                  initialValue={idReceipt}
+      <>
+        <div className="modal-container" >
+          <div className="modal-click-close" onClick={() => { onClickHideModal() }}></div>
+          <div className="modal-body" style={{ width: windowSize.width > 768 ? "40%" : "90%" }}>
+            <Row style={{}}>
+              <Col xs={24} sm={6} md={3} lg={3}></Col>
+              <Col xs={24} sm={12} md={16} lg={16}>
+                <h3 style={{ textAlign: "center" }}>Tên hóa đơn: {codeName}</h3>
+                <Form
+                  id="create-allocate-form"
+                  layout="vertical"
+                  form={form}
+                  onFinish={CreateAllocateFinish}
                 >
-                  <Input disabled={true} />
-                </Form.Item>
+                  {/* /////////////////////////////////////////// */}
+                  <Form.Item
+                    hidden={true}
+                    label={"Mã hóa đơn"}
+                    name={"receiptId"}
+                    rules={[
+                      {
+                        required: true,
 
-                <Form.Item
-                  label={"Tên hóa đơn cấp phát"}
-                  name={"receiptName"}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Nhập số lượng",
-                      type: "string",
-                    },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-
-                <Form.Item
-                  label={"Tên tài khoản"}
-                  name={"userName"}
-                  rules={[
-                    {
-                      required: true,
-
-                      type: "string",
-                    },
-                  ]}
-                >
-                  <AutoComplete
-                    style={{ width: 200 }}
-                    options={listUsername}
-                    placeholder="Nhập để tìm kiếm"
-                    filterOption={(inputValue, option) =>
-                      option?.value
-                        .toUpperCase()
-                        .indexOf(inputValue.toUpperCase()) !== -1
-                    }
-                    onChange={onChangeAutoComplete}
-                  />
-                </Form.Item>
-
-                <Form.Item
-                  name={"tmpName"}
-                  rules={[
-                    {
-                      type: "string",
-                    },
-                  ]}
-                >
-                  <span style={{ color: "gray" }}>Tên nhân viên: {TmpName}</span>
-                </Form.Item>
-
-                <Form.Item
-                  label={"Số lượng"}
-                  name={"amount"}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Nhập số lượng",
-                    },
-                    {
-                      message: "Bao gồm các số 0-9!",
-                      pattern: new RegExp("[0-9]"),
-                    },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-
-                <Form.Item
-                  hidden={true}
-                  label={"Tên mã hóa đơn"}
-                  name={"codeName"}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Nhập số lượng",
-                      type: "string",
-                    },
-                  ]}
-                  initialValue={codeName}
-                >
-                  <Input />
-                </Form.Item>
-
-                <Form.Item
-                  hidden={true}
-                  label={"Số mã hóa đơn"}
-                  name={"codeNumber"}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Nhập số lượng",
-                      type: "string",
-                    },
-                  ]}
-                  initialValue={codeNumber}
-                >
-                  <Input />
-                </Form.Item>
-                <Form.Item>
-                  <Button
-                    form="create-allocate-form"
-                    type="primary"
-                    loading={confirmLoading}
-                    htmlType="submit"
+                        type: "string",
+                      },
+                    ]}
+                    initialValue={idReceipt}
                   >
-                    Thêm mới
-                  </Button>
-                </Form.Item>
+                    <Input disabled={true} />
+                  </Form.Item>
 
-                {/* /////////////////////////////////////////// */}
-              </Form>
-            </Col>
-            <Col xs={24} sm={6} md={7} lg={7}></Col>
-          </Row>
-        </>
-      }
+                  <Form.Item
+                    label={"Tên hóa đơn cấp phát"}
+                    name={"receiptName"}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Nhập số lượng",
+                        type: "string",
+                      },
+                    ]}
+                    initialValue={receiptName}
+                    hidden={true}
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <Form.Item
+                    label={"Tên tài khoản"}
+                    name={"userName"}
+                    rules={[
+                      {
+                        required: true,
+
+                        type: "string",
+                      },
+                    ]}
+                  >
+                    <div>
+                      <AutoComplete
+                        options={listUsername}
+                        placeholder="Nhập để tìm kiếm"
+                        filterOption={(inputValue, option) =>
+                          option?.value
+                            .toUpperCase()
+                            .indexOf(inputValue.toUpperCase()) !== -1
+                        }
+                        onChange={onChangeAutoComplete}
+                      />
+                    </div>
+                  </Form.Item>
+
+                  <Form.Item
+                    name={"tmpName"}
+                    rules={[
+                      {
+                        type: "string",
+                      },
+                    ]}
+                  >
+                    <span style={{ color: "gray" }}>Tên nhân viên: {TmpName}</span>
+                  </Form.Item>
+
+                  <Form.Item
+                    label={"Số lượng"}
+                    name={"amount"}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Nhập số lượng",
+                      },
+                      {
+                        message: "Bao gồm các số 0-9!",
+                        pattern: new RegExp("[0-9]"),
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <Form.Item
+                    hidden={true}
+                    label={"Tên mã hóa đơn"}
+                    name={"codeName"}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Nhập số lượng",
+                        type: "string",
+                      },
+                    ]}
+                    initialValue={codeName}
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <Form.Item
+                    hidden={true}
+                    label={"Số mã hóa đơn"}
+                    name={"codeNumber"}
+                    rules={[
+                      {
+                        required: true,
+                        message: "Nhập số lượng",
+                        type: "string",
+                      },
+                    ]}
+                    initialValue={codeNumber}
+                  >
+                    <Input />
+                  </Form.Item>
+                  <Form.Item style={{ marginTop: "10px", }} >
+                    <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+                      <Space>
+                        <Button
+                          onClick={() => { onClickHideModal() }}
+                          danger
+                        >
+                          Huỷ bỏ
+                        </Button>
+
+                        <Button
+                          form="create-allocate-form"
+                          type="primary"
+                          loading={confirmLoading}
+                          htmlType="submit"
+                        >
+                          Thêm mới
+                        </Button>
+
+                      </Space>
+                    </div>
+                  </Form.Item>
+
+                  {/* /////////////////////////////////////////// */}
+                </Form>
+              </Col>
+              <Col xs={24} sm={6} md={3} lg={3}></Col>
+            </Row>
+          </div>
+        </div>
+      </>
 
     </>
   );

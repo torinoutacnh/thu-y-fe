@@ -399,7 +399,7 @@ const PDF1 = (props: { report: ReportModel }) => {
                         {`Tổng số (viết bằng chữ): `}
                     </Text>
                     <Text style={{ fontSize: 8, maxWidth: "76%", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {`${ToVietnamese(pdf.attrs[13].value)} con`}
+                        {pdf.attrs[13].value ? <>{`${ToVietnamese(pdf.attrs[13]?.value)} con`}</> : ""}
                     </Text>
                 </View>
 

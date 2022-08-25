@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Col, Input, Row } from "antd";
+import { Button, Col, Input, Row, Space } from "antd";
 import { useAuth } from "Modules/hooks/useAuth";
 import { useLoading } from "Modules/hooks/useLoading";
 import { Form, Modal, notification } from "antd";
@@ -7,6 +7,9 @@ import { ManageReceiptRoute } from "Api";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { manageReceiptEndpoints } from "Components/router/routes";
 import { RouteEndpoints } from "Components/router";
+import { AllocateModel } from "Components/Shared/Models/Allocate";
+import "../ManageReceipt/modal.scss"
+import useWindowSize from "Modules/hooks/useWindowSize";
 
 export function CreateReceiptReport(props: any) {
   const [visible, setVisible] = useState(false);
@@ -15,15 +18,8 @@ export function CreateReceiptReport(props: any) {
   const { user } = useAuth();
   const { setLoading } = useLoading();
   const navigate = useNavigate();
-  const [useSearch] = useSearchParams()
 
-  const userId = useSearch.get("userId")
-  const userName = useSearch.get("userName")
-  const receiptAllocateId = useSearch.get("receiptAllocateId")
-  const codeName = useSearch.get("codeName")
-  const codeNumber = useSearch.get("codeNumber")
-  const remainPage = Number(useSearch.get("remainPage"))
-  const receiptName = useSearch.get("receiptName")
+  const dataAllocate: AllocateModel = props.dataAllocate
 
   notification.config({
     placement: "topRight",
@@ -48,20 +44,19 @@ export function CreateReceiptReport(props: any) {
   const CreateReceiptReportFinish = () => {
 
 
-
     const receiptReport = {
       id: "id",
-      userId: userId,
-      userName: userName,
-      receiptAllocateId: receiptAllocateId,
-      receiptName: form.getFieldValue("receiptName"),
-      codeName: codeName,
-      codeNumber: codeNumber,
+      userId: dataAllocate.userId,
+      userName: dataAllocate.userName,
+      receiptAllocateId: dataAllocate.id,
+      receiptName: dataAllocate.receiptName,
+      codeName: dataAllocate.codeName,
+      codeNumber: dataAllocate.codeNumber,
       dateUse: getCurrentDateTime(),
       pageUse: form.getFieldValue("pageUse"),
     };
 
-    if (receiptReport.pageUse > remainPage) {
+    if (receiptReport.pageUse > dataAllocate.remainPage) {
       alert("Số trang còn lại không đủ để sử dụng")
       return
     }
@@ -91,7 +86,7 @@ export function CreateReceiptReport(props: any) {
           console.log("create receiptReport ok >>>>>>> ", data);
           openNotificationWithIcon("success", "Sử dụng hóa đơn thành công");
           form.resetFields();
-          navigate(RouteEndpoints.myAllocate)
+          props.onClickFinishModal()
           setLoading(false);
         })
         .catch((error) => {
@@ -101,69 +96,90 @@ export function CreateReceiptReport(props: any) {
         });
     }
   };
+  const windowSize = useWindowSize();
 
   return (
     <>
+      <div className="modal-container" >
+        <div className="modal-click-close" onClick={() => { props.onClickHideModal() }}></div>
+        <div className="modal-body" style={{ width: windowSize.width > 768 ? "40%" : "90%" }}>
 
-      <Row>
-        <Col xs={24} sm={6} md={7} xl={7}></Col>
-        <Col xs={24} sm={12} md={10} xl={10}>
-          <h3 style={{ marginBottom: "20px", textAlign: "center" }}>Sử dụng hóa đơn: {receiptName}</h3>
-          <Form
-            id="create-receipt-report-form"
-            layout="vertical"
-            form={form}
-            onFinish={CreateReceiptReportFinish}
-          >
-            {/* /////////////////////////////////////////// */}
-
-            <Form.Item
-              label={"Tên hóa đơn sử dụng"}
-              name={"receiptName"}
-              rules={[
-                {
-                  required: true,
-                  message: "Nhập số lượng",
-                  type: "string",
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              label={"Số trang sử dụng"}
-              name={"pageUse"}
-              rules={[
-                {
-                  required: true,
-                  message: "Nhập số lượng",
-                },
-                {
-                  message: "Bao gồm các số 0-9!",
-                  pattern: new RegExp("[0-9]"),
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item>
-              <Button
-                form="create-receipt-report-form"
-                type="primary"
-                loading={confirmLoading}
-                htmlType="submit"
+          <Row>
+            <Col xs={24} sm={6} md={3} lg={3}></Col>
+            <Col xs={24} sm={12} md={16} xl={16}>
+              <h3 style={{ marginBottom: "20px", textAlign: "center" }}>Sử dụng hóa đơn: {dataAllocate.receiptName}</h3>
+              <Form
+                id="create-receipt-report-form"
+                layout="vertical"
+                form={form}
+                onFinish={CreateReceiptReportFinish}
               >
-                Thêm mới
-              </Button>
-            </Form.Item>
-            {/* /////////////////////////////////////////// */}
-          </Form>
-        </Col>
-        <Col xs={24} sm={6} md={7} xl={7}></Col>
-      </Row>
+                {/* /////////////////////////////////////////// */}
 
+                <Form.Item
+                  label={"Tên hóa đơn sử dụng"}
+                  name={"receiptName"}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Nhập số lượng",
+                      type: "string",
+                    },
+                  ]}
+                  initialValue={dataAllocate.receiptName}
+                  hidden={true}
+                >
+                  <Input />
+                </Form.Item>
+
+                <Form.Item
+                  label={"Số trang sử dụng"}
+                  name={"pageUse"}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Nhập số lượng",
+                    },
+                    {
+                      message: "Bao gồm các số 0-9!",
+                      pattern: new RegExp("[0-9]"),
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+
+
+                {/* /////////////////////////////////////////// */}
+              </Form>
+              <Form.Item style={{ marginTop: "10px", }} >
+                <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+                  <Space>
+                    <Button
+                      onClick={() => { props.onClickHideModal() }}
+                      danger
+                    >
+                      Huỷ bỏ
+                    </Button>
+
+                    <Button
+                      form="create-receipt-report-form"
+                      type="primary"
+                      loading={confirmLoading}
+                      htmlType="submit"
+                    >
+                      Thêm mới
+                    </Button>
+
+                  </Space>
+                </div>
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={6} md={3} lg={3}></Col>
+          </Row>
+
+        </div>
+      </div>
     </>
   );
 }

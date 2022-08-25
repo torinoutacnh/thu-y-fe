@@ -414,11 +414,12 @@ const PDF12D = (props: any) => {
                         <Text style={[styles.colBody18, { fontStyle: 'bold', maxLines: 1, textOverflow: "ellipsis" }]}>{' '}</Text>
                         <Text style={[styles.colBody16, { fontStyle: 'bold', maxLines: 1, textOverflow: "ellipsis" }]}>
                             {
-                                Number(pdf.attrs[8]?.value) + Number(pdf.attrs[13]?.value) + Number(pdf.attrs[18]?.value)
+                                (Number(pdf.attrs[8]?.value) + Number(pdf.attrs[13]?.value) + Number(pdf.attrs[18]?.value)) > 0 ?
+                                    Number(pdf.attrs[8]?.value) + Number(pdf.attrs[13]?.value) + Number(pdf.attrs[18]?.value) : ""
                             }
                         </Text>
                         <Text style={[styles.colBody15, { fontStyle: 'bold', maxLines: 1, textOverflow: "ellipsis" }]}>
-                            {sum}
+                            {sum > 0 ? sum : ""}
                         </Text>
                         <Text style={[styles.colBody26, { fontStyle: 'bold', maxLines: 1, textOverflow: "ellipsis" }]}>{' '}</Text>
                     </View>
@@ -429,7 +430,9 @@ const PDF12D = (props: any) => {
                         {`Tổng số (viết bằng chữ): `}
                     </Text>
                     <Text style={{ fontSize: 9, width: "70%", maxLines: 1, textOverflow: "ellipsis" }}>
-                        {ToVietnamese(sum) + " kilogam"}
+                        {
+                            sum > 0 ? <>{ToVietnamese(sum) + " kilogam"}</> : ""
+                        }
                     </Text>
                 </View>
 

@@ -454,7 +454,11 @@ const PDF12B = (props: { report: ReportModel }) => {
             <Text style={styles.colBody13}>{pdf.attrs[6].value}</Text>
             <Text style={styles.colBody12_1}>{' '}</Text>
             <Text style={styles.colBody12_2}>{' '}</Text>
-            <Text style={styles.colBody13}>{Number(pdf.attrs[7].value).toLocaleString()}</Text>
+            <Text style={styles.colBody13}>{
+              Number(pdf.attrs[7].value) > 0 ?
+                Number(pdf.attrs[7].value).toLocaleString() : ""
+
+            }</Text>
             <Text style={styles.colBody31}>{pdf.attrs[8].value}</Text>
           </View>
 
@@ -463,7 +467,11 @@ const PDF12B = (props: { report: ReportModel }) => {
             <Text style={styles.colBody13}>{pdf.attrs[10].value}</Text>
             <Text style={styles.colBody12_1}>{' '}</Text>
             <Text style={styles.colBody12_2}>{' '}</Text>
-            <Text style={styles.colBody13}>{Number(pdf.attrs[11].value).toLocaleString()}</Text>
+            <Text style={styles.colBody13}>{
+              Number(pdf.attrs[11].value) > 0 ?
+                Number(pdf.attrs[11].value).toLocaleString() : ""
+
+            }</Text>
             <Text style={styles.colBody31}>{pdf.attrs[12].value}</Text>
           </View>
 
@@ -472,7 +480,11 @@ const PDF12B = (props: { report: ReportModel }) => {
             <Text style={styles.colBody13}>{pdf.attrs[14].value}</Text>
             <Text style={styles.colBody12_1}>{' '}</Text>
             <Text style={styles.colBody12_2}>{' '}</Text>
-            <Text style={styles.colBody13}>{Number(pdf.attrs[15].value).toLocaleString()}</Text>
+            <Text style={styles.colBody13}>{
+              Number(pdf.attrs[15].value) > 0 ?
+                Number(pdf.attrs[15].value).toLocaleString() : ""
+
+            }</Text>
             <Text style={styles.colBody31}>{pdf.attrs[16].value}</Text>
           </View>
 
@@ -482,7 +494,10 @@ const PDF12B = (props: { report: ReportModel }) => {
             <Text style={[styles.colBody12_1, { fontStyle: 'bold' }]}>{' '}</Text>
             <Text style={[styles.colBody12_2, { fontStyle: 'bold' }]}> {' '}</Text>
             <Text style={[styles.colBody13, { fontStyle: 'bold' }]}>
-              {(Number(pdf.attrs[7].value) + Number(pdf.attrs[11].value) + Number(pdf.attrs[15].value)).toLocaleString()}
+              {
+                (Number(pdf.attrs[7].value) + Number(pdf.attrs[11].value) + Number(pdf.attrs[15].value)) > 0 ?
+                  (Number(pdf.attrs[7].value) + Number(pdf.attrs[11].value) + Number(pdf.attrs[15].value)).toLocaleString() : ""
+              }
             </Text>
             <Text style={[styles.colBody31, { fontStyle: 'bold' }]}>{' '}</Text>
           </View>
@@ -493,7 +508,14 @@ const PDF12B = (props: { report: ReportModel }) => {
             {`Tổng số (viết bằng chữ): `}
           </Text>
           <Text style={{ fontSize: 9, maxWidth: "67%", maxLines: 1, textOverflow: "ellipsis", }}>
-            {`${ToVietnamese(Number(pdf.attrs[7].value) + Number(pdf.attrs[11].value) + Number(pdf.attrs[15].value))} con`}
+            {
+              (Number(pdf.attrs[7].value) + Number(pdf.attrs[11].value) + Number(pdf.attrs[15].value)) > 0 ?
+                <>
+                  {`${ToVietnamese(Number(pdf.attrs[7].value) + Number(pdf.attrs[11].value) + Number(pdf.attrs[15].value))} con`}
+                </>
+                : ""
+            }
+
           </Text>
         </View>
 

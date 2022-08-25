@@ -25,7 +25,7 @@ export function MyAllocateReceipt() {
   const navigate = useNavigate();
   const keyRef = useRef(0);
   const windowSize = useWindowSize();
-
+  const [count, setCount] = useState(0)
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   notification.config({
     placement: "topRight",
@@ -80,11 +80,31 @@ export function MyAllocateReceipt() {
       .finally(() => {
         setLoading(false);
       });
-  }, [page.pageNumber, page.pageSize]);
+  }, [page.pageNumber, page.pageSize, count]);
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const [isShowModal, setIsShowModal] = useState(false)
+  const [dataAllocate, setDataAllocate] = useState<AllocateModel>()
+  const onClickShowModal = (data: AllocateModel) => {
+    console.log("onclickshowmodal", data);
+
+    setIsShowModal(true)
+    setDataAllocate(data)
+  }
+  const onClickHideModal = () => {
+    setIsShowModal(false)
+    setDataAllocate(null)
+  }
+
+  const onClickFinishModal = () => {
+    setIsShowModal(false)
+    setDataAllocate(null)
+    setCount((pre) => pre + 1)
+  }
+
+
   const AllocateColumn: ColumnsType<AllocateModel> = [
     { title: "Tên hóa đơn", dataIndex: "receiptName", key: 1 },
     { title: "Tên tài khoản", dataIndex: "userName", key: 2 },
@@ -101,26 +121,9 @@ export function MyAllocateReceipt() {
         <>
           <Button
             type="link"
-            onClick={() => navigate(manageReceiptEndpoints.createReceiptReport.concat("?") +
-              new URLSearchParams({
-                userId: record.userId,
-                userName: record.userName,
-                receiptAllocateId: record.id,
-                codeName: record.codeName,
-                codeNumber: record.codeNumber,
-                remainPage: record.remainPage,
-                receiptName: record.receiptName
-              }))}
+            onClick={() => onClickShowModal(record)}
             icon={<ArrowRightOutlined />}
           >
-            {/* <CreateReceiptReport
-              userId={record.userId}
-              userName={record.userName}
-              receiptAllocateId={record.id}
-              codeName={record.codeName}
-              codeNumber={record.codeNumber}
-              remainPage={record.remainPage}
-            /> */}
             Sử dụng hóa đơn
           </Button>
 
@@ -184,26 +187,10 @@ export function MyAllocateReceipt() {
                 <Space>
                   <Button
                     type="link"
-                    onClick={() => navigate(manageReceiptEndpoints.createReceiptReport.concat("?") +
-                      new URLSearchParams({
-                        userId: record.userId,
-                        userName: record.userName,
-                        receiptAllocateId: record.id,
-                        codeName: record.codeName,
-                        codeNumber: record.codeNumber,
-                        remainPage: record.remainPage,
-                        receiptName: record.receiptName
-                      }))}
+                    onClick={() => onClickShowModal(record)}
                     icon={<ArrowRightOutlined />}
                   >
-                    {/* <CreateReceiptReport
-              userId={record.userId}
-              userName={record.userName}
-              receiptAllocateId={record.id}
-              codeName={record.codeName}
-              codeNumber={record.codeNumber}
-              remainPage={record.remainPage}
-            /> */}
+
                     Sử dụng hóa đơn
                   </Button>
 
@@ -246,6 +233,15 @@ export function MyAllocateReceipt() {
         rowKey={"reportId"}
         dataSource={listAllocate}
       />
+
+      {
+        isShowModal && dataAllocate &&
+        <CreateReceiptReport
+          dataAllocate={dataAllocate}
+          onClickHideModal={onClickHideModal}
+          onClickFinishModal={onClickFinishModal}
+        />
+      }
     </>
   );
 }

@@ -191,7 +191,7 @@ export function CreateAllocate(props: any) {
             <Row style={{}}>
               <Col xs={24} sm={6} md={3} lg={3}></Col>
               <Col xs={24} sm={12} md={16} lg={16}>
-                <h3 style={{ textAlign: "center" }}>Tên hóa đơn: {codeName}</h3>
+                <h3 style={{ textAlign: "center" }}>Tên hóa đơn: {receiptName}</h3>
                 <Form
                   id="create-allocate-form"
                   layout="vertical"
@@ -236,24 +236,20 @@ export function CreateAllocate(props: any) {
                     name={"userName"}
                     rules={[
                       {
-                        required: true,
-
-                        type: "string",
+                        required: true
                       },
                     ]}
                   >
-                    <div>
-                      <AutoComplete
-                        options={listUsername}
-                        placeholder="Nhập để tìm kiếm"
-                        filterOption={(inputValue, option) =>
-                          option?.value
-                            .toUpperCase()
-                            .indexOf(inputValue.toUpperCase()) !== -1
-                        }
-                        onChange={onChangeAutoComplete}
-                      />
-                    </div>
+                    <AutoComplete
+                      options={listUsername}
+                      placeholder="Nhập để tìm kiếm"
+                      filterOption={(inputValue, option) =>
+                        option?.value
+                          .toUpperCase()
+                          .indexOf(inputValue.toUpperCase()) !== -1
+                      }
+                      onChange={onChangeAutoComplete}
+                    />
                   </Form.Item>
 
                   <Form.Item

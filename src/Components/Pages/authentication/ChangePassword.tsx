@@ -86,23 +86,26 @@ export function ChangePassword() {
       },
       body: JSON.stringify(form.getFieldsValue()),
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("change password message >>>>>>", data.message);
-        let s1: NotificationType, s2: string;
-        if (data.message === messageSucces) {
-          s1 = success;
-          s2 = titleSuccess;
-        } else {
-          s1 = error;
-          s2 = titleError;
+      .then(async (res) => {
+
+        const data = await res.json()
+
+        if (res.status >= 500) {
+          console.log("change pass status >= 500 ", data);
+          return
+        }
+        else if (res.status >= 400) {
+          console.log("change pass status >= 400 ", data);
+          openNotificationWithIcon(error, data.message);
+          return
         }
 
-        openNotificationWithIcon(s1, s2);
+        console.log("change password message >>>>>>", data.message);
+
+        openNotificationWithIcon(success, titleSuccess);
       })
       .catch((error) => {
         console.log("change password error >>>>>>", error);
-        openNotificationWithIcon("error", "Thay đổi mật khẩu thất bại");
       })
       .finally(() => {
         form.resetFields();

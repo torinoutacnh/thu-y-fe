@@ -175,7 +175,7 @@ function UpdateStaff() {
             },
           ]}
         >
-          <Input />
+          <Input disabled={true} />
         </Form.Item>
         <Form.Item
           label={"Số điện thoại"}

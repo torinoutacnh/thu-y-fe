@@ -47,17 +47,25 @@ export function SendEmailForgotPassword() {
       },
       body: JSON.stringify(form.getFieldsValue()),
     })
-      .then((res) => res.json())
-      .then((data) => {
+      .then(async (res) => {
+
+        const data = await res.json()
+
+        if (res.status >= 500) {
+          console.log("send email forgot status >= 500 ", data);
+          return
+        }
+        else if (res.status >= 400) {
+          console.log("send email forgot status >= 400 ", data);
+          openNotificationWithIcon("error", data.message)
+          return
+        }
+
         console.log("forgot password message >>>>>>", data.message);
-        openNotificationWithIcon(
-          "success",
-          "Kiểm tra email để được hướng dẫn đặt lại mật khẩu"
-        );
+        openNotificationWithIcon("success", data.message);
       })
       .catch((error) => {
         console.log("change password error >>>>>>", error);
-        openNotificationWithIcon("error", "Tài khoản không tồn tại");
       })
       .finally(() => {
         form.resetFields();

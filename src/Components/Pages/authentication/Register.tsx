@@ -52,11 +52,9 @@ const RegisterForm = () => {
   const openNotificationWithIcon = (
     type: NotificationType,
     title: string,
-    message: string
   ) => {
     notification[type]({
       message: title,
-      description: message,
     });
   };
 
@@ -104,14 +102,6 @@ const RegisterForm = () => {
     return false;
   };
 
-  const registerSuccess =
-    "Registration successful, please check your email for verification instructions";
-  const success = "success";
-  const error = "error";
-  const titleSuccess = "Đăng ký tài khoản thành công";
-  const messageSuccess = "Vào mail kích hoạt tài khoản ngay nào";
-  const titleError = "Đăng ký tài khoản thất bại";
-  const messageError = "Tên tài khoản đã tồn tại";
 
   const Register = async () => {
     if (!validateUser()) return;
@@ -126,40 +116,33 @@ const RegisterForm = () => {
       },
       body: JSON.stringify(user),
     })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log("register message >>>>>>>", data.message);
-        setLoading(false);
+      .then(async (res) => {
 
-        let s1: NotificationType, s2: string, s3: string;
+        const data = await res.json();
 
-        if (data.message === registerSuccess) {
-          s1 = success;
-          s2 = titleSuccess;
-          s3 = messageSuccess;
-        } else {
-          s1 = error;
-          s2 = titleError;
-          s3 = messageError;
+        if (res.status >= 500) {
+          console.log("register status >= 500 ", data);
+          return
+        }
+        else if (res.status >= 400) {
+          console.log("register status >= 400 ", data);
+          openNotificationWithIcon("error", data.message)
+          return
         }
 
-        openNotificationWithIcon(s1, s2, s3);
+        console.log("register status 200 ", data.message);
 
-        if (data.message === registerSuccess) {
-          navigate(publicEndpoints.login);
-        }
+        openNotificationWithIcon("success", data.message);
+        navigate(publicEndpoints.login);
+
       })
+
       .catch((error) => {
         console.log("register error >>>>>>>", error);
+      })
+      .finally(() => {
         setLoading(false);
-        openNotificationWithIcon(
-          "error",
-          "ERROR",
-          `Tạo tài khoản không thành công`
-        );
-      });
+      })
 
     // console.log("form >>>>>>>>> ", user)
   };

@@ -259,6 +259,10 @@ const PDF1 = (props: { report: ReportModel }) => {
     const month_ngayvaosodk = pdf.attrs[50]?.value?.slice(5, 7) ?? ""
     const day_ngayvaosodk = pdf.attrs[50]?.value?.slice(8, 10) ?? ""
 
+    const year_thoigiankd = pdf.attrs[43]?.value?.slice(0, 4) ?? ""
+    const month_thoigiankd = pdf.attrs[43]?.value?.slice(5, 7) ?? ""
+    const day_thoigiankd = pdf.attrs[43]?.value?.slice(8, 10) ?? ""
+
     const tmp = getDateCurrent()
     const arrDate = tmp.split("-")
 
@@ -802,7 +806,7 @@ const PDF1 = (props: { report: ReportModel }) => {
                         {`Thời gian kiểm dịch: `}
                     </Text>
                     <Text style={{ fontSize: 8, maxLines: 1, textOverflow: "ellipsis" }}>
-                        {pdf.attrs[43]?.value}
+                        {` ${day_thoigiankd} / ${month_thoigiankd} / ${year_thoigiankd} `}
                     </Text>
                 </View>
 

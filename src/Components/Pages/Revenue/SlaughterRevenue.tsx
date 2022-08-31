@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import { Table, Button, PageHeader } from "antd";
+import { EditOutlined, DeleteOutlined, PlusOutlined, ArrowDownOutlined } from "@ant-design/icons";
+import { Table, Button, PageHeader, DatePicker } from "antd";
 import AnimalApiRoute from "Api/AnimalApiRoute";
 import { useAuth } from "Modules/hooks/useAuth";
 import { ColumnsType } from "antd/lib/table";
@@ -12,13 +12,19 @@ import { AnimalModel } from "Components/Shared/Models/Animal";
 import { notification, Space } from "antd";
 import { animalEndpoints } from "Components/router/routes";
 import { ApiRoute } from "Api";
-import { useDownloadFile } from "Modules/hooks/useDownloadFiles";
+import { downloadModel, useDownloadFile } from "Modules/hooks/useDownloadFiles";
+import moment from "moment";
+import Moment from "react-moment";
 
 export const SlaughterRevenue = () => {
     const { user } = useAuth();
     const { setLoading } = useLoading();
     const navigate = useNavigate();
     const tmp = useDownloadFile();
+    const { RangePicker } = DatePicker;
+
+
+    const [dataDownload, setDataDownload] = useState<downloadModel>()
 
     notification.config({
         placement: "topRight",
@@ -74,13 +80,29 @@ export const SlaughterRevenue = () => {
     //             setLoading(false)
     //         })
     // }
+    const dateFormat = 'DD/MM/YYYY';
+
+    const onChangeRangePicker = (dates: [moment.Moment, moment.Moment], dateStrings: [string, string]) => {
+        setDataDownload(
+            {
+                dateStart: dateStrings[0],
+                dateEnd: dateStrings[1],
+                userId: user.userId
+            }
+        )
+    }
 
     return (
         <>
             <h1>Doanh thu giết mổ</h1>
-            <button onClick={() => { tmp("DoanhThuGietMo", "string123") }}>Download</button>
 
+            <RangePicker
+                format={dateFormat}
+                placeholder={["Ngày bắt đầu", "Ngày kết thúc"]}
+                onChange={onChangeRangePicker}
+            />
 
+            <Button icon={<ArrowDownOutlined />} onClick={() => { dataDownload && tmp("DoanhThuGietMo", dataDownload) }}>Tải xuống báo cáo</Button>
         </>
     )
 

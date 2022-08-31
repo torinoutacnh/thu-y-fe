@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 import { getKeyThenIncreaseKey } from "antd/lib/message";
 import { Button, notification, PageHeader, Space, Table } from "antd";
-import { FileAddOutlined } from "@ant-design/icons";
+import { FileAddOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "Modules/hooks/useLoading";
 import { abattoirEndpoints } from "Components/router/routes";
@@ -35,6 +35,10 @@ const AbattoirPage = () => {
   const { user } = useAuth();
   const { setLoading } = useLoading();
   const keyRef = useRef(0);
+  const [page, setPage] = useState({
+    pageNumber: 0,
+    pageSize: 1000,
+  });
 
   const getKey = () => {
     keyRef.current++;
@@ -85,6 +89,10 @@ const AbattoirPage = () => {
     });
   };
 
+  useEffect(() => {
+    getReport();
+  }, [page.pageNumber, page.pageSize]);
+
   const deleteReport = (id: string) => {
     if (user) {
       setLoading(true);
@@ -102,6 +110,7 @@ const AbattoirPage = () => {
             openNotification("Xóa thành công", "success");
           }
           console.log(data);
+          setPage({ ...page, pageSize: page.pageSize - 1 });
         })
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
@@ -113,12 +122,12 @@ const AbattoirPage = () => {
   }, [user?.token]);
 
   const columns: ColumnsType<AbattoirReportModel> = [
-    {
-      title: "STT",
-      dataIndex: "stt",
-      key: getKey(),
-      sorter: (a, b) => a.stt - b.stt,
-    },
+    // {
+    //   title: "STT",
+    //   dataIndex: "stt",
+    //   key: getKey(),
+    //   sorter: (a, b) => a.stt - b.stt,
+    // },
     {
       title: "Chủ lò mổ",
       dataIndex: "abattoirOwner",
@@ -152,7 +161,7 @@ const AbattoirPage = () => {
       dataIndex: "time",
       key: getKey(),
       sorter: (a, b) => moment(a.time).diff(moment(b.time)),
-      render: (record) => moment(record.time).format("DD/MM/YYYY"),
+      render: (record) => moment(record).format("DD/MM/YYYY"),
       // showSorterTooltip: { title: "sắp xếp" },
     },
     {
@@ -171,10 +180,16 @@ const AbattoirPage = () => {
                   navigate(path);
                 }}
                 type="link"
+                icon={<EditOutlined />}
               >
                 Cập nhật
               </Button>
-              <Button type="link" danger>
+              <Button
+                onClick={() => deleteReport(record.reportId)}
+                type="link"
+                danger
+                icon={<DeleteOutlined />}
+              >
                 Xóa
               </Button>
             </Space>
@@ -191,10 +206,10 @@ const AbattoirPage = () => {
       render: (record, key, index) => {
         return (
           <>
-            <tr>
+            {/* <tr>
               <th>STT :</th>
               <td>{record.stt}</td>
-            </tr>
+            </tr> */}
             <tr>
               <th>Chủ lò mổ :</th>
               <td>{record.abattoirOwner}</td>
@@ -230,6 +245,7 @@ const AbattoirPage = () => {
                     navigate(path);
                   }}
                   type="link"
+                  icon={<EditOutlined />}
                 >
                   Cập nhật
                 </Button>
@@ -237,6 +253,7 @@ const AbattoirPage = () => {
                   onClick={() => deleteReport(record.reportId)}
                   type="link"
                   danger
+                  icon={<DeleteOutlined />}
                 >
                   Xóa
                 </Button>

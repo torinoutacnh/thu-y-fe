@@ -3,6 +3,12 @@ import { ApiRoute } from "Api";
 import { useAuth } from "./useAuth";
 import { useLoading } from "./useLoading";
 
+export interface downloadModel {
+    dateStart?: string,
+    dateEnd?: string,
+    userId?: string
+}
+
 export const useDownloadFile = () => {
 
     const { user } = useAuth();
@@ -29,7 +35,9 @@ export const useDownloadFile = () => {
         });
     };
 
-    const doFecthDownloadFile = (fileName: string, stringBody: string) => {
+    const doFecthDownloadFile = (fileName: string, downloadModel: downloadModel) => {
+
+
         setLoading(true)
         fetch(process.env.REACT_APP_API.concat(ApiRoute.excelFiles), {
             method: "POST",
@@ -37,7 +45,7 @@ export const useDownloadFile = () => {
                 "Content-Type": "application/json",
                 Authorization: "Bearer ".concat(user.token),
             },
-            body: JSON.stringify(stringBody),
+            body: JSON.stringify(String(downloadModel)),
         })
             .then((res) => {
                 return res.blob()
@@ -45,6 +53,8 @@ export const useDownloadFile = () => {
             .then(blob => {
 
                 openNotificationWithIcon("success", "Đang tải xuống")
+
+                console.log("blob => ", blob);
 
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement("a");

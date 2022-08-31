@@ -31,11 +31,9 @@ export function VerifyForgotPassword() {
   const openNotificationWithIcon = (
     type: NotificationType,
     title: string,
-    message: string
   ) => {
     notification[type]({
       message: title,
-      description: message,
     });
   };
 
@@ -87,34 +85,28 @@ export function VerifyForgotPassword() {
       },
       body: JSON.stringify(data),
     })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
+
+      .then(async (res) => {
+
+        const data = await res.json()
+
+        if (res.status >= 500) {
+          console.log("reset pasword   status >= 500 ", data);
+          return
+        }
+        else if (res.status >= 400) {
+          console.log("reset pasword   status >= 400 ", data);
+          openNotificationWithIcon("error", data.message);
+          return
+        }
+
         console.log("register message >>>>>>>", data.message);
-        if (data.message === "Invalid token") {
-          openNotificationWithIcon(
-            "error",
-            "Cấp lại mật khẩu thất bại",
-            `Vui lòng thử lại`
-          );
-        }
-        else {
-          openNotificationWithIcon(
-            "success",
-            "Đặt lại mật khẩu thành công",
-            "Bạn sẽ được chuyển đến trang đăng nhập"
-          );
-        }
+        openNotificationWithIcon("success", data.message);
 
       })
       .catch((error) => {
         console.log("register error >>>>>>>", error);
-        openNotificationWithIcon(
-          "error",
-          "Cấp lại mật khẩu thất bại",
-          `Vui lòng thử lại`
-        );
+
       })
       .finally(() => {
         setLoading(false);

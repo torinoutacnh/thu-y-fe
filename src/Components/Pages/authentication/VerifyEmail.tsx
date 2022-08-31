@@ -29,21 +29,13 @@ export function VerifyEmail() {
   const openNotificationWithIcon = (
     type: NotificationType,
     title: string,
-    message: string
   ) => {
     notification[type]({
       message: title,
-      description: message,
     });
   };
 
-  const VerifyError = "Verification failed";
-  const successType = "success";
-  const errortype = "error";
-  const titleSuccess = "Xác minh tài khoản thành công";
-  const messageSuccess = "Bạn có thể đăng nhập ngay bây giờ";
-  const titleError = "Xác minh tài khoản thất bại";
-  const messageError = "Vui lòng kiểm tra lại";
+
 
   ////////////////////////////////////////////////////////////////////////////////
 
@@ -59,25 +51,28 @@ export function VerifyEmail() {
       .then((res) => {
         return res.json();
       })
-      .then((data) => {
-        console.log("verify message >>>>>>>", data.message);
-        setLoading(false);
-        let s1: NotificationType, s2: string, s3: string;
-        if (data.message === VerifyError) {
-          s1 = errortype;
-          s2 = titleError;
-          s3 = messageError;
-        } else {
-          s1 = successType;
-          s2 = titleSuccess;
-          s3 = messageSuccess;
+      .then(async (res) => {
+
+        const data = await res.json()
+
+        if (res.status >= 500) {
+          console.log("verifi email status >= 500 ", data);
+          return
         }
-        openNotificationWithIcon(s1, s2, s3);
+        else if (res.status >= 400) {
+          console.log("verifi email status >= 400 ", data);
+          openNotificationWithIcon("error", data.message);
+          return
+        }
+
+        console.log("verify message >>>>>>>", data.message);
+
+        openNotificationWithIcon("success", data.message);
+
       })
       .catch((error) => {
         console.log("verify error >>>>>>>", error);
 
-        openNotificationWithIcon(errortype, titleError, messageError);
       })
       .finally(() => {
         setLoading(false);

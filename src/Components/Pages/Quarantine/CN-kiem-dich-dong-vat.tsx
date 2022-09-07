@@ -12,20 +12,20 @@ const QuarantinePage = () => {
       <PageHeader
         title="Biên bản chứng nhận kiểm dịch động vật"
         extra={[
-          <Button
-            key={getKeyThenIncreaseKey()}
-            icon={<FileAddOutlined />}
-            type="primary"
-            onClick={() => {
-              const params = { code: ReportType["CN-KDĐV-UQ"] };
-              const path =
-                quarantineEndpoints.createreport.concat("?") +
-                new URLSearchParams(params as any);
-              navigate(path);
-            }}
-          >
-            Tạo báo cáo
-          </Button>,
+          // <Button
+          //   key={getKeyThenIncreaseKey()}
+          //   icon={<FileAddOutlined />}
+          //   type="primary"
+          //   onClick={() => {
+          //     const params = { code: ReportType["CN-KDĐV-UQ"] };
+          //     const path =
+          //       quarantineEndpoints.createreport.concat("?") +
+          //       new URLSearchParams(params as any);
+          //     navigate(path);
+          //   }}
+          // >
+          //   Tạo báo cáo
+          // </Button>,
         ]}
       />
       <MapTable reportType={ReportType["CN-KDĐV-UQ"]} />

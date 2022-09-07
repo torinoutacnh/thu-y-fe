@@ -12,20 +12,20 @@ const MedicalHygiene = () => {
       <PageHeader
         title="Biên bản vệ sinh y tế"
         extra={[
-          <Button
-            key={getKeyThenIncreaseKey()}
-            icon={<FileAddOutlined />}
-            type="primary"
-            onClick={() => {
-              const params = { code: ReportType["BB-VSTY"] };
-              const path =
-                quarantineEndpoints.createreport.concat("?") +
-                new URLSearchParams(params as any);
-              navigate(path);
-            }}
-          >
-            Tạo báo cáo
-          </Button>,
+          // <Button
+          //   key={getKeyThenIncreaseKey()}
+          //   icon={<FileAddOutlined />}
+          //   type="primary"
+          //   onClick={() => {
+          //     const params = { code: ReportType["BB-VSTY"] };
+          //     const path =
+          //       quarantineEndpoints.createreport.concat("?") +
+          //       new URLSearchParams(params as any);
+          //     navigate(path);
+          //   }}
+          // >
+          //   Tạo báo cáo
+          // </Button>,
         ]}
       />
       <MapTable reportType={ReportType["BB-VSTY"]} />

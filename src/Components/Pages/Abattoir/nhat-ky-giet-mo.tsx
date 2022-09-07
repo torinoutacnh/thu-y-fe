@@ -157,7 +157,7 @@ const AbattoirPage = () => {
       sorter: (a, b) => a.alive - b.alive,
     },
     {
-      title: "Ngày báo cáo",
+      title: "Ngày nhập hàng",
       dataIndex: "time",
       key: getKey(),
       sorter: (a, b) => moment(a.time).diff(moment(b.time)),
@@ -231,7 +231,7 @@ const AbattoirPage = () => {
               <td>{record.alive}</td>
             </tr>
             <tr>
-              <th>Ngày báo cáo :</th>
+              <th>Ngày nhập hàng :</th>
               <td>{moment(record.time).format("DD/MM/YYYY")}</td>
             </tr>
             <tr>

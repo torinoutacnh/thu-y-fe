@@ -268,8 +268,8 @@ const PDF1 = (props: { report: ReportModel }) => {
 
     // const tinhbiet = pdf.attrs[13]?.value?.split("/")
     const quyetdinh: string[] = pdf.attrs[17]?.value ? pdf.attrs[17].value.split("/") : ["", ""]
-    const xetnghiem1: string[] = pdf.attrs[21]?.value ? pdf.attrs[17].value.split("/") : ["", ""]
-    const xetnghiem2: string[] = pdf.attrs[24]?.value ? pdf.attrs[17].value.split("/") : ["", ""]
+    const xetnghiem1: string[] = pdf.attrs[21]?.value ? pdf.attrs[21].value.split("/") : ["", ""]
+    const xetnghiem2: string[] = pdf.attrs[24]?.value ? pdf.attrs[24].value.split("/") : ["", ""]
     // const xetnghiemvsty = pdf.attrs[34]?.value?.split("/")
 
 
@@ -806,7 +806,7 @@ const PDF1 = (props: { report: ReportModel }) => {
                         {`Thời gian kiểm dịch: `}
                     </Text>
                     <Text style={{ fontSize: 8, maxLines: 1, textOverflow: "ellipsis" }}>
-                        {` ${day_thoigiankd} / ${month_thoigiankd} / ${year_thoigiankd} `}
+                        {day_thoigiankd ? ` ${day_thoigiankd} / ${month_thoigiankd} / ${year_thoigiankd} ` : ""}
                     </Text>
                 </View>
 

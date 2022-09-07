@@ -247,7 +247,6 @@ const RenderForm: React.FC<RenderProps> = ({
       {user && form && (
         <>
 
-
           <Form
             layout="horizontal"
             title={form.formName}
@@ -300,7 +299,7 @@ const RenderForm: React.FC<RenderProps> = ({
                   <Button
                     icon={<LeftOutlined />}
                     onClick={() => {
-                      RedirectToPageNext(reportType);
+                      history.back()
                     }}
                   >
                     Trở về

@@ -372,6 +372,7 @@ const ManageReceipt = () => {
           codeNumber={dataReceipt.codeNumber}
           receiptName={dataReceipt.name}
           onClickHideModal={onClickHideModal}
+          pageNumber={dataReceipt.page}
         />
       }
     </>

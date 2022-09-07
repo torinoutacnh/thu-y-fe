@@ -12,7 +12,11 @@ export default function HomePage() {
   return (
     <div className="container">
       <div className="logo-home" style={{ flex: 1 }}>
-        <img src={logoHome} alt="Chi cục thú ý Đồng Nai"/>
+        <img 
+          src={logoHome} 
+          style={{pointerEvents: "none"}} 
+          alt="Chi cục thú ý Đồng Nai"
+        />
       </div>
       <div className="list-form" style={{ flex: 2 }}>
         <div className="header-container">
@@ -62,7 +66,7 @@ export default function HomePage() {
             <div className="content_list-item_2">
               <ul style={{ listStyle: 'none' }}>
                 <li>
-                  <Link to={generalEndpoints.notfound}>
+                  <Link to={abattoirEndpoints.nkgm}>
                     <Radio.Button className="btn">
                       BÁO CÁO GIẾT MỔ
                     </Radio.Button>

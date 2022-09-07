@@ -99,6 +99,7 @@ const Header = () => {
               src={logoThuY}
               alt="logo"
               width={30}
+              style={{ cursor: "pointer" }}
               onClick={() => {
                 navigate(generalEndpoints.home);
               }}

@@ -22,7 +22,7 @@ export interface IdModel {
 
 export function CreateAllocate(props: any) {
 
-  const { idReceipt, arrUser, arrId, codeName, codeNumber, receiptName, onClickHideModal } = props;
+  const { idReceipt, arrUser, arrId, codeName, codeNumber, receiptName, onClickHideModal, pageNumber } = props;
 
   // const [searchParams] = useSearchParams();
   // const idReceipt = searchParams.get("idReceipt");
@@ -138,7 +138,6 @@ export function CreateAllocate(props: any) {
 
 
 
-
     }
 
 
@@ -148,6 +147,15 @@ export function CreateAllocate(props: any) {
     // console.log("list id >>>>>>>> ", listId)
     // console.log("select id >>>>>>>> ", selectID)
 
+    if (pageNumber*allocate.amount <= 0)  {
+      openNotificationWithIcon("error","!Số lượng không đúng")
+      return
+    }
+    else if (pageNumber*allocate.amount > 2147483647) {
+      openNotificationWithIcon("error","!Số cấp phát quá giới hạn")
+      return
+    }
+  
     if (user?.token) {
       setLoading(true)
       fetch(process.env.REACT_APP_API.concat(ManageReceiptRoute.createAllocateReceipt), {

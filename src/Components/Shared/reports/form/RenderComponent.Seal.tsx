@@ -81,7 +81,7 @@ const SealFields = (props: {
     val.sealCode = tmp.codeName
 
     console.log("val", val);
-    return
+    // return.
 
     if (user) {
       setConfirmLoading(true);

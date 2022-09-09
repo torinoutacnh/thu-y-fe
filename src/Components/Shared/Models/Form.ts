@@ -46,6 +46,7 @@ interface SealValueModel {
     content: string;
     id_Pricing: string;
     reportTicketId: string;
+    amount?: number;
 }
 
 interface ReportValueModel {

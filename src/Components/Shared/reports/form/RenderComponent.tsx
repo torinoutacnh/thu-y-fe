@@ -13,7 +13,7 @@ import {
 import { RenderProps, ReportType } from "../interfaces/FormInterface";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "Modules/hooks/useAuth";
-import { ReportModel } from "Components/Shared/Models/Form";
+import { ReportModel, SealValueModel } from "Components/Shared/Models/Form";
 import { LeftOutlined, SaveOutlined, PlusOutlined } from "@ant-design/icons";
 
 import { AnimalFields } from "./RenderComponent.Animal";
@@ -29,6 +29,7 @@ import {
 import { IconType } from "antd/lib/notification";
 import { LogLEvel } from "Components/Shared/Constant/LogLevel";
 import useLog from "Modules/hooks/useLog";
+import { AllocateModel } from "Components/Shared/Models/Allocate";
 
 
 
@@ -45,6 +46,7 @@ const RenderForm: React.FC<RenderProps> = ({
   const { user } = useAuth();
   const navigate = useNavigate();
   const { setLoading } = useLoading();
+  const [seal, setSeal] = useState<AllocateModel[]>()
 
   const openNotification = (
     message: string,
@@ -104,9 +106,42 @@ const RenderForm: React.FC<RenderProps> = ({
     }
   };
 
+  const getSeal = (data: AllocateModel[]) => {
+    if (!seal) {
+      setSeal(data)
+    }
+  }
+
   function submit() {
+
+    const sealTabsTmp: SealValueModel[] = formref.getFieldsValue().sealTabs
+
+    for (let i = 0; i < sealTabsTmp.length - 1; i++) {
+      for (let j = i + 1; j < sealTabsTmp.length; j++) {
+        if (sealTabsTmp[i].sealName === sealTabsTmp[j].sealName) {
+          openNotification("Vé bị trùng, vui lòng kiểm tra lại!", "error")
+          return
+        }
+      }
+    }
+
+    if (seal) {
+      sealTabsTmp.map((item, index) => {
+        const tmp = seal.filter(i => i.receiptName === item.sealName)[0]
+        if (item.amount > tmp.remainPage) {
+          openNotification("Số lượng vé còn lại không đủ", "error")
+          return
+        }
+        return (
+          item.sealCode = tmp.codeName
+        )
+      })
+    }
+
+
     console.log("submit create", formref.getFieldsValue());
-    // return;
+
+    return;
 
     if (user?.token) {
       setLoading(true);
@@ -199,14 +234,14 @@ const RenderForm: React.FC<RenderProps> = ({
   const RenderAnimalAndSealTabs = (
     reportType: ReportType,
     formref: FormInstance<ReportModel>,
-    report: ReportModel
+    report: ReportModel,
   ) => {
     switch (reportType) {
       case ReportType["CN-KDĐV-UQ"]: {
         return (
           <>
             <AnimalFields mainFormRef={formref} report={report} />
-            <SealFields mainFormRef={formref} report={report} />
+            <SealFields mainFormRef={formref} report={report} getSeal={getSeal} />
           </>
         );
       }
@@ -231,7 +266,7 @@ const RenderForm: React.FC<RenderProps> = ({
         return (
           <>
             <AnimalFields mainFormRef={formref} report={report} />
-            <SealFields mainFormRef={formref} report={report} />
+            <SealFields mainFormRef={formref} report={report} getSeal={getSeal} />
           </>
         );
       }
